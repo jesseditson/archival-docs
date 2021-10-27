@@ -1,0 +1,6 @@
+title = "Markdown"
+description = """
+`markdown` is a type used for large blocks of text.
+
+When an object provides a `markdown` block, the block will automatically be parsed to HTML before rendering.
+"""

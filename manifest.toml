@@ -1,0 +1,8 @@
+# This file is unnecessary if you use the defaults - which are the values defined here.
+
+# where to look for objects. The names of the objects are the names of the files. Folders contain lists of objects.
+objects = "objects"
+# where to look for pages. They follow a standard hierarchy, and only files ending with .html will be served (without the .html).
+pages = "pages"
+# where to look for styles. They are css files that correspond 1:1 with the pages files.
+styles = "pages"
