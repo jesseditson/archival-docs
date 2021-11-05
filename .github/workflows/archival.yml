@@ -12,4 +12,4 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Archival Build
-      uses: jesseditson/archival@v0.0.1
+      uses: jesseditson/archival@v0.0.2
