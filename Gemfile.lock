@@ -1,0 +1,33 @@
+GIT
+  remote: https://github.com/jesseditson/archival.git
+  revision: 3c49884196392c0e35714c0a66ca2bbb8d4838c8
+  branch: main
+  specs:
+    archival (0.0.1)
+      liquid (~> 5.1.0)
+      listen (~> 3.7.0)
+      tomlrb (~> 2.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.15.4)
+    liquid (5.1.0)
+    listen (3.7.0)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
+    rake (13.0.6)
+    rb-fsevent (0.11.0)
+    rb-inotify (0.10.1)
+      ffi (~> 1.0)
+    tomlrb (2.0.1)
+
+PLATFORMS
+  x86_64-darwin-20
+
+DEPENDENCIES
+  archival!
+  rake (~> 13.0)
+
+BUNDLED WITH
+   2.2.29
