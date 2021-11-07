@@ -4,5 +4,5 @@
 objects = "objects"
 # where to look for pages. They follow a standard hierarchy, and only files ending with .html will be served (without the .html).
 pages = "pages"
-# where to look for styles. They are css files that correspond 1:1 with the pages files.
-styles = "pages"
+# additional assets dirs. These will be packaged with the app.
+assets = ["style", "img"]

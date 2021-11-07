@@ -7,9 +7,11 @@
     <title>
         {{ title }}
     </title>
-    <style>
-        {{ styles }}
-    </style>
+    <link rel="stylesheet" href="https://use.typekit.net/xfh0gig.css">
+    <link rel="stylesheet" href="../style/archival-docs.css">
+    {% if style %}
+    <link rel="stylesheet" href="{{style}}">
+    {% endif %}
 </head>
 <body>
 <main role="main" tabindex="-1">

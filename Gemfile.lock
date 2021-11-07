@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/jesseditson/archival.git
-  revision: 1ee2e45369875278857551d7005368e095726ad4
+  revision: 781193e1c0f022fdbb7564f77c2ce475bd4ff934
   branch: main
   specs:
-    archival (0.0.2)
+    archival (0.0.3)
       liquid (~> 5.1.0)
       listen (~> 3.7.0)
       tomlrb (~> 2.0.1)
