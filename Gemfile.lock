@@ -1,11 +1,12 @@
 GIT
   remote: https://github.com/jesseditson/archival.git
-  revision: 8941fdae7de0178b680190ae7647afce3e580b86
+  revision: 435cb459863c3d25c1286e4712173ef768b20b51
   branch: main
   specs:
-    archival (0.0.4)
+    archival (0.0.5)
       liquid (~> 5.1.0)
       listen (~> 3.7.0)
+      redcarpet (~> 3.5.1)
       tomlrb (~> 2.0.1)
 
 GEM
@@ -20,6 +21,7 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redcarpet (3.5.1)
     tomlrb (2.0.1)
 
 PLATFORMS

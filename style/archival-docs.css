@@ -12,3 +12,85 @@ h2, h3 {
     font-weight: 400;
     font-style: normal;
 }
+
+a {
+    color: #3D3D3D;
+}
+
+.hero {
+    width: 100%;
+    background: #3D3D3D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2em;
+}
+.hero img {
+    max-height: 10em;
+    max-width: 80%;
+}
+.hero h1 {
+    font-weight: 400;
+    color: #ccc;
+    font-size: 1em;
+    margin: 2em;
+    margin-top: 0;
+    text-align: center;
+}
+
+.content {
+    padding: 2em;
+}
+
+.nav {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    margin-left: -4em;
+    margin-top: -23px;
+}
+
+.nav li {
+    font-family: futura-pt,sans-serif;
+    font-size: 1.5em;
+    transform: rotate(-45deg);
+    transform-origin: top right;
+    position: relative;
+    width: 6em;
+}
+.nav li .link-container {
+    position: absolute;
+    padding: 10px 20px;
+    margin: 5px;
+}
+
+.nav li a {
+    position: relative;
+    text-decoration: none;
+    z-index: 1;
+}
+.nav .manifesto-link .link-background {
+    background-color: #4E9084;
+}
+.nav .home-link .link-background {
+    background-color: #B3583C;
+}
+
+.nav li:not(:nth-child(1)) {
+    transform: translate(-40%, 0) rotate(-45deg);
+}
+
+.nav .link-background {
+    background-color: #3C93B3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: skew(45deg);
+    z-index: 0;
+}
+.page-title {
+    text-align: right;
+    padding: 0 40px;
+}

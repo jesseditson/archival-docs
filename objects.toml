@@ -3,3 +3,7 @@
 [scalar]
 name = "string"
 description = "markdown"
+
+[manifesto]
+title = "string"
+body = "markdown"

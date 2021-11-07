@@ -1,0 +1,9 @@
+order = 2
+title = "Archival: easier to build"
+body = """
+The primary purpose of archival is to make it really easy to build websites that are really cheap and easy to maintain. This is in part so that folks who build websites for a living can spend less labor on maintenance, but it's also intended to make it so more people can participate in building the web.
+
+Archival attempts to solve this problem by using plain HTML as the primary tool for building websites. However, hardcoding HTML has some limitations in terms of maintainability, and Archival attempts to resolve them as minimally as possible. In addition to providing a live-reloaded HTML editing environment, Archival supports a very simple templating language called [Liquid](https://shopify.github.io/liquid/), originally developed at Shopify, which should be familiar to many people coming from an e-commerce maintenance background.
+
+This allows for some scalable patterns around layouts and control flow that lowers the barrier of entry to building maintainable and interesting websites.
+"""
