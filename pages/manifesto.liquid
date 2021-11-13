@@ -7,7 +7,7 @@
 {% assign sections = objects.manifesto %}
 <div class="content">
     {% for section in sections %}
-    <h2>{{section[1].title}}</h2>
-    <p>{{section[1].body}}</p>
+    <h2>{{section.title}}</h2>
+    <p>{{section.body}}</p>
     {% endfor %}
 </div>
