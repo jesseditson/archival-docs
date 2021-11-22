@@ -1,0 +1,6 @@
+order = 1
+name = "simple-website"
+nav_title = "A Simple Website"
+title = "Building a simple website with Archival"
+content = """
+"""

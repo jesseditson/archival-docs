@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/jesseditson/archival.git
-  revision: 5def1e10c3c9c4cfccdbd6651f865dbd18354380
+  revision: 35891e87d70a1021641a5c34499af368bcfcf1ea
   branch: main
   specs:
-    archival (0.0.6)
+    archival (0.0.8)
       liquid (~> 5.1.0)
       listen (~> 3.7.0)
       redcarpet (~> 3.5.1)

@@ -1,0 +1,10 @@
+
+{% layout 'theme', title: "Archival: simple website tutorial" %}
+
+{% include 'small_nav', name: 'Documentation', page: 'documentation' %}
+
+{% include 'docs_nav', page: "tutorial/#{tutorial.name}" %}
+
+<div class="content docs">
+    {{tutorial.content}}
+</div>

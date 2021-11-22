@@ -1,5 +1,10 @@
 # This file is used to define the objects available on your site.
 
+[tutorial]
+template = "tutorial"
+name = "string"
+content = "markdown"
+
 [scalar]
 name = "string"
 description = "markdown"

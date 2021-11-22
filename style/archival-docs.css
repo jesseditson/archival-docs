@@ -17,6 +17,32 @@ a {
     color: #3D3D3D;
 }
 
+.docs-nav-container {
+    position: absolute;
+    background-color: #B3583C;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1em;
+}
+
+.docs-nav {
+    font-weight: 400;
+    font-style: normal;
+}
+
+.docs-nav h3 {
+    font-size: 1.5em;
+}
+
+.docs-nav ul {
+    list-style-type: none;
+}
+
+.docs {
+    
+}
+
 .hero {
     width: 100%;
     background: #3D3D3D;
@@ -38,36 +64,59 @@ a {
     text-align: center;
 }
 
+.logo-small h1 {
+    color: #3D3D3D;
+    font-size: 2em;
+    margin: 1em;
+    text-align: end;
+    font-family: orpheuspro,serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.logo-small {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    width: 100%;
+}
+
 .content {
     padding: 2em;
+}
+
+.page-title {
+    text-align: right;
+    padding: 0 40px;
 }
 
 .nav {
     padding: 0;
     list-style-type: none;
     display: flex;
-    margin-left: -4em;
-    margin-top: -23px;
 }
-
 .nav li {
     font-family: futura-pt,sans-serif;
     font-size: 1.5em;
-    transform: rotate(-45deg);
-    transform-origin: top right;
     position: relative;
-    width: 6em;
 }
-.nav li .link-container {
-    position: absolute;
-    padding: 10px 20px;
-    margin: 5px;
-}
-
 .nav li a {
     position: relative;
     text-decoration: none;
     z-index: 1;
+}
+.nav .link-background {
+    background-color: #3C93B3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    transform: skew(45deg);
+}
+.nav li .link-container {
+    margin: 5px 10px;
 }
 .nav .manifesto-link .link-background {
     background-color: #4E9084;
@@ -76,21 +125,31 @@ a {
     background-color: #B3583C;
 }
 
-.nav li:not(:nth-child(1)) {
+.nav-small {
+    display: flex;
+}
+
+.hero-nav .nav {
+    margin-left: -4em;
+    margin-top: -23px;
+}
+
+.hero-nav .nav li {
+    transform: rotate(-45deg);
+    transform-origin: top right;
+    width: 6em;
+}
+
+.hero-nav .nav li:not(:nth-child(1)) {
     transform: translate(-40%, 0) rotate(-45deg);
 }
 
-.nav .link-background {
-    background-color: #3C93B3;
+.hero-nav .nav li .link-container {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transform: skew(45deg);
-    z-index: 0;
+    padding: 10px 20px;
+    margin: 5px;
 }
-.page-title {
-    text-align: right;
-    padding: 0 40px;
+
+.hero-nav .nav .link-background {
+    transform: skew(45deg);
 }
