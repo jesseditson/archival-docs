@@ -3,4 +3,129 @@ name = "simple-website"
 nav_title = "A Simple Website"
 title = "Building a simple website with Archival"
 content = """
+# 0. Design your website
+
+Archival doesn't come with any design decisions out of the box, but with some HTML and CSS skills or WYSIWYG editors like [Dreamweaver](https://www.adobe.com/products/dreamweaver.html), you can build unique and creative html pages. Normally, when you get to the point where you like your html, you still have a very long road to getting that html onto a website, and generally that website is limited to static content.
+
+This tutorial assumes that you have a simple website that has dynamic content - our example website will be for an independent music label, with the following structure:
+
+```
+ Home
+  ├ About
+  └ Artists
+      ├ Artist 1
+      └ Artist 2
+```
+
+In addition to those pages, we'll also need a "theme" that we can use to "wrap" each of these pages, with common elements like a title, navigation, and the root html structure containing stylesheets and metadata.
+
+# 1. Copy & clone the template repo
+
+You'll need to make sure you have a github account and that your computer has the prerequisites installed - visit the [archival-website](https://github.com/jesseditson/archival-website) repo and follow the instructions there to install any prerequisites.
+
+Once you've followed the instructions on that repo, you should have a local copy of your new archival website.
+
+# 2. Set up your theme and navigation
+
+In your website design, you should have a page that contains (along with other content) the main navigational and branding components of your website. We'll use this page as the main template, and remove any page-specific content from it, replace it with variables that will dynamically swap in the page-specific content.
+
+Open the `layout/theme.liquid` file in a code editor, and note that while it is mostly vanilla html, there are a few places where double curly brackets are used: `{{ page_content }}`, and `{{ title }}`. These are Liquid variables, and simply represent dynamic content that will be swapped out when we generate our website.
+
+Replace all the content in this file with your example page. Then, delete the page-specific content, and replace it with this text:
+
+```
+{{page_content}}
+```
+
+This will cause every page that uses this theme to be wrapped in the content you just added, with only the page-specific content changing.
+
+In addition, you should replace the content inside the `<title>` tag of your `<head>` with the variable `{{title}}` so that you can customize what it says.
+
+# 3. Add a home page
+
+In the default state of the repo, you will also have a file in the `pages` directory called `index.liquid` - this html file contains the main page of your website. It has some basic content, and the only thing you'll need to keep is the first line which is:
+
+```
+{% layout 'theme', title: "Website" %}
+```
+
+You should change the title to whatever the home page of your website should show in the browser toolbar, and replace all the content with the content for your home page.
+
+# 4. Preview and live-reload
+
+Now let's start live-editing the website, since that will help us see our changes as we make them.
+
+Open a terminal shell, and `cd` to the website directory. Then in that directory, run the following command:
+
+```
+bin/archival run
+```
+
+This will start a small process that will watch the content locally and rebuild your website when it changes. To view your website, type the following into a new window in your terminal:
+
+```
+open dist/index.html
+```
+
+Alternatively, you can open the `dist` folder in your operating system and double click the index file. It will open in a browser.
+
+You should at this point be able to see your website with the theme and content rendered together.
+
+When running the website in live-reload mode, you'll notice that there is a little dot on the bottom right of the page that should be green - this means that the website is live reloading.
+
+If you make a change to the index.liquid file, the page should immediately reload and the new content should be visible.
+
+# 5. Assets
+
+If your theme has css files and you didn't copy existing patterns, it's likely that the content of your website still doesn't look right. To show assets like images and css, archival provides a special liquid tag called "asset" - this will make sure that even if you're working with dynamic content, the links to your assets will be correct. This only really matters when working with a dynamic template or a theme, but it doesn't hurt anything to use asset tags for all of your static assets.
+
+If you have a stylesheet tag or image tag in your theme, replace them by replacing tags that look like this:
+
+```
+<link rel="stylesheet" href="style/some-stylesheet.css">
+<img src="img/my-image.jpg">
+```
+
+with this:
+
+```
+<link rel="stylesheet" href="{% asset 'style/some-stylesheet.css' %}">
+<img src="{% asset 'img/my-image.jpg' %}">
+```
+
+Some things to note:
+
+- the asset tag always takes a path from the root of your website repo, not a relative one - generally this just means that paths passed to `asset` start with a directory name.
+- any assets included this way have to be in directories that are specified in your `manifest.toml` file. By default this includes the `style` and `img` directories, but you can add any directories you like by editing the list in `manifest.toml`.
+
+If you changed paths, go back to your browser and note that styles and images now show up.
+
+# 6. Adding a new page
+
+Now that we have our home page, we'll want to add our about page.
+
+Adding new pages in archival is as simple as just adding a `.liquid` file to the `pages` directory.
+
+Add a new file called `about.liquid` to the `pages` directory, and add the following line to the top of that file:
+
+```
+{% layout 'theme', title: "About" %}
+```
+
+Now, add some content for the about page below it.
+
+If you don't already have a link to the about page in your theme, add one:
+
+```
+<a href="about.html">About</a>
+```
+
+Now in your browser, click that link and you'll be on the (live-reloading) about page you just made.
+
+# 7. Dynamic content
+
+archival is great for simple static websites, and you've already made one. But if you'd like to make a website with content that changes, archival also is the simplest way to build simple dynamic websites like blogs or personal and project websites.
+
+TODO:
+
 """
