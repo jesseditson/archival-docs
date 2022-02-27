@@ -1,0 +1,8 @@
+## Environment normalization:
+/.bundle/
+
+# Archival
+dist
+
+# MacOS
+.DS_Store
