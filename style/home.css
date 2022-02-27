@@ -1,0 +1,17 @@
+.home {
+  display: flex;
+}
+
+.image {
+  width: 100em;
+}
+
+.image img {
+  width: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+  .home {
+    flex-wrap: wrap;
+  }
+}

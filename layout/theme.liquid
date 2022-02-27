@@ -16,7 +16,9 @@
     <link rel="apple-touch-icon" href="{% asset 'icon.png' %}">
     <!-- Place favicon.ico in the root directory -->
 
+    <link rel="stylesheet" href="https://use.typekit.net/gkp1akl.css">
     <link rel="stylesheet" href="{% asset 'style/normalize.css' %}">
+    <link rel="stylesheet" href="{% asset 'style/defaults.css' %}">
     <link rel="stylesheet" href="{% asset 'style/theme.css' %}">
     {% if style %}
     {% capture stylepath %}style/{{style}}.css{% endcapture %}
@@ -27,7 +29,40 @@
 </head>
 
 <body>
-    {{ page_content }}
+    <div class="nav-container">
+        <h1 class="page-title">CHRISTIAN REYNOSO</h1>
+        <div class="nav">
+            <div class="menu-toggle">
+                <svg>
+                    <use href="{% asset 'feather-sprite.svg' %}#menu" />
+                </svg>
+            </div>
+            <div class="pages">
+                <a href="{% asset 'projects.html' %}" class="{% if page == 'projects' %}active{% endif %}">PROJECTS</a>
+                <a href="{% asset 'recipes.html' %}" class="{% if page == 'recipes' %}active{% endif %}">RECIPES</a>
+            </div>
+            <div class="social">
+                <a href="http://instagram.com/christianreynoso" target="_blank" title="Instagram: @christianreynoso">
+                    <svg>
+                        <use href="{% asset 'feather-sprite.svg' %}#instagram" />
+                    </svg>
+                </a>
+                <a href="https://twitter.com/xtianreynoso" target="_blank" title="Instagram: @xtianreynoso">
+                    <svg class="twitter">
+                        <use href="{% asset 'feather-sprite.svg' %}#twitter" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        {{ page_content }}
+    </div>
+    <div class="footer">
+        <span>© 2022 Christian Reynoso</span>
+        <span>contact: <a href="mailto:christiandreynoso@gmail.com">christiandreynoso@gmail.com</a></span>
+    </div>
+    <script type="application/javascript" src="{% asset 'js/nav.js' %}"></script>
 </body>
 
 </html>
