@@ -1,0 +1,21 @@
+{% layout 'theme', title: "Christian Reynoso : Recipes", page: "recipes", style: "recipe" %}
+{% capture content %}{{objects.page["recipes"].content}}{% endcapture %}
+
+<div class="recipes">
+    <div class="content">
+        {{content}}
+    </div>
+    <ul class="recipes-list">
+        {% for recipe in objects.recipe %}
+        <li style="background-image: url({{recipe.image}});">
+            <a href="{{recipe.path}}">
+                <div class="recipe">
+                    <h3>{{recipe.name}}</h3>
+                    <span class="description">{{recipe.description}}</span>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>

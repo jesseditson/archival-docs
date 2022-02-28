@@ -1,0 +1,12 @@
+{% capture title %}Christian Reynoso : {{recipe.name}}{% endcapture %}
+{% layout 'theme', title: title, page: "recipes", style: "recipe" %}
+
+<div class="recipe">
+    <div class="image">
+        <img alt="{{recipe.name}}" src="{{recipe.image}}" />
+    </div>
+    <div class="content">
+        <h1>{{recipe.name}}</h1>
+        {{recipe.content}}
+    </div>
+</div>

@@ -2,3 +2,16 @@
 
 [page]
 content = "markdown"
+
+[recipe]
+content = "markdown"
+description = "string"
+image = "string"
+name = "string"
+template = "recipe"
+
+[project]
+content = "markdown"
+image = "string"
+name = "string"
+template = "project"
