@@ -1,3 +1,3 @@
 [[redirects]]
-  from = "https://editor.archival.dev"
+  from = "https://editor.archival.dev/*"
   to = "https://archival-editor.netlify.app"
