@@ -1,0 +1,2 @@
+name = "image"
+description = "The image type is a URL string in templates, but in the editor shows a rich image selection screen allowing both the use of image URLs and an upload dialog, along with image preview. "
