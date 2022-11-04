@@ -2,5 +2,4 @@ order = 2
 name = "blog"
 nav_title = "A Blog"
 title = "How to build a Blog with Archival"
-content = """
-"""
+content = ""
