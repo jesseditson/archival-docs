@@ -1,5 +1,8 @@
 name: Archival
-on: [push]
+on:
+  push:
+    branches:
+      - github.event.repository.default_branch
 jobs:
   build:
     runs-on: ubuntu-latest
