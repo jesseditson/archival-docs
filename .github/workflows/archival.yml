@@ -8,5 +8,4 @@ jobs:
       - name: Archival Build
         uses: jesseditson/archival@action
         with:
-          branch: "gh-pages"
           token: ${{ secrets.GITHUB_TOKEN }}
