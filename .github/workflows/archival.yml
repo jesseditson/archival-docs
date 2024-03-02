@@ -6,6 +6,6 @@ jobs:
 
     steps:
       - name: Archival Build
-        uses: jesseditson/archival@action
+        uses: jesseditson/archival@v0.4.7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
