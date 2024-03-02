@@ -6,4 +6,4 @@ jobs:
 
     steps:
       - name: Archival Build
-        uses: jesseditson/archival@v0.0.2
+        uses: jesseditson/archival@action
