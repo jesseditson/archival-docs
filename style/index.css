@@ -1,0 +1,20 @@
+.hero {
+    width: 100%;
+    background: #3D3D3D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2em;
+}
+.hero img {
+    width: 50%;
+}
+.hero h1 {
+    font-weight: 400;
+    color: #ccc;
+    font-size: 1em;
+}
+
+.content {
+    padding: 2em;
+}

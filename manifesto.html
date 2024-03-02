@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Archival: Manifesto
+    </title>
+    <link rel="stylesheet" href="https://use.typekit.net/xfh0gig.css">
+    <link rel="stylesheet" href="/style/archival-docs.css">
+  </head>
+  <body>
+    <main role="main" tabindex="-1">
+      
+
+<div class="hero">
+  <img alt="archival" src="/img/header.png" />
+  <h1>A simple tool for building creative, durable websites.</h1>
+</div>
+<div class="hero-nav">
+  <ul class="nav">
+  
+    <li class="home-link">
+      <div class="link-container">
+        <a href="/">Home</a>
+        <div class="link-background"></div>
+      </div>
+    </li>
+  
+  
+  
+    <li class="documentation-link">
+      <div class="link-container">
+        <a href="/documentation.html">Documentation</a>
+        <div class="link-background"></div>
+      </div>
+    </li>
+  
+</ul>
+
+</div>
+
+
+<h1 class="page-title">Manifesto</h1>
+
+
+<div class="content">
+  
+    <h2>Why?</h2>
+    <p><p>In the last 10 years, the web has come a long way. Browsers have standardized on HTML5 features, and they do things that we only dreamed of (or built with plugins) in the 2000s. CSS and Javascript have become rich languages and for better or worse, <a href="https://gs.statcounter.com">pretty much everyone uses one of 2 browsers</a>, both of which have <a href="https://caniuse.com/?compare=chrome+95,safari+15&amp;compareCats=all">excellent spec support</a>.</p>
+<p>And yet, building a website is in many ways harder than it ever has been. We have complex toolchains for cross-compiling js and css from non-standard languages like JSX and Sass, and even simple blogs require rich knowledge of webpack or other build tools just to push to a simple static host.</p>
+<p>Sadly, these &quot;<a href="https://dhh.dk/2012/rails-is-omakase.html">omakase</a>&quot; tools also homogenize the web. We normalize on tools that limit the creativity of the person building a website by standardizing on information architecture that isn't always the right solution for the problem. The web of the 90s and 2000s was a vibrant, if ugly at times, mash-up of creativity and exploration. We've improved in many areas like accessibility and usability, but could stand to bring creativity back to the web now that we have a solid foundation.</p>
+<p>The world of hosting and infrastructure is also fraught. Despite the capabilities of these rich build tools, we often use servers and databases instead of generating static content. If a blog only ever changes when you change the posts, why do you need a server that has a connection to a relational store, that runs a query when a user requests it, and that has a money and energy cost similar to a social network?</p>
+<p>Finally, despite the fact that versioning tools like git are common for code, websites are becoming more and more ephemeral and it's not yet common to store historical versions of content. We write directly to DBs, and the prior content is lost forever. We're also pushing tons of content into walled gardens like Facebook or Medium, platforms that don't have an incentive to keep your content durable and visible, and who use your content for surveilance and profit.</p>
+</p>
+  
+    <h2>Archival: easier to build</h2>
+    <p><p>The primary purpose of archival is to make it really easy to build websites that are really cheap and easy to maintain. This is in part so that folks who build websites for a living can spend less labor on maintenance, but it's also intended to make it so more people can participate in building the web.</p>
+<p>Archival attempts to solve this problem by using plain HTML as the primary tool for building websites. However, hardcoding HTML has some limitations in terms of maintainability, and Archival attempts to resolve them as minimally as possible. In addition to providing a live-reloaded HTML editing environment, Archival supports a very simple templating language called <a href="https://shopify.github.io/liquid/">Liquid</a>, originally developed at Shopify, which should be familiar to many people coming from an e-commerce maintenance background.</p>
+<p>This allows for some scalable patterns around layouts and control flow that lowers the barrier of entry to building maintainable and interesting websites.</p>
+</p>
+  
+    <h2>Archival: easier to update</h2>
+    <p><p>Archival has no database, instead using version control to manage &quot;objects&quot;, which are just simple files written in the <a href="https://toml.io/en/">TOML</a> language.</p>
+<p>These objects are organized directly inside a folder, and are loaded at build time so that they're available directly inside your HTML code via Liquid variables.</p>
+<p>The objects can contain values of scalar types, which Archival automatically parses. This means that to update an Archival website, all you have to do is add an object file. Archival provides a web interface and mobile apps for updating these files in the same way that you might update a social media post.</p>
+<p>This approach also has an intentional side-effect of versioning the content with the website, meaning that you can see any version of the website from all of its history by checking out a given git sha and building it with Archival. Your version control system then also provides the permissioning and history layer that is a large part of many platforms, making Archival stay simple and single-purpose.</p>
+</p>
+  
+    <h2>Archival: easier to maintain</h2>
+    <p><p>Archival generates fully static websites. This means that you can deploy them pretty much anywhere with very minimal serving infrastructure.</p>
+<p>When you run <code>archival build</code>, the <code>dist</code> folder it generates can be uploaded to an S3 bucket or another static host to make a very simple website. To make things even simpler, services like <a href="https://netlify.com">Netlify</a>, <a href="https://pages.github.com">Github Pages</a> and <a href="https://vercel.com">Vercel</a> make it easy to rebuild when the content of a git repository is changed. Archival is intended to work with these systems exceptionally well, and in most cases, can be configured with a single line of code in these systems to allow you to auto-deploy your website whenever the content changes.</p>
+<p>Because content is versioned with the site, this also means that if you're using Archival's editing apps, the content will automatically update on your production website whenever you add or modify objects via the app.</p>
+<p>One of the biggest advantages to this approach is that it's exceptionally inexpesive. Netlify and Vercel cost ~$10/mo for as many websites as you can possibly build, Github Pages is free forever, and <a href="https://aws.amazon.com/s3/pricing">S3 costs pennies per month for most websites</a>.</p>
+</p>
+  
+</div>
+
+    </main>
+  </body>
+</html>

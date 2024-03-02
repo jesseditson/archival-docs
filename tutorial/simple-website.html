@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Archival: simple website tutorial
+    </title>
+    <link rel="stylesheet" href="https://use.typekit.net/xfh0gig.css">
+    <link rel="stylesheet" href="/style/archival-docs.css">
+  </head>
+  <body>
+    <main role="main" tabindex="-1">
+      
+
+<div class="logo-small">
+  <div class="nav-small">
+    <ul class="nav">
+      <li class="home-link">
+        <div class="link-container">
+          <a href="/">Home</a>
+          <div class="link-background"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <h1>Archival: Documentation</h1>
+</div>
+
+
+<div class="docs-nav-container">
+  <div class="docs-nav">
+    <h3>Tutorials</h3>
+    <ul>
+      
+        <li>
+          <a href="/tutorial/simple-website.html">A Simple Website</a>
+        </li>
+      
+        <li>
+          <a href="/tutorial/blog.html">A Blog</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="content docs">
+  <h1>0. Design your website</h1>
+<p>Archival doesn't come with any design decisions out of the box, but with some HTML and CSS skills or WYSIWYG editors like <a href="https://www.adobe.com/products/dreamweaver.html">Dreamweaver</a>, you can build unique and creative html pages. Normally, when you get to the point where you like your html, you still have a very long road to getting that html onto a website, and generally that website is limited to static content.</p>
+<p>This tutorial assumes that you have a simple website that has dynamic content - our example website will be for an independent music label, with the following structure:</p>
+<pre><code> Home
+  ├ About
+  └ Artists
+      ├ Artist 1
+      └ Artist 2
+</code></pre>
+<p>In addition to those pages, we'll also need a &quot;theme&quot; that we can use to &quot;wrap&quot; each of these pages, with common elements like a title, navigation, and the root html structure containing stylesheets and metadata.</p>
+<h1>1. Copy &amp; clone the template repo</h1>
+<p>You'll need to make sure you have a github account and that your computer has the prerequisites installed - visit the <a href="https://github.com/jesseditson/archival-website">archival-website</a> repo and follow the instructions there to install any prerequisites.</p>
+<p>Once you've followed the instructions on that repo, you should have a local copy of your new archival website.</p>
+<h1>2. Set up your theme and navigation</h1>
+<p>In your website design, you should have a page that contains (along with other content) the main navigational and branding components of your website. We'll use this page as the main template, and remove any page-specific content from it, replace it with variables that will dynamically swap in the page-specific content.</p>
+<p>Open the <code>layout/theme.liquid</code> file in a code editor, and note that while it is mostly vanilla html, there are a few places where double curly brackets are used: <code>{{ page_content }}</code>, and <code>{{ title }}</code>. These are Liquid variables, and simply represent dynamic content that will be swapped out when we generate our website.</p>
+<p>Replace all the content in this file with your example page. Then, delete the page-specific content, and replace it with this text:</p>
+<pre><code>{{page_content}}
+</code></pre>
+<p>This will cause every page that uses this theme to be wrapped in the content you just added, with only the page-specific content changing.</p>
+<p>In addition, you should replace the content inside the <code>&lt;title&gt;</code> tag of your <code>&lt;head&gt;</code> with the variable <code>{{title}}</code> so that you can customize what it says.</p>
+<h1>3. Add a home page</h1>
+<p>In the default state of the repo, you will also have a file in the <code>pages</code> directory called <code>index.liquid</code> - this html file contains the main page of your website. It has some basic content, and the only thing you'll need to keep is the first line which is:</p>
+<pre><code>{% layout 'theme', title: &quot;Website&quot; %}
+</code></pre>
+<p>You should change the title to whatever the home page of your website should show in the browser toolbar, and replace all the content with the content for your home page.</p>
+<h1>4. Preview and live-reload</h1>
+<p>Now let's start live-editing the website, since that will help us see our changes as we make them.</p>
+<p>Open a terminal shell, and <code>cd</code> to the website directory. Then in that directory, run the following command:</p>
+<pre><code>bin/archival run
+</code></pre>
+<p>This will start a small process that will watch the content locally and rebuild your website when it changes. To view your website, type the following into a new window in your terminal:</p>
+<pre><code>open dist/index.html
+</code></pre>
+<p>Alternatively, you can open the <code>dist</code> folder in your operating system and double click the index file. It will open in a browser.</p>
+<p>You should at this point be able to see your website with the theme and content rendered together.</p>
+<p>When running the website in live-reload mode, you'll notice that there is a little dot on the bottom right of the page that should be green - this means that the website is live reloading.</p>
+<p>If you make a change to the index.liquid file, the page should immediately reload and the new content should be visible.</p>
+<h1>5. Assets</h1>
+<p>If your theme has css files and you didn't copy existing patterns, it's likely that the content of your website still doesn't look right. To show assets like images and css, archival provides a special liquid tag called &quot;asset&quot; - this will make sure that even if you're working with dynamic content, the links to your assets will be correct. This only really matters when working with a dynamic template or a theme, but it doesn't hurt anything to use asset tags for all of your static assets.</p>
+<p>If you have a stylesheet tag or image tag in your theme, replace them by replacing tags that look like this:</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;style/some-stylesheet.css&quot;&gt;
+&lt;img src=&quot;img/my-image.jpg&quot;&gt;
+</code></pre>
+<p>with this:</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;{% asset 'style/some-stylesheet.css' %}&quot;&gt;
+&lt;img src=&quot;{% asset 'img/my-image.jpg' %}&quot;&gt;
+</code></pre>
+<p>Some things to note:</p>
+<ul>
+<li>the asset tag always takes a path from the root of your website repo, not a relative one - generally this just means that paths passed to <code>asset</code> start with a directory name.</li>
+<li>any assets included this way have to be in directories that are specified in your <code>manifest.toml</code> file. By default this includes the <code>style</code> and <code>img</code> directories, but you can add any directories you like by editing the list in <code>manifest.toml</code>.</li>
+</ul>
+<p>If you changed paths, go back to your browser and note that styles and images now show up.</p>
+<h1>6. Adding a new page</h1>
+<p>Now that we have our home page, we'll want to add our about page.</p>
+<p>Adding new pages in archival is as simple as just adding a <code>.liquid</code> file to the <code>pages</code> directory.</p>
+<p>Add a new file called <code>about.liquid</code> to the <code>pages</code> directory, and add the following line to the top of that file:</p>
+<pre><code>{% layout 'theme', title: &quot;About&quot; %}
+</code></pre>
+<p>Now, add some content for the about page below it.</p>
+<p>If you don't already have a link to the about page in your theme, add one:</p>
+<pre><code>&lt;a href=&quot;about.html&quot;&gt;About&lt;/a&gt;
+</code></pre>
+<p>Now in your browser, click that link and you'll be on the (live-reloading) about page you just made.</p>
+<h1>7. Dynamic content</h1>
+<p>archival is great for simple static websites, and you've already made one. But if you'd like to make a website with content that changes, archival also is the simplest way to build simple dynamic websites like blogs or personal and project websites.</p>
+<p>TODO:</p>
+
+</div>
+
+    </main>
+  </body>
+</html>
