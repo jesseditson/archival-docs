@@ -36,5 +36,3 @@ msys*)
     exit 1;
     ;;
 esac
-
-cd -

@@ -1,9 +1,14 @@
 name: Archival
-on: [push]
+on:
+  push:
+    branches:
+      - github.event.repository.default_branch
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Archival Build
-        uses: jesseditson/archival@v0.0.2
+        uses: jesseditson/archival@v0.4.7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
