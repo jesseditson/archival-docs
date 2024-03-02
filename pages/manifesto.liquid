@@ -1,13 +1,13 @@
-{% layout 'theme', title: "Archival: Manifesto" %}
+{% layout 'theme' title: "Archival: Manifesto" %}
 
-{% include 'hero_nav', page: 'manifesto' %}
+{% include 'hero_nav' page: 'manifesto' %}
 
 <h1 class="page-title">Manifesto</h1>
 
 {% assign sections = objects.manifesto %}
 <div class="content">
-    {% for section in sections %}
-    <h2>{{section.title}}</h2>
-    <p>{{section.body}}</p>
-    {% endfor %}
+  {% for section in sections %}
+    <h2>{{ section.title }}</h2>
+    <p>{{ section.body }}</p>
+  {% endfor %}
 </div>

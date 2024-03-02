@@ -5,11 +5,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.0
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Archival Build
-      uses: jesseditson/archival@v0.0.2
+      - name: Archival Build
+        uses: jesseditson/archival@v0.0.2

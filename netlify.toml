@@ -1,4 +1,0 @@
-[[redirects]]
-from = "https://editor.archival.dev/*"
-to = "https://archival-editor.netlify.app"
-status = 200

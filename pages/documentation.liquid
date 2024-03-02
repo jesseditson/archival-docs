@@ -1,10 +1,8 @@
+{% layout 'theme' title: "Archival" %}
 
-{% layout 'theme', title: "Archival" %}
+{% include 'small_nav' name: 'Documentation'
+  , page: 'documentation' %}
 
-{% include 'small_nav', name: 'Documentation', page: 'documentation' %}
+{% include 'docs_nav' page: 'home' %}
 
-{% include 'docs_nav', page: 'home' %}
-
-<div class="content docs">
-
-</div>
+<div class="content docs"></div>

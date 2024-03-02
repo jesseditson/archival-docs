@@ -1,4 +1,4 @@
-title = "Markdown"
+name = "markdown"
 description = """
 `markdown` is a type used for large blocks of text.
 

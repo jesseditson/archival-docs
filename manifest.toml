@@ -4,5 +4,5 @@
 objects = "objects"
 # where to look for pages. They follow a standard hierarchy, and only files ending with .html will be served (without the .html).
 pages = "pages"
-# additional assets dirs. These will be packaged with the app.
-assets = ["style", "img"]
+
+archival_version = "0.4.1"

@@ -2,8 +2,9 @@
 
 [tutorial]
 template = "tutorial"
-name = "string"
+title = "string"
 content = "markdown"
+nav_title = "string"
 
 [scalar]
 name = "string"
