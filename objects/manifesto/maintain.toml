@@ -3,7 +3,7 @@ title = "Archival: easier to maintain"
 body = """
 Archival generates fully static websites. This means that you can deploy them pretty much anywhere with very minimal serving infrastructure.
 
-When you run `archival build`, the `dist` folder it generates can be uploaded to an S3 bucket or another static host to make a very simple website. To make things even simpler, services like [Netlify](https://netlify.com), [Github Pages](https://pages.github.com) and [Vercel](https://vercel.com) make it easy to rebuild when the content of a git repository is changed. Archival is intended to work with these systems exceptionally well, and in most cases, can be configured with a single line of code in these systems to allow you to auto-deploy your website whenever the content changes.
+When you run `archival build`, the `dist` folder it generates can be uploaded to an S3 bucket or another static host to make a very simple website. To make things even simpler, services like [Netlify](https://netlify.com), [Github Pages](https://pages.github.com) and [Cloudflare Pages](https://www.cloudflare.com/developer-platform/pages) make it easy to rebuild when the content of a git repository is changed. Archival is intended to work with these systems exceptionally well, and in most cases, can be configured with a single line of code in these systems to allow you to auto-deploy your website whenever the content changes.
 
 Because content is versioned with the site, this also means that if you're using Archival's editing apps, the content will automatically update on your production website whenever you add or modify objects via the app.
 
