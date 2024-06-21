@@ -1,6 +1,7 @@
 header_alt = "archival.dev"
 videos_title = "Show Me How It Works"
 personas_title = "What Can Archival do for Me?"
+manifesto_link_title = "Read the archival manifesto"
 
 [[sections]]
 title = "Content-First Websites"

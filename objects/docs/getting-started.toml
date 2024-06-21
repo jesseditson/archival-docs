@@ -52,7 +52,7 @@ title = "Developing your archival website locally"
 content = """
 You can now run `archival run` or `bin/archival run` in your website’s repo.
 
-You should see a message telling you that your website is available at `http://localhost:3000`. If you want to choose a different port, run `bin/archival run --port 1234`.
+You should see a message telling you that your website is available at `http://localhost:1024`. If you want to choose a different port, run `bin/archival run --port 1234`.
 
 The `run` command automatically watches your filesystem and will rebuild your website whenever files change. Try modifying an object file to see the site update.
 """

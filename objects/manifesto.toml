@@ -1,13 +1,13 @@
 title = "Manifesto"
 
 content = """
-Archival was built by me - Jesse Ditson. I’ve spent the last 20 years building websites and applications. In that time, I’ve seen a lot of patterns and technologies come and go.
+Archival was built by me - [Jesse Ditson](https://jesseditson.com). I’ve spent the last 20 years building websites and applications. In that time, I’ve seen a lot of patterns and technologies come and go.
 
 I originally designed archival to solve a personal issue I have - I love to build websites for friends and side projects, and I love to explore new tech - but I often find that the cost and maintainability of most stacks is too high for me to justify passion projects or small-scale client work.
 
 Archival’s co-versioned data model came from the idea that when starting a project, I’ve found that it is very productive to imagine the data structure before the UI. I’m a fierce advocate for full-stack development and believe that great products require everyone involved to have a lot of context. I found that when a data model is designed after the app, it often is inefficiently arranged and is usually accessed via multiple layers of abstraction. By putting the data in the repo alongside the presentation, everything becomes more visible, and it becomes much harder to have data changes that break the UI.
 
-The tradeoffs in this model are really clear - specifically, your data must change fairly infrequently. But when I thought about how most content management systems work, they change far less frequently than would be needed to support a commit-per-change model. If you’re running a blog or a store or a landing page, you don’t need an expensive database running 24/7 in a data center somewhere. In fact, this just slows your app down because it forces all of the most expensive part of rendering (db queries, template parsing) to happen while someone is waiting. But if the data isn’t likely to have changed between reloads, static generation will be dramatically faster.
+The tradeoffs in this model are really clear - specifically, your data must change fairly infrequently. But when I thought about how most content management systems work, they usually change far less frequently than would be needed to support a commit-per-change model. If you’re running a blog or a store or a landing page, you don’t need an expensive database running 24/7 in a data center somewhere. In fact, this just slows your app down because it forces all of the most expensive part of rendering (db queries, template parsing) to happen while someone is waiting. But if the data isn’t likely to have changed between reloads, static generation will be dramatically faster for your users.
 
 > One interesting upside of this commit-per-change model is that you can always build the website, regardless of where in history you are. Archival is even shipped as a binary inside your repo, so as we make breaking changes, old versions of your website will still build just fine.
 > 
@@ -19,9 +19,10 @@ A secondary goal of archival is something that has always bothered me as a front
 
 The existence of things like Rails’ turbolinks, and the opposite, Next.js’s SSR, which are both fairly unwieldy and difficult to maintain abstractions for native functionality, help to show that these frameworks serve mostly to help add velocity to the beginning of a project, at the cost of maintainability and upgrade cost later.
 
-Archival aims to encourage as little framework use as possible. It enables getting started quickly, and you can certainly use JSX/React or Svelte in an archival site (there are templates to make it super easy). However, because it is explicitly non-full-stack, archival encourages the use of native web APIs when possible, and solves for things like SEO & WASM by just rendering static files, which solves interoperability problems by just using web APIs as they were designed.
+Archival aims to encourage as little framework use as possible. It enables getting started quickly, and you can certainly use JSX/React or Svelte in an archival site (there are templates to make it super easy). However, because it is explicitly non-full-stack, archival encourages the use of native web APIs when possible, and solves for things like SEO & WASM by rendering static files, which solves interoperability problems by just using web APIs as they were designed.
 
-While building projects with archival, I’ve noticed that it’s actually quite good as an application frontend, due to its being very lightweight and imposing a clear constraint on the build outputs being static files - like a mobile app, it’s very clear which resources will be dynamically fetched and which are “in the bundle”. This has enabled me to build rich PWAs and use WASM to build archival sites that use edge functions and remote data, without using frameworks or large abstractions. The Archival Editor is actually one such example - it’s an archival site with no data at all.
+> While building projects with archival, I’ve noticed that it’s actually quite good even as an application frontend, due to its being very lightweight and imposing a clear constraint on the build outputs being static files - like a mobile app, it’s very clear which resources will be dynamically fetched and which are “in the bundle”. This has enabled me to build rich PWAs and use WASM to build archival sites that use edge functions and remote data, without using frameworks or large abstractions. The Archival Editor is actually one such example - it’s an archival site with no data at all.
+> 
 
 I’m excited to share this tool with you, and as we add functionality, I promise that we’ll always build with simplicity, maintainability and web standards at the forefront.
 

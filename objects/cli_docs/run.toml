@@ -8,8 +8,8 @@ This command runs a local static server and watches your archival site for chang
 """
 
 [[options]]
-flags = "-p, --port <3000>"
-description = "choose a different port to run the local server on. Defaults to 3000"
+flags = "-p, --port <1024>"
+description = "choose a different port to run the local server on. Defaults to 1024"
 [[options]]
 flags = "-h, --help"
 description = "print help for this command."
