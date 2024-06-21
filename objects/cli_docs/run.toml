@@ -1,0 +1,18 @@
+order = 2
+command = "archival run"
+content = """
+This command runs a local static server and watches your archival site for changes. The site will be automatically rebuilt whenever files change.
+
+> Note that this command should never be used to serve a website in production. Archival generates static websites, so to serve an archival site, just run `archival build` and run a static web server that points to the `dist` folder, or upload that `dist` folder to a static host (or use the archival editor to automate this process).
+>
+"""
+
+[[options]]
+flags = "-p, --port <3000>"
+description = "choose a different port to run the local server on. Defaults to 3000"
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

@@ -1,0 +1,21 @@
+order = 9
+command = "archival upload"
+content = """
+Uploads a file to archival’s CDN and sets a field in a local object with the resulting metadata. When uploading files via the command line, this allows you to do the same thing the editor does, which is to upload and store the uploaded sha in a local file field.
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[arguments]]
+arg = "<object>"
+description = "The object to upload data for"
+[[arguments]]
+arg = "<field>"
+description = "The field to point at the uploaded data"
+[[arguments]]
+arg = "<file>"
+description = "A path to a file to upload"
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

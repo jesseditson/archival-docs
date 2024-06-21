@@ -1,0 +1,12 @@
+order = 6
+command = "archival prebuild"
+content = """
+Runs the commands listed in the manifest prebuild fields, in sequence, in subshells. If any command fails, this will print the failure and exit non-zero.
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

@@ -1,0 +1,12 @@
+order = 1
+command = "archival build"
+content = """
+Build an archival site - this will generate a static site inside a directory (dist unless you have overridden it in manifest.toml).
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

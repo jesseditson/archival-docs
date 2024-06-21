@@ -1,0 +1,11 @@
+order = 7
+command = "archival login"
+content = """
+Logs in to the archival editor and store credentials locally in `~/.archivalrc`.
+
+Certain commands like `archival upload` require that you’re logged in to be able to run.
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."

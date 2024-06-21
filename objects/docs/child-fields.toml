@@ -1,0 +1,78 @@
+order = 3
+title = "Child Fields"
+description = """
+All objects can define children, by defining a field that has key value pairs. For instance, your `objects.toml` file could define:
+
+```toml
+[post]
+title = "string"
+publish_date = "date"
+template = "post"
+[post.section]
+video = "video"
+image = "image"
+content = "markdown"
+```
+
+Then, you could define a post with multiple sections:
+
+```toml
+title = "My Blog Post"
+publish_date = "01/21/2024"
+[[section]]
+content = \"\"\"
+# Section Name
+here is the content for the section
+\"\"\"
+[[section.video]]
+name = "pete.mov"
+filename = "pete.mov"
+mime = "video/quicktime"
+sha = "0f271906042978fdf19a7e1eae665b98d1e1f00169b69ae9cceb3b1c089490ed"
+display_type = "video"
+[[section]]
+content = \"\"\"
+# Second Section
+This section has a video
+\"\"\"
+[[section.image]]
+sha = "9d18d8319c33ea2b10aeb6c833c1fe66304135e0e40aa6e509df5b6733fd3029"
+mime = "image/png"
+display_type = "image"
+name = "creamy-meyer-lemon-pasta.png"
+filename = "creamy-meyer-lemon-pasta.png"
+```
+
+When rendering this page, you can now iterate through the sections in our post template:
+
+```html
+<div class="content">
+	<h1>post.title</h1>
+	<div class="post-info">
+    <h3>{{ post.date | date: "%B %d, %Y" }} —
+    </h3>
+    {% assign words = post.content | split: " " %}
+    <span>{{ words.size | divided_by: 233 | round | at_least: 1 }} Minute Read</span>
+  </div>
+  {% for section in post.section %}
+    <div>{{ section.content }}</div>
+    {% if section.video.url != "" %}
+      <video title="{{section.video.name}}" controls>
+        <source
+          src="{{section.video.url}}"
+          name="{{section.video.filename}}"
+          type="{{section.video.mime}}">
+      </video>
+    {% endif %}
+		{% if section.image.url != "" %}
+		    <img
+		      src="{{section.image.url}}"
+		      alt="{{section.image.filename}}"/>
+		{% endif %}
+  {% endfor %}
+</div>
+
+```
+
+These fields are supported in the archival editor but will display as tables, so depending on your use case you may want to use groups instead when creating lists.
+"""

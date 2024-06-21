@@ -1,0 +1,26 @@
+order = 8
+command = "archival objects"
+content = """
+Lists the objects defined in this site, in a debug-friendly format. Mainly useful when troubleshooting a build issue.
+
+Example output:
+
+```bash
+⌗objects
+    ⌗post
+      ↘︎[18 items]
+          ⌗path: (string)
+          ⌗title: (string)
+          ⌗order: (whole number)
+          ⌗content: (string)
+          ⌗draft: (boolean)
+          ⌗date: (string)
+```
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

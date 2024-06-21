@@ -1,0 +1,15 @@
+order = 5
+command = "archival manifest"
+content = """
+Print the value from a manifest field - typically this is useful in the context of a build script or CI environment.
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[arguments]]
+arg = "<field>"
+description = "a field to print [possible values: archival-version, site-url, archival-site, objects-dir,prebuild, pages-dir, build-dir, static-dir, layout-dir, cdn-url]"
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

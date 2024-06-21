@@ -1,0 +1,46 @@
+order = 8
+title = "Generating non-html files"
+content = """
+While most archival content will likely be html, rendering non-html files is fully supported and is useful when either using archival data via an API (e.g. rendering `post.json` and calling it from a mobile application) or when exposing machine-readable data like rss feeds.
+
+To render a non-html file, just add the intended extension before the output. For instance, you could define `pages/rss-feed.rss.liquid`, and it will render to `dist/rss-feed.rss`.
+
+You can use liquid templates in any type of file, so a simple rss feed for a blog would look like this:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+<title>My Blog RSS Feed</title>
+<link>https://my-website.com/</link>
+<description>My Great Website</description>
+<lastBuildDate>{{ "now" | date: "%B %d, %Y" }}</lastBuildDate>
+{% assign sorted_posts = objects.post | sort: "date" %}
+{% for post in sorted_posts %}
+	<item>
+		<title>{{ post.title }}</title>
+		<link>{{ post.path }}</link>
+		<guid>{{ post.path }}</guid>
+		<description>{{ post.description }}</description>
+		<pubDate>{{ post.publish_date | date: "%B %d, %Y" }}</pubDate>
+	</item>
+{% endfor %}
+</channel>
+</rss>
+```
+A JSON file (e.g. `posts.json.liquid`) might look like this:
+
+```json
+{
+	"posts": [
+		{% assign sorted_posts = objects.post | sort: "date" %}
+		{% for post in sorted_posts %}
+		"title": "{{ post.title }}",
+		"link": "http://mysite.com/{{ post.path }}",
+		"description": "{{ post.description }}",
+		"date": "{{ post.publish_date | date: "%B %d, %Y" }}"
+		{% endfor %}
+	]
+}
+```
+"""
