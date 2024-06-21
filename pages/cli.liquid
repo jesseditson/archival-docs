@@ -1,0 +1,55 @@
+{% layout 'theme' title: "Archival" %}
+
+<div id="docs-sidebar">
+  {% for doc in objects.cli %}
+    <a href="/{{doc.path}}.html">
+      <h3>{{ doc.command }}</h3>
+    </a>
+  {% endfor %}
+</div>
+
+<div id="docs">
+  <h1>
+    <a href="#{{cli.command | url_encode }}" id="{{cli.command | url_encode }}">
+      <code>{{ cli.command }}</code>
+    </a>
+  </h1>
+  {% assign num_options = cli.options | size %}
+  {% if num_options > 0 %}
+    <h4>options</h4>
+    {% for option in cli.options %}
+      <code>{{ option.flags }}</code>
+      <p>{{ option.description }}</p>
+    {% endfor %}
+  {% endif %}
+  {% assign num_args = cli.arguments | size %}
+  {% if num_args > 0 %}
+    <h4>arguments</h4>
+    {% for arg in cli.arguments %}
+      <code>{{ arg.arg }}</code>
+      <p>{{ arg.description }}</p>
+    {% endfor %}
+  {% endif %}
+  <p>{{ cli.content }}</p>
+</div>
+
+{% assign prev_order = cli.order | minus: 1 %}
+{% assign next_order = cli.order | plus: 1 %}
+{% for doc in objects.cli %}
+  {% if doc.order == next_order %}
+    {% assign next = doc %}
+  {% endif %}
+  {% if doc.order == prev_order %}
+    {% assign prev = doc %}
+  {% endif %}
+{% endfor %}
+{% if prev %}
+  <div id="prev">
+    <a href="/{{ prev.path }}.html">{{ prev.command }} >></a>
+  </div>
+{% endif %}
+{% if next %}
+  <div id="next">
+    <a href="/{{ next.path }}.html">{{ next.command }} >></a>
+  </div>
+{% endif %}

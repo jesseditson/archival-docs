@@ -8,9 +8,35 @@
       {{ title }}
     </title>
     <link rel="stylesheet" href="https://use.typekit.net/xfh0gig.css">
-    <link rel="stylesheet" href="/style/archival-docs.css">
+    <link rel="stylesheet" href="/style/main.css">
   </head>
   <body>
+    <nav id="nav" role="nav">
+      <div id="logo">[logo]</div>
+      <div id="search">[search]</div>
+      <ul>
+        {% assign docs_link = objects.docs | first %}
+        <li>
+          <a href="/{{ docs_link.path }}.html">Docs</a>
+        </li>
+        {% assign cli_link = objects.cli | first %}
+        <li>
+          <a href="/{{ cli_link.path }}.html">CLI</a>
+        </li>
+        <li>
+          <a href="/manifesto.html">Manifesto</a>
+        </li>
+        <li>
+          <a href="https://editor.archival.dev">+ Editor</a>
+        </li>
+        <li>
+          <a href="https://github.com/jesseditson/archival">[github icon]</a>
+        </li>
+        <li>
+          <a href="https://docs.rs/archival/">[rust icon]</a>
+        </li>
+      </ul>
+    </nav>
     <main role="main" tabindex="-1">
       {{ page_content }}
     </main>
@@ -23,5 +49,10 @@
 
         gtag('config', 'G-XH51PPX9YN');
     </script>
+    <script
+      defer
+      src="https://api.pirsch.io/pa.js"
+      id="pianjs"
+      data-code="XiwklAJh3S2Wx2wypo1eGjp5BHhtbk4C"></script>
   </body>
 </html>
