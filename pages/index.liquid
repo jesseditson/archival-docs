@@ -4,64 +4,58 @@
 <div
   id="header"
   style="background-image: url('{{ home.header.url }}')"
-  title="{{ home.header_alt }}">
-  [logo]
-  <div id="header-ctas">
+  title="{{ home.header_alt }}"
+  class="w-full bg-gray-light flex flex-col justify-center items-center gap-20 h-80">
+  <div id="header-logo" class="">
+    [logo]
+  </div>
+  <div id="header-ctas" class="w-full flex justify-around">
     <a href="/docs/getting-started.html">Documentation</a>
     <a href="https://editor.archival.dev/new">Create a Website</a>
   </div>
 </div>
 
-{% for section in home.sections %}
-  <div class="section">
-    <h1>{{ section.title }}</h1>
-    {% assign xtra_class = "" %}
-    {% if section.flip_images %}
-      {% assign xtra_class = " flipped" %}
-    {% endif %}
-    {% if section.top_right_image.url %}
-      <img src="{{section.top_right_image.url}}" class="top-right-image{{xtra_class}}" />
-    {% endif %}
-    {% if section.bottom_left_image.url %}
-      <img src="{{section.top_right_image.url}}" class="bottom-left-image{{xtra_class}}" />
-    {% endif %}
-    <div class="content">
-      {{ section.content }}
+<div class="content p-20 max-w-screen-md">
+  {% for section in home.sections %}
+    {% assign is_odd = forloop.index0 | modulo: 2 %}
+    <div class="section text-xl pb-20">
+      <h1 class="{% if is_odd == 1 %}text-right{% endif %}">{{ section.title }}</h1>
+      <div class="content {% if is_odd == 1 %}pr-20{% else %}pl-20{% endif %}">
+        {{ section.content }}
+      </div>
     </div>
+  {% endfor %}
+
+  <h1>{{ home.videos_title }}</h1>
+  <div id="videos">
+    {% for video in home.videos %}
+      <video title="{{video.title}}" controls>
+        <source
+          src="{{video.video.url}}"
+          name="{{video.video.filename}}"
+          type="{{video.video.mime}}">
+      </video>
+      <h2>{{ video.title }}</h2>
+    {% endfor %}
   </div>
-{% endfor %}
 
-<h1>{{ home.videos_title }}</h1>
-<div id="videos">
-  {% for video in home.videos %}
-    <video title="{{video.title}}" controls>
-      <source
-        src="{{video.video.url}}"
-        name="{{video.video.filename}}"
-        type="{{video.video.mime}}">
-    </video>
-    <h2>{{ video.title }}</h2>
-  {% endfor %}
+  <a href="/manifesto.html">{{ home.manifesto_link_title }}</a>
+
+  <h1>{{ home.personas_title }}</h1>
+  <div id="personas">
+    {% for persona in home.personas %}
+      <div class="persona">
+        <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
+        <h2>{{ persona.title }}</h2>
+        <div>{{ persona.content }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h1>{{ home.pricing_title }}</h1>
+  <div id="pricing">
+    {{ home.pricing_content }}
+  </div>
+
 </div>
-
-<a href="/manifesto.html">{{ home.manifesto_link_title }}</a>
-
-<h1>{{ home.personas_title }}</h1>
-<div id="personas">
-  {% for persona in home.personas %}
-    <div class="persona">
-      <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
-      <h2>{{ persona.title }}</h2>
-      <div>{{ persona.content }}</div>
-    </div>
-  {% endfor %}
-</div>
-
-<h1>{{ home.pricing_title }}</h1>
-<div id="pricing">
-  {{ home.pricing_content }}
-</div>
-
 TODO CTA
-
-<canvas id="3d" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none;"></canvas>

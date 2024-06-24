@@ -18,11 +18,25 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
   });
   const fov = 1;
   const aspect = cs.width / cs.height;
-  const near = 20;
-  const far = 35;
+  const near = 30;
+  const far = 50;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  const cameraPositioner = new THREE.PerspectiveCamera(fov, aspect, near, far);
   const scene = new THREE.Scene();
   const clock = new THREE.Clock();
+  // TODO: if we load with an initial scroll, the whole page will be rendered offset.
+  const initialCamera = fromScreen({ x: 0, y: 0 }, cameraPositioner);
+  let lastY = 0;
+  tickFns.push(() => {
+    if (window.scrollY !== lastY) {
+      lastY = window.scrollY;
+      const nextPos = fromScreen(
+        { x: window.scrollX, y: window.scrollY },
+        cameraPositioner
+      );
+      camera.position.setY(nextPos.sub(initialCamera).y);
+    }
+  });
   let assets: THREE.Group | undefined;
 
   const updateMeshPositions = () => {
@@ -39,13 +53,23 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
         if (mesh) {
           mesh.castShadow = true;
           mesh.position.copy(fromScreen(pos, camera));
+          mesh.translateZ(0);
         }
       };
-      setPosition(meshes?.at(0), { x: el.offsetLeft, y: el.offsetTop });
-      setPosition(meshes?.at(1), {
+      let p1 = { x: el.offsetLeft, y: el.offsetTop + el.offsetHeight / 2 };
+      let p2 = {
         x: el.offsetLeft + el.offsetWidth,
-        y: el.offsetTop + el.offsetHeight,
-      });
+        y: el.offsetTop,
+      };
+      if (idx % 2) {
+        p1 = { x: el.offsetLeft, y: el.offsetTop };
+        p2 = {
+          x: el.offsetLeft + el.offsetWidth,
+          y: el.offsetTop + el.offsetHeight / 2,
+        };
+      }
+      setPosition(meshes?.at(0), p1);
+      setPosition(meshes?.at(1), p2);
     });
   };
 
@@ -59,7 +83,7 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
   const material = new THREE.ShadowMaterial();
   material.opacity = 0.5;
   const plane = new THREE.Mesh(geometry, material);
-  plane.translateZ(-32);
+  plane.translateZ(-40);
   plane.receiveShadow = true;
   scene.add(plane);
 

@@ -6,3 +6,13 @@ html, body {
     margin: 0;
     height: 100%;
 }
+
+
+@layer components {
+    h1, h2, h3, h4 {
+        @apply font-headline font-extrabold;
+    }
+    h1 {
+        @apply text-4xl m-10;
+    }
+}

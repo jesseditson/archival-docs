@@ -12,12 +12,15 @@
     <script type="module" src="/scripts/main.js"></script>
   </head>
   <body>
-    <nav id="nav" role="nav">
+    <nav
+      id="nav"
+      role="nav"
+      class="z-10 w-full top-0 fixed py-5 px-5 backdrop-blur-md shadow-lg flex justify-between font-bold">
       <div id="logo">
         <a href="/">[logo]</a>
       </div>
-      <div id="search">[search]</div>
-      <ul>
+      <div id="search" class="flex-1 flex justify-center">[search]</div>
+      <ul class="flex justify-between gap-2">
         {% assign docs_link = objects.docs | first %}
         <li>
           <a href="/{{ docs_link.path }}.html">Docs</a>
@@ -40,9 +43,13 @@
         </li>
       </ul>
     </nav>
-    <main role="main" tabindex="-1">
+    <main
+      role="main"
+      tabindex="-1"
+      class="flex flex-col my-10 z-0 items-center">
       {{ page_content }}
     </main>
+    <canvas id="3d" style="z-index: 1; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none;"></canvas>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XH51PPX9YN"></script>
     <script>

@@ -12,9 +12,6 @@ pricing_content = "markdown"
 [home.sections]
 title = "string"
 content = "markdown"
-top_right_image = "image"
-bottom_left_image = "image"
-flip_images = "boolean"
 
 [home.videos]
 title = "string"
