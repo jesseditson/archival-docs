@@ -75,7 +75,7 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
   // });
 
   const gltfLoader = new GLTFLoader();
-  const url = "assets/assets.gltf";
+  const url = "assets/assets.glb";
   gltfLoader.load(url, (gltf) => {
     const root = gltf.scene;
     const mixer = new THREE.AnimationMixer(root);
