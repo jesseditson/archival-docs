@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 
 const SECTION_ASSETS = [
   ["archival_Markdown", "archival_Video"],
@@ -11,6 +12,7 @@ const MODEL_SCALE = 0.3;
 const X_AXIS = new THREE.Vector3(1, 0, 0);
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
 const Z_AXIS = new THREE.Vector3(0, 0, 1);
+const CIRCLE = Math.PI * 2;
 
 const EL_PADDING_X = 30;
 const EL_PADDING_Y = 20;
@@ -59,6 +61,23 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
   });
   renderer.shadowMap.enabled = true;
   // renderer.shadowMap.type = THREE.PCFShadowMap;
+
+  // HDRI
+  new RGBELoader()
+    .setDataType(THREE.HalfFloatType)
+    .setPath("/assets/")
+    .load("hangar_interior_1k.hdr", function (texture) {
+      const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+
+      scene.environment = envMap;
+
+      texture.dispose();
+      pmremGenerator.dispose();
+    });
+  0;
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  pmremGenerator.compileEquirectangularShader();
+
   const fov = 1;
   const aspect = cs.width / cs.height;
   const near = 0.1;
@@ -90,7 +109,7 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
       meshLights[idx] = [];
       const makeLight = () => {
         const color = 0xffffff;
-        const intensity = 1.2;
+        const intensity = 0.2;
         const light = new THREE.DirectionalLight(color, intensity);
         light.shadow.radius = 8;
         light.shadow.blurSamples = 5;
@@ -151,9 +170,9 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
 
   const geometry = new THREE.PlaneGeometry(1, 1);
   const material = new THREE.ShadowMaterial();
-  material.opacity = 0.2;
+  material.opacity = 0.1;
   const plane = new THREE.Mesh(geometry, material);
-  plane.translateZ(-16.6);
+  plane.translateZ(-16.8);
   plane.receiveShadow = true;
   scene.add(plane);
 

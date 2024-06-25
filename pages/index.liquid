@@ -27,30 +27,39 @@
   {% endfor %}
 
   <h1>{{ home.videos_title }}</h1>
-  <div id="videos">
+  <div id="videos" class="w-full">
     {% for video in home.videos %}
-      <video title="{{video.title}}" controls>
-        <source
-          src="{{video.video.url}}"
-          name="{{video.video.filename}}"
-          type="{{video.video.mime}}">
-      </video>
-      <h2>{{ video.title }}</h2>
-    {% endfor %}
-  </div>
-
-  <a href="/manifesto.html">{{ home.manifesto_link_title }}</a>
-
-  <h1>{{ home.personas_title }}</h1>
-  <div id="personas">
-    {% for persona in home.personas %}
-      <div class="persona">
-        <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
-        <h2>{{ persona.title }}</h2>
-        <div>{{ persona.content }}</div>
+      <div class="">
+        <h2>{{ video.title }}</h2>
+        <video
+          title="{{video.title}}"
+          controls
+          class="w-full">
+          <source
+            src="{{video.video.url}}"
+            name="{{video.video.filename}}"
+            type="{{video.video.mime}}">
+        </video>
       </div>
     {% endfor %}
   </div>
+
+  <div class="text-lg flex justify-center mt-10">
+    <h4>
+      <a href="/manifesto.html">{{ home.manifesto_link_title }}</a>
+    </h4>
+  </div>
+
+  {% comment %} <h1>{{ home.personas_title }}</h1>
+                              <div id="personas">
+                                {% for persona in home.personas %}
+                                  <div class="persona">
+                                    <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
+                                    <h2>{{ persona.title }}</h2>
+                                    <div>{{ persona.content }}</div>
+                                  </div>
+                                {% endfor %}
+                </div> {% endcomment %}
 
   <h1>{{ home.pricing_title }}</h1>
   <div id="pricing">
