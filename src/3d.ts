@@ -4,9 +4,50 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 const SECTION_ASSETS = [
   ["archival_Markdown", "archival_Video"],
   ["archival_JavaScript", "archival_Svelte"],
-  ["archival_Rocket", "archival_Cloud"],
+  ["archival_Cloud", "archival_Rocket"],
   ["archival_Git", "archival_Hammer"],
 ];
+const MODEL_SCALE = 0.3;
+const X_AXIS = new THREE.Vector3(1, 0, 0);
+const Y_AXIS = new THREE.Vector3(0, 1, 0);
+const Z_AXIS = new THREE.Vector3(0, 0, 1);
+
+const EL_PADDING_X = 30;
+const EL_PADDING_Y = 20;
+const elPos = (el: HTMLElement) => {
+  const ws = { x: window.scrollX, y: window.scrollY };
+  const [eol, eot, eow, eoh] = [
+    el.offsetLeft + EL_PADDING_X,
+    el.offsetTop + EL_PADDING_Y,
+    el.offsetWidth - EL_PADDING_X * 2,
+    el.offsetHeight - EL_PADDING_Y,
+  ];
+  const tl = { x: eol - ws.x, y: eot - ws.y };
+  const tr = { ...tl, x: tl.x + eow };
+  const bl = { ...tl, y: tl.y + eoh / 2 };
+  const br = { x: tr.x, y: bl.y };
+  return {
+    tl,
+    tr,
+    bl,
+    br,
+    center: {
+      x: tl.x + el.offsetWidth / 2,
+      y: tl.y + el.offsetHeight / 2,
+    },
+  };
+};
+
+const addDot = (pos: { x: number; y: number }) => {
+  const d = document.createElement("div");
+  d.style.backgroundColor = "red";
+  d.style.width = "10px";
+  d.style.height = "10px";
+  d.style.position = "absolute";
+  d.style.top = pos.y + "px";
+  d.style.left = pos.x + "px";
+  document.body.appendChild(d);
+};
 
 export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
   const cs = canvas.getBoundingClientRect();
@@ -16,15 +57,16 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
     canvas,
     alpha: true,
   });
+  renderer.shadowMap.enabled = true;
+  // renderer.shadowMap.type = THREE.PCFShadowMap;
   const fov = 1;
   const aspect = cs.width / cs.height;
-  const near = 30;
-  const far = 50;
+  const near = 0.1;
+  const far = 20;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   const cameraPositioner = new THREE.PerspectiveCamera(fov, aspect, near, far);
   const scene = new THREE.Scene();
   const clock = new THREE.Clock();
-  // TODO: if we load with an initial scroll, the whole page will be rendered offset.
   const initialCamera = fromScreen({ x: 0, y: 0 }, cameraPositioner);
   let lastY = 0;
   tickFns.push(() => {
@@ -39,6 +81,45 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
   });
   let assets: THREE.Group | undefined;
 
+  const meshLights: THREE.DirectionalLight[][] = [];
+
+  const initMeshes = () => {
+    sections.forEach((el, idx) => {
+      const icons = SECTION_ASSETS.at(idx);
+      const meshes = icons?.map((i) => assets!.getObjectByName(i));
+      meshLights[idx] = [];
+      const makeLight = () => {
+        const color = 0xffffff;
+        const intensity = 1.2;
+        const light = new THREE.DirectionalLight(color, intensity);
+        light.shadow.radius = 8;
+        light.shadow.blurSamples = 5;
+        light.shadow.camera.scale.set(0.004, 0.004, 0.004);
+        light.castShadow = true;
+        meshLights[idx].push(light);
+        scene.add(light);
+        scene.add(light.target);
+        // const cameraHelper = new THREE.CameraHelper(light.shadow.camera);
+        // scene.add(cameraHelper);
+      };
+
+      const initMesh = (idx: number) => {
+        const mesh = meshes!.at(idx)!;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.scale.set(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
+        // mesh.rotateOnAxis(Z_AXIS, -Math.PI * 0.1);
+        // mesh.rotateOnAxis(Y_AXIS, -Math.PI * 0.1);
+        // mesh.rotateOnAxis(X_AXIS, -Math.PI * 0.1);
+        makeLight();
+      };
+
+      initMesh(0);
+      initMesh(1);
+      updateMeshPositions();
+    });
+  };
+
   const updateMeshPositions = () => {
     if (!assets) {
       return;
@@ -46,54 +127,45 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
     sections.forEach((el, idx) => {
       const icons = SECTION_ASSETS.at(idx);
       const meshes = icons?.map((i) => assets!.getObjectByName(i));
-      const setPosition = (
-        mesh: THREE.Object3D | undefined,
-        pos: { x: number; y: number }
-      ) => {
+      const setPosition = (i: number, pos: { x: number; y: number }) => {
+        const mesh = meshes?.at(i);
         if (mesh) {
-          mesh.castShadow = true;
-          mesh.position.copy(fromScreen(pos, camera));
-          mesh.translateZ(0);
+          mesh.position.copy(fromScreen(pos, camera).setZ(-16));
+        }
+        const light = meshLights.at(idx)?.at(i);
+        if (light) {
+          light.position.copy(fromScreen(pos, camera).setZ(-15));
+          light.target.position.copy(fromScreen(pos, camera).setZ(-16));
         }
       };
-      let p1 = { x: el.offsetLeft, y: el.offsetTop + el.offsetHeight / 2 };
-      let p2 = {
-        x: el.offsetLeft + el.offsetWidth,
-        y: el.offsetTop,
-      };
-      if (idx % 2) {
-        p1 = { x: el.offsetLeft, y: el.offsetTop };
-        p2 = {
-          x: el.offsetLeft + el.offsetWidth,
-          y: el.offsetTop + el.offsetHeight / 2,
-        };
-      }
-      setPosition(meshes?.at(0), p1);
-      setPosition(meshes?.at(1), p2);
+      const pos = elPos(el);
+      // console.log(idx, idx % 2, pos);
+      // addDot(pos.tl);
+      // addDot(pos.br);
+      // addDot(pos.tr);
+      // addDot(pos.bl);
+      setPosition(0, idx % 2 ? pos.tl : pos.tr);
+      setPosition(1, idx % 2 ? pos.br : pos.bl);
     });
   };
 
-  const color = 0xffffff;
-  const intensity = 4;
-  const light = new THREE.DirectionalLight(color, intensity);
-  light.position.set(-1, 2, 4);
-  scene.add(light);
-
   const geometry = new THREE.PlaneGeometry(1, 1);
   const material = new THREE.ShadowMaterial();
-  material.opacity = 0.5;
+  material.opacity = 0.2;
   const plane = new THREE.Mesh(geometry, material);
-  plane.translateZ(-40);
+  plane.translateZ(-16.6);
   plane.receiveShadow = true;
   scene.add(plane);
 
-  // const t = new THREE.SphereGeometry(0.1);
-  // const mat = new THREE.MeshBasicMaterial({
+  // const t = new THREE.SphereGeometry(0.02);
+  // const mat = new THREE.MeshPhongMaterial({
   //   color: 0xff0000,
   // });
   // const s = new THREE.Mesh(t, mat);
   // s.translateZ(-35);
   // scene.add(s);
+  // s.castShadow = true;
+  // s.receiveShadow = true;
   // document.addEventListener("mousemove", (e) => {
   //   s.position.copy(fromScreen({ x: e.clientX, y: e.clientY }, camera));
   // });
@@ -108,6 +180,7 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
     });
     scene.add(root);
     assets = root;
+    initMeshes();
     updateMeshPositions();
     gltf.animations.forEach((a) => mixer.clipAction(a).play());
   });
