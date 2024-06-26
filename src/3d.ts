@@ -215,46 +215,6 @@ export const init = (
     updateIconPositions();
     // gltf.animations.forEach((a) => mixer.clipAction(a).play());
   });
-  gltfLoader.load("assets/logo.glb", (gltf) => {
-    const root = gltf.scene;
-    // Animations
-    const mixer = new THREE.AnimationMixer(root);
-    tickFns.push((dt) => {
-      mixer.update(dt);
-    });
-    gltf.animations.forEach((a) => mixer.clipAction(a).play());
-    // Lighting
-    const color = 0xffffff;
-    const intensity = 0.6;
-    const light = new THREE.DirectionalLight(color, intensity);
-    light.shadow.radius = 8;
-    light.shadow.blurSamples = 5;
-    light.shadow.camera.scale.set(0.004, 0.004, 0.004);
-    light.castShadow = true;
-    scene.add(light);
-    scene.add(light.target);
-
-    // Rendering/Materials
-    root.castShadow = true;
-    root.receiveShadow = true;
-    root.scale.set(LOGO_SCALE, LOGO_SCALE, LOGO_SCALE);
-    // TODO: mask
-    const mask = root.getObjectByName("mask") as THREE.Mesh;
-    const lf = root.getObjectByName("logo-front") as THREE.Mesh;
-    const lb = root.getObjectByName("logo-back") as THREE.Mesh;
-    mask.material = new THREE.MeshBasicMaterial({ opacity: 0 });
-
-    // Positioning
-    const pos = elPos(elements.logo).center;
-    root.position.copy(
-      fromScreen(pos, camera).setZ(-15).add(new THREE.Vector3(0, -0.03))
-    );
-    light.position.copy(fromScreen(pos, camera).setZ(-15));
-    light.target.position.copy(fromScreen(pos, camera).setZ(-16));
-
-    console.log(root);
-    scene.add(root);
-  });
 
   clock.start();
   return (time: number) => {
