@@ -5,8 +5,8 @@
   id="header"
   style="background-image: url('{{ home.header.url }}')"
   title="{{ home.header_alt }}"
-  class="w-full bg-gray-light flex flex-col justify-center items-center gap-20 h-80">
-  <div id="header-logo" class="">
+  class="w-full bg-gray-light flex flex-col justify-center items-center gap-20 h-[500px]">
+  <div id="header-logo" class="h-[200px] flex items-end">
     [logo]
   </div>
   <div id="header-ctas" class="w-full flex justify-around">
@@ -51,15 +51,15 @@
   </div>
 
   {% comment %} <h1>{{ home.personas_title }}</h1>
-                              <div id="personas">
-                                {% for persona in home.personas %}
-                                  <div class="persona">
-                                    <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
-                                    <h2>{{ persona.title }}</h2>
-                                    <div>{{ persona.content }}</div>
-                                  </div>
-                                {% endfor %}
-                </div> {% endcomment %}
+                                                          <div id="personas">
+                                                            {% for persona in home.personas %}
+                                                              <div class="persona">
+                                                                <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
+                                                                <h2>{{ persona.title }}</h2>
+                                                                <div>{{ persona.content }}</div>
+                                                              </div>
+                                                            {% endfor %}
+                              </div> {% endcomment %}
 
   <h1>{{ home.pricing_title }}</h1>
   <div id="pricing">

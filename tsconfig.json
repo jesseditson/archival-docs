@@ -18,7 +18,8 @@
     "paths": {
       "three/addons/loaders/*": [
         "node_modules/@types/three/examples/jsm/loaders/*"
-      ]
+      ],
+      "three/addons/math/*": ["node_modules/@types/three/examples/jsm/math/*"]
     },
     "baseUrl": "./"
   },

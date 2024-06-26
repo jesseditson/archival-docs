@@ -5,7 +5,10 @@ window.addEventListener("load", () => {
   if (canvas) {
     const render = init(
       canvas,
-      Array.from(document.getElementsByClassName("section")) as HTMLElement[]
+      Array.from(document.getElementsByClassName("section")) as HTMLElement[],
+      {
+        logo: document.querySelector("#header-logo") as HTMLElement,
+      }
     );
     const tick = (time: DOMHighResTimeStamp) => {
       render(time);

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+import { cloudMaterial } from "./cloud";
 
 const SECTION_ASSETS = [
   ["archival_Markdown", "archival_Video"],
@@ -9,6 +10,7 @@ const SECTION_ASSETS = [
   ["archival_Git", "archival_Hammer"],
 ];
 const MODEL_SCALE = 0.3;
+const LOGO_SCALE = 0.02;
 const X_AXIS = new THREE.Vector3(1, 0, 0);
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
 const Z_AXIS = new THREE.Vector3(0, 0, 1);
@@ -51,7 +53,11 @@ const addDot = (pos: { x: number; y: number }) => {
   document.body.appendChild(d);
 };
 
-export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
+export const init = (
+  canvas: HTMLCanvasElement,
+  sections: HTMLElement[],
+  elements: { logo: HTMLElement }
+) => {
   const cs = canvas.getBoundingClientRect();
   const tickFns: ((d: number) => void)[] = [];
   const renderer = new THREE.WebGLRenderer({
@@ -66,7 +72,7 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
   new RGBELoader()
     .setDataType(THREE.HalfFloatType)
     .setPath("/assets/")
-    .load("hangar_interior_1k.hdr", function (texture) {
+    .load("env.hdr", function (texture) {
       const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 
       scene.environment = envMap;
@@ -102,14 +108,14 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
 
   const meshLights: THREE.DirectionalLight[][] = [];
 
-  const initMeshes = () => {
+  const initIcons = () => {
     sections.forEach((el, idx) => {
       const icons = SECTION_ASSETS.at(idx);
       const meshes = icons?.map((i) => assets!.getObjectByName(i));
       meshLights[idx] = [];
       const makeLight = () => {
         const color = 0xffffff;
-        const intensity = 0.2;
+        const intensity = 0.6;
         const light = new THREE.DirectionalLight(color, intensity);
         light.shadow.radius = 8;
         light.shadow.blurSamples = 5;
@@ -123,23 +129,30 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
       };
 
       const initMesh = (idx: number) => {
-        const mesh = meshes!.at(idx)!;
+        const mesh = meshes!.at(idx)! as THREE.Mesh;
         mesh.castShadow = true;
         mesh.receiveShadow = true;
         mesh.scale.set(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-        // mesh.rotateOnAxis(Z_AXIS, -Math.PI * 0.1);
-        // mesh.rotateOnAxis(Y_AXIS, -Math.PI * 0.1);
-        // mesh.rotateOnAxis(X_AXIS, -Math.PI * 0.1);
+        if (mesh.name === "archival_Cloud") {
+          const cm = cloudMaterial();
+          mesh.material = cm;
+          tickFns.push(() => {
+            cm.uniforms.cameraPos.value.copy(camera.position);
+            // mesh.rotation.z = -performance.now() / 7500;
+            cm.uniforms.frame.value++;
+          });
+          scene.add(mesh);
+        }
         makeLight();
       };
 
       initMesh(0);
       initMesh(1);
-      updateMeshPositions();
+      updateIconPositions();
     });
   };
 
-  const updateMeshPositions = () => {
+  const updateIconPositions = () => {
     if (!assets) {
       return;
     }
@@ -190,18 +203,57 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
   // });
 
   const gltfLoader = new GLTFLoader();
-  const url = "assets/assets.glb";
-  gltfLoader.load(url, (gltf) => {
+  gltfLoader.load("assets/assets.glb", (gltf) => {
     const root = gltf.scene;
+    // const mixer = new THREE.AnimationMixer(root);
+    // tickFns.push((dt) => {
+    //   mixer.update(dt);
+    // });
+    scene.add(root);
+    assets = root;
+    initIcons();
+    updateIconPositions();
+    // gltf.animations.forEach((a) => mixer.clipAction(a).play());
+  });
+  gltfLoader.load("assets/logo.glb", (gltf) => {
+    const root = gltf.scene;
+    // Animations
     const mixer = new THREE.AnimationMixer(root);
     tickFns.push((dt) => {
       mixer.update(dt);
     });
-    scene.add(root);
-    assets = root;
-    initMeshes();
-    updateMeshPositions();
     gltf.animations.forEach((a) => mixer.clipAction(a).play());
+    // Lighting
+    const color = 0xffffff;
+    const intensity = 0.6;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.shadow.radius = 8;
+    light.shadow.blurSamples = 5;
+    light.shadow.camera.scale.set(0.004, 0.004, 0.004);
+    light.castShadow = true;
+    scene.add(light);
+    scene.add(light.target);
+
+    // Rendering/Materials
+    root.castShadow = true;
+    root.receiveShadow = true;
+    root.scale.set(LOGO_SCALE, LOGO_SCALE, LOGO_SCALE);
+    // TODO: mask
+    const mask = root.getObjectByName("mask") as THREE.Mesh;
+    const lf = root.getObjectByName("logo-front") as THREE.Mesh;
+    const lb = root.getObjectByName("logo-back") as THREE.Mesh;
+    mask.material = new THREE.MeshBasicMaterial({ opacity: 0 });
+
+    // Positioning
+    const pos = elPos(elements.logo).center;
+    root.position.copy(
+      fromScreen(pos, camera).setZ(-15).add(new THREE.Vector3(0, -0.03))
+    );
+    light.position.copy(fromScreen(pos, camera).setZ(-15));
+    light.target.position.copy(fromScreen(pos, camera).setZ(-16));
+
+    console.log(root);
+    scene.add(root);
   });
 
   clock.start();
@@ -214,7 +266,7 @@ export const init = (canvas: HTMLCanvasElement, sections: HTMLElement[]) => {
       const canvas = renderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
-      updateMeshPositions();
+      updateIconPositions();
     }
     renderer.render(scene, camera);
   };
