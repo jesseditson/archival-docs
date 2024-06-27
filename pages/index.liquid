@@ -6,8 +6,28 @@
   style="background-image: url('{{ home.header.url }}')"
   title="{{ home.header_alt }}"
   class="w-full bg-gray-light flex flex-col justify-center items-center gap-20 h-[500px]">
-  <div id="header-logo" class="h-[200px] flex items-end">
-    [logo]
+  <div id="header-logo" class="flex items-center justify-between flex-col">
+    <div class="icon w-48 h-48 relative">
+      <img
+        id="header-image"
+        src="/img/logo.png"
+        alt="archival" />
+      <video
+        class="header-video absolute top-0 w-full h-full hidden"
+        muted
+        preload="auto"
+        playsinline>
+        <source src="/assets/ttp.mp4">
+      </video>
+      <video
+        class="header-video absolute top-0 w-full h-full hidden"
+        muted
+        preload="auto"
+        playsinline>
+        <source src="/assets/ptt.mp4">
+      </video>
+    </div>
+    <h1 class="font-bold text-6xl">archival</h1>
   </div>
   <div id="header-ctas" class="w-full flex justify-around">
     <a href="/docs/getting-started.html">Documentation</a>
@@ -51,15 +71,15 @@
   </div>
 
   {% comment %} <h1>{{ home.personas_title }}</h1>
-                                                          <div id="personas">
-                                                            {% for persona in home.personas %}
-                                                              <div class="persona">
-                                                                <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
-                                                                <h2>{{ persona.title }}</h2>
-                                                                <div>{{ persona.content }}</div>
-                                                              </div>
-                                                            {% endfor %}
-                              </div> {% endcomment %}
+                                                                                                                                                                                                  <div id="personas">
+                                                                                                                                                                                                    {% for persona in home.personas %}
+                                                                                                                                                                                                      <div class="persona">
+                                                                                                                                                                                                        <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
+                                                                                                                                                                                                        <h2>{{ persona.title }}</h2>
+                                                                                                                                                                                                        <div>{{ persona.content }}</div>
+                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                    {% endfor %}
+                                                                                                  </div> {% endcomment %}
 
   <h1>{{ home.pricing_title }}</h1>
   <div id="pricing">
