@@ -7,6 +7,18 @@ html, body {
     height: 100%;
 }
 
+#header-shadow {
+    position: absolute;
+    display: block;
+    width: 600px;
+    height: 600px;
+    margin-left: -300px;
+    margin-top: -300px;
+    top: 50%;
+    left: 50%;
+    max-width: none;
+}
+
 
 @layer components {
     h1, h2, h3, h4 {
