@@ -21,7 +21,8 @@ window.addEventListener("load", () => {
 });
 
 const setupHeaderVideos = () => {
-  console.log("setup");
+  // TODO:
+  return;
   const hi = document.getElementById("header-image") as HTMLDivElement;
   const headerLogo = document.getElementById("header-logo") as HTMLDivElement;
   const headerVideos = document.querySelectorAll(

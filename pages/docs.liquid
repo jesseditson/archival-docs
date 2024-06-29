@@ -1,42 +1,45 @@
 {% layout 'theme' title: "Archival" %}
-
-<div id="docs-sidebar">
-  {% for doc in objects.docs %}
-    <a href="/{{doc.path}}.html">
-      <h3>{{ doc.title }}</h3>
-    </a>
-  {% endfor %}
-</div>
-
-<div id="docs">
-  <h1>{{ docs.title }}</h1>
-  <p>{{ docs.description }}</p>
-
-  {% for section in docs.sections %}
-    <a href="#{{section.title | url_encode }}" id="{{section.title | url_encode }}">
-      <h2>{{ section.title }}</h2>
-    </a>
-    <p>{{ section.content }}</p>
-  {% endfor %}
-</div>
-
-{% assign prev_order = docs.order | minus: 1 %}
-{% assign next_order = docs.order | plus: 1 %}
-{% for doc in objects.docs %}
-  {% if doc.order == next_order %}
-    {% assign next = doc %}
-  {% endif %}
-  {% if doc.order == prev_order %}
-    {% assign prev = doc %}
-  {% endif %}
-{% endfor %}
-{% if prev %}
-  <div id="prev">
-    <a href="/{{ prev.path }}.html">{{ prev.title }} >></a>
+<div class="my-32 flex gap-4 px-4 max-h-full">
+  <div id="docs-sidebar" class="w-48">
+    {% for doc in objects.docs %}
+      <a href="/{{doc.path}}.html">
+        <h3>{{ doc.title }}</h3>
+      </a>
+    {% endfor %}
   </div>
-{% endif %}
-{% if next %}
-  <div id="next">
-    <a href="/{{ next.path }}.html">{{ next.title }} >></a>
+
+  <div id="docs" class="flex flex-col gap-4 max-h-full overflow-y-auto">
+    <h1>{{ docs.title }}</h1>
+    <p>{{ docs.description }}</p>
+
+    {% for section in docs.sections %}
+      <a href="#{{section.title | url_encode }}" id="{{section.title | url_encode }}">
+        <h2>{{ section.title }}</h2>
+      </a>
+      <p>{{ section.content }}</p>
+    {% endfor %}
+
+    <div class="flex justify-between">
+      {% assign prev_order = docs.order | minus: 1 %}
+      {% assign next_order = docs.order | plus: 1 %}
+      {% for doc in objects.docs %}
+        {% if doc.order == next_order %}
+          {% assign next = doc %}
+        {% endif %}
+        {% if doc.order == prev_order %}
+          {% assign prev = doc %}
+        {% endif %}
+      {% endfor %}
+      {% if prev %}
+        <div id="prev">
+          <a href="/{{ prev.path }}.html">{{ prev.title }} >></a>
+        </div>
+      {% endif %}
+      {% if next %}
+        <div id="next">
+          <a href="/{{ next.path }}.html">{{ next.title }} >></a>
+        </div>
+      {% endif %}
+    </div>
   </div>
-{% endif %}
+</div>
