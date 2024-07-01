@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "./markdown.css";
 
 html, body {
     margin: 0;
@@ -13,6 +14,11 @@ html, body {
     font-style: normal;
     border-color: rgb(123, 186, 177);
     margin: .2em;
+}
+
+.gradient-bg {
+    background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+    background-attachment: fixed;
 }
 
 #header-shadow {

@@ -8,6 +8,7 @@ const SECTION_ASSETS = [
   ["archival_JavaScript", "archival_Svelte"],
   ["archival_Cloud", "archival_Rocket"],
   ["archival_Git", "archival_Hammer"],
+  // ["archival_"]
 ];
 const MODEL_SCALE = 0.3;
 const LOGO_SCALE = 0.02;

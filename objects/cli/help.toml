@@ -1,5 +1,0 @@
-order = 0
-command = "archival --help"
-content = """
-Prints available commands and usage information.
-"""

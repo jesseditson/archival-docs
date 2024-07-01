@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/style/main.css">
     <script type="module" src="/scripts/main.js"></script>
   </head>
-  <body>
+  <body class="gradient-bg">
     <nav
       id="nav"
       role="nav"
@@ -25,10 +25,10 @@
       <div class="flex-1 flex justify-center">
       {% comment %} TODO search {% endcomment %}
       {% comment %} <input
-                                          id="search"
-                                          type="search"
-                                          class="rounded-lg border-1 border-gray shadow-inner-md px-6 backdrop-blur-md bg-none w-full max-w-72"
-                                  placeholder="Search ⌘K"> {% endcomment %}
+                                                                                          id="search"
+                                                                                          type="search"
+                                                                                          class="rounded-lg border-1 border-gray shadow-inner-md px-6 backdrop-blur-md bg-none w-full max-w-72"
+                                                                      placeholder="Search ⌘K"> {% endcomment %}
       </div>
       <ul class="flex justify-between gap-5 items-center">
         {% assign docs_link = objects.docs | first %}
@@ -56,14 +56,25 @@
     <main
       role="main"
       tabindex="-1"
-      class="flex flex-col z-0 items-center">
+      class="flex flex-col z-0 items-center min-h-full">
       {{ page_content }}
     </main>
-    <canvas id="3d" style="z-index: 1; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none;"></canvas>
     <script
       defer
       src="https://api.pirsch.io/pa.js"
       id="pianjs"
       data-code="XiwklAJh3S2Wx2wypo1eGjp5BHhtbk4C"></script>
+
+    <!-- syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- documentation languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/toml.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
   </body>
 </html>

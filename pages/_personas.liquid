@@ -1,0 +1,10 @@
+<h1 class="text-4xl m-10 font-section-title font-extrabold">{{ home.personas_title }}</h1>
+<div id="personas">
+  {% for persona in home.personas %}
+    <div class="persona">
+      <img src="{{ persona.image.url }}" alt="{{ persona.title }}" />
+      <h2>{{ persona.title }}</h2>
+      <div>{{ persona.content }}</div>
+    </div>
+  {% endfor %}
+</div>

@@ -1,45 +1,71 @@
-{% layout 'theme' title: "Archival" %}
-<div class="my-32 flex gap-4 px-4 max-h-full">
-  <div id="docs-sidebar" class="w-48">
+{% layout 'theme' title: "archival documentation" %}
+
+<div class="pt-20 flex flex-1 gap-4 min-h-full pl-64 w-full">
+  <div id="docs-sidebar" class="z-10 w-64 font-mono fixed left-0 flex flex-col font-bold">
     {% for doc in objects.docs %}
-      <a href="/{{doc.path}}.html">
+      <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md {% if docs.title == doc.title %}backdrop-blur-lg shadow-xl bg-pink-light{% endif %}">
         <h3>{{ doc.title }}</h3>
       </a>
     {% endfor %}
   </div>
 
-  <div id="docs" class="flex flex-col gap-4 max-h-full overflow-y-auto">
-    <h1>{{ docs.title }}</h1>
-    <p>{{ docs.description }}</p>
-
-    {% for section in docs.sections %}
+  <div id="docs" class="z-20 w-full min-h-full bg-pink-light p-20 flex justify-center">
+    {% comment %}
+      <div id="outline" class="z-30 fixed right-[-180px] hover:right-2 top-20 flex flex-col gap-2 items-end border-gray pr-2 pt-2 w-10 overflow-visible">
+      {% for section in docs.sections %}
+      <div>
       <a href="#{{section.title | url_encode }}" id="{{section.title | url_encode }}">
-        <h2>{{ section.title }}</h2>
+      <div class="flex relative w-[200px] justify-between gap-10">
+      <div>⸺</div>
+      <h2 class="flex-1 self-end">{{ section.title }}</h2>
+      </div>
       </a>
-      <p>{{ section.content }}</p>
-    {% endfor %}
-
-    <div class="flex justify-between">
-      {% assign prev_order = docs.order | minus: 1 %}
-      {% assign next_order = docs.order | plus: 1 %}
-      {% for doc in objects.docs %}
-        {% if doc.order == next_order %}
-          {% assign next = doc %}
-        {% endif %}
-        {% if doc.order == prev_order %}
-          {% assign prev = doc %}
-        {% endif %}
+      </div>
       {% endfor %}
-      {% if prev %}
-        <div id="prev">
-          <a href="/{{ prev.path }}.html">{{ prev.title }} >></a>
-        </div>
-      {% endif %}
-      {% if next %}
-        <div id="next">
-          <a href="/{{ next.path }}.html">{{ next.title }} >></a>
-        </div>
-      {% endif %}
+      </div>
+    {% endcomment %}
+    <div class="md w-full max-w-screen-md flex flex-col gap-4">
+      <h1>{{ docs.title }}</h1>
+      <p>{{ docs.description }}</p>
+
+      {% for section in docs.sections %}
+        <a
+          href="#{{section.title | url_encode }}"
+          id="{{section.title | url_encode }}"
+          class="ml-[-10px]">
+          <h2>{{ section.title }}</h2>
+        </a>
+        <p>{{ section.content }}</p>
+      {% endfor %}
+
+      <div class="flex justify-between text-lg font-bold font-mono mt-20">
+        {% assign prev_order = docs.order | minus: 1 %}
+        {% assign next_order = docs.order | plus: 1 %}
+        {% for doc in objects.docs %}
+          {% if doc.order == next_order %}
+            {% assign next = doc %}
+          {% endif %}
+          {% if doc.order == prev_order %}
+            {% assign prev = doc %}
+          {% endif %}
+        {% endfor %}
+        {% if prev %}
+          <a href="/{{ prev.path }}.html">
+            <div id="prev" class="bg-gradient-to-r from-pink-light to-peach ring-teal-dark ring-1 px-10 py-4 rounded-lg shadow-md hover:shadow-xl">
+              ← {{ prev.title }}
+            </div>
+          </a>
+        {% else %}
+          <div></div>
+        {% endif %}
+        {% if next %}
+          <a href="/{{ next.path }}.html">
+            <div id="next" class="bg-gradient-to-r from-pink-light to-peach ring-teal-dark ring-1 px-10 py-4 rounded-lg shadow-md hover:shadow-xl">
+              {{ next.title }} →
+            </div>
+          </a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>
