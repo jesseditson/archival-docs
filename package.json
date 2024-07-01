@@ -10,7 +10,7 @@
     "tailwindcss": "^3.4.4"
   },
   "scripts": {
-    "build": "npm run build:site; npm run build:js",
+    "build": "npm run build:site; npm run build:js; npm run tailwind",
     "dev": "npm-run-all -l --parallel \"watch:*\"",
     "watch:site": "bin/archival run",
     "watch:js": "./build.mjs --dev",
