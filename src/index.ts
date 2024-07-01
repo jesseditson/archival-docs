@@ -8,6 +8,8 @@ window.addEventListener("load", () => {
       Array.from(document.getElementsByClassName("section")) as HTMLElement[],
       {
         logo: document.querySelector("#header-logo") as HTMLElement,
+        docs: document.querySelector("#header-docs") as HTMLElement,
+        create: document.querySelector("#header-create") as HTMLElement,
       }
     );
     const tick = (time: DOMHighResTimeStamp) => {

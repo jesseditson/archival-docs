@@ -16,7 +16,7 @@
     @apply text-xl;
 }
 
-.md p {
+.md p:not(:empty) {
     @apply py-4;
 }
 

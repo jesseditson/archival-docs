@@ -8,10 +8,11 @@ const SECTION_ASSETS = [
   ["archival_JavaScript", "archival_Svelte"],
   ["archival_Cloud", "archival_Rocket"],
   ["archival_Git", "archival_Hammer"],
-  // ["archival_"]
+  ["archival_Coin"],
 ];
 const MODEL_SCALE = 0.3;
 const LOGO_SCALE = 0.02;
+const HEADER_SCALE = 0.42;
 const X_AXIS = new THREE.Vector3(1, 0, 0);
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
 const Z_AXIS = new THREE.Vector3(0, 0, 1);
@@ -31,15 +32,18 @@ const elPos = (el: HTMLElement) => {
   const tr = { ...tl, x: tl.x + eow };
   const bl = { ...tl, y: tl.y + eoh / 2 };
   const br = { x: tr.x, y: bl.y };
+  const center = {
+    x: tl.x + el.offsetWidth / 2,
+    y: tl.y + el.offsetHeight / 2,
+  };
   return {
     tl,
     tr,
     bl,
     br,
-    center: {
-      x: tl.x + el.offsetWidth / 2,
-      y: tl.y + el.offsetHeight / 2,
-    },
+    center,
+    cr: { x: br.x, y: center.y },
+    cl: { x: bl.x, y: center.y },
   };
 };
 
@@ -57,7 +61,7 @@ const addDot = (pos: { x: number; y: number }) => {
 export const init = (
   canvas: HTMLCanvasElement,
   sections: HTMLElement[],
-  elements: { logo: HTMLElement }
+  elements: { logo: HTMLElement; docs: HTMLElement; create: HTMLElement }
 ) => {
   const cs = canvas.getBoundingClientRect();
   const tickFns: ((d: number) => void)[] = [];
@@ -108,6 +112,8 @@ export const init = (
   let assets: THREE.Group | undefined;
 
   const meshLights: THREE.DirectionalLight[][] = [];
+  const headerIcons: Record<string, THREE.Mesh> = {};
+  const headerLights: Record<string, THREE.DirectionalLight> = {};
 
   const initIcons = () => {
     sections.forEach((el, idx) => {
@@ -130,7 +136,10 @@ export const init = (
       };
 
       const initMesh = (idx: number) => {
-        const mesh = meshes!.at(idx)! as THREE.Mesh;
+        const mesh = meshes!.at(idx) as THREE.Mesh | undefined;
+        if (!mesh) {
+          return;
+        }
         mesh.castShadow = true;
         mesh.receiveShadow = true;
         mesh.scale.set(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
@@ -153,10 +162,68 @@ export const init = (
     });
   };
 
+  const initHeader = () => {
+    const docsIcon = assets!.getObjectByName("archival_Book") as THREE.Mesh;
+    const createIcon = assets!.getObjectByName("archival_Rocket") as THREE.Mesh;
+    headerIcons["docs"] = docsIcon;
+    headerIcons["create"] = createIcon.clone();
+    scene.add(headerIcons["create"]);
+    headerIcons["create"].name = "archival_Rocket_header";
+
+    const setupMesh = (mesh: THREE.Mesh) => {
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      mesh.scale.set(HEADER_SCALE, HEADER_SCALE, HEADER_SCALE);
+    };
+
+    const lightFor = (name: string) => {
+      const color = 0xffffff;
+      const intensity = 0.6;
+      const light = new THREE.DirectionalLight(color, intensity);
+      light.shadow.radius = 8;
+      light.shadow.blurSamples = 5;
+      light.shadow.camera.scale.set(0.004, 0.004, 0.1);
+      light.castShadow = true;
+      headerLights[name] = light;
+      scene.add(light);
+      scene.add(light.target);
+      // const cameraHelper = new THREE.CameraHelper(light.shadow.camera);
+      // scene.add(cameraHelper);
+    };
+    lightFor("docs");
+    lightFor("create");
+    setupMesh(headerIcons["docs"]);
+    setupMesh(headerIcons["create"]);
+  };
+
   const updateIconPositions = () => {
     if (!assets) {
       return;
     }
+
+    const setPosition = (
+      mesh: THREE.Mesh | undefined,
+      pos: { x: number; y: number },
+      light: THREE.DirectionalLight
+    ) => {
+      if (!mesh) {
+        return;
+      }
+      mesh.position.copy(fromScreen(pos, camera).setZ(-16));
+      light.position.copy(fromScreen(pos, camera).setZ(-14));
+      light.target.position.copy(fromScreen(pos, camera).setZ(-16));
+    };
+    setPosition(
+      headerIcons["docs"],
+      elPos(elements.docs).tr,
+      headerLights["docs"]
+    );
+    setPosition(
+      headerIcons["create"],
+      elPos(elements.create).tl,
+      headerLights["create"]
+    );
+
     sections.forEach((el, idx) => {
       const icons = SECTION_ASSETS.at(idx);
       const meshes = icons?.map((i) => assets!.getObjectByName(i));
@@ -212,6 +279,7 @@ export const init = (
     // });
     scene.add(root);
     assets = root;
+    initHeader();
     initIcons();
     updateIconPositions();
     // gltf.animations.forEach((a) => mixer.clipAction(a).play());
