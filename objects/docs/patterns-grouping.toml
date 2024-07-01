@@ -1,0 +1,55 @@
+order = 4
+title = "Patterns: Grouping"
+description = """
+In some cases you will want to have lists of items but don’t want long lists inside child definitions. It’s generally preferable to create lots of objects rather than long lists inside children.
+
+A common pattern for managing this is to use a string field as an enum, and then group them inside your liquid templates.
+
+For instance, an object definition could be:
+
+```toml
+[suggestions]
+type = "string"
+title = "string"
+image = "image"
+alt = "string"
+link = "string"
+```
+
+A `suggestion` object then would use the `type` field to define a given group:
+
+```toml
+type = "to eat"
+title = "Neta Mezcal"
+link = "https://netaspirits.com/"
+alt = "Neta Mezcal"
+[image]
+sha = "9d18d8319c33ea2b10aeb6c833c1fe66304135e0e40aa6e509df5b6733fd3029"
+mime = "image/png"
+display_type = "image"
+name = "neta-mezcal.png"
+filename = "neta-mezcal.png"
+```
+
+Now, when rendering, you can filter only the “to eat” suggestions in a list:
+
+```html
+{% assign to_eat = objects.suggestions | where: "type", "to eat" %}
+<div class="suggestion-section">
+  <a class="title" href="javascript:void(0);">
+    <h3>to eat</h3>
+  </a>
+  <ul class="suggestion-list">
+    {% for suggestion in to_eat %}
+      <li class="suggestion" style="background-image:url('{{suggestion.image.url}}');">
+        <a href="{{suggestion.link}}" alt="{{suggestion.alt}}">
+          <h3>{{ suggestion.title }}</h3>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+```
+
+This will keep your object definitions simpler and avoid having big tables in the editor, which can get unwieldy with large child definitons.
+"""

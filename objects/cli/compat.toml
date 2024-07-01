@@ -1,0 +1,15 @@
+order = 3
+command = "archival compat"
+content = """
+Checks the compatibility of this version of archival against a version string. This will return a non-zero exit code if the specified version is incompatible - generally this is used during CI or automated builds.
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[arguments]]
+arg = "<version>"
+description = "a version string (e.g. 0.4.1-alpha)."
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

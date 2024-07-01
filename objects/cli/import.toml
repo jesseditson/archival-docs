@@ -1,0 +1,31 @@
+order = 4
+command = "archival import"
+content = """
+This command handles importing external structured data into archival object files, and typically is used during automated workflows or initial site data population.
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[options]]
+flags = "-n, --name <field_name>"
+description = "If generating objects, the data field to use to generate object file names."
+[[options]]
+flags = "-f, --format <csv|json>"
+description = "The format of the source data. Inferred from the file extension if importing from a file."
+[[options]]
+flags = "-m, --map <from:to>"
+description = "map a source field name to a destination field name."
+
+[[arguments]]
+arg = "<object>"
+description = "The object type if generating objects (e.g. `post`), or an object file to import to (`e.g. post/one.toml`) if importing to a child list."
+[[arguments]]
+arg = "[child]"
+description = "If importing to a child list, this is the name of the children to import to."
+[[arguments]]
+arg = "[file]"
+description = "The file containing data to import. If not provided, will read from stdout (and `--format` is required)."
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

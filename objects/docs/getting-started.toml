@@ -1,0 +1,58 @@
+order = 0
+title = "Getting Started"
+
+[[sections]]
+title = "Using editor.archival.dev/new"
+content = """
+The simplest way to set up an archival repo is to go to [editor.archival.dev/new](http://editor.archival.dev/new) and select a template. This will create a new git repo in your github account and a live version at an `.onarchival.dev` subdomain.
+
+Once you have a site set up, click the gear icon and open the git repo - from there, you can view the git URL and use it to clone your new website locally.
+"""
+
+[[sections]]
+title = "Manually"
+content = """
+You don’t have to clone a template to use archival - you can also install it via cargo and manually create the file structure.
+
+First, install the rust toolchain via `rustup`: https://doc.rust-lang.org/cargo/getting-started/installation.html
+
+Then create a new git repo:
+
+`mkdir my-website`
+
+`cd my-website`
+
+`git init`
+
+Now add the basics for archival to work:
+
+`echo "dist" >> .gitignore`
+
+`mkdir public layout objects pages`
+
+`echo "[test]\nname=\"string\"" >> objects.toml`
+
+`echo "name = \"hello\"" >> objects/test/first.toml`
+
+`echo "{{ page_content }}" >> layout/theme.liquid`
+
+`echo "{% layout 'theme' %}\n{% for o in test %}\n{{test.name}}\n{% endfor %}" >> pages/index.liquid`
+
+This will create:
+
+- a layout
+- an objects definition file with an object type `test`
+- an example `test` object
+- a theme to render our page in
+- a page that renders our theme and our objects
+"""
+
+[[sections]]
+title = "Developing your archival website locally"
+content = """
+You can now run `archival run` or `bin/archival run` in your website’s repo.
+
+You should see a message telling you that your website is available at `http://localhost:1024`. If you want to choose a different port, run `bin/archival run --port 1234`.
+
+The `run` command automatically watches your filesystem and will rebuild your website whenever files change. Try modifying an object file to see the site update.
+"""

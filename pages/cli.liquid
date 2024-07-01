@@ -1,0 +1,71 @@
+{% layout 'theme' title: "archival CLI" %}
+
+<div class="pt-20 flex flex-1 gap-4 min-h-full pl-64 w-full">
+  <div id="docs-sidebar" class="z-10 w-64 font-mono fixed left-0 flex flex-col font-bold">
+    {% for doc in objects.cli %}
+      <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md {% if cli.command == doc.command %}backdrop-blur-lg shadow-xl bg-pink-light{% endif %}">
+        <h3>{{ doc.command }}</h3>
+      </a>
+    {% endfor %}
+  </div>
+
+  <div id="docs" class="z-20 w-full min-h-full bg-pink-light p-20 flex justify-center">
+    <div class="md w-full max-w-screen-md flex flex-col gap-4">
+      <h1>
+        <a href="#{{cli.command | url_encode }}" id="{{cli.command | url_encode }}">
+          <code>{{ cli.command }}</code>
+        </a>
+      </h1>
+      {% assign num_options = cli.options | size %}
+      {% if num_options > 0 %}
+        <h4>options</h4>
+        <div class="grid grid-cols-3 gap-4">
+          {% for option in cli.options %}
+            <code class="flex items-center">{{ option.flags | escape }}</code>
+            <p class="col-span-2">{{ option.description }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% assign num_args = cli.arguments | size %}
+      {% if num_args > 0 %}
+        <h4>arguments</h4>
+        <div class="grid grid-cols-3 gap-4">
+          {% for arg in cli.arguments %}
+            <code class="flex items-center">{{ arg.arg | escape }}</code>
+            <p class="col-span-2">{{ arg.description }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <p>{{ cli.content }}</p>
+
+      <div class="flex justify-between text-lg font-bold font-mono mt-20">
+        {% assign prev_order = cli.order | minus: 1 %}
+        {% assign next_order = cli.order | plus: 1 %}
+        {% for doc in objects.cli %}
+          {% if doc.order == next_order %}
+            {% assign next = doc %}
+          {% endif %}
+          {% if doc.order == prev_order %}
+            {% assign prev = doc %}
+          {% endif %}
+        {% endfor %}
+        {% if prev %}
+          <a href="/{{ prev.path }}.html">
+            <div id="prev" class="bg-gradient-to-r from-pink-light to-peach ring-teal-dark ring-1 px-10 py-4 rounded-lg shadow-md hover:shadow-xl">
+              ← {{ prev.command }}
+            </div>
+          </a>
+        {% else %}
+          <div></div>
+        {% endif %}
+        {% if next %}
+          <a href="/{{ next.path }}.html">
+            <div id="next" class="bg-gradient-to-r from-pink-light to-peach ring-teal-dark ring-1 px-10 py-4 rounded-lg shadow-md hover:shadow-xl">
+              {{ next.command }} →
+            </div>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,15 +1,46 @@
 # This file is used to define the objects available on your site.
 
-[tutorial]
-template = "tutorial"
+[home]
+header = "image"
+header_alt = "string"
+manifesto_link_title = "string"
+videos_title = "string"
+personas_title = "string"
+pricing_title = "string"
+pricing_content = "markdown"
+
+[home.sections]
 title = "string"
 content = "markdown"
-nav_title = "string"
 
-[scalar]
-name = "string"
-description = "markdown"
+[home.videos]
+title = "string"
+video = "video"
+
+[home.personas]
+image = "image"
+title = "string"
+content = "markdown"
 
 [manifesto]
 title = "string"
-body = "markdown"
+content = "markdown"
+
+[docs]
+title = "string"
+description = "markdown"
+template = "docs"
+[docs.sections]
+title = "string"
+content = "markdown"
+
+[cli]
+command = "string"
+content = "markdown"
+template = "cli"
+[cli.options]
+flags = "string"
+description = "string"
+[cli.arguments]
+arg = "string"
+description = "string"

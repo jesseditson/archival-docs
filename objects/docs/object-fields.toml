@@ -1,0 +1,136 @@
+order = 2
+title = "Object Fields"
+description = """
+When defining objects in your Object Definition File, each object’s schema is defined by key value pairs, where the keys are field names and the values are types. When rendering, each type is represented by a distinct liquid value or an object hash.
+
+The available types are:
+"""
+
+[[sections]]
+title = "string"
+content = """
+Values will be interpreted as a liquid [string](https://shopify.github.io/liquid/basics/types/#string). 
+"""
+
+[[sections]]
+title = "number"
+content = """
+Values will be displayed as a liquid [number](https://shopify.github.io/liquid/basics/types/#number).
+
+Note that while it’s perfectly valid to specify integers in files, these numbers are always interpreted as floats - specifically as signed 64 bit floats.
+
+**Rendering**
+
+When rendering numbers, it’s typical to use the `round` filter to obtain the desired precision. See https://shopify.github.io/liquid/filters/round/
+
+```html
+{{ object.number | round: 2 }}
+```
+"""
+
+[[sections]]
+title = "boolean"
+content = """
+Values will be displayed as a liquid [boolean](https://shopify.github.io/liquid/basics/types/#boolean).
+
+There are only two values, which should be defined unquoted - either `true` or `false`. You can use these values for reliable control flow, usually inside `if` statements.
+"""
+
+[[sections]]
+title = "date"
+content = """
+Values will be interpreted as a liquid datetime, but represented as a string in toml files.
+
+The following date formats are supported in toml files:
+
+- `YYYY-MM-DD HH:MM:SS`
+- `YYYY-MM-DD`
+- `DD Month YYYY HH:MM:SS`
+- `DD Mon YYYY HH:MM:SS`
+- `MM/DD/YYYY HH:MM:SS`
+- `Dow Mon DD HH:MM:SS YYYY`
+
+In all formats, you may specify offsets by appending either `+HHMM` or `-HHMM`
+
+**Rendering dates**
+
+When rendering a date, you’ll typically want to use the [date filter](https://shopify.github.io/liquid/filters/date/) to display human-readable values.
+
+For instance:
+
+```html
+This page was last updated at {{ object.date | date: "%Y-%m-%d %H:%M" }}.
+```
+
+This filter uses the same formatting strings as [strftime](http://strftime.net/).
+"""
+
+[[sections]]
+title = "markdown"
+content = """
+Values will be parsed as markdown before rendering, and output as HTML.
+
+Markdown is a simple formatting language that is intended to allow you to write formatting into a human-readable text that can then be translated into actual formatting code later. For more info on markdown, check out the [Markdown Guide](https://www.markdownguide.org/getting-started/) or the [Syntax page](https://daringfireball.net/projects/markdown/syntax).
+
+archival uses [comrak](https://crates.io/crates/comrak/0.18.0) to parse markdown, which supports standard markdown plus [Github Flavored Markdown extensions](https://github.github.com/gfm/). This means that the following additional formatting is available:
+
+- [Tables](https://github.github.com/gfm/#tables-extension-)
+
+```markdown
+| foo | bar |
+| --- | --- |
+| baz | bim |
+```
+
+- [Task lists](https://github.github.com/gfm/#task-list-items-extension-)
+
+```markdown
+- [ ] foo
+- [x] bar
+```
+
+- [Strikethrough](https://github.github.com/gfm/#strikethrough-extension-)
+
+```markdown
+~~Hi~~ Hello, ~there~ world!
+```
+
+- [Autolinks](https://github.github.com/gfm/#autolinks-extension-) (links will automatically be clickable)
+"""
+
+
+[[sections]]
+title = "image, video, upload, audio"
+content = """
+These types are special object types that have the following keys:
+
+```toml
+[fieldname]
+filename = "asparagus-bacon-sambal-lime-vinaigrette.png"
+sha = "31f4725e732340541f83065d7bde1eba22a3aa2dd507f2811b8f69a07250379b"
+name = "asparagus-bacon-sambal-lime-vinaigrette.png"
+display_type = "image"
+mime = "image/png"
+```
+
+The `display_type` depends on the type definition, and the others are populated by either the archival editor or the `archival upload` command.
+
+These files are uploaded to a cdn, and will be retrieved at the url `<cdn_url>/<sha>`. When rendering, a `url` field is automatically generated for these file types.
+
+To use one of these types in an object, you’ll generally access it via the URL. For instance, showing a simple image might look like this:
+
+```toml
+<img src="{{object.fieldname.url}}" alt="{{object.name}}"/>
+```
+
+Other metadata is useful depending on the file type. For instance, you could display a video using:
+
+```toml
+<video title="{{object.video.name}}" controls>
+    <source
+      src="{{object.video.url}}"
+      name="{{object.video.filename}}"
+      type="{{object.video.mime}}">
+</video>
+```
+"""

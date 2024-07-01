@@ -1,0 +1,37 @@
+/* Markdown Styles */
+
+.md h1, .md h2, .md h3, .md h4 {
+    @apply font-header font-extrabold;
+}
+
+.md h1 {
+    @apply text-3xl;
+}
+
+.md h2 {
+    @apply text-2xl;
+}
+
+.md h3, .md h4 {
+    @apply text-xl;
+}
+
+.md p:not(:empty) {
+    @apply py-4;
+}
+
+.md blockquote {
+    @apply bg-gray-light border-purple border rounded-md m-8 px-8;
+}
+
+.md code {
+    @apply bg-gray-light rounded-md px-2 py-1;
+}
+
+.md ul {
+    @apply list-disc flex flex-col gap-4;
+}
+
+.md a {
+    @apply font-bold text-purple hover:underline;
+}

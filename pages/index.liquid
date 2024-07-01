@@ -1,25 +1,105 @@
-{% layout 'theme' title: "Archival" %}
+{% layout 'theme' title: "archival" %}
+{% assign home = objects.home %}
 
-{% include 'hero_nav' page: 'home' %}
-
-<h1 class="page-title">Archival</h1>
-
-<div class="content">
-  <h2>Extremely minimalist, extremely productive</h2>
-  <p>Archival is a tiny tool for building websites.</p>
-  <p>It provides the bare minimum of tooling to make it really easy to maintain websites built with archival, and makes it easy for people to update simple websites without knowing any html.</p>
-  <p>If you're currently using something like Squarespace or Wordpress for a static website and you know a little html, archival can likely be a much cheaper and more flexible solution for updating simple content-based websites.</p>
-
-  <h2>Learn the web, not trendy tools</h2>
-  <p>Archival is built to maximize the use of existing web standards without abstractions.</p>
-  <p>It is a build tool, but it doesn't do any transpilation or shimming - it aims to be the best tool for projects where the web is good enough, and where humans always update the content.</p>
-
-  <h2>Build something unique</h2>
-  <p>Archival doesn't provide you with any templates. You can bring your own, or you can get creative and see what you can do when you're not thinking in a box.</p>
-  <p>Archival lets you take really interesting ideas expressed in HTML, and quickly make them scale without using a large library.</p>
-
-  <h2>Get Started</h2>
-  <p>Ready to build something? Get started with a
-    <a href="/tutorials.html">Tutorial</a>, or dive straight into the
-    <a href="/documentation.html">Documentation</a>.</p>
+<div
+  id="header"
+  style="background-image: url('{{ home.header.url }}')"
+  title="{{ home.header_alt }}"
+  class="w-full flex flex-col justify-center items-center gap-8 pt-20 my-20">
+  <div id="header-logo" class="flex items-center justify-between flex-col">
+    <div class="icon w-48 h-48 relative flex items-center justify-center">
+      <img
+        id="header-image"
+        class="z-30"
+        src="/img/logo3d.png"
+        alt="archival" />
+      <video
+        class="z-30 header-video absolute top-0 w-full h-full hidden"
+        muted
+        preload="auto"
+        playsinline>
+        <source src="/vid/ttp.mov" type='video/mp4; codecs="hvc1"'>
+        <source src="/vid/ttp.webm" type="video/webm">
+      </video>
+      <video
+        class="z-30 header-video absolute top-0 w-full h-full hidden"
+        muted
+        preload="auto"
+        playsinline>
+        <source src="/vid/ptt.mov" type='video/mp4; codecs="hvc1"'>
+        <source src="/vid/ptt.webm" type="video/webm">
+      </video>
+      <img
+        id="header-shadow"
+        class="z-20"
+        src="/img/shadow.png"
+        alt="archival" />
+    </div>
+    <h1 class="logo-text text-purple font-bold text-5xl font-section-title">archival</h1>
+  </div>
+  <div id="header-ctas" class="w-full flex justify-around">
+    <a
+      id="header-docs"
+      href="/docs/getting-started.html"
+      class="h-32 flex items-end">
+      <h4 class="logo-text text-purple font-bold text-2xl font-section-title">Documentation</h4>
+    </a>
+    <a
+      id="header-create"
+      href="https://editor.archival.dev/new"
+      class="h-32 flex items-end">
+      <h4 class="logo-text text-purple font-bold text-2xl font-section-title">Create a Website</h4>
+    </a>
+  </div>
 </div>
+
+<div class="content p-20 pb-0 max-w-screen-md">
+  {% for section in home.sections %}
+    {% assign is_odd = forloop.index0 | modulo: 2 %}
+    <div class="section text-xl p-10 mb-10 bg-pink-light ring-peach ring-4 shadow-lg rounded-2xl">
+      <h2 class="text-4xl m-10 mt-0 font-section-title font-extrabold {% if is_odd == 1 %}text-right{% endif %}">{{ section.title }}</h2>
+      <div class="content {% if is_odd == 1 %}pr-10{% else %}pl-10{% endif %}">
+        {{ section.content }}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% comment %}
+  <div class="text-lg flex justify-center mt-10">
+  <h4 class="font-section-title font-extrabold italic text-4xl color-teal">
+  <a href="/manifesto.html">{{ home.manifesto_link_title }}</a>
+  </h4>
+  </div>
+{% endcomment %}
+
+<div class="content w-full max-w-screen-md">
+  <h2 class="text-4xl m-10 font-section-title font-extrabold">{{ home.videos_title }}</h2>
+  <div id="videos" class="w-full">
+    {% for video in home.videos %}
+      <div class="flex flex-col items-center gap-4">
+        <video
+          title="{{video.title}}"
+          controls
+          class="w-full bg-pink-light ring-peach ring-4 shadow-lg md:rounded-2xl">
+          <source
+            src="{{video.video.url}}"
+            name="{{video.video.filename}}"
+            type="{{video.video.mime}}">
+        </video>
+        <h3 class="text-xl font-extrabold">{{ video.title }}</h3>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="content p-10 pb-0 max-w-screen-md text-xl m-20 bg-pink-light ring-peach ring-4 shadow-lg rounded-2xl">
+  <h2 class="section text-4xl mb-10 font-section-title font-extrabold">{{ home.pricing_title }}</h2>
+  <div id="pricing" class="md pb-10">
+    {{ home.pricing_content }}
+  </div>
+</div>
+
+<footer class="shadow-inner w-full h-80 mt-20"></footer>
+
+<canvas id="3d" style="z-index: 30; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none;"></canvas>

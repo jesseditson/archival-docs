@@ -1,0 +1,40 @@
+order = 7
+title = "Layouts"
+description = """
+Layouts are effectively the opposite of partials, in that rather than rendering the partial inside the page, the page is rendered inside the layout. They are defined in the `layouts` dir or whichever dir your `manifest.toml` defines as the `layout_dir`.
+
+An example layout would be defined in `layouts/theme.liquid` and could look like this:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My Website: {{ title }}</title>
+    <link rel="stylesheet" href="/style/theme.css">
+    {% if style %}
+      <link rel="stylesheet" href="/style/{{style}}.css">
+    {% endif %}
+  </head>
+  <body>
+    {{ page_content }}
+  </body>
+</html>
+```
+
+There is one special variable that is always defined when using a layout, `page_content`. This variable contains the entire document that invoked the layout.
+
+Layouts are rendered using the special (archival-specific) `layout` tag, which accepts any number of arbitrary variables that are then passed to the layout. In the above example, the layout accepts `title` and an optional `style` argument.
+
+To use a layout, simply render the tag inside a page. For instance, if we had a `post.liquid` page template, we could render it in the above layout using this:
+
+```html
+{% layout 'theme' title: post.title, style: 'post' %}
+<header class="header">
+  <h1>{{ post.title }}</h1>
+</header>
+<article class="content">
+  <p>{{ post.content }}</p>
+</article>
+```
+"""

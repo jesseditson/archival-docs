@@ -1,0 +1,116 @@
+order = 1
+title = "Concepts"
+description = """
+Archival is a fairly simple tool but has been designed to be used in some powerful ways.
+"""
+
+[[sections]]
+title = "Archival as a Library"
+content = """
+Archival is normally used as a binary during local development and continuous integration. However, if you’d like to integrate it into a rust application, it exposes a rust-based API that allows use in various environments (even ones without filesystems like WASM) - the documentation for this use is available on crates.io: https://docs.rs/archival/latest/archival/
+"""
+
+[[sections]]
+title = "Archival Binaries"
+content = """
+Most use of archival will be via a binary. Archival templates generally come with a locally-packaged version of the archival binary that it was built with, along with scripts to update these binaries, located in the `bin` folder.
+
+By packaging and versioning the binary with the website, we can be sure that even if we update our website in a backward-incompatible way with older versions of `archival`, we’ll still be able to build old versions of our website.
+"""
+
+[[sections]]
+title = "objects.toml"
+content = """
+A core concept of archival is the idea that the data your website uses is defined in a structured format, and that the files to define it are local.
+
+This creates a clear separation between which data is presentational or functional, and which data is editable by site owners who may not be web developers.
+
+The `objects.toml` file is where you define which objects exist on your website. For instance, if you’re making a blog, your `objects.toml` might look like this:
+
+```toml
+[post]
+title = "string"
+date = "date"
+content = "markdown"
+template = "post"
+draft = "boolean"
+```
+
+Each object is defined as a unique name, which defines a list of fields that map to scalar types.
+
+There are also some special keys you can use in these definitions:
+
+- `template` will allow you to use a file in the `pages` dir as a template, which will cause archival to generate one page per object of this type, with the same name as its filename, inside the `dist/object-name` folder.
+
+Some keys are reserved as they’re either generated at runtime or have internal meanings. Those keys are:
+
+- `template`
+- `order`
+- `objects`
+- `object_name`
+- `page`
+- `page_name`
+
+The available field types are documented in the [field types] section.
+"""
+
+[[sections]]
+title = "The objects directory and object files"
+content = """
+The objects available to your site templates are based on toml files that you create in your local file system. This makes sure that all objects are compatible with the current `objects.toml` definition, and allows you to easily edit an object in one place regardless of where it is rendered on your website. For instance, you may want to render a blog post both on a web page for users to visit and inside an rss feed.
+
+To define an object, just create a file inside the `objects/[object-name]` directory. For instance, to define a new object of type `post`, you’d create an `objects/post/my-blog-post.toml` file.
+
+ Alternatively, if there is only one of a certain object type (for instance, to make the home page content editable, you might define a `home` object type), you can define a toml file with the same name as the object, e.g. `objects/home.toml` .
+
+Inside each object file, you may specify values for any of the keys in the corresponding object definition. For instance, with a definition of:
+
+```toml
+[post]
+title = "string"
+date = "date"
+content = "markdown"
+template = "post"
+draft = "boolean"
+```
+
+You would create a new blog post by creating a file called `objects/post/my-blog-post.toml`, with the following content:
+
+```toml
+title = "My Blog Post Title"
+date = "12/17/2021"
+content = \"\"\"
+### Markdown Content
+This is some [markdown](https://www.markdownguide.org).
+\"\"\"
+draft = false
+
+order = 20211217
+```
+
+You may omit fields and they will be populated with default values when rendered.
+
+Arbitrary fields may be defined, but archival will print a warning whenever encountering a field defined on an object that was not found in the corresponding object definition.
+
+**The `order` field**
+
+The special `order` field allows you to control the sort order of this object type when iterated in templates. This can be any whole (integer) number, and is just compared to the other `order` keys defined on other objects of this type to determine sort order.
+"""
+
+[[sections]]
+title = "manifest.toml"
+content = """
+By default, archival is configured with some sensible defaults and no `manifest.toml` file is necessary. However, when customizing configuration or editing with the archival editor, archival uses a file called `manifest.toml` to define global site configuration.
+
+These fields are:
+
+- `archival_version`: the minimum compatible archival version that this site uses. Archival always checks this version before running if defined, to avoid unexpected compatibility errors.
+- `prebuild`: a list of commands that should be run before building this site. When using archival with javascript or css frameworks, this will make sure `archival build` is not missing files.
+- `object_definition_file`: overrides the location of the object definition file. Default `objects.toml`
+- `pages_dir`: overrides the location of your pages templates. Default `pages`
+- `objects_dir`: overrides the location of your object files. Default `objects`
+- `build_dir`: overrides the output directory that archival will build static assets into. Default `dist`
+- `layout_dir`: overrides the location of your layouts. Default `layout`
+- `site_url`: when the archival editor previews a site, it uses this field to serve live assets for files that aren’t built by the editor - for instance, anything typically generated by the `prebuild` commands.
+- `archival_site`: this defines the [`onarchival.dev`](http://onarchival.dev) subdomain and site name that archival uses in the editor. This is also used as an asset host for built assets that are not managed by archival if `site_url` is not defined.
+"""
