@@ -1,7 +1,8 @@
 {% layout 'theme' title: "archival manifesto" %}
 
-<h1 class="page-title">{{ objects.manifesto.title }}</h1>
-
-<div class="content">
-  {{ objects.manifesto.content }}
+<div class="mt-20 py-20 flex flex-col items-center gap-10 bg-pink-light shadow-md">
+  <h1 class="font-header text-2xl">{{ objects.manifesto.title }}</h1>
+  <div class="md w-full max-w-screen-md px-10 text-lg font-sans">
+    {{ objects.manifesto.content }}
+  </div>
 </div>
