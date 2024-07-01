@@ -16,6 +16,17 @@ html, body {
     margin: .2em;
 }
 
+.logo-icon > * {
+    display: block;
+    position: absolute;
+}
+.logo-icon .color {
+    display: none;
+}
+#logo:hover .color {
+    display: block;
+}
+
 .gradient-bg {
     background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
     background-attachment: fixed;

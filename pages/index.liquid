@@ -47,7 +47,7 @@
     {% assign is_odd = forloop.index0 | modulo: 2 %}
     <div class="section text-xl p-10 mb-10 bg-pink-light ring-peach ring-4 shadow-lg rounded-2xl">
       <h2 class="text-4xl m-10 mt-0 font-section-title font-extrabold {% if is_odd == 1 %}text-right{% endif %}">{{ section.title }}</h2>
-      <div class="content {% if is_odd == 1 %}pr-20{% else %}pl-20{% endif %}">
+      <div class="content {% if is_odd == 1 %}pr-10{% else %}pl-10{% endif %}">
         {{ section.content }}
       </div>
     </div>
