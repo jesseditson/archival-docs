@@ -1,4 +1,4 @@
 archival_version = "0.5.7"
 prebuild = ["npm ci", "npm run build"]
 archival_site = "docs"
-site_url = "https://docs.archival.dev"
+site_url = "https://docs.onarchival.dev"
