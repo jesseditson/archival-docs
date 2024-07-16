@@ -10,6 +10,10 @@ pricing_title = "string"
 pricing_content = "markdown"
 
 [home.sections]
+image_a = "image"
+image_a_shadow = "image"
+image_b = "image"
+image_b_shadow = "image"
 title = "string"
 content = "markdown"
 

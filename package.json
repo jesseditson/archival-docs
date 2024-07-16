@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "devDependencies": {
     "@chialab/esbuild-plugin-meta-url": "^0.17.5",
-    "@types/three": "^0.165.0",
     "esbuild": "^0.17.18",
     "npm-run-all": "^4.1.5",
     "postcss-import": "^16.1.0",
@@ -21,7 +20,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
-  "dependencies": {
-    "three": "^0.165.0"
-  }
+  "dependencies": {}
 }

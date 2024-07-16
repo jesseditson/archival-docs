@@ -5,7 +5,7 @@
   id="header"
   style="background-image: url('{{ home.header.url }}')"
   title="{{ home.header_alt }}"
-  class="w-full flex flex-col justify-center items-center gap-8 pt-20 my-20">
+  class="w-full flex flex-col justify-center items-center gap-8 py-20 my-20">
   <div id="header-logo" class="flex items-center justify-between flex-col">
     <div class="icon w-48 h-48 relative flex items-center justify-center">
       <img
@@ -37,17 +37,25 @@
     </div>
     <h1 class="logo-text text-purple font-bold text-5xl font-section-title">archival</h1>
   </div>
-  <div id="header-ctas" class="w-full flex justify-around">
+  <div id="header-ctas" class="w-full flex justify-around absolute translate-y-48 p-48">
     <a
       id="header-docs"
       href="/docs/getting-started.html"
-      class="h-32 flex items-end">
+      class="flex flex-col items-center">
+      <div class="shadow-image relative w-48 h-48">
+        <img class="bg absolute top-0 left-0 w-full h-full" src="/img/book-shadow.png" />
+        <img class="fg absolute top-0 left-0 w-full h-full" src="/img/book.png" />
+      </div>
       <h4 class="logo-text text-purple font-bold text-2xl font-section-title">Documentation</h4>
     </a>
     <a
       id="header-create"
       href="https://editor.archival.dev/new"
-      class="h-32 flex items-end">
+      class="flex flex-col items-center">
+      <div class="shadow-image relative w-48 h-48">
+        <img class="bg absolute top-0 left-0 w-full h-full" src="/img/rocket-shadow.png" />
+        <img class="fg absolute top-0 left-0 w-full h-full" src="/img/rocket.png" />
+      </div>
       <h4 class="logo-text text-purple font-bold text-2xl font-section-title">Create a Website</h4>
     </a>
   </div>
@@ -60,6 +68,14 @@
       <h2 class="text-4xl m-10 mt-0 font-section-title font-extrabold {% if is_odd == 1 %}text-right{% endif %}">{{ section.title }}</h2>
       <div class="content {% if is_odd == 1 %}pr-10{% else %}pl-10{% endif %}">
         {{ section.content }}
+      </div>
+      <div class="image-a shadow-image absolute hidden">
+        <img class="fg" src="{{section.image_a}}" />
+        <img class="bg" src="{{section.image_a_shadow}}" />
+      </div>
+      <div class="image-b shadow-image absolute hidden">
+        <img class="fg" src="{{section.image_b}}" />
+        <img class="bg" src="{{section.image_b_shadow}}" />
       </div>
     </div>
   {% endfor %}

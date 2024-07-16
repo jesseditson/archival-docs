@@ -1,26 +1,37 @@
-import { init } from "./3d";
-
 window.addEventListener("load", () => {
-  const canvas = document.getElementById("3d") as HTMLCanvasElement | undefined;
-  if (canvas) {
-    const render = init(
-      canvas,
-      Array.from(document.getElementsByClassName("section")) as HTMLElement[],
-      {
-        logo: document.querySelector("#header-logo") as HTMLElement,
-        docs: document.querySelector("#header-docs") as HTMLElement,
-        create: document.querySelector("#header-create") as HTMLElement,
-      }
-    );
-    const tick = (time: DOMHighResTimeStamp) => {
-      render(time);
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }
-
   setupHeaderVideos();
+
+  let needsUpdate = true;
+  const update = () => {
+    if (needsUpdate) {
+      needsUpdate = false;
+      updateShadowImages();
+    }
+  };
+  const debouncedUpdate = () => {
+    needsUpdate = true;
+    requestAnimationFrame(update);
+  };
+  window.addEventListener("scroll", debouncedUpdate);
+  window.addEventListener("resize", debouncedUpdate);
+  update();
 });
+
+// Factor by which to offset shadow
+const SHADOW_DISTANCE = 20;
+const updateShadowImages = () => {
+  const viewH = window.innerHeight;
+  document.querySelectorAll(".shadow-image").forEach((img, i) => {
+    const shadow = img.querySelector(".bg") as HTMLImageElement;
+    const { top, height } = img.getBoundingClientRect();
+    const topDistance = top + height / 2;
+    const center = topDistance / viewH;
+    // Shadow move in the inverse direction of scroll, on a logarithmic curve
+    const size = center * SHADOW_DISTANCE;
+    const yShift = Math.log(size) * SHADOW_DISTANCE;
+    shadow.style.transform = `translateY(${yShift - SHADOW_DISTANCE}px)`;
+  });
+};
 
 const setupHeaderVideos = () => {
   // TODO:
