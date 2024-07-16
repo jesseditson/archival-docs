@@ -5,16 +5,43 @@
   id="header"
   style="background-image: url('{{ home.header.url }}')"
   title="{{ home.header_alt }}"
-  class="w-full flex flex-col justify-center items-center gap-8 py-20 my-20">
+  class="z-30 w-full flex flex-col justify-center items-center gap-8 p-20 my-20">
   <div id="header-logo" class="flex items-center justify-between flex-col">
+    <div id="header-ctas" class="w-full max-w-[1200px] flex justify-around absolute translate-y-60 px-10 z-20">
+      <a
+        id="header-docs"
+        href="/docs/getting-started.html"
+        class="flex flex-col items-center">
+        <div class="shadow-image relative w-48 h-48">
+          <img class="bg absolute top-0 left-0 w-full h-full z-0" src="/img/book-shadow.png" />
+          <img class="fg absolute top-0 left-0 w-full h-full z-20" src="/img/book.png" />
+        </div>
+        <h4 class="logo-text text-purple font-bold text-2xl font-section-title">Documentation</h4>
+      </a>
+      <a
+        id="header-create"
+        href="https://editor.archival.dev/new"
+        class="flex flex-col items-center">
+        <div class="shadow-image relative w-48 h-48">
+          <img class="bg absolute top-0 left-0 w-full h-full" src="/img/rocket-shadow.png" />
+          <img class="fg absolute top-0 left-0 w-full h-full" src="/img/rocket.png" />
+        </div>
+        <h4 class="logo-text text-purple font-bold text-2xl font-section-title">Create a Website</h4>
+      </a>
+    </div>
     <div class="icon w-48 h-48 relative flex items-center justify-center">
       <img
+        id="header-shadow"
+        src="/img/shadow.png"
+        class="z-0"
+        alt="archival" />
+      <img
         id="header-image"
-        class="z-30"
         src="/img/logo3d.png"
+        class="z-10"
         alt="archival" />
       <video
-        class="z-30 header-video absolute top-0 w-full h-full hidden"
+        class="header-video absolute top-0 w-full h-full hidden"
         muted
         preload="auto"
         playsinline>
@@ -22,42 +49,15 @@
         <source src="/vid/ttp.webm" type="video/webm">
       </video>
       <video
-        class="z-30 header-video absolute top-0 w-full h-full hidden"
+        class="header-video absolute top-0 w-full h-full hidden"
         muted
         preload="auto"
         playsinline>
         <source src="/vid/ptt.mov" type='video/mp4; codecs="hvc1"'>
         <source src="/vid/ptt.webm" type="video/webm">
       </video>
-      <img
-        id="header-shadow"
-        class="z-20"
-        src="/img/shadow.png"
-        alt="archival" />
     </div>
     <h1 class="logo-text text-purple font-bold text-5xl font-section-title">archival</h1>
-  </div>
-  <div id="header-ctas" class="w-full flex justify-around absolute translate-y-48 p-48">
-    <a
-      id="header-docs"
-      href="/docs/getting-started.html"
-      class="flex flex-col items-center">
-      <div class="shadow-image relative w-48 h-48">
-        <img class="bg absolute top-0 left-0 w-full h-full" src="/img/book-shadow.png" />
-        <img class="fg absolute top-0 left-0 w-full h-full" src="/img/book.png" />
-      </div>
-      <h4 class="logo-text text-purple font-bold text-2xl font-section-title">Documentation</h4>
-    </a>
-    <a
-      id="header-create"
-      href="https://editor.archival.dev/new"
-      class="flex flex-col items-center">
-      <div class="shadow-image relative w-48 h-48">
-        <img class="bg absolute top-0 left-0 w-full h-full" src="/img/rocket-shadow.png" />
-        <img class="fg absolute top-0 left-0 w-full h-full" src="/img/rocket.png" />
-      </div>
-      <h4 class="logo-text text-purple font-bold text-2xl font-section-title">Create a Website</h4>
-    </a>
   </div>
 </div>
 
