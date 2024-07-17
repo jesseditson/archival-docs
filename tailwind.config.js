@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./pages/**/*.liquid", "./layout/*.liquid"],
+  content: ["./pages/**/*.liquid", "./layout/*.liquid", "src/index.ts"],
   theme: {
     screens: {
       sm: "480px",
@@ -19,8 +19,10 @@ module.exports = {
       green: "#13ce66",
       yellow: "#ffc82c",
       "gray-dark": "#273444",
+      "gray-md": "rgb(200,200,200)",
       gray: "rgb(230,230,230)",
       "gray-light": "rgb(240,240,240)",
+      white: "#ffffff",
     },
     fontFamily: {
       "section-title": ["paradigm-pro", "sans-serif"],
@@ -28,7 +30,11 @@ module.exports = {
       header: ["lorimer-no-2", "serif"],
       mono: ["ff-nuvo-mono-web-pro", "monospace"],
     },
-    extend: {},
+    extend: {
+      boxShadow: {
+        up: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+      },
+    },
   },
   plugins: [],
 };

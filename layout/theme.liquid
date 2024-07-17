@@ -49,7 +49,7 @@
     <nav
       id="nav"
       role="nav"
-      class="z-50 w-full top-0 fixed py-5 backdrop-blur-md shadow-lg flex justify-between font-bold">
+      class="z-50 w-full bottom-0 shadow-up fixed py-5 flex justify-between font-bold gap-4 bg-white md:backdrop-blur-md md:bottom-auto md:top-0 md:shadow-lg">
       <div id="logo" class="mx-5">
         <a href="/" class="flex gap-2 items-center">
           <div class="logo-icon w-[44px] h-[44px] relative">
@@ -64,17 +64,38 @@
           <span class="logo-text text-2xl">archival</span>
         </a>
       </div>
-      <div class="flex-1 justify-center hidden md:flex">
-      {% comment %} TODO search {% endcomment %}
-      {% comment %}
-        <input
-        id="search"
-        type="search"
-        class="rounded-lg border-1 border-gray shadow-inner-md px-6 backdrop-blur-md bg-none w-full max-w-72"
-        placeholder="Search ⌘K">
-      {% endcomment %}
+      <div class="flex-1 justify-end md:justify-center flex">
+        <button id="quick-search" class="flex gap-4 font-light text-sm items-center text-gray-dark md:border md:opacity-60 md:border-gray md:bg-white md:rounded-lg md:px-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-search">
+            <circle
+              cx="11"
+              cy="11"
+              r="8"></circle>
+            <line
+              x1="21"
+              y1="21"
+              x2="16.65"
+              y2="16.65"></line>
+          </svg>
+          <div class="hidden md:flex">
+            Quick Search...
+          </div>
+          <div class="hidden md:flex">
+            ⌘K
+          </div>
+        </button>
       </div>
-      <ul class="flex flex-shrink justify-end gap-2 items-center flex-wrap mr-5">
+      <ul class="flex-shrink justify-end gap-2 items-center flex-wrap mr-5 hidden md:flex">
         {% assign docs_link = objects.docs | first %}
         <li class="hover:text-teal">
           <a href="/{{ docs_link.path }}.html">Docs</a>
@@ -96,7 +117,98 @@
           <a href="https://docs.rs/archival/"><img src="/img/rust.png" alt="rust library documentation" /></a>
         </li>
       </ul>
+      <div class="md:hidden mr-5 flex items-center">
+        <button>
+          <div id="menu-closed">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-menu">
+              <line
+                x1="3"
+                y1="12"
+                x2="21"
+                y2="12"></line>
+              <line
+                x1="3"
+                y1="6"
+                x2="21"
+                y2="6"></line>
+              <line
+                x1="3"
+                y1="18"
+                x2="21"
+                y2="18"></line>
+            </svg>
+          </div>
+          <div id="menu-open" class="hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-x">
+              <line
+                x1="18"
+                y1="6"
+                x2="6"
+                y2="18"></line>
+              <line
+                x1="6"
+                y1="6"
+                x2="18"
+                y2="18"></line>
+            </svg>
+          </div>
+        </button>
+      </div>
     </nav>
+    <div id="mobile-menu" class="translate-y-full transition-transform shadow-up bg-white fixed w-full pb-20 px-4 bottom-0 z-40 text-xl text-gray-dark rounded-lg md:hidden">
+      {% if area == "home" %}
+        <ul class=" flex flex-col">
+          {% assign docs_link = objects.docs | first %}
+          <li class="flex hover:text-teal border-b border-gray-light px-8 py-6">
+            <a class="flex-1" href="/{{ docs_link.path }}.html">Documentation</a>
+          </li>
+          {% assign cli_link = objects.cli | first %}
+          <li class="flex hover:text-teal border-b border-gray-light px-8 py-6">
+            <a class="flex-1" href="/{{ cli_link.path }}.html">CLI docs</a>
+          </li>
+          <li class="flex hover:text-teal border-b border-gray-light px-8 py-6">
+            <a class="flex-1" href="/manifesto.html">Manifesto</a>
+          </li>
+          <li class="flex hover:text-teal border-b border-gray-light px-8 py-6">
+            <a class="flex-1" href="https://editor.archival.dev">Editor</a>
+          </li>
+          <li class="flex gap-10 border-b border-gray-light px-8 py-6">
+            <a class="flex-1 flex items-center gap-4" href="https://github.com/jesseditson/archival"><img
+                class="w-5 h-5"
+                src="/img/github-mark.png"
+                alt="github" /> Github</a>
+          </li>
+          <li class="flex gap-10 px-8 py-6">
+            <a class="flex-1 flex items-center gap-4" href="https://docs.rs/archival/"><img
+                src="/img/rust.png"
+                class="w-5 h-5"
+                alt="rust library documentation" /> Rust Library</a>
+          </li>
+        </ul>
+      {% elsif area == "docs" %}
+      {% elsif area == "cli" %}
+      {% endif %}
+    </div>
     <main
       role="main"
       tabindex="-1"

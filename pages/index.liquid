@@ -1,7 +1,8 @@
-{% layout 'theme' title: "archival" %}
+{% layout 'theme' title: "archival"
+  , area: "home" %}
 {% assign home = objects.home %}
 
-<div id="header" class="z-30 w-full flex flex-col justify-center items-center gap-8 p-20 mt-8 mb-40">
+<div id="header" class="z-30 w-full flex flex-col justify-center items-center gap-8 p-20 mt-8 mb-40 pt-0 md:pt-20">
   <div id="header-logo" class="flex items-center justify-between flex-col">
     <div id="header-ctas" class="w-full max-w-full md:max-w-[1200px] flex justify-around absolute translate-y-60 z-20">
       <a
