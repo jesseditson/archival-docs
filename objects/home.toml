@@ -69,38 +69,39 @@ mime = "image/*"
 [[sections]]
 title = "Content-First Websites"
 content = """
-Most websites are built around showing data. Archival is a tool for defining the structure of a website along with the presentation, which results in super fast, database-free static websites, that can be updated dynamically.
+Most websites are built around showing content. Archival is a tool for defining the content structure of a website along with the presentation, which results in **super fast, database-free static websites, that can be updated dynamically as if they were built on expensive platforms like Wordpress or Squarespace**.
 """
 
-[sections.image_a]
-display_type = "image"
-mime = "image/png"
-sha = "1527bb15001ca3b749157e0823aee5cbc79e2a754e002c4903e96b926ad89493"
-filename = "markdown.png"
-
 [sections.image_a_shadow]
-sha = "7b5293730952d2a2929a35686db79e6c4600a6cf87376f6b477686f05c33cc00"
-filename = "markdown-shadow.png"
-mime = "image/png"
-display_type = "image"
-
-[sections.image_b_shadow]
 mime = "image/png"
 display_type = "image"
 sha = "5c0188786ad50044609fbfbac55a05ec274fea46b6db8ae336500eff2723e8fe"
 filename = "video-shadow.png"
 
-[sections.image_b]
+[sections.image_a]
 mime = "image/png"
 sha = "5cf1b77071c1ba6389abb2f0fed49332f678aac254d8101b8fe4c9d2117e0ac4"
 filename = "video.png"
+display_type = "image"
+
+[sections.image_b]
+display_type = "image"
+mime = "image/png"
+sha = "1527bb15001ca3b749157e0823aee5cbc79e2a754e002c4903e96b926ad89493"
+filename = "markdown.png"
+
+[sections.image_b_shadow]
+sha = "7b5293730952d2a2929a35686db79e6c4600a6cf87376f6b477686f05c33cc00"
+filename = "markdown-shadow.png"
+mime = "image/png"
 display_type = "image"
 
 [[sections]]
 title = "Use Any Framework, or Don’t"
 content = """
 Many web frameworks are “full stack”, requiring you to lock in to an ecosystem and learn about complex topics like SSR and Databases to be productive & build fast websites.
-Archival templates work out of the box, and allow you to choose a framework that best fits your project’s needs - or no framework at all for super-fast, javascript-light websites.
+
+**Archival templates work out of the box, and allow you to choose a framework that best fits your project’s needs - or no framework at all for super-fast, javascript-light websites.**
 """
 
 [sections.image_b_shadow]
@@ -130,6 +131,8 @@ mime = "image/png"
 [[sections]]
 content = """
 Archival templates are ready to deploy immediately. All websites built with archival can be edited & deployed via editor.archival.dev to an archival subdomain or custom web domain, in minutes.
+
+**Archival's editor allows powerful on-the-go editing that is version controlled yet easier than updating a social media profile - the best of both custom websites and content management systems.**
 """
 title = "Go to Production Immediately"
 
