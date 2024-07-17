@@ -1,13 +1,21 @@
 {
     "sections": [
       {% for doc in objects.docs %}
+        {% assign outer_last = forloop.last %}
+        {% assign section_count = doc.sections | size %}
+        {
+            "path": "/{{doc.path}}.html",
+            "docTitle": "/{{doc.path}}.html",
+            "sectionTitle": null,
+            "content": "{{doc.description | url_decode | replace: '"', '\"' | strip_newlines | url_encode }}"
+        }{% unless outer_last and section_count == 0 %},{% endunless %}
         {% for section in doc.sections %}
           {
             "path": "/{{doc.path}}.html#{{section.title | url_encode }}",
             "docTitle": "{{doc.title}}",
             "sectionTitle": "{{section.title}}",
-            "content": "{{section.content}}"
-          }
+            "content": "{{section.content | url_decode | replace: '"', '\"' | strip_newlines | url_encode }}"
+        }{% unless forloop.last and outer_last %},{% endunless %}
         {% endfor %}
       {% endfor %}
     ]
