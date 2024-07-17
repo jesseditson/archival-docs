@@ -1,0 +1,14 @@
+{
+    "sections": [
+      {% for doc in objects.docs %}
+        {% for section in doc.sections %}
+          {
+            "path": "/{{doc.path}}.html#{{section.title | url_encode }}",
+            "docTitle": "{{doc.title}}",
+            "sectionTitle": "{{section.title}}",
+            "content": "{{section.content}}"
+          }
+        {% endfor %}
+      {% endfor %}
+    ]
+}
