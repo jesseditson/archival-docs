@@ -13,10 +13,10 @@ header_alt = "archival.dev"
 pricing_title = "Pricing"
 
 [header]
-sha = ""
 filename = ""
-display_type = "image"
 mime = "image/*"
+sha = ""
+display_type = "image"
 
 [[personas]]
 content = """
@@ -25,10 +25,10 @@ Archival is built to allow you to focus on the unique parts of your app, and rem
 title = "I am a web designer"
 
 [personas.image]
-filename = ""
 sha = ""
-mime = "image/*"
 display_type = "image"
+filename = ""
+mime = "image/*"
 
 [[personas]]
 title = "I am a frontend engineer"
@@ -38,8 +38,8 @@ Archival has tons of templates that preconfigure frontend frameworks. Interested
 
 [personas.image]
 display_type = "image"
-filename = ""
 sha = ""
+filename = ""
 mime = "image/*"
 
 [[personas]]
@@ -49,10 +49,10 @@ Archival is not just the fastest way to build websites, it’s the simplest way 
 title = "I build websites for clients"
 
 [personas.image]
+filename = ""
+mime = "image/*"
 display_type = "image"
 sha = ""
-mime = "image/*"
-filename = ""
 
 [[personas]]
 content = """
@@ -70,9 +70,9 @@ mime = "image/*"
 title = "Launch a Podcast in less than 10 minutes"
 
 [videos.video]
-display_type = "video"
-sha = ""
 filename = ""
+sha = ""
+display_type = "video"
 mime = "video/*"
 
 [[sections]]
@@ -83,28 +83,28 @@ Most websites are built around showing data. Archival is a tool for defining the
 
 [sections.image_b_shadow]
 sha = ""
-mime = "image/*"
 display_type = "image"
+mime = "image/*"
 filename = ""
 
 [sections.image_a]
+display_type = "image"
+name = "video.png"
 mime = "image/png"
 sha = "5cf1b77071c1ba6389abb2f0fed49332f678aac254d8101b8fe4c9d2117e0ac4"
-name = "video.png"
-display_type = "image"
 filename = "video.png"
 
 [sections.image_a_shadow]
-mime = "image/png"
-filename = "video-shadow.png"
-display_type = "image"
 sha = "5c0188786ad50044609fbfbac55a05ec274fea46b6db8ae336500eff2723e8fe"
 name = "video-shadow.png"
+filename = "video-shadow.png"
+mime = "image/png"
+display_type = "image"
 
 [sections.image_b]
 mime = "image/*"
-filename = ""
 sha = ""
+filename = ""
 display_type = "image"
 
 [[sections]]
@@ -115,28 +115,28 @@ Archival templates work out of the box, and allow you to choose a framework that
 """
 
 [sections.image_a]
-display_type = "image"
-mime = "image/*"
 sha = ""
+mime = "image/*"
 filename = ""
+display_type = "image"
 
 [sections.image_a_shadow]
-mime = "image/*"
-display_type = "image"
 sha = ""
 filename = ""
+mime = "image/*"
+display_type = "image"
 
 [sections.image_b]
-filename = ""
 mime = "image/*"
-sha = ""
 display_type = "image"
+sha = ""
+filename = ""
 
 [sections.image_b_shadow]
-sha = ""
 filename = ""
-display_type = "image"
+sha = ""
 mime = "image/*"
+display_type = "image"
 
 [[sections]]
 content = """
@@ -148,25 +148,25 @@ title = "Go to Production Immediately"
 filename = "cloud-shadow.png"
 name = "cloud-shadow.png"
 display_type = "image"
-sha = "276b4d056d8306ad840716617ef4f1a7d31a3f82592ceb85e91fb2cbdea407cc"
 mime = "image/png"
+sha = "276b4d056d8306ad840716617ef4f1a7d31a3f82592ceb85e91fb2cbdea407cc"
 
 [sections.image_a_shadow]
-sha = ""
-filename = ""
 display_type = "image"
 mime = "image/*"
+sha = ""
+filename = ""
 
 [sections.image_a]
-sha = ""
 filename = ""
-mime = "image/*"
+sha = ""
 display_type = "image"
+mime = "image/*"
 
 [sections.image_b]
-mime = "image/png"
-filename = "cloud.png"
 display_type = "image"
+filename = "cloud.png"
+mime = "image/png"
 sha = "e7ea9b6a85aec24843c4e3e5e7a6e29bc0f5d592757895672b3080baa0c32b95"
 name = "cloud.png"
 
@@ -177,25 +177,25 @@ Archival websites are built to be easy to maintain & last forever. Archival uses
 """
 
 [sections.image_a_shadow]
-sha = ""
 filename = ""
-display_type = "image"
+sha = ""
 mime = "image/*"
+display_type = "image"
 
 [sections.image_b_shadow]
-filename = ""
-sha = ""
-mime = "image/*"
 display_type = "image"
+filename = ""
+mime = "image/*"
+sha = ""
 
 [sections.image_a]
+sha = ""
+filename = ""
 display_type = "image"
 mime = "image/*"
-filename = ""
-sha = ""
 
 [sections.image_b]
-filename = ""
 display_type = "image"
-sha = ""
 mime = "image/*"
+sha = ""
+filename = ""
