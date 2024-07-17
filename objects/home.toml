@@ -1,4 +1,7 @@
 order = -1
+manifesto_link_title = "Read the archival manifesto"
+personas_title = "What Can Archival do for Me?"
+videos_title = "Show Me How It Works"
 pricing_content = """
 Archival is run by a tiny team with a goal of staying small. You can use archival for free forever, and you can ship archival sites to platforms like Vercel, Netlify, or host archival websites on your own static servers.
 
@@ -6,133 +9,13 @@ Our goal is to be cheaper and easier than the other options, and our pricing is 
 
 If you’re interested in hiring the archival team to build something custom for you, host a large number of sites on archival, or otherwise find our pricing model imperfect for your use case, reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we’ll get you what you need!
 """
-manifesto_link_title = "Read the archival manifesto"
-personas_title = "What Can Archival do for Me?"
-videos_title = "Show Me How It Works"
-pricing_title = "Pricing"
 header_alt = "archival.dev"
+pricing_title = "Pricing"
 
-[[sections]]
-content = """
-Most websites are built around showing data. Archival is a tool for defining the structure of a website along with the presentation, which results in super fast, database-free static websites, that can be updated dynamically.
-"""
-title = "Content-First Websites"
-
-[sections.image_b]
-sha = ""
-display_type = "image"
-mime = "image/*"
-filename = ""
-
-[sections.image_a_shadow]
-mime = "image/*"
-filename = ""
-sha = ""
-display_type = "image"
-
-[sections.image_a]
-sha = ""
-mime = "image/*"
-display_type = "image"
-filename = ""
-
-[sections.image_b_shadow]
-mime = "image/*"
-sha = ""
-filename = ""
-display_type = "image"
-
-[[sections]]
-content = """
-Many web frameworks are “full stack”, requiring you to lock in to an ecosystem and learn about complex topics like SSR and Databases to be productive & build fast websites.
-Archival templates work out of the box, and allow you to choose a framework that best fits your project’s needs - or no framework at all for super-fast, javascript-light websites.
-"""
-title = "Use Any Framework, or Don’t"
-
-[sections.image_b]
-filename = ""
-mime = "image/*"
-display_type = "image"
-sha = ""
-
-[sections.image_a]
-sha = ""
+[header]
 display_type = "image"
 filename = ""
 mime = "image/*"
-
-[sections.image_b_shadow]
-sha = ""
-display_type = "image"
-mime = "image/*"
-filename = ""
-
-[sections.image_a_shadow]
-mime = "image/*"
-sha = ""
-filename = ""
-display_type = "image"
-
-[[sections]]
-content = """
-Archival templates are ready to deploy immediately. All websites built with archival can be edited & deployed via editor.archival.dev to an archival subdomain or custom web domain, in minutes.
-"""
-title = "Go to Production Immediately"
-
-[sections.image_b]
-display_type = "image"
-mime = "image/png"
-filename = "cloud.png"
-sha = "15a57914f316bf463842f00fec9b4379c0ba28c32caa51ded7c18e77203f58a7"
-name = "cloud.png"
-
-[sections.image_a]
-mime = "image/*"
-sha = ""
-display_type = "image"
-filename = ""
-
-[sections.image_a_shadow]
-sha = ""
-mime = "image/*"
-filename = ""
-display_type = "image"
-
-[sections.image_b_shadow]
-mime = "image/png"
-filename = "cloud-shadow.png"
-sha = "c550e6ad7f429f4a6f70980936f542f068e3cd360be60840f0e024bd6f00e110"
-name = "cloud-shadow.png"
-display_type = "image"
-
-[[sections]]
-title = "Maintainable and Durable"
-content = """
-Archival websites are built to be easy to maintain & last forever. Archival uses git to track changes to your website, which makes it possible to rebuild your website at any point in its history, rewind to old versions, and track who made every change.
-"""
-
-[sections.image_a_shadow]
-display_type = "image"
-filename = ""
-mime = "image/*"
-sha = ""
-
-[sections.image_b]
-display_type = "image"
-filename = ""
-sha = ""
-mime = "image/*"
-
-[sections.image_a]
-mime = "image/*"
-filename = ""
-display_type = "image"
-sha = ""
-
-[sections.image_b_shadow]
-filename = ""
-mime = "image/*"
-display_type = "image"
 sha = ""
 
 [[personas]]
@@ -142,10 +25,10 @@ Archival is built to allow you to focus on the unique parts of your app, and rem
 title = "I am a web designer"
 
 [personas.image]
-sha = ""
 mime = "image/*"
 filename = ""
 display_type = "image"
+sha = ""
 
 [[personas]]
 title = "I am a frontend engineer"
@@ -155,9 +38,9 @@ Archival has tons of templates that preconfigure frontend frameworks. Interested
 
 [personas.image]
 mime = "image/*"
-display_type = "image"
 sha = ""
 filename = ""
+display_type = "image"
 
 [[personas]]
 content = """
@@ -166,10 +49,10 @@ Archival is not just the fastest way to build websites, it’s the simplest way 
 title = "I build websites for clients"
 
 [personas.image]
-sha = ""
-filename = ""
 mime = "image/*"
+filename = ""
 display_type = "image"
+sha = ""
 
 [[personas]]
 content = """
@@ -179,8 +62,8 @@ title = "I am learning how to build websites"
 
 [personas.image]
 sha = ""
-mime = "image/*"
 filename = ""
+mime = "image/*"
 display_type = "image"
 
 [[videos]]
@@ -189,11 +72,130 @@ title = "Launch a Podcast in less than 10 minutes"
 [videos.video]
 display_type = "video"
 filename = ""
-mime = "video/*"
 sha = ""
+mime = "video/*"
 
-[header]
+[[sections]]
+title = "Content-First Websites"
+content = """
+Most websites are built around showing data. Archival is a tool for defining the structure of a website along with the presentation, which results in super fast, database-free static websites, that can be updated dynamically.
+"""
+
+[sections.image_b_shadow]
 sha = ""
 filename = ""
+mime = "image/*"
 display_type = "image"
+
+[sections.image_a]
+name = "video.png"
+sha = "5cf1b77071c1ba6389abb2f0fed49332f678aac254d8101b8fe4c9d2117e0ac4"
+mime = "image/png"
+display_type = "image"
+filename = "video.png"
+
+[sections.image_a_shadow]
+filename = "video-shadow.png"
+mime = "image/png"
+display_type = "image"
+sha = "5c0188786ad50044609fbfbac55a05ec274fea46b6db8ae336500eff2723e8fe"
+name = "video-shadow.png"
+
+[sections.image_b]
+display_type = "image"
+sha = ""
+filename = ""
+mime = "image/*"
+
+[[sections]]
+title = "Use Any Framework, or Don’t"
+content = """
+Many web frameworks are “full stack”, requiring you to lock in to an ecosystem and learn about complex topics like SSR and Databases to be productive & build fast websites.
+Archival templates work out of the box, and allow you to choose a framework that best fits your project’s needs - or no framework at all for super-fast, javascript-light websites.
+"""
+
+[sections.image_a]
+sha = ""
+filename = ""
+mime = "image/*"
+display_type = "image"
+
+[sections.image_a_shadow]
+display_type = "image"
+sha = ""
+filename = ""
+mime = "image/*"
+
+[sections.image_b]
+filename = ""
+sha = ""
+display_type = "image"
+mime = "image/*"
+
+[sections.image_b_shadow]
+mime = "image/*"
+filename = ""
+display_type = "image"
+sha = ""
+
+[[sections]]
+content = """
+Archival templates are ready to deploy immediately. All websites built with archival can be edited & deployed via editor.archival.dev to an archival subdomain or custom web domain, in minutes.
+"""
+title = "Go to Production Immediately"
+
+[sections.image_b_shadow]
+display_type = "image"
+mime = "image/png"
+filename = "cloud-shadow.png"
+name = "cloud-shadow.png"
+sha = "276b4d056d8306ad840716617ef4f1a7d31a3f82592ceb85e91fb2cbdea407cc"
+
+[sections.image_a_shadow]
+mime = "image/*"
+filename = ""
+sha = ""
+display_type = "image"
+
+[sections.image_a]
+sha = ""
+mime = "image/*"
+display_type = "image"
+filename = ""
+
+[sections.image_b]
+display_type = "image"
+filename = "cloud.png"
+name = "cloud.png"
+mime = "image/png"
+sha = "e7ea9b6a85aec24843c4e3e5e7a6e29bc0f5d592757895672b3080baa0c32b95"
+
+[[sections]]
+title = "Maintainable and Durable"
+content = """
+Archival websites are built to be easy to maintain & last forever. Archival uses git to track changes to your website, which makes it possible to rebuild your website at any point in its history, rewind to old versions, and track who made every change.
+"""
+
+[sections.image_a_shadow]
+sha = ""
+mime = "image/*"
+filename = ""
+display_type = "image"
+
+[sections.image_b_shadow]
+mime = "image/*"
+display_type = "image"
+filename = ""
+sha = ""
+
+[sections.image_a]
+filename = ""
+display_type = "image"
+sha = ""
+mime = "image/*"
+
+[sections.image_b]
+sha = ""
+display_type = "image"
+filename = ""
 mime = "image/*"
