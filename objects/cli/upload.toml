@@ -9,10 +9,10 @@ flags = "-h, --help"
 description = "print help for this command."
 [[arguments]]
 arg = "<object>"
-description = "The object to upload data for"
+description = "The object to upload data for. In the case of non-root objects. This is usually the object path minus the `objects_dir` prefix and the `.toml` extension, for instance, `my-object-type/object-name`."
 [[arguments]]
 arg = "<field>"
-description = "The field to point at the uploaded data"
+description = "The field to point at the uploaded data. If not defined at the root of the object, dots can be used to indicate child indexes and fields. For instance `child.0.child-field` would point to the first `child`'s `child-field`."
 [[arguments]]
 arg = "<file>"
 description = "A path to a file to upload"
