@@ -1,7 +1,7 @@
 order = -1
+header_alt = "archival.dev"
+pricing_title = "Pricing"
 manifesto_link_title = "Read the archival manifesto"
-personas_title = "What Can Archival do for Me?"
-videos_title = "Show Me How It Works"
 pricing_content = """
 Archival is run by a tiny team with a goal of staying small. You can use archival for free forever, and you can ship archival sites to platforms like Vercel, Netlify, or host archival websites on your own static servers.
 
@@ -9,14 +9,17 @@ Our goal is to be cheaper and easier than the other options, and our pricing is 
 
 If you’re interested in hiring the archival team to build something custom for you, host a large number of sites on archival, or otherwise find our pricing model imperfect for your use case, reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we’ll get you what you need!
 """
-header_alt = "archival.dev"
-pricing_title = "Pricing"
+videos_title = "Show Me How It Works"
+personas_title = "What Can Archival do for Me?"
 
-[header]
+[[videos]]
+title = "Launch a Podcast in less than 10 minutes"
+
+[videos.video]
+mime = "video/*"
 filename = ""
-mime = "image/*"
 sha = ""
-display_type = "image"
+display_type = "video"
 
 [[personas]]
 content = """
@@ -25,22 +28,22 @@ Archival is built to allow you to focus on the unique parts of your app, and rem
 title = "I am a web designer"
 
 [personas.image]
-sha = ""
-display_type = "image"
 filename = ""
 mime = "image/*"
+sha = ""
+display_type = "image"
 
 [[personas]]
-title = "I am a frontend engineer"
 content = """
 Archival has tons of templates that preconfigure frontend frameworks. Interested in learning three.js or Replicache? Set up a repo with archival and start playing with something that already works rather than spending time at the steepest part of the learning curve - or make your own templates with your preferred configurations to re-use or share them.
 """
+title = "I am a frontend engineer"
 
 [personas.image]
-display_type = "image"
-sha = ""
-filename = ""
 mime = "image/*"
+filename = ""
+sha = ""
+display_type = "image"
 
 [[personas]]
 content = """
@@ -49,31 +52,28 @@ Archival is not just the fastest way to build websites, it’s the simplest way 
 title = "I build websites for clients"
 
 [personas.image]
-filename = ""
-mime = "image/*"
 display_type = "image"
+filename = ""
 sha = ""
+mime = "image/*"
 
 [[personas]]
+title = "I am learning how to build websites"
 content = """
 Archival handles pretty much all of the steepest parts of the learning curves of web development - build configuration, database management, git config, deployment, and dns. All you need to learn to get started is a little HTML, CSS, TOML and Liquid. Because our templates are preconfigured with data models and UIs, you can learn by experimenting instead of studying. For most people, this will help you learn new technology dramatically faster than starting from scratch.
 """
-title = "I am learning how to build websites"
 
 [personas.image]
 sha = ""
 filename = ""
+mime = "image/*"
+display_type = "image"
+
+[header]
 display_type = "image"
 mime = "image/*"
-
-[[videos]]
-title = "Launch a Podcast in less than 10 minutes"
-
-[videos.video]
-filename = ""
 sha = ""
-display_type = "video"
-mime = "video/*"
+filename = ""
 
 [[sections]]
 title = "Content-First Websites"
@@ -82,30 +82,28 @@ Most websites are built around showing data. Archival is a tool for defining the
 """
 
 [sections.image_b_shadow]
-sha = ""
 display_type = "image"
-mime = "image/*"
-filename = ""
-
-[sections.image_a]
-display_type = "image"
-name = "video.png"
 mime = "image/png"
-sha = "5cf1b77071c1ba6389abb2f0fed49332f678aac254d8101b8fe4c9d2117e0ac4"
-filename = "video.png"
+sha = "5c0188786ad50044609fbfbac55a05ec274fea46b6db8ae336500eff2723e8fe"
+filename = "video-shadow.png"
 
 [sections.image_a_shadow]
-sha = "5c0188786ad50044609fbfbac55a05ec274fea46b6db8ae336500eff2723e8fe"
-name = "video-shadow.png"
-filename = "video-shadow.png"
-mime = "image/png"
 display_type = "image"
+sha = "7cfec4631861c802ee93e18eba007d0abbac22a5884a21b20774bc1ee5584e1f"
+filename = "markdown-shadow.png"
+mime = "image/png"
+
+[sections.image_a]
+sha = "b65e54cff8bbb5e5d2ae965bf9114b219541e8427136c5be53494cd443cc7305"
+filename = "markdown.png"
+display_type = "image"
+mime = "image/png"
 
 [sections.image_b]
-mime = "image/*"
-sha = ""
-filename = ""
+sha = "5cf1b77071c1ba6389abb2f0fed49332f678aac254d8101b8fe4c9d2117e0ac4"
+mime = "image/png"
 display_type = "image"
+filename = "video.png"
 
 [[sections]]
 title = "Use Any Framework, or Don’t"
@@ -114,61 +112,59 @@ Many web frameworks are “full stack”, requiring you to lock in to an ecosyst
 Archival templates work out of the box, and allow you to choose a framework that best fits your project’s needs - or no framework at all for super-fast, javascript-light websites.
 """
 
-[sections.image_a]
-sha = ""
-mime = "image/*"
-filename = ""
+[sections.image_b]
+mime = "image/png"
 display_type = "image"
+filename = "svelte.png"
+sha = "5441f6d9180d065b8848780e48877427c1a86300dd4649340f0067096adcbb2c"
 
 [sections.image_a_shadow]
-sha = ""
-filename = ""
-mime = "image/*"
+mime = "image/png"
+sha = "1df8868aaa15152aad80029dde7ad4137d39be32330484709bc4709aa8f48e05"
+filename = "javascript-shadow.png"
 display_type = "image"
 
-[sections.image_b]
-mime = "image/*"
+[sections.image_a]
+sha = "b084290a780ad9a5c86a6e0d194c0cfa6bea383182a21e7bd23647d638f151f5"
+filename = "javascript.png"
+mime = "image/png"
 display_type = "image"
-sha = ""
-filename = ""
 
 [sections.image_b_shadow]
-filename = ""
-sha = ""
-mime = "image/*"
+sha = "4eee133866906574a09330e71d65a057fbf9ad0929cdb93c8094adeb24f5398b"
+filename = "svelte-shadow.png"
+mime = "image/png"
 display_type = "image"
 
 [[sections]]
+title = "Go to Production Immediately"
 content = """
 Archival templates are ready to deploy immediately. All websites built with archival can be edited & deployed via editor.archival.dev to an archival subdomain or custom web domain, in minutes.
 """
-title = "Go to Production Immediately"
-
-[sections.image_b_shadow]
-filename = "cloud-shadow.png"
-name = "cloud-shadow.png"
-display_type = "image"
-mime = "image/png"
-sha = "276b4d056d8306ad840716617ef4f1a7d31a3f82592ceb85e91fb2cbdea407cc"
-
-[sections.image_a_shadow]
-display_type = "image"
-mime = "image/*"
-sha = ""
-filename = ""
-
-[sections.image_a]
-filename = ""
-sha = ""
-display_type = "image"
-mime = "image/*"
 
 [sections.image_b]
-display_type = "image"
 filename = "cloud.png"
-mime = "image/png"
 sha = "e7ea9b6a85aec24843c4e3e5e7a6e29bc0f5d592757895672b3080baa0c32b95"
-name = "cloud.png"
+display_type = "image"
+mime = "image/png"
+
+[sections.image_a]
+sha = "5fcbf3a3b9a764ca6063b550c1acd26451db6997b27e07b472be751dfd56f313"
+mime = "image/png"
+filename = "rocket.png"
+display_type = "image"
+
+[sections.image_a_shadow]
+filename = "rocket-shadow.png"
+sha = "cc89d75f80faa33ac5d2020776439669dd5cc8ed85d45cd3d33d8d79b4810162"
+display_type = "image"
+mime = "image/png"
+
+[sections.image_b_shadow]
+mime = "image/png"
+sha = "276b4d056d8306ad840716617ef4f1a7d31a3f82592ceb85e91fb2cbdea407cc"
+display_type = "image"
+filename = "cloud-shadow.png"
 
 [[sections]]
 title = "Maintainable and Durable"
@@ -177,25 +173,25 @@ Archival websites are built to be easy to maintain & last forever. Archival uses
 """
 
 [sections.image_a_shadow]
-filename = ""
-sha = ""
-mime = "image/*"
+display_type = "image"
+filename = "git-shadow.png"
+mime = "image/png"
+sha = "d410ac1b38ddceb0b6203fe3da305acbd45048ce5b949e1a7859c33f353bc045"
+
+[sections.image_a]
+sha = "d351c704a48549756308435f6f2402023d4e9e16f1a40a8fd6fb06c9429f4cee"
+filename = "git.png"
+mime = "image/png"
+display_type = "image"
+
+[sections.image_b]
+mime = "image/png"
+filename = "hammer.png"
+sha = "7e524b71d986d5d02f23aa3a82ec155fd8f26745cda23cac599368e9d1927caf"
 display_type = "image"
 
 [sections.image_b_shadow]
+filename = "hammer-shadow.png"
+sha = "d12eb10374f6a514babf3848b902aea9203f3964157974d07082009404b7efc4"
 display_type = "image"
-filename = ""
-mime = "image/*"
-sha = ""
-
-[sections.image_a]
-sha = ""
-filename = ""
-display_type = "image"
-mime = "image/*"
-
-[sections.image_b]
-display_type = "image"
-mime = "image/*"
-sha = ""
-filename = ""
+mime = "image/png"
