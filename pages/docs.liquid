@@ -1,8 +1,8 @@
 {% layout 'theme' title: "archival documentation"
   , area: "docs" %}
 
-<div class="pt-20 flex flex-1 gap-4 min-h-full pl-64 w-full">
-  <div id="docs-sidebar" class="z-10 w-64 font-mono fixed left-0 flex flex-col font-bold">
+<div class="mb-20 md:mt-20 flex flex-1 gap-4 min-h-full md:pl-64 w-full">
+  <div id="docs-sidebar" class="z-10 w-64 font-mono fixed left-0 hidden flex-col font-bold md:flex">
     {% for doc in objects.docs %}
       <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md {% if docs.title == doc.title %}backdrop-blur-lg shadow-xl bg-pink-light{% endif %}">
         <h3>{{ doc.title }}</h3>
@@ -10,7 +10,7 @@
     {% endfor %}
   </div>
 
-  <div id="docs" class="z-20 w-full min-h-full bg-pink-light p-20 flex justify-center">
+  <div id="docs" class="z-20 w-full min-h-full bg-pink-light p-8 md:p-20 flex justify-center">
     {% comment %}
       <div id="outline" class="z-30 fixed right-[-180px] hover:right-2 top-20 flex flex-col gap-2 items-end border-gray pr-2 pt-2 w-10 overflow-visible">
       {% for section in docs.sections %}
@@ -39,7 +39,7 @@
         <p>{{ section.content }}</p>
       {% endfor %}
 
-      <div class="flex justify-between text-lg font-bold font-mono mt-20">
+      <div class="flex justify-between text-lg font-bold font-mono mt-10 gap-5">
         {% assign prev_order = docs.order | minus: 1 %}
         {% assign next_order = docs.order | plus: 1 %}
         {% for doc in objects.docs %}
@@ -52,7 +52,7 @@
         {% endfor %}
         {% if prev %}
           <a href="/{{ prev.path }}.html">
-            <div id="prev" class="bg-gradient-to-r from-pink-light to-peach ring-teal-dark ring-1 px-10 py-4 rounded-lg shadow-md hover:shadow-xl">
+            <div id="prev" class="bg-gradient-to-r from-pink-light to-peach ring-peach ring-1 px-4 py-2 rounded-lg shadow-md hover:shadow-xl">
               ← {{ prev.title }}
             </div>
           </a>
@@ -61,7 +61,7 @@
         {% endif %}
         {% if next %}
           <a href="/{{ next.path }}.html">
-            <div id="next" class="bg-gradient-to-r from-pink-light to-peach ring-teal-dark ring-1 px-10 py-4 rounded-lg shadow-md hover:shadow-xl">
+            <div id="next" class="bg-gradient-to-r from-pink-light to-peach ring-peach ring-1 px-4 py-2 rounded-lg shadow-md hover:shadow-xl">
               {{ next.title }} →
             </div>
           </a>
