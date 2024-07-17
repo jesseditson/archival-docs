@@ -13,10 +13,10 @@ header_alt = "archival.dev"
 pricing_title = "Pricing"
 
 [header]
-display_type = "image"
 filename = ""
-mime = "image/*"
 sha = ""
+display_type = "image"
+mime = "image/*"
 
 [[personas]]
 content = """
@@ -25,10 +25,10 @@ Archival is built to allow you to focus on the unique parts of your app, and rem
 title = "I am a web designer"
 
 [personas.image]
-mime = "image/*"
-filename = ""
-display_type = "image"
 sha = ""
+mime = "image/*"
+display_type = "image"
+filename = ""
 
 [[personas]]
 title = "I am a frontend engineer"
@@ -37,9 +37,9 @@ Archival has tons of templates that preconfigure frontend frameworks. Interested
 """
 
 [personas.image]
-mime = "image/*"
-sha = ""
 filename = ""
+sha = ""
+mime = "image/*"
 display_type = "image"
 
 [[personas]]
@@ -49,10 +49,10 @@ Archival is not just the fastest way to build websites, it’s the simplest way 
 title = "I build websites for clients"
 
 [personas.image]
-mime = "image/*"
+sha = ""
 filename = ""
 display_type = "image"
-sha = ""
+mime = "image/*"
 
 [[personas]]
 content = """
@@ -62,18 +62,18 @@ title = "I am learning how to build websites"
 
 [personas.image]
 sha = ""
+display_type = "image"
 filename = ""
 mime = "image/*"
-display_type = "image"
 
 [[videos]]
 title = "Launch a Podcast in less than 10 minutes"
 
 [videos.video]
-display_type = "video"
-filename = ""
 sha = ""
+filename = ""
 mime = "video/*"
+display_type = "video"
 
 [[sections]]
 title = "Content-First Websites"
@@ -82,30 +82,30 @@ Most websites are built around showing data. Archival is a tool for defining the
 """
 
 [sections.image_b_shadow]
-sha = ""
-filename = ""
-mime = "image/*"
 display_type = "image"
+mime = "image/*"
+filename = ""
+sha = ""
 
 [sections.image_a]
 name = "video.png"
-sha = "5cf1b77071c1ba6389abb2f0fed49332f678aac254d8101b8fe4c9d2117e0ac4"
 mime = "image/png"
 display_type = "image"
+sha = "5cf1b77071c1ba6389abb2f0fed49332f678aac254d8101b8fe4c9d2117e0ac4"
 filename = "video.png"
 
 [sections.image_a_shadow]
 filename = "video-shadow.png"
-mime = "image/png"
-display_type = "image"
 sha = "5c0188786ad50044609fbfbac55a05ec274fea46b6db8ae336500eff2723e8fe"
 name = "video-shadow.png"
+mime = "image/png"
+display_type = "image"
 
 [sections.image_b]
 display_type = "image"
-sha = ""
-filename = ""
 mime = "image/*"
+filename = ""
+sha = ""
 
 [[sections]]
 title = "Use Any Framework, or Don’t"
@@ -115,28 +115,28 @@ Archival templates work out of the box, and allow you to choose a framework that
 """
 
 [sections.image_a]
-sha = ""
 filename = ""
+sha = ""
 mime = "image/*"
 display_type = "image"
 
 [sections.image_a_shadow]
-display_type = "image"
 sha = ""
-filename = ""
+display_type = "image"
 mime = "image/*"
+filename = ""
 
 [sections.image_b]
-filename = ""
 sha = ""
+filename = ""
 display_type = "image"
 mime = "image/*"
 
 [sections.image_b_shadow]
+sha = ""
 mime = "image/*"
 filename = ""
 display_type = "image"
-sha = ""
 
 [[sections]]
 content = """
@@ -145,30 +145,30 @@ Archival templates are ready to deploy immediately. All websites built with arch
 title = "Go to Production Immediately"
 
 [sections.image_b_shadow]
-display_type = "image"
 mime = "image/png"
-filename = "cloud-shadow.png"
 name = "cloud-shadow.png"
 sha = "276b4d056d8306ad840716617ef4f1a7d31a3f82592ceb85e91fb2cbdea407cc"
+filename = "cloud-shadow.png"
+display_type = "image"
 
 [sections.image_a_shadow]
-mime = "image/*"
-filename = ""
 sha = ""
+filename = ""
+mime = "image/*"
 display_type = "image"
 
 [sections.image_a]
+display_type = "image"
 sha = ""
 mime = "image/*"
-display_type = "image"
 filename = ""
 
 [sections.image_b]
-display_type = "image"
-filename = "cloud.png"
 name = "cloud.png"
 mime = "image/png"
 sha = "e7ea9b6a85aec24843c4e3e5e7a6e29bc0f5d592757895672b3080baa0c32b95"
+display_type = "image"
+filename = "cloud.png"
 
 [[sections]]
 title = "Maintainable and Durable"
@@ -177,16 +177,16 @@ Archival websites are built to be easy to maintain & last forever. Archival uses
 """
 
 [sections.image_a_shadow]
-sha = ""
 mime = "image/*"
 filename = ""
 display_type = "image"
+sha = ""
 
 [sections.image_b_shadow]
 mime = "image/*"
+sha = ""
 display_type = "image"
 filename = ""
-sha = ""
 
 [sections.image_a]
 filename = ""
@@ -195,7 +195,7 @@ sha = ""
 mime = "image/*"
 
 [sections.image_b]
-sha = ""
-display_type = "image"
 filename = ""
+sha = ""
 mime = "image/*"
+display_type = "image"
