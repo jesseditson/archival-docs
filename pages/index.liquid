@@ -64,19 +64,27 @@
 <div class="content p-20 pb-0 max-w-screen-md">
   {% for section in home.sections %}
     {% assign is_odd = forloop.index0 | modulo: 2 %}
-    <div class="section text-xl p-10 mb-10 bg-pink-light ring-peach ring-4 shadow-lg rounded-2xl">
+    <div class="section text-xl p-10 mb-10 bg-pink-light ring-peach ring-2 shadow-lg rounded-2xl relative">
       <h2 class="text-4xl m-10 mt-0 font-section-title font-extrabold {% if is_odd == 1 %}text-right{% endif %}">{{ section.title }}</h2>
       <div class="content {% if is_odd == 1 %}pr-10{% else %}pl-10{% endif %}">
         {{ section.content }}
       </div>
-      <div class="image-a shadow-image absolute hidden">
-        <img class="fg" src="{{section.image_a}}" />
-        <img class="bg" src="{{section.image_a_shadow}}" />
-      </div>
-      <div class="image-b shadow-image absolute hidden">
-        <img class="fg" src="{{section.image_b}}" />
-        <img class="bg" src="{{section.image_b_shadow}}" />
-      </div>
+      {% assign tl_class = "top-0 left-0 -translate-x-24 -translate-y-24" %}
+      {% assign tr_class = "top-0 right-0 translate-x-24 -translate-y-24" %}
+      {% assign br_class = "bottom-0 right-0 translate-x-24 translate-y-24" %}
+      {% assign bl_class = "bottom-0 left-0 -translate-x-24 translate-y-24" %}
+      {% if section.image_a.filename %}
+        <div class="image-a shadow-image absolute w-48 h-48 {% if is_odd %}BL {{ bl_class }}{% else %}TR {{ tl_class }}{% endif %}">
+          <img class="bg absolute top-0 left-0 w-full h-full z-0" src="{{section.image_a_shadow.url}}" />
+          <img class="fg absolute top-0 left-0 w-full h-full z-20" src="{{section.image_a.url}}" />
+        </div>
+      {% endif %}
+      {% if section.image_b.filename %}
+        <div class="image-b shadow-image absolute w-48 h-48 {% if is_odd %}{{ tr_class }}{% else %}{{ br_class }}{% endif %}">
+          <img class="bg absolute top-0 left-0 w-full h-full z-0" src="{{section.image_b_shadow.url}}" />
+          <img class="fg absolute top-0 left-0 w-full h-full z-20" src="{{section.image_b.url}}" />
+        </div>
+      {% endif %}
     </div>
   {% endfor %}
 </div>
