@@ -1,9 +1,4 @@
-header_alt = "archival.dev"
-videos_title = "Show Me How It Works"
-personas_title = "What Can Archival do for Me?"
-manifesto_link_title = "Read the archival manifesto"
-
-pricing_title = "Pricing"
+order = -1
 pricing_content = """
 Archival is run by a tiny team with a goal of staying small. You can use archival for free forever, and you can ship archival sites to platforms like Vercel, Netlify, or host archival websites on your own static servers.
 
@@ -11,25 +6,104 @@ Our goal is to be cheaper and easier than the other options, and our pricing is 
 
 If you’re interested in hiring the archival team to build something custom for you, host a large number of sites on archival, or otherwise find our pricing model imperfect for your use case, reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we’ll get you what you need!
 """
+manifesto_link_title = "Read the archival manifesto"
+personas_title = "What Can Archival do for Me?"
+videos_title = "Show Me How It Works"
+pricing_title = "Pricing"
+header_alt = "archival.dev"
 
 [[sections]]
-title = "Content-First Websites"
 content = """
 Most websites are built around showing data. Archival is a tool for defining the structure of a website along with the presentation, which results in super fast, database-free static websites, that can be updated dynamically.
 """
+title = "Content-First Websites"
+
+[sections.image_b]
+display_type = "image"
+filename = ""
+mime = "image/*"
+sha = ""
+
+[sections.image_a_shadow]
+filename = ""
+mime = "image/*"
+display_type = "image"
+sha = ""
+
+[sections.image_a]
+filename = ""
+sha = ""
+mime = "image/*"
+display_type = "image"
+
+[sections.image_b_shadow]
+filename = ""
+mime = "image/*"
+display_type = "image"
+sha = ""
 
 [[sections]]
-title = "Use Any Framework, or Don’t"
 content = """
 Many web frameworks are “full stack”, requiring you to lock in to an ecosystem and learn about complex topics like SSR and Databases to be productive & build fast websites.
 Archival templates work out of the box, and allow you to choose a framework that best fits your project’s needs - or no framework at all for super-fast, javascript-light websites.
 """
+title = "Use Any Framework, or Don’t"
+
+[sections.image_b]
+mime = "image/*"
+sha = ""
+filename = ""
+display_type = "image"
+
+[sections.image_a]
+filename = ""
+display_type = "image"
+mime = "image/*"
+sha = ""
+
+[sections.image_b_shadow]
+display_type = "image"
+sha = ""
+mime = "image/*"
+filename = ""
+
+[sections.image_a_shadow]
+sha = ""
+mime = "image/*"
+display_type = "image"
+filename = ""
 
 [[sections]]
-title = "Go to Production Immediately"
 content = """
 Archival templates are ready to deploy immediately. All websites built with archival can be edited & deployed via editor.archival.dev to an archival subdomain or custom web domain, in minutes.
 """
+title = "Go to Production Immediately"
+
+[sections.image_b]
+name = "cloud.png"
+sha = "15a57914f316bf463842f00fec9b4379c0ba28c32caa51ded7c18e77203f58a7"
+mime = "image/png"
+display_type = "image"
+filename = "cloud.png"
+
+[sections.image_a]
+sha = ""
+display_type = "image"
+filename = ""
+mime = "image/*"
+
+[sections.image_a_shadow]
+sha = ""
+filename = ""
+display_type = "image"
+mime = "image/*"
+
+[sections.image_b_shadow]
+filename = "cloud-shadow.png"
+mime = "image/png"
+sha = "c550e6ad7f429f4a6f70980936f542f068e3cd360be60840f0e024bd6f00e110"
+display_type = "image"
+name = "cloud-shadow.png"
 
 [[sections]]
 title = "Maintainable and Durable"
@@ -37,14 +111,41 @@ content = """
 Archival websites are built to be easy to maintain & last forever. Archival uses git to track changes to your website, which makes it possible to rebuild your website at any point in its history, rewind to old versions, and track who made every change.
 """
 
-[[videos]]
-title = "Launch a Podcast in less than 10 minutes"
+[sections.image_a_shadow]
+mime = "image/*"
+sha = ""
+filename = ""
+display_type = "image"
+
+[sections.image_b]
+mime = "image/*"
+display_type = "image"
+sha = ""
+filename = ""
+
+[sections.image_a]
+display_type = "image"
+sha = ""
+filename = ""
+mime = "image/*"
+
+[sections.image_b_shadow]
+filename = ""
+sha = ""
+mime = "image/*"
+display_type = "image"
 
 [[personas]]
-title = "I am a web designer"
 content = """
 Archival is built to allow you to focus on the unique parts of your app, and remove as much complexity as possible. Archival’s templates get you into a deploy-able state in record time and remove the need to learn frontend frameworks or set up databases to build dynamic websites.
 """
+title = "I am a web designer"
+
+[personas.image]
+sha = ""
+display_type = "image"
+filename = ""
+mime = "image/*"
 
 [[personas]]
 title = "I am a frontend engineer"
@@ -52,14 +153,47 @@ content = """
 Archival has tons of templates that preconfigure frontend frameworks. Interested in learning three.js or Replicache? Set up a repo with archival and start playing with something that already works rather than spending time at the steepest part of the learning curve - or make your own templates with your preferred configurations to re-use or share them.
 """
 
+[personas.image]
+sha = ""
+filename = ""
+display_type = "image"
+mime = "image/*"
+
 [[personas]]
-title = "I build websites for clients"
 content = """
 Archival is not just the fastest way to build websites, it’s the simplest way to edit static content - this means your clients can edit their own websites or you can batch update using archival’s powerful CLI and CI tooling. Our template library sets you up with both presentation code and data models, and white-label hosting & deployment removes all the tedious parts of building websites. Maximize client value by spending time on the parts they care about.
 """
+title = "I build websites for clients"
+
+[personas.image]
+sha = ""
+display_type = "image"
+mime = "image/*"
+filename = ""
 
 [[personas]]
-title = "I am learning how to build websites"
 content = """
 Archival handles pretty much all of the steepest parts of the learning curves of web development - build configuration, database management, git config, deployment, and dns. All you need to learn to get started is a little HTML, CSS, TOML and Liquid. Because our templates are preconfigured with data models and UIs, you can learn by experimenting instead of studying. For most people, this will help you learn new technology dramatically faster than starting from scratch.
 """
+title = "I am learning how to build websites"
+
+[personas.image]
+filename = ""
+sha = ""
+mime = "image/*"
+display_type = "image"
+
+[[videos]]
+title = "Launch a Podcast in less than 10 minutes"
+
+[videos.video]
+mime = "video/*"
+filename = ""
+sha = ""
+display_type = "video"
+
+[header]
+sha = ""
+filename = ""
+mime = "image/*"
+display_type = "image"
