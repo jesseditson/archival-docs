@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 
     <meta property="og:title" content="{{ title }}">
     <meta property="og:type" content="website">
@@ -46,7 +45,7 @@
     <script type="module" src="/scripts/main.js"></script>
   </head>
   <body class="gradient-bg">
-    <div id="quick-search" class="hidden flex flex-col items-center w-full h-full fixed backdrop-blur-md overflow-y-auto z-40 p-8">
+    <div id="quick-search" class="hidden flex flex-col items-center w-full h-full fixed backdrop-blur-md z-40 p-8">
       <div class="flex-1 md:min-h-20 max-h-[200px]"></div>
       <div class="flex flex-2 flex-col items-center w-full max-w-[600px] border bg-white border-gray-light background-white rounded-lg shadow-lg mb-20 overflow-y-auto">
         <div class="flex flex-shrink w-full gap-4 items-center pl-4">
@@ -78,9 +77,9 @@
             placeholder="Search Documentation"
             autofocus="true"
             incremental />
-          <div class="border border-gray-light p-2 py-1 text-xs rounded-md mr-2">ESC</div>
+          <div class="hidden md:block border border-gray-light p-2 py-1 text-xs rounded-md mr-2">ESC</div>
         </div>
-        <ul id="results" class="flex flex-col gap-2 w-full px-4"></ul>
+        <ul id="results" class="flex flex-col gap-2 w-full px-4 overflow-y-auto"></ul>
         <li id="results-empty" class="hidden m-10">Type something above to search archival documentation.</li>
         <li id="results-none" class="hidden m-10">No docs matched.</li>
         <li id="results-result" class="result hidden w-full border-b border-gray-light last:border-b-0">
