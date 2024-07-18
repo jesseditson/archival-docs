@@ -35,10 +35,12 @@ A JSON file (e.g. `posts.json.liquid`) might look like this:
 	"posts": [
 		{% assign sorted_posts = objects.post | sort: "date" %}
 		{% for post in sorted_posts %}
-		"title": "{{ post.title }}",
-		"link": "http://mysite.com/{{ post.path }}",
-		"description": "{{ post.description }}",
-		"date": "{{ post.publish_date | date: "%B %d, %Y" }}"
+		{
+			"title": "{{ post.title }}",
+			"link": "http://mysite.com/{{ post.path }}",
+			"description": "{{ post.description }}",
+			"date": "{{ post.publish_date | date: "%B %d, %Y" }}"
+		}{% unless forloop.last %},{% endunless %}
 		{% endfor %}
 	]
 }
