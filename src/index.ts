@@ -213,10 +213,10 @@ const setupQuickSearch = async () => {
     results.forEach((r) => {
       const rEl = result.cloneNode(true) as HTMLLIElement;
       rEl.classList.toggle("hidden", false);
-      rEl.querySelector(".doc-page")!.innerHTML = r.oTitle;
-      const sectionEl = rEl.querySelector(".doc-section")!;
+      (rEl.querySelector(".doc-page") as HTMLElement).innerText = r.oTitle;
+      const sectionEl = rEl.querySelector(".doc-section") as HTMLElement;
       if (r.oSection) {
-        sectionEl.innerHTML = r.oSection;
+        sectionEl.innerText = r.oSection;
       } else {
         rEl.querySelector(".match")?.removeChild(sectionEl);
       }

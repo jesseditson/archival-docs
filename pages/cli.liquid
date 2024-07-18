@@ -1,7 +1,7 @@
 {% layout 'theme' title: "archival CLI"
   , area: "cli" %}
 
-<div class="mb-20 md:mt-20 flex flex-1 gap-4 min-h-full md:pl-64 w-full">
+<div class="mb-20 md:mb-0 md:mt-20 flex flex-1 gap-4 min-h-full md:pl-64 w-full">
   <div id="docs-sidebar" class="z-10 w-64 font-mono fixed left-0 hidden md:flex flex-col font-bold">
     {% for doc in objects.cli %}
       <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md {% if cli.command == doc.command %}backdrop-blur-lg shadow-xl bg-pink-light{% endif %}">
@@ -19,7 +19,7 @@
       </h1>
       {% assign num_options = cli.options | size %}
       {% if num_options > 0 %}
-        <h4>options</h4>
+        <h4 id="options">options</h4>
         <div class="flex flex-wrap md:grid md:grid-cols-3 gap-4">
           {% for option in cli.options %}
             <code class="flex items-center">{{ option.flags | escape }}</code>
@@ -29,7 +29,7 @@
       {% endif %}
       {% assign num_args = cli.arguments | size %}
       {% if num_args > 0 %}
-        <h4>arguments</h4>
+        <h4 id="arguments">arguments</h4>
         <div class="flex flex-wrap md:grid md:grid-cols-3 gap-4">
           {% for arg in cli.arguments %}
             <code class="flex items-center">{{ arg.arg | escape }}</code>

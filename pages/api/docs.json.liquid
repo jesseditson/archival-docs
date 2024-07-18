@@ -1,11 +1,36 @@
 {
     "sections": [
+      {% assign doc_count = objects.docs | size %}
+      {% for doc in objects.cli %}
+        {% for opt in doc.options %}
+          {
+            "path": "/{{doc.path}}.html#options",
+            "docTitle": "{{doc.command}}",
+            "sectionTitle": "{{opt.flags}}",
+            "content": "{{opt.description | url_decode | replace: '"', '\"' | strip_newlines | url_encode }}"
+          },
+        {% endfor %}
+        {% for arg in doc.arguments %}
+          {
+            "path": "/{{doc.path}}.html#arguments",
+            "docTitle": "{{doc.command}}",
+            "sectionTitle": "{{arg.arg}}",
+            "content": "{{arg.description | url_decode | replace: '"', '\"' | strip_newlines | url_encode }}"
+          },
+        {% endfor %}
+        {
+            "path": "/{{doc.path}}.html",
+            "docTitle": "{{doc.command}}",
+            "sectionTitle": null,
+            "content": "{{doc.content | url_decode | replace: '"', '\"' | strip_newlines | url_encode }}"
+        }{% unless forloop.last and doc_count == 0 %},{% endunless %}
+      {% endfor %}
       {% for doc in objects.docs %}
         {% assign outer_last = forloop.last %}
         {% assign section_count = doc.sections | size %}
         {
             "path": "/{{doc.path}}.html",
-            "docTitle": "/{{doc.path}}.html",
+            "docTitle": "{{doc.title}}",
             "sectionTitle": null,
             "content": "{{doc.description | url_decode | replace: '"', '\"' | strip_newlines | url_encode }}"
         }{% unless outer_last and section_count == 0 %},{% endunless %}
