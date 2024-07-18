@@ -31,15 +31,3 @@ html, body {
     background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
     background-attachment: fixed;
 }
-
-#header-shadow {
-    position: absolute;
-    display: block;
-    width: 600px;
-    height: 600px;
-    margin-left: -300px;
-    margin-top: -300px;
-    top: 50%;
-    left: 50%;
-    max-width: none;
-}

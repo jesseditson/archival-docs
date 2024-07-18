@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
     <meta property="og:title" content="{{ title }}">
     <meta property="og:type" content="website">
@@ -44,8 +44,8 @@
     <link rel="stylesheet" href="/style/main.css">
     <script type="module" src="/scripts/main.js"></script>
   </head>
-  <body class="gradient-bg">
-    <div id="quick-search" class="hidden flex flex-col items-center w-full h-full fixed backdrop-blur-md z-40 p-8">
+  <body class="gradient-bg overflow-hidden h-full md:overflow-auto md:h-auto">
+    <div id="quick-search" class="hidden flex flex-col items-center w-full h-full absolute backdrop-blur-md z-40 p-8">
       <div class="flex-1 md:min-h-20 max-h-[200px]"></div>
       <div class="flex flex-2 flex-col items-center w-full max-w-[600px] border bg-white border-gray-light background-white rounded-lg shadow-lg mb-20 overflow-y-auto">
         <div class="flex flex-shrink w-full gap-4 items-center pl-4">
@@ -100,7 +100,7 @@
     <nav
       id="nav"
       role="nav"
-      class="z-50 w-full bottom-0 shadow-up fixed py-5 flex justify-between font-bold gap-4 bg-white md:backdrop-blur-md md:bottom-auto md:top-0 md:shadow-lg">
+      class="z-50 w-full bottom-0 shadow-up absolute py-5 flex justify-between font-bold gap-4 bg-white md:backdrop-blur-md md:bottom-auto md:top-0 md:shadow-lg md:fixed">
       <div id="logo" class="mx-5">
         <a href="/" class="flex gap-2 items-center">
           <div class="logo-icon w-[44px] h-[44px] relative">
@@ -226,9 +226,9 @@
         </button>
       </div>
     </nav>
-    <div id="mobile-menu" class="translate-y-full transition opacity-0 shadow-up bg-white fixed w-full pb-20 px-4 bottom-0 z-40 text-xl text-gray-dark rounded-lg md:hidden max-h-full overflow-y-auto">
+    <div id="mobile-menu" class="hidden translate-y-full transition opacity-0 shadow-up bg-white absolute w-full pb-20 px-4 bottom-0 z-40 text-xl text-gray-dark rounded-lg md:hidden max-h-full overflow-y-auto">
       {% if area == "home" %}
-        <ul class=" flex flex-col">
+        <ul class="flex flex-col">
           {% assign docs_link = objects.docs | first %}
           <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
             <a class="flex-1" href="/{{ docs_link.path }}.html">Documentation</a>
@@ -274,17 +274,9 @@
         </ul>
       {% endif %}
     </div>
-    <main
-      role="main"
-      tabindex="-1"
-      class="flex flex-col z-0 items-center min-h-full w-full">
+    <main role="main" class="flex flex-col z-0 items-center w-full h-full md:h-auto overflow-y-auto">
       {{ page_content }}
     </main>
-    <script
-      defer
-      src="https://api.pirsch.io/pa.js"
-      id="pianjs"
-      data-code="XiwklAJh3S2Wx2wypo1eGjp5BHhtbk4C"></script>
 
     <!-- syntax highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">

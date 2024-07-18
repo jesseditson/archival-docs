@@ -42,12 +42,25 @@ const setupMobileMenu = () => {
     document.querySelector("#menu-closed"),
     document.querySelector("#menu-open"),
   ];
+  let prevOp: number | undefined;
   const toggleMenu = (open: boolean) => {
-    closedMenu?.classList.toggle("hidden", open);
-    openMenu?.classList.toggle("hidden", !open);
-    menu.classList.toggle("translate-y-0", open);
-    menu.classList.toggle("opacity-100", open);
-    nav.classList.toggle("shadow-up", !open);
+    if (prevOp) {
+      clearTimeout(prevOp);
+    }
+    if (!open) {
+      prevOp = setTimeout(() => {
+        menu?.classList.toggle("hidden", true);
+      }, 500);
+    } else {
+      menu?.classList.toggle("hidden", false);
+    }
+    setTimeout(() => {
+      closedMenu?.classList.toggle("hidden", open);
+      openMenu?.classList.toggle("hidden", !open);
+      menu.classList.toggle("translate-y-full", !open);
+      menu.classList.toggle("opacity-0", !open);
+      nav.classList.toggle("shadow-up", !open);
+    }, 25);
   };
   closedMenu?.addEventListener("click", () => {
     toggleMenu(true);
@@ -141,6 +154,11 @@ const setupQuickSearch = async () => {
         hideSearch();
       }
     });
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      hideSearch();
+    }
+  });
   let selectedIndex = -1;
   let currentResults: ResultMatch[] = [];
   input.addEventListener("keydown", (e) => {

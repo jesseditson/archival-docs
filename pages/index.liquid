@@ -2,9 +2,40 @@
   , area: "home" %}
 {% assign home = objects.home %}
 
-<div id="header" class="z-30 w-full flex flex-col justify-center items-center gap-8 p-20 mt-8 mb-40 pt-0 md:pt-20">
-  <div id="header-logo" class="flex items-center justify-between flex-col">
-    <div id="header-ctas" class="w-full max-w-full md:max-w-[1200px] flex justify-around absolute translate-y-60 z-20">
+<div id="header" class="z-30 w-full flex flex-col justify-center items-center gap-6 md:pt-20 relative">
+  <div id="header-logo" class="flex items-center justify-between flex-col w-full">
+    <div class="shadow-image w-64 h-64 relative flex items-center justify-center scale-90 md:scale-100">
+      <img
+        id="header-shadow"
+        class="bg absolute z-0"
+        src="/img/logo-shadow.png"
+        alt="archival" />
+      <img
+        id="header-image"
+        src="/img/logo.png"
+        class="fg z-10"
+        alt="archival" />
+      {% comment %}
+        <video
+        class="header-video absolute top-0 w-full h-full hidden"
+        muted
+        preload="auto"
+        playsinline>
+        <source src="/vid/ttp.mov" type='video/mp4; codecs="hvc1"'>
+        <source src="/vid/ttp.webm" type="video/webm">
+        </video>
+        <video
+        class="header-video absolute top-0 w-full h-full hidden"
+        muted
+        preload="auto"
+        playsinline>
+        <source src="/vid/ptt.mov" type='video/mp4; codecs="hvc1"'>
+        <source src="/vid/ptt.webm" type="video/webm">
+        </video>
+      {% endcomment %}
+    </div>
+    <h1 class="logo-text text-purple font-bold text-5xl font-section-title">archival</h1>
+    <div id="header-ctas" class="w-full max-w-full scale-90 md:scale-100 md:max-w-[1200px] flex justify-around">
       <a
         id="header-docs"
         href="/docs/getting-started.html"
@@ -26,38 +57,8 @@
         <h4 class="logo-text text-purple font-bold text-xl md:text-2xl font-section-title">Create a Website</h4>
       </a>
     </div>
-    <div class="icon w-48 h-48 relative flex items-center justify-center scale-75 md:scale-100">
-      <img
-        id="header-shadow"
-        src="/img/shadow.png"
-        class="z-0"
-        alt="archival" />
-      <img
-        id="header-image"
-        src="/img/logo3d.png"
-        class="z-10"
-        alt="archival" />
-      <video
-        class="header-video absolute top-0 w-full h-full hidden"
-        muted
-        preload="auto"
-        playsinline>
-        <source src="/vid/ttp.mov" type='video/mp4; codecs="hvc1"'>
-        <source src="/vid/ttp.webm" type="video/webm">
-      </video>
-      <video
-        class="header-video absolute top-0 w-full h-full hidden"
-        muted
-        preload="auto"
-        playsinline>
-        <source src="/vid/ptt.mov" type='video/mp4; codecs="hvc1"'>
-        <source src="/vid/ptt.webm" type="video/webm">
-      </video>
-    </div>
-    <h1 class="logo-text text-purple font-bold text-5xl font-section-title">archival</h1>
   </div>
 </div>
-
 <div class="content p-6 md:p-20 pb-0 md:pb-0 max-w-screen-lg">
   {% for section in home.sections %}
     {% assign is_even = forloop.index0 | modulo: 2 %}
@@ -85,7 +86,6 @@
     </div>
   {% endfor %}
 </div>
-
 {% comment %}
   <div class="text-lg flex justify-center mt-10">
   <h4 class="font-section-title font-extrabold italic text-4xl color-teal">
@@ -108,12 +108,11 @@
             name="{{video.video.filename}}"
             type="{{video.video.mime}}">
         </video>
-        <h3 class="text-xl font-extrabold">{{ video.title }}</h3>
+        <h3 class="text-xl font-extrabold mx-4">{{ video.title }}</h3>
       </div>
     {% endfor %}
   </div>
 </div>
-
 <div class="content mx-6 md:mx-20 p-6 md:p-10 pb-0 max-w-screen-lg text-xl bg-pink-light ring-peach ring-2 shadow-lg rounded-2xl relative">
   <div class="shadow-image w-48 h-48 absolute top-0 right-0 md:translate-x-24 -translate-y-24 scale-75 md:scale-100">
     <img class="bg absolute top-0 left-0 w-full h-full" src="/img/coin-shadow.png" />
@@ -124,5 +123,4 @@
     {{ home.pricing_content }}
   </div>
 </div>
-
-<footer class="shadow-inner w-full h-80 mt-20"></footer>
+<footer class="shadow-inner w-full h-80 mt-20 mb-20 md:mb-0"></footer>

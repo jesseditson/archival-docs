@@ -4,13 +4,15 @@ set -e
 ROOT="/Users/jesseditson/Library/Mobile Documents/com~apple~CloudDocs/archival/renders/sections"
 
 function upload {
-    archival upload home sections.$1 "$ROOT/128/$2.png"
-    archival upload home sections.${1}_shadow "$ROOT/128/$2-shadow.png"
+    archival upload home sections.$1 "$ROOT/192/$2.png"
+    archival upload home sections.${1}_shadow "$ROOT/192/$2-shadow.png"
 }
 
 cd "$ROOT"
-magick mogrify -resize 192x192 -quality 100 -path ./128 *.png
-optipng 128/*.png
+# For a single image:
+# magick logo-shadow.png -resize 512x512 ../logo-shadow.png
+magick mogrify -resize 192x192 -quality 100 -path ./192 *.png
+optipng 192/*.png
 cd -
 
 upload 0.image_a markdown
