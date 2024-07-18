@@ -46,6 +46,7 @@ const setupMobileMenu = () => {
     closedMenu?.classList.toggle("hidden", open);
     openMenu?.classList.toggle("hidden", !open);
     menu.classList.toggle("translate-y-0", open);
+    menu.classList.toggle("opacity-100", open);
     nav.classList.toggle("shadow-up", !open);
   };
   closedMenu?.addEventListener("click", () => {
@@ -133,7 +134,13 @@ const setupQuickSearch = async () => {
   ) as HTMLInputElement;
   document
     .querySelector("#quick-search-button")
-    ?.addEventListener("click", showSearch);
+    ?.addEventListener("click", () => {
+      if (modal.classList.contains("hidden")) {
+        showSearch();
+      } else {
+        hideSearch();
+      }
+    });
   let selectedIndex = -1;
   let currentResults: ResultMatch[] = [];
   input.addEventListener("keydown", (e) => {

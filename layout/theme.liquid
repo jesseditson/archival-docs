@@ -47,7 +47,8 @@
   </head>
   <body class="gradient-bg">
     <div id="quick-search" class="hidden flex flex-col items-center w-full h-full fixed backdrop-blur-md overflow-y-auto z-40 p-8">
-      <div class="flex flex-col items-center w-full max-w-[600px] mt-[200px] border bg-white border-gray-light background-white rounded-lg shadow-lg">
+      <div class="flex-1 md:min-h-20 max-h-[200px]"></div>
+      <div class="flex flex-2 flex-col items-center w-full max-w-[600px] border bg-white border-gray-light background-white rounded-lg shadow-lg mb-20 overflow-y-auto">
         <div class="flex flex-shrink w-full gap-4 items-center pl-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -226,7 +227,7 @@
         </button>
       </div>
     </nav>
-    <div id="mobile-menu" class="translate-y-full transition-transform shadow-up bg-white fixed w-full pb-20 px-4 bottom-0 z-40 text-xl text-gray-dark rounded-lg md:hidden max-h-full overflow-y-auto">
+    <div id="mobile-menu" class="translate-y-full transition opacity-0 shadow-up bg-white fixed w-full pb-20 px-4 bottom-0 z-40 text-xl text-gray-dark rounded-lg md:hidden max-h-full overflow-y-auto">
       {% if area == "home" %}
         <ul class=" flex flex-col">
           {% assign docs_link = objects.docs | first %}
