@@ -1,11 +1,10 @@
-title = "Manifesto"
-
+order = -1
 content = """
 Archival was built by me - [Jesse Ditson](https://jesseditson.com). I’ve spent the last 20 years building websites and applications. In that time, I’ve seen a lot of patterns and technologies come and go.
 
-I originally designed archival to solve a personal issue I have - I love to build websites for friends and side projects, and I love to explore new tech - but I often find that the cost and maintainability of most stacks is too high for me to justify passion projects or small-scale client work.
+I originally designed archival to solve a personal issue I have - I love to build websites for friends and side projects, and I love to explore new tech - but I often find that the cost and maintainability of most stacks is too high for me to justify passion projects or small-scale client work. I needed a tool that would allow clients to change their website data whenever they wanted, but that didn’t require an expensive database - and I wanted something that would put HTML and native web code first. I realized that if I put “data files” directly in the same git repo as the website’s UI, I could write a very small tool to merge the data with the website using a simple templating language.
 
-Archival’s co-versioned data model came from the idea that when starting a project, I’ve found that it is very productive to imagine the data structure before the UI. I’m a fierce advocate for full-stack development and believe that great products require everyone involved to have a lot of context. I found that when a data model is designed after the app, it often is inefficiently arranged and is usually accessed via multiple layers of abstraction. By putting the data in the repo alongside the presentation, everything becomes more visible, and it becomes much harder to have data changes that break the UI.
+Archival’s co-versioned data model also came from the fact that when starting a project, I’ve found that it is very productive to imagine the data structure before the UI. I’m a fierce advocate for full-stack development and believe that great products require everyone involved to have a lot of context. I found that when a data model is designed after the app, it often is inefficiently arranged and is usually accessed via multiple layers of abstraction. By putting the data in the repo alongside the presentation, everything becomes more visible, and it becomes much harder to have data changes that break the UI.
 
 The tradeoffs in this model are really clear - specifically, your data must change fairly infrequently. But when I thought about how most content management systems work, they usually change far less frequently than would be needed to support a commit-per-change model. If you’re running a blog or a store or a landing page, you don’t need an expensive database running 24/7 in a data center somewhere. In fact, this just slows your app down because it forces all of the most expensive part of rendering (db queries, template parsing) to happen while someone is waiting. But if the data isn’t likely to have changed between reloads, static generation will be dramatically faster for your users.
 
@@ -30,3 +29,4 @@ I’m excited to share this tool with you, and as we add functionality, I promis
 
 [jesse@archival.dev](mailto:jesse@archival.dev)
 """
+title = "Manifesto"
