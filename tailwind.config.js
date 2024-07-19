@@ -11,6 +11,7 @@ module.exports = {
     colors: {
       blue: "#1fb6ff",
       purple: "rgb(167, 106, 207)",
+      "purple-dark": "#724491",
       pink: "#ff49db",
       "pink-light": "rgb(259, 251, 249)",
       "teal-dark": "#008080",
@@ -27,7 +28,7 @@ module.exports = {
     fontFamily: {
       "section-title": ["paradigm-pro", "sans-serif"],
       sans: ["nunito-sans", "sans-serif"],
-      header: ["lorimer-no-2", "serif"],
+      header: ["citizen", "serif"],
       mono: ["ff-nuvo-mono-web-pro", "monospace"],
     },
     extend: {
