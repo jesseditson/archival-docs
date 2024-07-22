@@ -10,7 +10,17 @@ Once you have a site set up, click the gear icon and open the git repo - from th
 """
 
 [[sections]]
-title = "Manually"
+title = "Developing your archival website locally"
+content = """
+You can now run `archival run` or `bin/archival run` in your website’s repo.
+
+You should see a message telling you that your website is available at `http://localhost:1024`. If you want to choose a different port, run `bin/archival run --port 1234`.
+
+The `run` command automatically watches your filesystem and will rebuild your website whenever files change. Try modifying an object file to see the site update.
+"""
+
+[[sections]]
+title = "Manual installation (advanced)"
 content = """
 You don’t have to clone a template to use archival - you can also install it via cargo and manually create the file structure.
 
@@ -45,14 +55,4 @@ This will create:
 - an example `test` object
 - a theme to render our page in
 - a page that renders our theme and our objects
-"""
-
-[[sections]]
-title = "Developing your archival website locally"
-content = """
-You can now run `archival run` or `bin/archival run` in your website’s repo.
-
-You should see a message telling you that your website is available at `http://localhost:1024`. If you want to choose a different port, run `bin/archival run --port 1234`.
-
-The `run` command automatically watches your filesystem and will rebuild your website whenever files change. Try modifying an object file to see the site update.
 """

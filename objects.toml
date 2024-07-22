@@ -8,6 +8,7 @@ videos_title = "string"
 personas_title = "string"
 pricing_title = "string"
 pricing_content = "markdown"
+discord_url = "string"
 
 [home.sections]
 image_a = "image"
