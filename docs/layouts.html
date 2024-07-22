@@ -1,0 +1,502 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+    <meta property="og:title" content="archival documentation">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://archival.dev">
+    <meta property="og:image" content="https://archival.dev/img/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:alt" content="archival.dev" />
+
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png" />
+    <link
+      rel="mask-icon"
+      href="/safari-pinned-tab.svg"
+      color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>
+      archival documentation
+    </title>
+    <link rel="stylesheet" href="https://use.typekit.net/xfh0gig.css">
+    <link rel="stylesheet" href="/style/main.css">
+    <script type="module" src="/scripts/main.js"></script>
+  </head>
+  <body class="gradient-bg overflow-hidden h-full md:overflow-auto md:h-auto">
+    <div id="quick-search" class="hidden flex flex-col items-center w-full h-full absolute backdrop-blur-md z-40 p-8">
+  <div class="flex-1 md:min-h-20 max-h-[200px]"></div>
+  <div class="flex flex-2 flex-col items-center w-full max-w-[600px] border bg-white border-gray-light background-white rounded-lg shadow-lg mb-20 overflow-y-auto">
+    <div class="flex flex-shrink w-full gap-4 items-center pl-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-search">
+        <circle
+          cx="11"
+          cy="11"
+          r="8"></circle>
+        <line
+          x1="21"
+          y1="21"
+          x2="16.65"
+          y2="16.65"></line>
+      </svg>
+      <input
+        id="quick-search-input"
+        class="px-5 py-3 flex-1 focus:outline-none rounded-lg"
+        autocomplete="off"
+        placeholder="Search Documentation"
+        autofocus="true"
+        incremental />
+      <div class="hidden md:block border border-gray-light p-2 py-1 text-xs rounded-md mr-2">ESC</div>
+    </div>
+    <ul id="results" class="flex flex-col gap-2 w-full px-4 overflow-y-auto"></ul>
+    <li id="results-empty" class="hidden m-10">Type something above to search archival documentation.</li>
+    <li id="results-none" class="hidden m-10">No docs matched.</li>
+    <li id="results-result" class="result hidden w-full border-b border-gray-light last:border-b-0">
+      <a class="link">
+        <div class="doc-page font-bold p-2"></div>
+        <div class="match p-2 ml-3 mb-2 border-l-2 border-gray-light">
+          <div class="doc-section font-bold"></div>
+          <div class="snippet text-sm">
+            <span class="snippet-pre"></span>
+            <span class="snippet-hl bg-yellow"></span>
+            <span class="snippet-rest"></span>
+          </div>
+        </div>
+      </a>
+    </li>
+  </div>
+</div>
+
+    <nav
+  id="nav"
+  role="nav"
+  class="z-50 w-full bottom-0 shadow-up absolute py-5 flex justify-between font-bold gap-4 bg-white md:backdrop-blur-md md:bottom-auto md:top-0 md:shadow-lg md:fixed">
+  <div id="logo" class="mx-5">
+    <a href="/" class="flex gap-2 items-center">
+      <div class="logo-icon w-[44px] h-[44px] relative">
+        <div class="gray">
+          
+<svg
+  id="Layer_2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="44"
+  height="44"
+  viewBox="0 0 818.49 833.62">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ccc;
+      }
+      .cls-1,
+      .cls-2,
+      .cls-3,
+      .cls-4 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 5px;
+      }
+      .cls-2 {
+        fill: #e6e6e6;
+      }
+      .cls-3 {
+        fill: #b3b3b3;
+      }
+      .cls-4 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Grayscale"><path class="cls-1" d="M228.86,660.3l-46.39,92.19,612.45,65.77L815.92,2.62l-268,12.64-89.37,180.67,150.2,456.28c6.7,20.35-9.62,40.92-30.97,39.01l-112.27-10.03c-12.98-1.16-23.87-10.28-27.29-22.86,0,0-47.16-167.36-53.59-191.25-.27-1.01-1.63-1.17-2.14-.25l-94.99,172.53c-8.31,14.61-24.24,23.19-41.02,22.09l-17.64-1.16" /><path class="cls-2" d="M407.83,191.11l-220.12,423.25c-10.26,19.73,3.14,43.5,25.34,44.92l32.4,2.08c17.98,1.15,35.01-8.21,43.66-24.02l92.5-169.01c1.64-3,5.73-3.52,8.07-1.04l64.36,68.25c1.1,1.16,3.02.87,3.72-.57l66.63-137.01c.26-.53.3-1.15.12-1.71l-66.18-201.05c-7.6-23.1-39.26-25.66-50.48-4.09Z" /><path class="cls-3" d="M558.92,689.26l-25-69-143.25-151.91c-1.5-1.59-4.13-.12-3.56,1.99l50.37,186.11c3.86,14.27,16.29,24.58,31.03,25.73l90.41,7.08Z" /><path class="cls-4" d="M227.54,663.02c.63-1.27-.29-2.76-1.71-2.75l-10.93.03c-23.69-.01-38.92-25.14-27.99-46.15l221.08-424.89c10.05-19.32,37.7-19.27,47.68.08l3.24,6.93,73.06-148.78-401.99,17.3L2.92,733.21l259,51.05,542.38,46.86c.6.05.96-.65.57-1.1L815.92,2.26l-21,816-612-66,44.62-89.24Z" /></g>
+</svg>
+
+        </div>
+        <div class="color">
+          
+  <svg
+    id="Layer_2"
+    xmlns="http://www.w3.org/2000/svg"
+    width="44"
+    height="44"
+    viewBox="0 0 818.49 833.62">
+    <defs>
+      <style>
+        .c-cls-1 {
+          fill: #662d91;
+        }
+        .c-cls-1,
+        .c-cls-2,
+        .c-cls-3,
+        .c-cls-4,
+        .c-cls-5 {
+          stroke-width: 0;
+        }
+        .c-cls-6 {
+          fill: none;
+          stroke: #000;
+          stroke-miterlimit: 10;
+          stroke-width: 5px;
+        }
+        .c-cls-2 {
+          fill: #1b1464;
+        }
+        .c-cls-3 {
+          fill: aqua;
+        }
+        .c-cls-4 {
+          fill: #666;
+        }
+        .c-cls-5 {
+          fill: #999;
+        }
+      </style>
+    </defs><g id="Color_Stroke"><g id="Color"><path class="c-cls-3" d="M536.87,45.27l-401.92,16.51L7.87,730.21l175.5,21.55,48-93-17-1c-14.03-.89-32.48-23.52-26-36l222-431c7-16,35-18,46-1l5,11,75.5-155.5Z" /><path
+        id="_Path_"
+        class="c-cls-4"
+        d="M459.41,194.98l64.92,198.23c.62,1.88.49,3.93-.36,5.72l-66.6,140.84-62.19-65.6c-5.33-5.63-14.6-4.41-18.31,2.4l-88.84,163.48c-7.42,13.55-22.01,21.58-37.43,20.59l-41.24-2.65c-20.01-1.28-32.09-22.71-22.84-40.49l221.91-426.69c11.34-21.81,43.34-19.19,50.99,4.17Z" /><path class="c-cls-1" d="M547.36,17.3l-85.74,172.43c-1.12,2.26-2.05,5.63-1.25,8.03l148,452c6.72,20.32-9.7,41.11-31,39l-111-10c-12.21-1.21-21.78-6.16-25-18l-54.34-195.05c-.6-2.16-3.53-2.49-4.6-.52l-92.98,171.57c-7.37,13.42-24.8,24.02-40.08,23l-13-1c-3.86-.26-6.28-.46-8,3l-45,90,13,1,601,65L817.6,9.93c.14-5.56-4.47-10.08-10.03-9.81l-252.09,11.89c-3.47.16-6.58,2.19-8.12,5.3Z" /><path class="c-cls-5" d="M386.87,465.27l54.5,195.5c4,17,23.74,18.18,32,19l86,8-23.5-64.5-149-158Z" /><polygon class="c-cls-2" points="11.37 732.77 263.87 783.27 809.37 832.77 816.37 368.77 817.87 1.77 797.37 817.77 11.37 732.77" /></g>
+    <g id="Stroke"><path class="c-cls-6" d="M228.86,660.3l-46.39,92.19,612.45,65.77L815.92,2.62l-268,12.64-89.37,180.67,150.2,456.28c6.7,20.35-9.62,40.92-30.97,39.01l-112.27-10.03c-12.98-1.16-23.87-10.28-27.29-22.86,0,0-47.16-167.36-53.59-191.25-.27-1.01-1.63-1.17-2.14-.25l-94.99,172.53c-8.31,14.61-24.24,23.19-41.02,22.09l-17.64-1.16" /><path class="c-cls-6" d="M407.83,191.11l-220.12,423.25c-10.26,19.73,3.14,43.5,25.34,44.92l32.4,2.08c17.98,1.15,35.01-8.21,43.66-24.02l92.5-169.01c1.64-3,5.73-3.52,8.07-1.04l64.36,68.25c1.1,1.16,3.02.87,3.72-.57l66.63-137.01c.26-.53.3-1.15.12-1.71l-66.18-201.05c-7.6-23.1-39.26-25.66-50.48-4.09Z" /><path class="c-cls-6" d="M558.92,689.26l-25-69-143.25-151.91c-1.5-1.59-4.13-.12-3.56,1.99l50.37,186.11c3.86,14.27,16.29,24.58,31.03,25.73l90.41,7.08Z" /><path class="c-cls-6" d="M227.54,663.02c.63-1.27-.29-2.76-1.71-2.75l-10.93.03c-23.69-.01-38.92-25.14-27.99-46.15l221.08-424.89c10.05-19.32,37.7-19.27,47.68.08l3.24,6.93,73.06-148.78-401.99,17.3L2.92,733.21l259,51.05,542.38,46.86c.6.05.96-.65.57-1.1L815.92,2.26l-21,816-612-66,44.62-89.24Z" /></g>
+  </g>
+</svg>
+
+        </div>
+      </div>
+      <span class="logo-text text-2xl">archival</span>
+    </a>
+  </div>
+  <div class="flex-1 justify-end md:justify-center flex">
+    <button id="quick-search-button" class="flex gap-4 font-light text-sm items-center text-gray-dark md:border md:opacity-60 md:border-gray md:bg-white md:rounded-lg md:px-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-search">
+        <circle
+          cx="11"
+          cy="11"
+          r="8"></circle>
+        <line
+          x1="21"
+          y1="21"
+          x2="16.65"
+          y2="16.65"></line>
+      </svg>
+      <div class="hidden md:flex">
+        Quick Search...
+      </div>
+      <div class="hidden md:flex">
+        ⌘K
+      </div>
+    </button>
+  </div>
+  <ul class="flex-shrink justify-end gap-2 items-center flex-wrap mr-5 hidden md:flex">
+    
+    <li class="hover:text-teal">
+      <a href="/docs/getting-started.html">Docs</a>
+    </li>
+    
+    <li class="hover:text-teal">
+      <a href="/cli/build.html">CLI</a>
+    </li>
+    <li class="hover:text-teal">
+      <a href="/manifesto.html">Manifesto</a>
+    </li>
+    <li class="hover:text-teal">
+      <a href="https://editor.archival.dev">Editor</a>
+    </li>
+    <li class="w-5">
+      <a href="https://github.com/jesseditson/archival"><img src="/img/github-mark.png" alt="github" /></a>
+    </li>
+    <li class="w-5">
+      <a href="/chat.html"><img src="/img/discord-mark.png" alt="discord" /></a>
+    </li>
+    <li class="w-5">
+      <a href="https://docs.rs/archival/"><img src="/img/rust.png" alt="rust library documentation" /></a>
+    </li>
+  </ul>
+  <div class="md:hidden mr-5 flex items-center">
+    <button>
+      <div id="menu-closed">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-menu">
+          <line
+            x1="3"
+            y1="12"
+            x2="21"
+            y2="12"></line>
+          <line
+            x1="3"
+            y1="6"
+            x2="21"
+            y2="6"></line>
+          <line
+            x1="3"
+            y1="18"
+            x2="21"
+            y2="18"></line>
+        </svg>
+      </div>
+      <div id="menu-open" class="hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-x">
+          <line
+            x1="18"
+            y1="6"
+            x2="6"
+            y2="18"></line>
+          <line
+            x1="6"
+            y1="6"
+            x2="18"
+            y2="18"></line>
+        </svg>
+      </div>
+    </button>
+  </div>
+</nav>
+<div id="mobile-menu" class="hidden translate-y-full transition opacity-0 shadow-up bg-white absolute w-full pb-20 px-4 bottom-0 z-40 text-xl text-gray-dark rounded-lg md:hidden max-h-full overflow-y-auto">
+  
+    <ul class="flex flex-col">
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/getting-started.html">Getting Started</a>
+        </li>
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/concepts.html">Concepts</a>
+        </li>
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/object-fields.html">Object Fields</a>
+        </li>
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/child-fields.html">Child Fields</a>
+        </li>
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/patterns-grouping.html">Patterns: Grouping</a>
+        </li>
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/page-templates.html">Page Templates</a>
+        </li>
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/partials.html">Partials</a>
+        </li>
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/layouts.html">Layouts</a>
+        </li>
+      
+        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+          <a class="flex-1" href="/docs/non-html-files.html">Generating non-html files</a>
+        </li>
+      
+    </ul>
+  
+</div>
+
+    <main role="main" class="flex flex-col z-0 items-center w-full h-full md:h-auto overflow-y-auto">
+      
+
+<div class="mb-20 md:mb-0 md:mt-20 flex flex-1 gap-4 min-h-full md:pl-64 w-full">
+  <div id="docs-sidebar" class="z-10 w-64 font-mono fixed left-0 hidden flex-col font-bold md:flex">
+    
+      <a href="/docs/getting-started.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md ">
+        <h3>Getting Started</h3>
+      </a>
+    
+      <a href="/docs/concepts.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md ">
+        <h3>Concepts</h3>
+      </a>
+    
+      <a href="/docs/object-fields.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md ">
+        <h3>Object Fields</h3>
+      </a>
+    
+      <a href="/docs/child-fields.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md ">
+        <h3>Child Fields</h3>
+      </a>
+    
+      <a href="/docs/patterns-grouping.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md ">
+        <h3>Patterns: Grouping</h3>
+      </a>
+    
+      <a href="/docs/page-templates.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md ">
+        <h3>Page Templates</h3>
+      </a>
+    
+      <a href="/docs/partials.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md ">
+        <h3>Partials</h3>
+      </a>
+    
+      <a href="/docs/layouts.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md backdrop-blur-lg shadow-xl bg-pink-light">
+        <h3>Layouts</h3>
+      </a>
+    
+      <a href="/docs/non-html-files.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md ">
+        <h3>Generating non-html files</h3>
+      </a>
+    
+  </div>
+
+  <div id="docs" class="z-20 w-full min-h-full bg-pink-light p-8 md:p-20 flex justify-center">
+    
+    <div class="md w-full max-w-screen-md flex flex-col gap-4">
+      <h1>Layouts</h1>
+      <p><p>Layouts are effectively the opposite of partials, in that rather than rendering the partial inside the page, the page is rendered inside the layout. They are defined in the <code>layouts</code> dir or whichever dir your <code>manifest.toml</code> defines as the <code>layout_dir</code>.</p>
+<p>An example layout would be defined in <code>layouts/theme.liquid</code> and could look like this:</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;My Website: {{ title }}&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/style/theme.css&quot;&gt;
+    {% if style %}
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;/style/{{style}}.css&quot;&gt;
+    {% endif %}
+  &lt;/head&gt;
+  &lt;body&gt;
+    {{ page_content }}
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>There is one special variable that is always defined when using a layout, <code>page_content</code>. This variable contains the entire document that invoked the layout.</p>
+<p>Layouts are rendered using the special (archival-specific) <code>layout</code> tag, which accepts any number of arbitrary variables that are then passed to the layout. In the above example, the layout accepts <code>title</code> and an optional <code>style</code> argument.</p>
+<p>To use a layout, simply render the tag inside a page. For instance, if we had a <code>post.liquid</code> page template, we could render it in the above layout using this:</p>
+<pre><code class="language-html">{% layout 'theme' title: post.title, style: 'post' %}
+&lt;header class=&quot;header&quot;&gt;
+  &lt;h1&gt;{{ post.title }}&lt;/h1&gt;
+&lt;/header&gt;
+&lt;article class=&quot;content&quot;&gt;
+  &lt;p&gt;{{ post.content }}&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+</p>
+
+      
+
+      <div class="flex justify-between text-lg font-bold font-mono mt-10 gap-5">
+        
+        
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+          
+        
+          
+          
+        
+          
+            
+          
+          
+        
+        
+          <a href="/docs/partials.html">
+            <div id="prev" class="bg-gradient-to-r from-pink-light to-peach ring-peach ring-1 px-4 py-2 rounded-lg shadow-md hover:shadow-xl">
+              ← Partials
+            </div>
+          </a>
+        
+        
+          <a href="/docs/non-html-files.html">
+            <div id="next" class="bg-gradient-to-r from-pink-light to-peach ring-peach ring-1 px-4 py-2 rounded-lg shadow-md hover:shadow-xl">
+              Generating non-html files →
+            </div>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+    </main>
+
+    <!-- syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- documentation languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/toml.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>
