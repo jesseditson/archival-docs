@@ -28,11 +28,15 @@
       {% for doc in objects.docs %}
         {% assign outer_last = forloop.last %}
         {% assign section_count = doc.sections | size %}
+        {% assign desc = "" %}
+        {% if doc.description %}
+        {% assign desc = doc.description %}
+        {% endif %}
         {
             "path": "/{{doc.path}}.html",
             "docTitle": "{{doc.title}}",
             "sectionTitle": null,
-            "content": "{{doc.description | url_decode | replace: '"', '\"' | strip_newlines | url_encode }}"
+            "content": "{{desc | url_decode | replace: '"', '\"' | strip_newlines | url_encode }}"
         }{% unless outer_last and section_count == 0 %},{% endunless %}
         {% for section in doc.sections %}
           {

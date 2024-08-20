@@ -27,7 +27,7 @@
     {% endcomment %}
     <div class="md w-full max-w-screen-md flex flex-col gap-4">
       <h1>{{ docs.title }}</h1>
-      <p>{{ docs.description }}</p>
+      <p>{% default docs.description "" %}</p>
 
       {% for section in docs.sections %}
         <a
