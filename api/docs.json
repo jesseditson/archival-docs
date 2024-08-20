@@ -1,0 +1,513 @@
+{
+    "sections": [
+      
+      
+        
+          {
+            "path": "/cli/build.html#options",
+            "docTitle": "archival build",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+        
+          {
+            "path": "/cli/build.html#arguments",
+            "docTitle": "archival build",
+            "sectionTitle": "[path/to/archival-site]",
+            "content": "optionally%20specify%20a%20path%20to%20an%20archival%20site.%20By%20default%20will%20run%20in%20the%20current%20working%20directory.%20"
+          },
+        
+        {
+            "path": "/cli/build.html",
+            "docTitle": "archival build",
+            "sectionTitle": null,
+            "content": "%3Cp%3EBuild%20an%20archival%20site%20-%20this%20will%20generate%20a%20static%20site%20inside%20a%20directory%20%28dist%20unless%20you%20have%20overridden%20it%20in%20manifest.toml%29.%3C%2Fp%3E"
+        },
+      
+        
+          {
+            "path": "/cli/run.html#options",
+            "docTitle": "archival run",
+            "sectionTitle": "-p, --port <1024>",
+            "content": "choose%20a%20different%20port%20to%20run%20the%20local%20server%20on.%20Defaults%20to%201024"
+          },
+        
+          {
+            "path": "/cli/run.html#options",
+            "docTitle": "archival run",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+        
+          {
+            "path": "/cli/run.html#arguments",
+            "docTitle": "archival run",
+            "sectionTitle": "[path/to/archival-site]",
+            "content": "optionally%20specify%20a%20path%20to%20an%20archival%20site.%20By%20default%20will%20run%20in%20the%20current%20working%20directory.%20"
+          },
+        
+        {
+            "path": "/cli/run.html",
+            "docTitle": "archival run",
+            "sectionTitle": null,
+            "content": "%3Cp%3EThis%20command%20runs%20a%20local%20static%20server%20and%20watches%20your%20archival%20site%20for%20changes.%20The%20site%20will%20be%20automatically%20rebuilt%20whenever%20files%20change.%3C%2Fp%3E%3Cblockquote%3E%3Cp%3ENote%20that%20this%20command%20should%20never%20be%20used%20to%20serve%20a%20website%20in%20production.%20Archival%20generates%20static%20websites%2C%20so%20to%20serve%20an%20archival%20site%2C%20just%20run%20%3Ccode%3Earchival%20build%3C%2Fcode%3E%20and%20run%20a%20static%20web%20server%20that%20points%20to%20the%20%3Ccode%3Edist%3C%2Fcode%3E%20folder%2C%20or%20upload%20that%20%3Ccode%3Edist%3C%2Fcode%3E%20folder%20to%20a%20static%20host%20%28or%20use%20the%20archival%20editor%20to%20automate%20this%20process%29.%3C%2Fp%3E%3C%2Fblockquote%3E"
+        },
+      
+        
+          {
+            "path": "/cli/compat.html#options",
+            "docTitle": "archival compat",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+        
+          {
+            "path": "/cli/compat.html#arguments",
+            "docTitle": "archival compat",
+            "sectionTitle": "<version>",
+            "content": "a%20version%20string%20%28e.g.%200.4.1-alpha%29."
+          },
+        
+          {
+            "path": "/cli/compat.html#arguments",
+            "docTitle": "archival compat",
+            "sectionTitle": "[path/to/archival-site]",
+            "content": "optionally%20specify%20a%20path%20to%20an%20archival%20site.%20By%20default%20will%20run%20in%20the%20current%20working%20directory.%20"
+          },
+        
+        {
+            "path": "/cli/compat.html",
+            "docTitle": "archival compat",
+            "sectionTitle": null,
+            "content": "%3Cp%3EChecks%20the%20compatibility%20of%20this%20version%20of%20archival%20against%20a%20version%20string.%20This%20will%20return%20a%20non-zero%20exit%20code%20if%20the%20specified%20version%20is%20incompatible%20-%20generally%20this%20is%20used%20during%20CI%20or%20automated%20builds.%3C%2Fp%3E"
+        },
+      
+        
+          {
+            "path": "/cli/import.html#options",
+            "docTitle": "archival import",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+          {
+            "path": "/cli/import.html#options",
+            "docTitle": "archival import",
+            "sectionTitle": "-n, --name <field_name>",
+            "content": "If%20generating%20objects%2C%20the%20data%20field%20to%20use%20to%20generate%20object%20file%20names."
+          },
+        
+          {
+            "path": "/cli/import.html#options",
+            "docTitle": "archival import",
+            "sectionTitle": "-f, --format <csv|json>",
+            "content": "The%20format%20of%20the%20source%20data.%20Inferred%20from%20the%20file%20extension%20if%20importing%20from%20a%20file."
+          },
+        
+          {
+            "path": "/cli/import.html#options",
+            "docTitle": "archival import",
+            "sectionTitle": "-m, --map <from:to>",
+            "content": "map%20a%20source%20field%20name%20to%20a%20destination%20field%20name."
+          },
+        
+        
+          {
+            "path": "/cli/import.html#arguments",
+            "docTitle": "archival import",
+            "sectionTitle": "<object>",
+            "content": "The%20object%20type%20if%20generating%20objects%20%28e.g.%20%60post%60%29%2C%20or%20an%20object%20file%20to%20import%20to%20%28%60e.g.%20post%2Fone.toml%60%29%20if%20importing%20to%20a%20child%20list."
+          },
+        
+          {
+            "path": "/cli/import.html#arguments",
+            "docTitle": "archival import",
+            "sectionTitle": "[child]",
+            "content": "If%20importing%20to%20a%20child%20list%2C%20this%20is%20the%20name%20of%20the%20children%20to%20import%20to."
+          },
+        
+          {
+            "path": "/cli/import.html#arguments",
+            "docTitle": "archival import",
+            "sectionTitle": "[file]",
+            "content": "The%20file%20containing%20data%20to%20import.%20If%20not%20provided%2C%20will%20read%20from%20stdout%20%28and%20%60--format%60%20is%20required%29."
+          },
+        
+          {
+            "path": "/cli/import.html#arguments",
+            "docTitle": "archival import",
+            "sectionTitle": "[path/to/archival-site]",
+            "content": "optionally%20specify%20a%20path%20to%20an%20archival%20site.%20By%20default%20will%20run%20in%20the%20current%20working%20directory.%20"
+          },
+        
+        {
+            "path": "/cli/import.html",
+            "docTitle": "archival import",
+            "sectionTitle": null,
+            "content": "%3Cp%3EThis%20command%20handles%20importing%20external%20structured%20data%20into%20archival%20object%20files%2C%20and%20typically%20is%20used%20during%20automated%20workflows%20or%20initial%20site%20data%20population.%3C%2Fp%3E"
+        },
+      
+        
+          {
+            "path": "/cli/manifest.html#options",
+            "docTitle": "archival manifest",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+        
+          {
+            "path": "/cli/manifest.html#arguments",
+            "docTitle": "archival manifest",
+            "sectionTitle": "<field>",
+            "content": "a%20field%20to%20print%20%5Bpossible%20values%3A%20archival-version%2C%20site-url%2C%20archival-site%2C%20objects-dir%2Cprebuild%2C%20pages-dir%2C%20build-dir%2C%20static-dir%2C%20layout-dir%2C%20cdn-url%5D"
+          },
+        
+          {
+            "path": "/cli/manifest.html#arguments",
+            "docTitle": "archival manifest",
+            "sectionTitle": "[path/to/archival-site]",
+            "content": "optionally%20specify%20a%20path%20to%20an%20archival%20site.%20By%20default%20will%20run%20in%20the%20current%20working%20directory.%20"
+          },
+        
+        {
+            "path": "/cli/manifest.html",
+            "docTitle": "archival manifest",
+            "sectionTitle": null,
+            "content": "%3Cp%3EPrint%20the%20value%20from%20a%20manifest%20field%20-%20typically%20this%20is%20useful%20in%20the%20context%20of%20a%20build%20script%20or%20CI%20environment.%3C%2Fp%3E"
+        },
+      
+        
+          {
+            "path": "/cli/prebuild.html#options",
+            "docTitle": "archival prebuild",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+        
+          {
+            "path": "/cli/prebuild.html#arguments",
+            "docTitle": "archival prebuild",
+            "sectionTitle": "[path/to/archival-site]",
+            "content": "optionally%20specify%20a%20path%20to%20an%20archival%20site.%20By%20default%20will%20run%20in%20the%20current%20working%20directory.%20"
+          },
+        
+        {
+            "path": "/cli/prebuild.html",
+            "docTitle": "archival prebuild",
+            "sectionTitle": null,
+            "content": "%3Cp%3ERuns%20the%20commands%20listed%20in%20the%20manifest%20prebuild%20fields%2C%20in%20sequence%2C%20in%20subshells.%20If%20any%20command%20fails%2C%20this%20will%20print%20the%20failure%20and%20exit%20non-zero.%3C%2Fp%3E"
+        },
+      
+        
+          {
+            "path": "/cli/login.html#options",
+            "docTitle": "archival login",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+        
+        {
+            "path": "/cli/login.html",
+            "docTitle": "archival login",
+            "sectionTitle": null,
+            "content": "%3Cp%3ELogs%20in%20to%20the%20archival%20editor%20and%20store%20credentials%20locally%20in%20%3Ccode%3E%7E%2F.archivalrc%3C%2Fcode%3E.%3C%2Fp%3E%3Cp%3ECertain%20commands%20like%20%3Ccode%3Earchival%20upload%3C%2Fcode%3E%20require%20that%20you%E2%80%99re%20logged%20in%20to%20be%20able%20to%20run.%3C%2Fp%3E"
+        },
+      
+        
+          {
+            "path": "/cli/objects.html#options",
+            "docTitle": "archival objects",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+        
+          {
+            "path": "/cli/objects.html#arguments",
+            "docTitle": "archival objects",
+            "sectionTitle": "[path/to/archival-site]",
+            "content": "optionally%20specify%20a%20path%20to%20an%20archival%20site.%20By%20default%20will%20run%20in%20the%20current%20working%20directory.%20"
+          },
+        
+        {
+            "path": "/cli/objects.html",
+            "docTitle": "archival objects",
+            "sectionTitle": null,
+            "content": "%3Cp%3ELists%20the%20objects%20defined%20in%20this%20site%2C%20in%20a%20debug-friendly%20format.%20Mainly%20useful%20when%20troubleshooting%20a%20build%20issue.%3C%2Fp%3E%3Cp%3EExample%20output%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-bash%5C%22%3E%E2%8C%97objects%20%20%20%20%E2%8C%97post%20%20%20%20%20%20%E2%86%98%EF%B8%8E%5B18%20items%5D%20%20%20%20%20%20%20%20%20%20%E2%8C%97path%3A%20%28string%29%20%20%20%20%20%20%20%20%20%20%E2%8C%97title%3A%20%28string%29%20%20%20%20%20%20%20%20%20%20%E2%8C%97order%3A%20%28whole%20number%29%20%20%20%20%20%20%20%20%20%20%E2%8C%97content%3A%20%28string%29%20%20%20%20%20%20%20%20%20%20%E2%8C%97draft%3A%20%28boolean%29%20%20%20%20%20%20%20%20%20%20%E2%8C%97date%3A%20%28string%29%3C%2Fcode%3E%3C%2Fpre%3E"
+        },
+      
+        
+          {
+            "path": "/cli/upload.html#options",
+            "docTitle": "archival upload",
+            "sectionTitle": "-h, --help",
+            "content": "print%20help%20for%20this%20command."
+          },
+        
+        
+          {
+            "path": "/cli/upload.html#arguments",
+            "docTitle": "archival upload",
+            "sectionTitle": "<object>",
+            "content": "The%20object%20to%20upload%20data%20for.%20In%20the%20case%20of%20non-root%20objects.%20This%20is%20usually%20the%20object%20path%20minus%20the%20%60objects_dir%60%20prefix%20and%20the%20%60.toml%60%20extension%2C%20for%20instance%2C%20%60my-object-type%2Fobject-name%60."
+          },
+        
+          {
+            "path": "/cli/upload.html#arguments",
+            "docTitle": "archival upload",
+            "sectionTitle": "<field>",
+            "content": "The%20field%20to%20point%20at%20the%20uploaded%20data.%20If%20not%20defined%20at%20the%20root%20of%20the%20object%2C%20dots%20can%20be%20used%20to%20indicate%20child%20indexes%20and%20fields.%20For%20instance%20%60child.0.child-field%60%20would%20point%20to%20the%20first%20%60child%60%27s%20%60child-field%60."
+          },
+        
+          {
+            "path": "/cli/upload.html#arguments",
+            "docTitle": "archival upload",
+            "sectionTitle": "<file>",
+            "content": "A%20path%20to%20a%20file%20to%20upload"
+          },
+        
+          {
+            "path": "/cli/upload.html#arguments",
+            "docTitle": "archival upload",
+            "sectionTitle": "[path/to/archival-site]",
+            "content": "optionally%20specify%20a%20path%20to%20an%20archival%20site.%20By%20default%20will%20run%20in%20the%20current%20working%20directory.%20"
+          },
+        
+        {
+            "path": "/cli/upload.html",
+            "docTitle": "archival upload",
+            "sectionTitle": null,
+            "content": "%3Cp%3EUploads%20a%20file%20to%20archival%E2%80%99s%20CDN%20and%20sets%20a%20field%20in%20a%20local%20object%20with%20the%20resulting%20metadata.%20When%20uploading%20files%20via%20the%20command%20line%2C%20this%20allows%20you%20to%20do%20the%20same%20thing%20the%20editor%20does%2C%20which%20is%20to%20upload%20and%20store%20the%20uploaded%20sha%20in%20a%20local%20file%20field.%3C%2Fp%3E"
+        },
+      
+      
+        
+        
+        
+        
+        {
+            "path": "/docs/getting-started.html",
+            "docTitle": "Getting Started",
+            "sectionTitle": null,
+            "content": ""
+        },
+        
+          {
+            "path": "/docs/getting-started.html#Using%20editor.archival.dev%2Fnew",
+            "docTitle": "Getting Started",
+            "sectionTitle": "Using editor.archival.dev/new",
+            "content": "%3Cp%3EThe%20simplest%20way%20to%20set%20up%20an%20archival%20repo%20is%20to%20go%20to%20%3Ca%20href%3D%5C%22http%3A%2F%2Feditor.archival.dev%2Fnew%5C%22%3Eeditor.archival.dev%2Fnew%3C%2Fa%3E%20and%20select%20a%20template.%20This%20will%20create%20a%20new%20git%20repo%20in%20your%20github%20account%20and%20a%20live%20version%20at%20an%20%3Ccode%3E.onarchival.dev%3C%2Fcode%3E%20subdomain.%3C%2Fp%3E%3Cp%3EOnce%20you%20have%20a%20site%20set%20up%2C%20click%20the%20gear%20icon%20and%20open%20the%20git%20repo%20-%20from%20there%2C%20you%20can%20view%20the%20git%20URL%20and%20use%20it%20to%20clone%20your%20new%20website%20locally.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/getting-started.html#Developing%20your%20archival%20website%20locally",
+            "docTitle": "Getting Started",
+            "sectionTitle": "Developing your archival website locally",
+            "content": "%3Cp%3EYou%20can%20now%20run%20%3Ccode%3Earchival%20run%3C%2Fcode%3E%20or%20%3Ccode%3Ebin%2Farchival%20run%3C%2Fcode%3E%20in%20your%20website%E2%80%99s%20repo.%3C%2Fp%3E%3Cp%3EYou%20should%20see%20a%20message%20telling%20you%20that%20your%20website%20is%20available%20at%20%3Ccode%3Ehttp%3A%2F%2Flocalhost%3A1024%3C%2Fcode%3E.%20If%20you%20want%20to%20choose%20a%20different%20port%2C%20run%20%3Ccode%3Ebin%2Farchival%20run%20--port%201234%3C%2Fcode%3E.%3C%2Fp%3E%3Cp%3EThe%20%3Ccode%3Erun%3C%2Fcode%3E%20command%20automatically%20watches%20your%20filesystem%20and%20will%20rebuild%20your%20website%20whenever%20files%20change.%20Try%20modifying%20an%20object%20file%20to%20see%20the%20site%20update.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/getting-started.html#Manual%20installation%20%28advanced%29",
+            "docTitle": "Getting Started",
+            "sectionTitle": "Manual installation (advanced)",
+            "content": "%3Cp%3EYou%20don%E2%80%99t%20have%20to%20clone%20a%20template%20to%20use%20archival%20-%20you%20can%20also%20install%20it%20via%20cargo%20and%20manually%20create%20the%20file%20structure.%3C%2Fp%3E%3Cp%3EFirst%2C%20install%20the%20rust%20toolchain%20via%20%3Ccode%3Erustup%3C%2Fcode%3E%3A%20https%3A%2F%2Fdoc.rust-lang.org%2Fcargo%2Fgetting-started%2Finstallation.html%3C%2Fp%3E%3Cp%3EThen%20create%20a%20new%20git%20repo%3A%3C%2Fp%3E%3Cp%3E%3Ccode%3Emkdir%20my-website%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3E%3Ccode%3Ecd%20my-website%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3E%3Ccode%3Egit%20init%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3ENow%20add%20the%20basics%20for%20archival%20to%20work%3A%3C%2Fp%3E%3Cp%3E%3Ccode%3Eecho%20%26quot%3Bdist%26quot%3B%20%26gt%3B%26gt%3B%20.gitignore%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3E%3Ccode%3Emkdir%20public%20layout%20objects%20pages%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3E%3Ccode%3Eecho%20%26quot%3B%5Btest%5D%20name%3D%26quot%3Bstring%26quot%3B%26quot%3B%20%26gt%3B%26gt%3B%20objects.toml%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3E%3Ccode%3Eecho%20%26quot%3Bname%20%3D%20%26quot%3Bhello%26quot%3B%26quot%3B%20%26gt%3B%26gt%3B%20objects%2Ftest%2Ffirst.toml%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3E%3Ccode%3Eecho%20%26quot%3B%7B%7B%20page_content%20%7D%7D%26quot%3B%20%26gt%3B%26gt%3B%20layout%2Ftheme.liquid%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3E%3Ccode%3Eecho%20%26quot%3B%7B%25%20layout%20%27theme%27%20%25%7D%20%7B%25%20for%20o%20in%20test%20%25%7D%20%7B%7Btest.name%7D%7D%20%7B%25%20endfor%20%25%7D%26quot%3B%20%26gt%3B%26gt%3B%20pages%2Findex.liquid%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3EThis%20will%20create%3A%3C%2Fp%3E%3Cul%3E%3Cli%3Ea%20layout%3C%2Fli%3E%3Cli%3Ean%20objects%20definition%20file%20with%20an%20object%20type%20%3Ccode%3Etest%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3Ean%20example%20%3Ccode%3Etest%3C%2Fcode%3E%20object%3C%2Fli%3E%3Cli%3Ea%20theme%20to%20render%20our%20page%20in%3C%2Fli%3E%3Cli%3Ea%20page%20that%20renders%20our%20theme%20and%20our%20objects%3C%2Fli%3E%3C%2Ful%3E"
+        },
+        
+      
+        
+        
+        
+        
+        
+        
+        {
+            "path": "/docs/concepts.html",
+            "docTitle": "Concepts",
+            "sectionTitle": null,
+            "content": "%3Cp%3EArchival%20is%20a%20fairly%20simple%20tool%20but%20has%20been%20designed%20to%20be%20used%20in%20some%20powerful%20ways.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/concepts.html#Archival%20as%20a%20Library",
+            "docTitle": "Concepts",
+            "sectionTitle": "Archival as a Library",
+            "content": "%3Cp%3EArchival%20is%20normally%20used%20as%20a%20binary%20during%20local%20development%20and%20continuous%20integration.%20However%2C%20if%20you%E2%80%99d%20like%20to%20integrate%20it%20into%20a%20rust%20application%2C%20it%20exposes%20a%20rust-based%20API%20that%20allows%20use%20in%20various%20environments%20%28even%20ones%20without%20filesystems%20like%20WASM%29%20-%20the%20documentation%20for%20this%20use%20is%20available%20on%20crates.io%3A%20https%3A%2F%2Fdocs.rs%2Farchival%2Flatest%2Farchival%2F%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/concepts.html#Archival%20Binaries",
+            "docTitle": "Concepts",
+            "sectionTitle": "Archival Binaries",
+            "content": "%3Cp%3EMost%20use%20of%20archival%20will%20be%20via%20a%20binary.%20Archival%20templates%20generally%20come%20with%20a%20locally-packaged%20version%20of%20the%20archival%20binary%20that%20it%20was%20built%20with%2C%20along%20with%20scripts%20to%20update%20these%20binaries%2C%20located%20in%20the%20%3Ccode%3Ebin%3C%2Fcode%3E%20folder.%3C%2Fp%3E%3Cp%3EBy%20packaging%20and%20versioning%20the%20binary%20with%20the%20website%2C%20we%20can%20be%20sure%20that%20even%20if%20we%20update%20our%20website%20in%20a%20backward-incompatible%20way%20with%20older%20versions%20of%20%3Ccode%3Earchival%3C%2Fcode%3E%2C%20we%E2%80%99ll%20still%20be%20able%20to%20build%20old%20versions%20of%20our%20website.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/concepts.html#objects.toml",
+            "docTitle": "Concepts",
+            "sectionTitle": "objects.toml",
+            "content": "%3Cp%3EA%20core%20concept%20of%20archival%20is%20the%20idea%20that%20the%20data%20your%20website%20uses%20is%20defined%20in%20a%20structured%20format%2C%20and%20that%20the%20files%20to%20define%20it%20are%20local.%3C%2Fp%3E%3Cp%3EThis%20creates%20a%20clear%20separation%20between%20which%20data%20is%20presentational%20or%20functional%2C%20and%20which%20data%20is%20editable%20by%20site%20owners%20who%20may%20not%20be%20web%20developers.%3C%2Fp%3E%3Cp%3EThe%20%3Ccode%3Eobjects.toml%3C%2Fcode%3E%20file%20is%20where%20you%20define%20which%20objects%20exist%20on%20your%20website.%20For%20instance%2C%20if%20you%E2%80%99re%20making%20a%20blog%2C%20your%20%3Ccode%3Eobjects.toml%3C%2Fcode%3E%20might%20look%20like%20this%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3E%5Bpost%5Dtitle%20%3D%20%26quot%3Bstring%26quot%3Bdate%20%3D%20%26quot%3Bdate%26quot%3Bcontent%20%3D%20%26quot%3Bmarkdown%26quot%3Btemplate%20%3D%20%26quot%3Bpost%26quot%3Bdraft%20%3D%20%26quot%3Bboolean%26quot%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EEach%20object%20is%20defined%20as%20a%20unique%20name%2C%20which%20defines%20a%20list%20of%20fields%20that%20map%20to%20scalar%20types.%3C%2Fp%3E%3Cp%3EThere%20are%20also%20some%20special%20keys%20you%20can%20use%20in%20these%20definitions%3A%3C%2Fp%3E%3Cul%3E%3Cli%3E%3Ccode%3Etemplate%3C%2Fcode%3E%20will%20allow%20you%20to%20use%20a%20file%20in%20the%20%3Ccode%3Epages%3C%2Fcode%3E%20dir%20as%20a%20template%2C%20which%20will%20cause%20archival%20to%20generate%20one%20page%20per%20object%20of%20this%20type%2C%20with%20the%20same%20name%20as%20its%20filename%2C%20inside%20the%20%3Ccode%3Edist%2Fobject-name%3C%2Fcode%3E%20folder.%3C%2Fli%3E%3C%2Ful%3E%3Cp%3ESome%20keys%20are%20reserved%20as%20they%E2%80%99re%20either%20generated%20at%20runtime%20or%20have%20internal%20meanings.%20Those%20keys%20are%3A%3C%2Fp%3E%3Cul%3E%3Cli%3E%3Ccode%3Etemplate%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Eorder%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Eobjects%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Eobject_name%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Epage%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Epage_name%3C%2Fcode%3E%3C%2Fli%3E%3C%2Ful%3E%3Cp%3EThe%20available%20field%20types%20are%20documented%20in%20the%20%5Bfield%20types%5D%20section.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/concepts.html#The%20objects%20directory%20and%20object%20files",
+            "docTitle": "Concepts",
+            "sectionTitle": "The objects directory and object files",
+            "content": "%3Cp%3EThe%20objects%20available%20to%20your%20site%20templates%20are%20based%20on%20toml%20files%20that%20you%20create%20in%20your%20local%20file%20system.%20This%20makes%20sure%20that%20all%20objects%20are%20compatible%20with%20the%20current%20%3Ccode%3Eobjects.toml%3C%2Fcode%3E%20definition%2C%20and%20allows%20you%20to%20easily%20edit%20an%20object%20in%20one%20place%20regardless%20of%20where%20it%20is%20rendered%20on%20your%20website.%20For%20instance%2C%20you%20may%20want%20to%20render%20a%20blog%20post%20both%20on%20a%20web%20page%20for%20users%20to%20visit%20and%20inside%20an%20rss%20feed.%3C%2Fp%3E%3Cp%3ETo%20define%20an%20object%2C%20just%20create%20a%20file%20inside%20the%20%3Ccode%3Eobjects%2F%5Bobject-name%5D%3C%2Fcode%3E%20directory.%20For%20instance%2C%20to%20define%20a%20new%20object%20of%20type%20%3Ccode%3Epost%3C%2Fcode%3E%2C%20you%E2%80%99d%20create%20an%20%3Ccode%3Eobjects%2Fpost%2Fmy-blog-post.toml%3C%2Fcode%3E%20file.%3C%2Fp%3E%3Cp%3EAlternatively%2C%20if%20there%20is%20only%20one%20of%20a%20certain%20object%20type%20%28for%20instance%2C%20to%20make%20the%20home%20page%20content%20editable%2C%20you%20might%20define%20a%20%3Ccode%3Ehome%3C%2Fcode%3E%20object%20type%29%2C%20you%20can%20define%20a%20toml%20file%20with%20the%20same%20name%20as%20the%20object%2C%20e.g.%20%3Ccode%3Eobjects%2Fhome.toml%3C%2Fcode%3E%20.%3C%2Fp%3E%3Cp%3EInside%20each%20object%20file%2C%20you%20may%20specify%20values%20for%20any%20of%20the%20keys%20in%20the%20corresponding%20object%20definition.%20For%20instance%2C%20with%20a%20definition%20of%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3E%5Bpost%5Dtitle%20%3D%20%26quot%3Bstring%26quot%3Bdate%20%3D%20%26quot%3Bdate%26quot%3Bcontent%20%3D%20%26quot%3Bmarkdown%26quot%3Btemplate%20%3D%20%26quot%3Bpost%26quot%3Bdraft%20%3D%20%26quot%3Bboolean%26quot%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EYou%20would%20create%20a%20new%20blog%20post%20by%20creating%20a%20file%20called%20%3Ccode%3Eobjects%2Fpost%2Fmy-blog-post.toml%3C%2Fcode%3E%2C%20with%20the%20following%20content%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3Etitle%20%3D%20%26quot%3BMy%20Blog%20Post%20Title%26quot%3Bdate%20%3D%20%26quot%3B12%2F17%2F2021%26quot%3Bcontent%20%3D%20%26quot%3B%26quot%3B%26quot%3B%23%23%23%20Markdown%20ContentThis%20is%20some%20%5Bmarkdown%5D%28https%3A%2F%2Fwww.markdownguide.org%29.%26quot%3B%26quot%3B%26quot%3Bdraft%20%3D%20falseorder%20%3D%2020211217%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EYou%20may%20omit%20fields%20and%20they%20will%20be%20populated%20with%20default%20values%20when%20rendered.%3C%2Fp%3E%3Cp%3EArbitrary%20fields%20may%20be%20defined%2C%20but%20archival%20will%20print%20a%20warning%20whenever%20encountering%20a%20field%20defined%20on%20an%20object%20that%20was%20not%20found%20in%20the%20corresponding%20object%20definition.%3C%2Fp%3E%3Cp%3E%3Cstrong%3EThe%20%3Ccode%3Eorder%3C%2Fcode%3E%20field%3C%2Fstrong%3E%3C%2Fp%3E%3Cp%3EThe%20special%20%3Ccode%3Eorder%3C%2Fcode%3E%20field%20allows%20you%20to%20control%20the%20sort%20order%20of%20this%20object%20type%20when%20iterated%20in%20templates.%20This%20can%20be%20any%20whole%20%28integer%29%20number%2C%20and%20is%20just%20compared%20to%20the%20other%20%3Ccode%3Eorder%3C%2Fcode%3E%20keys%20defined%20on%20other%20objects%20of%20this%20type%20to%20determine%20sort%20order.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/concepts.html#manifest.toml",
+            "docTitle": "Concepts",
+            "sectionTitle": "manifest.toml",
+            "content": "%3Cp%3EBy%20default%2C%20archival%20is%20configured%20with%20some%20sensible%20defaults%20and%20no%20%3Ccode%3Emanifest.toml%3C%2Fcode%3E%20file%20is%20necessary.%20However%2C%20when%20customizing%20configuration%20or%20editing%20with%20the%20archival%20editor%2C%20archival%20uses%20a%20file%20called%20%3Ccode%3Emanifest.toml%3C%2Fcode%3E%20to%20define%20global%20site%20configuration.%3C%2Fp%3E%3Cp%3EThese%20fields%20are%3A%3C%2Fp%3E%3Cul%3E%3Cli%3E%3Ccode%3Earchival_version%3C%2Fcode%3E%3A%20the%20minimum%20compatible%20archival%20version%20that%20this%20site%20uses.%20Archival%20always%20checks%20this%20version%20before%20running%20if%20defined%2C%20to%20avoid%20unexpected%20compatibility%20errors.%3C%2Fli%3E%3Cli%3E%3Ccode%3Eprebuild%3C%2Fcode%3E%3A%20a%20list%20of%20commands%20that%20should%20be%20run%20before%20building%20this%20site.%20When%20using%20archival%20with%20javascript%20or%20css%20frameworks%2C%20this%20will%20make%20sure%20%3Ccode%3Earchival%20build%3C%2Fcode%3E%20is%20not%20missing%20files.%3C%2Fli%3E%3Cli%3E%3Ccode%3Eobject_definition_file%3C%2Fcode%3E%3A%20overrides%20the%20location%20of%20the%20object%20definition%20file.%20Default%20%3Ccode%3Eobjects.toml%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Epages_dir%3C%2Fcode%3E%3A%20overrides%20the%20location%20of%20your%20pages%20templates.%20Default%20%3Ccode%3Epages%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Eobjects_dir%3C%2Fcode%3E%3A%20overrides%20the%20location%20of%20your%20object%20files.%20Default%20%3Ccode%3Eobjects%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Ebuild_dir%3C%2Fcode%3E%3A%20overrides%20the%20output%20directory%20that%20archival%20will%20build%20static%20assets%20into.%20Default%20%3Ccode%3Edist%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Elayout_dir%3C%2Fcode%3E%3A%20overrides%20the%20location%20of%20your%20layouts.%20Default%20%3Ccode%3Elayout%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3Esite_url%3C%2Fcode%3E%3A%20when%20the%20archival%20editor%20previews%20a%20site%2C%20it%20uses%20this%20field%20to%20serve%20live%20assets%20for%20files%20that%20aren%E2%80%99t%20built%20by%20the%20editor%20-%20for%20instance%2C%20anything%20typically%20generated%20by%20the%20%3Ccode%3Eprebuild%3C%2Fcode%3E%20commands.%3C%2Fli%3E%3Cli%3E%3Ccode%3Earchival_site%3C%2Fcode%3E%3A%20this%20defines%20the%20%3Ca%20href%3D%5C%22http%3A%2F%2Fonarchival.dev%5C%22%3E%3Ccode%3Eonarchival.dev%3C%2Fcode%3E%3C%2Fa%3E%20subdomain%20and%20site%20name%20that%20archival%20uses%20in%20the%20editor.%20This%20is%20also%20used%20as%20an%20asset%20host%20for%20built%20assets%20that%20are%20not%20managed%20by%20archival%20if%20%3Ccode%3Esite_url%3C%2Fcode%3E%20is%20not%20defined.%3C%2Fli%3E%3C%2Ful%3E"
+        },
+        
+      
+        
+        
+        
+        
+        
+        
+        {
+            "path": "/docs/object-fields.html",
+            "docTitle": "Object Fields",
+            "sectionTitle": null,
+            "content": "%3Cp%3EWhen%20defining%20objects%20in%20your%20Object%20Definition%20File%2C%20each%20object%E2%80%99s%20schema%20is%20defined%20by%20key%20value%20pairs%2C%20where%20the%20keys%20are%20field%20names%20and%20the%20values%20are%20types.%20When%20rendering%2C%20each%20type%20is%20represented%20by%20a%20distinct%20liquid%20value%20or%20an%20object%20hash.%3C%2Fp%3E%3Cp%3EThe%20available%20types%20are%3A%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/object-fields.html#string",
+            "docTitle": "Object Fields",
+            "sectionTitle": "string",
+            "content": "%3Cp%3EValues%20will%20be%20interpreted%20as%20a%20liquid%20%3Ca%20href%3D%5C%22https%3A%2F%2Fshopify.github.io%2Fliquid%2Fbasics%2Ftypes%2F%23string%5C%22%3Estring%3C%2Fa%3E.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/object-fields.html#number",
+            "docTitle": "Object Fields",
+            "sectionTitle": "number",
+            "content": "%3Cp%3EValues%20will%20be%20displayed%20as%20a%20liquid%20%3Ca%20href%3D%5C%22https%3A%2F%2Fshopify.github.io%2Fliquid%2Fbasics%2Ftypes%2F%23number%5C%22%3Enumber%3C%2Fa%3E.%3C%2Fp%3E%3Cp%3ENote%20that%20while%20it%E2%80%99s%20perfectly%20valid%20to%20specify%20integers%20in%20files%2C%20these%20numbers%20are%20always%20interpreted%20as%20floats%20-%20specifically%20as%20signed%2064%20bit%20floats.%3C%2Fp%3E%3Cp%3E%3Cstrong%3ERendering%3C%2Fstrong%3E%3C%2Fp%3E%3Cp%3EWhen%20rendering%20numbers%2C%20it%E2%80%99s%20typical%20to%20use%20the%20%3Ccode%3Eround%3C%2Fcode%3E%20filter%20to%20obtain%20the%20desired%20precision.%20See%20https%3A%2F%2Fshopify.github.io%2Fliquid%2Ffilters%2Fround%2F%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-html%5C%22%3E%7B%7B%20object.number%20%7C%20round%3A%202%20%7D%7D%3C%2Fcode%3E%3C%2Fpre%3E"
+        },
+        
+          {
+            "path": "/docs/object-fields.html#boolean",
+            "docTitle": "Object Fields",
+            "sectionTitle": "boolean",
+            "content": "%3Cp%3EValues%20will%20be%20displayed%20as%20a%20liquid%20%3Ca%20href%3D%5C%22https%3A%2F%2Fshopify.github.io%2Fliquid%2Fbasics%2Ftypes%2F%23boolean%5C%22%3Eboolean%3C%2Fa%3E.%3C%2Fp%3E%3Cp%3EThere%20are%20only%20two%20values%2C%20which%20should%20be%20defined%20unquoted%20-%20either%20%3Ccode%3Etrue%3C%2Fcode%3E%20or%20%3Ccode%3Efalse%3C%2Fcode%3E.%20You%20can%20use%20these%20values%20for%20reliable%20control%20flow%2C%20usually%20inside%20%3Ccode%3Eif%3C%2Fcode%3E%20statements.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/object-fields.html#date",
+            "docTitle": "Object Fields",
+            "sectionTitle": "date",
+            "content": "%3Cp%3EValues%20will%20be%20interpreted%20as%20a%20liquid%20datetime%2C%20but%20represented%20as%20a%20string%20in%20toml%20files.%3C%2Fp%3E%3Cp%3EThe%20following%20date%20formats%20are%20supported%20in%20toml%20files%3A%3C%2Fp%3E%3Cul%3E%3Cli%3E%3Ccode%3EYYYY-MM-DD%20HH%3AMM%3ASS%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3EYYYY-MM-DD%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3EDD%20Month%20YYYY%20HH%3AMM%3ASS%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3EDD%20Mon%20YYYY%20HH%3AMM%3ASS%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3EMM%2FDD%2FYYYY%20HH%3AMM%3ASS%3C%2Fcode%3E%3C%2Fli%3E%3Cli%3E%3Ccode%3EDow%20Mon%20DD%20HH%3AMM%3ASS%20YYYY%3C%2Fcode%3E%3C%2Fli%3E%3C%2Ful%3E%3Cp%3EIn%20all%20formats%2C%20you%20may%20specify%20offsets%20by%20appending%20either%20%3Ccode%3E%20HHMM%3C%2Fcode%3E%20or%20%3Ccode%3E-HHMM%3C%2Fcode%3E%3C%2Fp%3E%3Cp%3E%3Cstrong%3ERendering%20dates%3C%2Fstrong%3E%3C%2Fp%3E%3Cp%3EWhen%20rendering%20a%20date%2C%20you%E2%80%99ll%20typically%20want%20to%20use%20the%20%3Ca%20href%3D%5C%22https%3A%2F%2Fshopify.github.io%2Fliquid%2Ffilters%2Fdate%2F%5C%22%3Edate%20filter%3C%2Fa%3E%20to%20display%20human-readable%20values.%3C%2Fp%3E%3Cp%3EFor%20instance%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-html%5C%22%3EThis%20page%20was%20last%20updated%20at%20%7B%7B%20object.date%20%7C%20date%3A%20%26quot%3B%25Y-%25m-%25d%20%25H%3A%25M%26quot%3B%20%7D%7D.%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EThis%20filter%20uses%20the%20same%20formatting%20strings%20as%20%3Ca%20href%3D%5C%22http%3A%2F%2Fstrftime.net%2F%5C%22%3Estrftime%3C%2Fa%3E.%3C%2Fp%3E"
+        },
+        
+          {
+            "path": "/docs/object-fields.html#markdown",
+            "docTitle": "Object Fields",
+            "sectionTitle": "markdown",
+            "content": "%3Cp%3EValues%20will%20be%20parsed%20as%20markdown%20before%20rendering%2C%20and%20output%20as%20HTML.%3C%2Fp%3E%3Cp%3EMarkdown%20is%20a%20simple%20formatting%20language%20that%20is%20intended%20to%20allow%20you%20to%20write%20formatting%20into%20a%20human-readable%20text%20that%20can%20then%20be%20translated%20into%20actual%20formatting%20code%20later.%20For%20more%20info%20on%20markdown%2C%20check%20out%20the%20%3Ca%20href%3D%5C%22https%3A%2F%2Fwww.markdownguide.org%2Fgetting-started%2F%5C%22%3EMarkdown%20Guide%3C%2Fa%3E%20or%20the%20%3Ca%20href%3D%5C%22https%3A%2F%2Fdaringfireball.net%2Fprojects%2Fmarkdown%2Fsyntax%5C%22%3ESyntax%20page%3C%2Fa%3E.%3C%2Fp%3E%3Cp%3Earchival%20uses%20%3Ca%20href%3D%5C%22https%3A%2F%2Fcrates.io%2Fcrates%2Fcomrak%2F0.18.0%5C%22%3Ecomrak%3C%2Fa%3E%20to%20parse%20markdown%2C%20which%20supports%20standard%20markdown%20plus%20%3Ca%20href%3D%5C%22https%3A%2F%2Fgithub.github.com%2Fgfm%2F%5C%22%3EGithub%20Flavored%20Markdown%20extensions%3C%2Fa%3E.%20This%20means%20that%20the%20following%20additional%20formatting%20is%20available%3A%3C%2Fp%3E%3Cul%3E%3Cli%3E%3Ca%20href%3D%5C%22https%3A%2F%2Fgithub.github.com%2Fgfm%2F%23tables-extension-%5C%22%3ETables%3C%2Fa%3E%3C%2Fli%3E%3C%2Ful%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-markdown%5C%22%3E%7C%20foo%20%7C%20bar%20%7C%7C%20---%20%7C%20---%20%7C%7C%20baz%20%7C%20bim%20%7C%3C%2Fcode%3E%3C%2Fpre%3E%3Cul%3E%3Cli%3E%3Ca%20href%3D%5C%22https%3A%2F%2Fgithub.github.com%2Fgfm%2F%23task-list-items-extension-%5C%22%3ETask%20lists%3C%2Fa%3E%3C%2Fli%3E%3C%2Ful%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-markdown%5C%22%3E-%20%5B%20%5D%20foo-%20%5Bx%5D%20bar%3C%2Fcode%3E%3C%2Fpre%3E%3Cul%3E%3Cli%3E%3Ca%20href%3D%5C%22https%3A%2F%2Fgithub.github.com%2Fgfm%2F%23strikethrough-extension-%5C%22%3EStrikethrough%3C%2Fa%3E%3C%2Fli%3E%3C%2Ful%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-markdown%5C%22%3E%7E%7EHi%7E%7E%20Hello%2C%20%7Ethere%7E%20world%21%3C%2Fcode%3E%3C%2Fpre%3E%3Cul%3E%3Cli%3E%3Ca%20href%3D%5C%22https%3A%2F%2Fgithub.github.com%2Fgfm%2F%23autolinks-extension-%5C%22%3EAutolinks%3C%2Fa%3E%20%28links%20will%20automatically%20be%20clickable%29%3C%2Fli%3E%3C%2Ful%3E"
+        },
+        
+          {
+            "path": "/docs/object-fields.html#image%2C%20video%2C%20upload%2C%20audio",
+            "docTitle": "Object Fields",
+            "sectionTitle": "image, video, upload, audio",
+            "content": "%3Cp%3EThese%20types%20are%20special%20object%20types%20that%20have%20the%20following%20keys%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3E%5Bfieldname%5Dfilename%20%3D%20%26quot%3Basparagus-bacon-sambal-lime-vinaigrette.png%26quot%3Bsha%20%3D%20%26quot%3B31f4725e732340541f83065d7bde1eba22a3aa2dd507f2811b8f69a07250379b%26quot%3Bname%20%3D%20%26quot%3Basparagus-bacon-sambal-lime-vinaigrette.png%26quot%3Bdisplay_type%20%3D%20%26quot%3Bimage%26quot%3Bmime%20%3D%20%26quot%3Bimage%2Fpng%26quot%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EThe%20%3Ccode%3Edisplay_type%3C%2Fcode%3E%20depends%20on%20the%20type%20definition%2C%20and%20the%20others%20are%20populated%20by%20either%20the%20archival%20editor%20or%20the%20%3Ccode%3Earchival%20upload%3C%2Fcode%3E%20command.%3C%2Fp%3E%3Cp%3EThese%20files%20are%20uploaded%20to%20a%20cdn%2C%20and%20will%20be%20retrieved%20at%20the%20url%20%3Ccode%3E%26lt%3Bcdn_url%26gt%3B%2F%26lt%3Bsha%26gt%3B%3C%2Fcode%3E.%20When%20rendering%2C%20a%20%3Ccode%3Eurl%3C%2Fcode%3E%20field%20is%20automatically%20generated%20for%20these%20file%20types.%3C%2Fp%3E%3Cp%3ETo%20use%20one%20of%20these%20types%20in%20an%20object%2C%20you%E2%80%99ll%20generally%20access%20it%20via%20the%20URL.%20For%20instance%2C%20showing%20a%20simple%20image%20might%20look%20like%20this%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3E%26lt%3Bimg%20src%3D%26quot%3B%7B%7Bobject.fieldname.url%7D%7D%26quot%3B%20alt%3D%26quot%3B%7B%7Bobject.name%7D%7D%26quot%3B%2F%26gt%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EOther%20metadata%20is%20useful%20depending%20on%20the%20file%20type.%20For%20instance%2C%20you%20could%20display%20a%20video%20using%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3E%26lt%3Bvideo%20title%3D%26quot%3B%7B%7Bobject.video.name%7D%7D%26quot%3B%20controls%26gt%3B%20%20%20%20%26lt%3Bsource%20%20%20%20%20%20src%3D%26quot%3B%7B%7Bobject.video.url%7D%7D%26quot%3B%20%20%20%20%20%20name%3D%26quot%3B%7B%7Bobject.video.filename%7D%7D%26quot%3B%20%20%20%20%20%20type%3D%26quot%3B%7B%7Bobject.video.mime%7D%7D%26quot%3B%26gt%3B%26lt%3B%2Fvideo%26gt%3B%3C%2Fcode%3E%3C%2Fpre%3E"
+        },
+        
+      
+        
+        
+        
+        
+        
+        
+        {
+            "path": "/docs/child-fields.html",
+            "docTitle": "Child Fields",
+            "sectionTitle": null,
+            "content": "%3Cp%3EAll%20objects%20can%20define%20children%2C%20by%20defining%20a%20field%20that%20has%20key%20value%20pairs.%20For%20instance%2C%20your%20%3Ccode%3Eobjects.toml%3C%2Fcode%3E%20file%20could%20define%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3E%5Bpost%5Dtitle%20%3D%20%26quot%3Bstring%26quot%3Bpublish_date%20%3D%20%26quot%3Bdate%26quot%3Btemplate%20%3D%20%26quot%3Bpost%26quot%3B%5Bpost.section%5Dvideo%20%3D%20%26quot%3Bvideo%26quot%3Bimage%20%3D%20%26quot%3Bimage%26quot%3Bcontent%20%3D%20%26quot%3Bmarkdown%26quot%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EThen%2C%20you%20could%20define%20a%20post%20with%20multiple%20sections%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3Etitle%20%3D%20%26quot%3BMy%20Blog%20Post%26quot%3Bpublish_date%20%3D%20%26quot%3B01%2F21%2F2024%26quot%3B%5B%5Bsection%5D%5Dcontent%20%3D%20%26quot%3B%26quot%3B%26quot%3B%23%20Section%20Namehere%20is%20the%20content%20for%20the%20section%26quot%3B%26quot%3B%26quot%3B%5B%5Bsection.video%5D%5Dname%20%3D%20%26quot%3Bpete.mov%26quot%3Bfilename%20%3D%20%26quot%3Bpete.mov%26quot%3Bmime%20%3D%20%26quot%3Bvideo%2Fquicktime%26quot%3Bsha%20%3D%20%26quot%3B0f271906042978fdf19a7e1eae665b98d1e1f00169b69ae9cceb3b1c089490ed%26quot%3Bdisplay_type%20%3D%20%26quot%3Bvideo%26quot%3B%5B%5Bsection%5D%5Dcontent%20%3D%20%26quot%3B%26quot%3B%26quot%3B%23%20Second%20SectionThis%20section%20has%20a%20video%26quot%3B%26quot%3B%26quot%3B%5B%5Bsection.image%5D%5Dsha%20%3D%20%26quot%3B9d18d8319c33ea2b10aeb6c833c1fe66304135e0e40aa6e509df5b6733fd3029%26quot%3Bmime%20%3D%20%26quot%3Bimage%2Fpng%26quot%3Bdisplay_type%20%3D%20%26quot%3Bimage%26quot%3Bname%20%3D%20%26quot%3Bcreamy-meyer-lemon-pasta.png%26quot%3Bfilename%20%3D%20%26quot%3Bcreamy-meyer-lemon-pasta.png%26quot%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EWhen%20rendering%20this%20page%2C%20you%20can%20now%20iterate%20through%20the%20sections%20in%20our%20post%20template%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-html%5C%22%3E%26lt%3Bdiv%20class%3D%26quot%3Bcontent%26quot%3B%26gt%3B%09%26lt%3Bh1%26gt%3Bpost.title%26lt%3B%2Fh1%26gt%3B%09%26lt%3Bdiv%20class%3D%26quot%3Bpost-info%26quot%3B%26gt%3B%20%20%20%20%26lt%3Bh3%26gt%3B%7B%7B%20post.date%20%7C%20date%3A%20%26quot%3B%25B%20%25d%2C%20%25Y%26quot%3B%20%7D%7D%20%E2%80%94%20%20%20%20%26lt%3B%2Fh3%26gt%3B%20%20%20%20%7B%25%20assign%20words%20%3D%20post.content%20%7C%20split%3A%20%26quot%3B%20%26quot%3B%20%25%7D%20%20%20%20%26lt%3Bspan%26gt%3B%7B%7B%20words.size%20%7C%20divided_by%3A%20233%20%7C%20round%20%7C%20at_least%3A%201%20%7D%7D%20Minute%20Read%26lt%3B%2Fspan%26gt%3B%20%20%26lt%3B%2Fdiv%26gt%3B%20%20%7B%25%20for%20section%20in%20post.section%20%25%7D%20%20%20%20%26lt%3Bdiv%26gt%3B%7B%7B%20section.content%20%7D%7D%26lt%3B%2Fdiv%26gt%3B%20%20%20%20%7B%25%20if%20section.video.url%20%21%3D%20%26quot%3B%26quot%3B%20%25%7D%20%20%20%20%20%20%26lt%3Bvideo%20title%3D%26quot%3B%7B%7Bsection.video.name%7D%7D%26quot%3B%20controls%26gt%3B%20%20%20%20%20%20%20%20%26lt%3Bsource%20%20%20%20%20%20%20%20%20%20src%3D%26quot%3B%7B%7Bsection.video.url%7D%7D%26quot%3B%20%20%20%20%20%20%20%20%20%20name%3D%26quot%3B%7B%7Bsection.video.filename%7D%7D%26quot%3B%20%20%20%20%20%20%20%20%20%20type%3D%26quot%3B%7B%7Bsection.video.mime%7D%7D%26quot%3B%26gt%3B%20%20%20%20%20%20%26lt%3B%2Fvideo%26gt%3B%20%20%20%20%7B%25%20endif%20%25%7D%09%09%7B%25%20if%20section.image.url%20%21%3D%20%26quot%3B%26quot%3B%20%25%7D%09%09%20%20%20%20%26lt%3Bimg%09%09%20%20%20%20%20%20src%3D%26quot%3B%7B%7Bsection.image.url%7D%7D%26quot%3B%09%09%20%20%20%20%20%20alt%3D%26quot%3B%7B%7Bsection.image.filename%7D%7D%26quot%3B%2F%26gt%3B%09%09%7B%25%20endif%20%25%7D%20%20%7B%25%20endfor%20%25%7D%26lt%3B%2Fdiv%26gt%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EThese%20fields%20are%20supported%20in%20the%20archival%20editor%20but%20will%20display%20as%20tables%2C%20so%20depending%20on%20your%20use%20case%20you%20may%20want%20to%20use%20groups%20instead%20when%20creating%20lists.%3C%2Fp%3E"
+        },
+        
+      
+        
+        
+        
+        
+        
+        
+        {
+            "path": "/docs/patterns-grouping.html",
+            "docTitle": "Patterns: Grouping",
+            "sectionTitle": null,
+            "content": "%3Cp%3EIn%20some%20cases%20you%20will%20want%20to%20have%20lists%20of%20items%20but%20don%E2%80%99t%20want%20long%20lists%20inside%20child%20definitions.%20It%E2%80%99s%20generally%20preferable%20to%20create%20lots%20of%20objects%20rather%20than%20long%20lists%20inside%20children.%3C%2Fp%3E%3Cp%3EA%20common%20pattern%20for%20managing%20this%20is%20to%20use%20a%20string%20field%20as%20an%20enum%2C%20and%20then%20group%20them%20inside%20your%20liquid%20templates.%3C%2Fp%3E%3Cp%3EFor%20instance%2C%20an%20object%20definition%20could%20be%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3E%5Bsuggestions%5Dtype%20%3D%20%26quot%3Bstring%26quot%3Btitle%20%3D%20%26quot%3Bstring%26quot%3Bimage%20%3D%20%26quot%3Bimage%26quot%3Balt%20%3D%20%26quot%3Bstring%26quot%3Blink%20%3D%20%26quot%3Bstring%26quot%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EA%20%3Ccode%3Esuggestion%3C%2Fcode%3E%20object%20then%20would%20use%20the%20%3Ccode%3Etype%3C%2Fcode%3E%20field%20to%20define%20a%20given%20group%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3Etype%20%3D%20%26quot%3Bto%20eat%26quot%3Btitle%20%3D%20%26quot%3BNeta%20Mezcal%26quot%3Blink%20%3D%20%26quot%3Bhttps%3A%2F%2Fnetaspirits.com%2F%26quot%3Balt%20%3D%20%26quot%3BNeta%20Mezcal%26quot%3B%5Bimage%5Dsha%20%3D%20%26quot%3B9d18d8319c33ea2b10aeb6c833c1fe66304135e0e40aa6e509df5b6733fd3029%26quot%3Bmime%20%3D%20%26quot%3Bimage%2Fpng%26quot%3Bdisplay_type%20%3D%20%26quot%3Bimage%26quot%3Bname%20%3D%20%26quot%3Bneta-mezcal.png%26quot%3Bfilename%20%3D%20%26quot%3Bneta-mezcal.png%26quot%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3ENow%2C%20when%20rendering%2C%20you%20can%20filter%20only%20the%20%E2%80%9Cto%20eat%E2%80%9D%20suggestions%20in%20a%20list%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-html%5C%22%3E%7B%25%20assign%20to_eat%20%3D%20objects.suggestions%20%7C%20where%3A%20%26quot%3Btype%26quot%3B%2C%20%26quot%3Bto%20eat%26quot%3B%20%25%7D%26lt%3Bdiv%20class%3D%26quot%3Bsuggestion-section%26quot%3B%26gt%3B%20%20%26lt%3Ba%20class%3D%26quot%3Btitle%26quot%3B%20href%3D%26quot%3Bjavascript%3Avoid%280%29%3B%26quot%3B%26gt%3B%20%20%20%20%26lt%3Bh3%26gt%3Bto%20eat%26lt%3B%2Fh3%26gt%3B%20%20%26lt%3B%2Fa%26gt%3B%20%20%26lt%3Bul%20class%3D%26quot%3Bsuggestion-list%26quot%3B%26gt%3B%20%20%20%20%7B%25%20for%20suggestion%20in%20to_eat%20%25%7D%20%20%20%20%20%20%26lt%3Bli%20class%3D%26quot%3Bsuggestion%26quot%3B%20style%3D%26quot%3Bbackground-image%3Aurl%28%27%7B%7Bsuggestion.image.url%7D%7D%27%29%3B%26quot%3B%26gt%3B%20%20%20%20%20%20%20%20%26lt%3Ba%20href%3D%26quot%3B%7B%7Bsuggestion.link%7D%7D%26quot%3B%20alt%3D%26quot%3B%7B%7Bsuggestion.alt%7D%7D%26quot%3B%26gt%3B%20%20%20%20%20%20%20%20%20%20%26lt%3Bh3%26gt%3B%7B%7B%20suggestion.title%20%7D%7D%26lt%3B%2Fh3%26gt%3B%20%20%20%20%20%20%20%20%26lt%3B%2Fa%26gt%3B%20%20%20%20%20%20%26lt%3B%2Fli%26gt%3B%20%20%20%20%7B%25%20endfor%20%25%7D%20%20%26lt%3B%2Ful%26gt%3B%26lt%3B%2Fdiv%26gt%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EThis%20will%20keep%20your%20object%20definitions%20simpler%20and%20avoid%20having%20big%20tables%20in%20the%20editor%2C%20which%20can%20get%20unwieldy%20with%20large%20child%20definitons.%3C%2Fp%3E"
+        },
+        
+      
+        
+        
+        
+        
+        
+        
+        {
+            "path": "/docs/page-templates.html",
+            "docTitle": "Page Templates",
+            "sectionTitle": null,
+            "content": "%3Cp%3EPage%20templates%20go%20in%20your%20%3Ccode%3Epages%3C%2Fcode%3E%20directory%20%28or%20whatever%20you%E2%80%99ve%20defined%20as%20the%20%3Ccode%3Epages_dir%3C%2Fcode%3E%20in%20your%20%3Ccode%3Emanifest.toml%3C%2Fcode%3E%29%2C%20and%20are%20%3Ccode%3E.liquid%3C%2Fcode%3E%20files.%3C%2Fp%3E%3Cp%3EMost%20pages%20will%20just%20render%20an%20%3Ccode%3E.html%3C%2Fcode%3E%20file%20when%20built%2C%20at%20the%20root%20of%20your%20site.%20For%20instance%2C%20%3Ccode%3Epages%2Findex.liquid%3C%2Fcode%3E%20will%20become%20%3Ccode%3Edist%2Findex.html%3C%2Fcode%3E%20when%20built.%3C%2Fp%3E%3Cp%3EIf%20you%20define%20a%20%3Ccode%3Etemplate%3C%2Fcode%3E%20field%20on%20an%20object%20type%2C%20you%20can%20use%20a%20template%20for%20each%20object%2C%20which%20will%20then%20be%20rendered%20at%20a%20subpath%20of%20the%20object%E2%80%99s%20name.%20For%20instance%2C%20this%20%3Ccode%3Eobjects.toml%3C%2Fcode%3E%20definition%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-toml%5C%22%3E%5Bpost%5Dtitle%20%3D%20%26quot%3Bstring%26quot%3Btemplate%20%3D%20%26quot%3Bpost%26quot%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EWould%20expect%20you%20to%20create%20a%20file%20called%20%3Ccode%3Epages%2Fpost.liquid%3C%2Fcode%3E.%20Instead%20of%20this%20file%20being%20built%20to%20%3Ccode%3Edist%2Findex.html%3C%2Fcode%3E%20%2C%20it%20will%20generate%20a%20folder%20at%20%3Ccode%3Edist%2Fpost%3C%2Fcode%3E%2C%20containing%20%3Ccode%3E.html%3C%2Fcode%3E%20files%20for%20each%20of%20the%20objects%20in%20%3Ccode%3Eobjects%2Fpost%3C%2Fcode%3E.%20The%20names%20of%20these%20html%20files%20will%20correspond%20to%20the%20names%20of%20the%20posts.%20For%20instance%2C%20%3Ccode%3Eobjects%2Fpost%2F01-21-2024-my-great-post.toml%3C%2Fcode%3E%20will%20be%20rendered%20to%20%3Ccode%3Edist%2Fpost%2F01-21-2024-my-great-post.html%3C%2Fcode%3E%20using%20the%20%3Ccode%3Epages%2Fpost.liquid%3C%2Fcode%3E%20template.%20%3Ccode%3Edist%2Fpost.html%3C%2Fcode%3E%20will%20not%20be%20generated.%3C%2Fp%3E"
+        },
+        
+      
+        
+        
+        
+        
+        
+        
+        {
+            "path": "/docs/partials.html",
+            "docTitle": "Partials",
+            "sectionTitle": null,
+            "content": "%3Cp%3ELike%20most%20liquid%20templating%20environments%2C%20you%20can%20organize%20and%20reuse%20templates%20by%20creating%20partials.%20To%20indicate%20that%20a%20liquid%20template%20is%20a%20partial%2C%20prefix%20the%20name%20with%20an%20underscore.%20This%20will%20prevent%20the%20file%20from%20being%20rendered%20as%20its%20own%20html%20file%2C%20and%20enable%20it%20to%20be%20used%20as%20a%20partial.%3C%2Fp%3E%3Cp%3EFor%20instance%2C%20you%20could%20define%20a%20file%20called%20%3Ccode%3E_video.liquid%3C%2Fcode%3E%20like%20this%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-html%5C%22%3E%7B%25%20if%20video.url%20%21%3D%20%26quot%3B%26quot%3B%20%25%7D%20%20%26lt%3Bvideo%20title%3D%26quot%3B%7B%7Bvidei.name%7D%7D%26quot%3B%20controls%26gt%3B%20%20%20%20%26lt%3Bsource%20%20%20%20%20%20src%3D%26quot%3B%7B%7Bvideo.url%7D%7D%26quot%3B%20%20%20%20%20%20name%3D%26quot%3B%7B%7Bvideo.filename%7D%7D%26quot%3B%20%20%20%20%20%20type%3D%26quot%3B%7B%7Bvideo.mime%7D%7D%26quot%3B%26gt%3B%20%20%26lt%3B%2Fvideo%26gt%3B%7B%25%20endif%20%25%7D%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EThen%2C%20in%20a%20page%20template%20you%20can%20use%20this%20partial%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-html%5C%22%3E%26lt%3Bh3%26gt%3B%7B%7Bobject.name%7D%7D%26lt%3B%2Fh3%26gt%3B%7B%25%20include%20%27video%27%20video%3A%20object.video%20%25%7D%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EPartials%20may%20be%20defined%20in%20the%20pages%20dir%20directly%20or%20as%20subpaths%20%28e.g.%20%3Ccode%3Epages%2Fpartials%2F_video.liquid%3C%2Fcode%3E%20could%20be%20rendered%20using%20%3Ccode%3E%7B%25%20include%20%27partials%2Fvideo%27%20video%3A%20object.video%20%25%7D%3C%2Fcode%3E%29%3C%2Fp%3E"
+        },
+        
+      
+        
+        
+        
+        
+        
+        
+        {
+            "path": "/docs/layouts.html",
+            "docTitle": "Layouts",
+            "sectionTitle": null,
+            "content": "%3Cp%3ELayouts%20are%20effectively%20the%20opposite%20of%20partials%2C%20in%20that%20rather%20than%20rendering%20the%20partial%20inside%20the%20page%2C%20the%20page%20is%20rendered%20inside%20the%20layout.%20They%20are%20defined%20in%20the%20%3Ccode%3Elayouts%3C%2Fcode%3E%20dir%20or%20whichever%20dir%20your%20%3Ccode%3Emanifest.toml%3C%2Fcode%3E%20defines%20as%20the%20%3Ccode%3Elayout_dir%3C%2Fcode%3E.%3C%2Fp%3E%3Cp%3EAn%20example%20layout%20would%20be%20defined%20in%20%3Ccode%3Elayouts%2Ftheme.liquid%3C%2Fcode%3E%20and%20could%20look%20like%20this%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-html%5C%22%3E%26lt%3B%21doctype%20html%26gt%3B%26lt%3Bhtml%20lang%3D%26quot%3Ben%26quot%3B%26gt%3B%20%20%26lt%3Bhead%26gt%3B%20%20%20%20%26lt%3Bmeta%20charset%3D%26quot%3Butf-8%26quot%3B%26gt%3B%20%20%20%20%26lt%3Btitle%26gt%3BMy%20Website%3A%20%7B%7B%20title%20%7D%7D%26lt%3B%2Ftitle%26gt%3B%20%20%20%20%26lt%3Blink%20rel%3D%26quot%3Bstylesheet%26quot%3B%20href%3D%26quot%3B%2Fstyle%2Ftheme.css%26quot%3B%26gt%3B%20%20%20%20%7B%25%20if%20style%20%25%7D%20%20%20%20%20%20%26lt%3Blink%20rel%3D%26quot%3Bstylesheet%26quot%3B%20href%3D%26quot%3B%2Fstyle%2F%7B%7Bstyle%7D%7D.css%26quot%3B%26gt%3B%20%20%20%20%7B%25%20endif%20%25%7D%20%20%26lt%3B%2Fhead%26gt%3B%20%20%26lt%3Bbody%26gt%3B%20%20%20%20%7B%7B%20page_content%20%7D%7D%20%20%26lt%3B%2Fbody%26gt%3B%26lt%3B%2Fhtml%26gt%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EThere%20is%20one%20special%20variable%20that%20is%20always%20defined%20when%20using%20a%20layout%2C%20%3Ccode%3Epage_content%3C%2Fcode%3E.%20This%20variable%20contains%20the%20entire%20document%20that%20invoked%20the%20layout.%3C%2Fp%3E%3Cp%3ELayouts%20are%20rendered%20using%20the%20special%20%28archival-specific%29%20%3Ccode%3Elayout%3C%2Fcode%3E%20tag%2C%20which%20accepts%20any%20number%20of%20arbitrary%20variables%20that%20are%20then%20passed%20to%20the%20layout.%20In%20the%20above%20example%2C%20the%20layout%20accepts%20%3Ccode%3Etitle%3C%2Fcode%3E%20and%20an%20optional%20%3Ccode%3Estyle%3C%2Fcode%3E%20argument.%3C%2Fp%3E%3Cp%3ETo%20use%20a%20layout%2C%20simply%20render%20the%20tag%20inside%20a%20page.%20For%20instance%2C%20if%20we%20had%20a%20%3Ccode%3Epost.liquid%3C%2Fcode%3E%20page%20template%2C%20we%20could%20render%20it%20in%20the%20above%20layout%20using%20this%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-html%5C%22%3E%7B%25%20layout%20%27theme%27%20title%3A%20post.title%2C%20style%3A%20%27post%27%20%25%7D%26lt%3Bheader%20class%3D%26quot%3Bheader%26quot%3B%26gt%3B%20%20%26lt%3Bh1%26gt%3B%7B%7B%20post.title%20%7D%7D%26lt%3B%2Fh1%26gt%3B%26lt%3B%2Fheader%26gt%3B%26lt%3Barticle%20class%3D%26quot%3Bcontent%26quot%3B%26gt%3B%20%20%26lt%3Bp%26gt%3B%7B%7B%20post.content%20%7D%7D%26lt%3B%2Fp%26gt%3B%26lt%3B%2Farticle%26gt%3B%3C%2Fcode%3E%3C%2Fpre%3E"
+        },
+        
+      
+        
+        
+        
+        
+        
+        
+        {
+            "path": "/docs/non-html-files.html",
+            "docTitle": "Generating non-html files",
+            "sectionTitle": null,
+            "content": "%3Cp%3EWhile%20most%20archival%20content%20will%20likely%20be%20html%2C%20rendering%20non-html%20files%20is%20fully%20supported%20and%20is%20useful%20when%20either%20using%20archival%20data%20via%20an%20API%20%28e.g.%20rendering%20%3Ccode%3Epost.json%3C%2Fcode%3E%20and%20calling%20it%20from%20a%20mobile%20application%29%20or%20when%20exposing%20machine-readable%20data%20like%20rss%20feeds.%3C%2Fp%3E%3Cp%3ETo%20render%20a%20non-html%20file%2C%20just%20add%20the%20intended%20extension%20before%20the%20output.%20For%20instance%2C%20you%20could%20define%20%3Ccode%3Epages%2Frss-feed.rss.liquid%3C%2Fcode%3E%2C%20and%20it%20will%20render%20to%20%3Ccode%3Edist%2Frss-feed.rss%3C%2Fcode%3E.%3C%2Fp%3E%3Cp%3EYou%20can%20use%20liquid%20templates%20in%20any%20type%20of%20file%2C%20so%20a%20simple%20rss%20feed%20for%20a%20blog%20would%20look%20like%20this%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-xml%5C%22%3E%26lt%3B%3Fxml%20version%3D%26quot%3B1.0%26quot%3B%20encoding%3D%26quot%3Butf-8%26quot%3B%3F%26gt%3B%26lt%3Brss%20version%3D%26quot%3B2.0%26quot%3B%26gt%3B%26lt%3Bchannel%26gt%3B%26lt%3Btitle%26gt%3BMy%20Blog%20RSS%20Feed%26lt%3B%2Ftitle%26gt%3B%26lt%3Blink%26gt%3Bhttps%3A%2F%2Fmy-website.com%2F%26lt%3B%2Flink%26gt%3B%26lt%3Bdescription%26gt%3BMy%20Great%20Website%26lt%3B%2Fdescription%26gt%3B%26lt%3BlastBuildDate%26gt%3B%7B%7B%20%26quot%3Bnow%26quot%3B%20%7C%20date%3A%20%26quot%3B%25B%20%25d%2C%20%25Y%26quot%3B%20%7D%7D%26lt%3B%2FlastBuildDate%26gt%3B%7B%25%20assign%20sorted_posts%20%3D%20objects.post%20%7C%20sort%3A%20%26quot%3Bdate%26quot%3B%20%25%7D%7B%25%20for%20post%20in%20sorted_posts%20%25%7D%09%26lt%3Bitem%26gt%3B%09%09%26lt%3Btitle%26gt%3B%7B%7B%20post.title%20%7D%7D%26lt%3B%2Ftitle%26gt%3B%09%09%26lt%3Blink%26gt%3B%7B%7B%20post.path%20%7D%7D%26lt%3B%2Flink%26gt%3B%09%09%26lt%3Bguid%26gt%3B%7B%7B%20post.path%20%7D%7D%26lt%3B%2Fguid%26gt%3B%09%09%26lt%3Bdescription%26gt%3B%7B%7B%20post.description%20%7D%7D%26lt%3B%2Fdescription%26gt%3B%09%09%26lt%3BpubDate%26gt%3B%7B%7B%20post.publish_date%20%7C%20date%3A%20%26quot%3B%25B%20%25d%2C%20%25Y%26quot%3B%20%7D%7D%26lt%3B%2FpubDate%26gt%3B%09%26lt%3B%2Fitem%26gt%3B%7B%25%20endfor%20%25%7D%26lt%3B%2Fchannel%26gt%3B%26lt%3B%2Frss%26gt%3B%3C%2Fcode%3E%3C%2Fpre%3E%3Cp%3EA%20JSON%20file%20%28e.g.%20%3Ccode%3Eposts.json.liquid%3C%2Fcode%3E%29%20might%20look%20like%20this%3A%3C%2Fp%3E%3Cpre%3E%3Ccode%20class%3D%5C%22language-json%5C%22%3E%7B%09%26quot%3Bposts%26quot%3B%3A%20%5B%09%09%7B%25%20assign%20sorted_posts%20%3D%20objects.post%20%7C%20sort%3A%20%26quot%3Bdate%26quot%3B%20%25%7D%09%09%7B%25%20for%20post%20in%20sorted_posts%20%25%7D%09%09%7B%09%09%09%26quot%3Btitle%26quot%3B%3A%20%26quot%3B%7B%7B%20post.title%20%7D%7D%26quot%3B%2C%09%09%09%26quot%3Blink%26quot%3B%3A%20%26quot%3Bhttp%3A%2F%2Fmysite.com%2F%7B%7B%20post.path%20%7D%7D%26quot%3B%2C%09%09%09%26quot%3Bdescription%26quot%3B%3A%20%26quot%3B%7B%7B%20post.description%20%7D%7D%26quot%3B%2C%09%09%09%26quot%3Bdate%26quot%3B%3A%20%26quot%3B%7B%7B%20post.publish_date%20%7C%20date%3A%20%26quot%3B%25B%20%25d%2C%20%25Y%26quot%3B%20%7D%7D%26quot%3B%09%09%7D%7B%25%20unless%20forloop.last%20%25%7D%2C%7B%25%20endunless%20%25%7D%09%09%7B%25%20endfor%20%25%7D%09%5D%7D%3C%2Fcode%3E%3C%2Fpre%3E"
+        }
+        
+      
+    ]
+}
