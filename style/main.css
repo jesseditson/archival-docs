@@ -46,6 +46,10 @@ html, body {
   font-weight: 400;
 }
 
+.emphasized {
+  color: var(--color-primary-cta-highlight);
+}
+
 .nav-text {
   font-size: var(--typo-body-size);
   font-weight: var(--typo-body-weight);
@@ -53,6 +57,14 @@ html, body {
 
 .nav-text-cta {
   color: var(--color-primary-cta-highlight);
+  background-color: rgba(254, 131, 0, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.nav-text-cta:hover {
+  background-color: rgba(254, 131, 0, 0.35);
 }
 
 .hero-message {

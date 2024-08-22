@@ -7,7 +7,7 @@ pricing_title = "Pricing"
 pricing_content = """
 Archival is run by a tiny team with a goal of staying small. You can use archival for free forever, and you can ship archival sites to platforms like Vercel, Netlify, or host archival websites on your own static servers.
 
-Our goal is to be cheaper and easier than the other options, and our pricing is ridiculously simple - for $4 a month, you get unlimited traffic to your archival-hosted site, the ability to upload large streaming files and add custom domains.
+Our goal is to be cheaper and easier than the other options, and our pricing is ridiculously simple - <span class="emphasized">for $4 a month, you get unlimited traffic to your archival-hosted site, the ability to upload large streaming files and add custom domains.
 
 If you’re interested in hiring the archival team to build something custom for you, host a large number of sites on archival, or otherwise find our pricing model imperfect for your use case, reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we’ll get you what you need!
 """
