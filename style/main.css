@@ -167,6 +167,16 @@ html, body {
   opacity: 1;
 }
 
+.manifesto {
+  padding-bottom: 6rem;
+}
+
+.manifesto h2:last-of-type {
+  font-family: "Ameda", system-ui, sans-serif;
+  font-size: 7.5rem;
+  margin: 8rem 0 5rem;
+}
+
 .logo-text {
   font-family: "citizen", sans-serif;
   font-style: normal;

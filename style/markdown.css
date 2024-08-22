@@ -21,7 +21,15 @@
 }
 
 .md blockquote {
-    @apply bg-gray-light border-purple border rounded-md m-8 px-8;
+    margin: 2rem 0;
+    padding-left: 2rem;
+    font-style: italic;
+    color: var(--color-typography-secondary);
+    border-left: 2px solid var(--color-primary-cta-highlight);
+}
+
+.md blockquote p:not(:empty) {
+    padding: 0;
 }
 
 .md code {
