@@ -3,30 +3,153 @@
 @import "tailwindcss/utilities";
 @import "./markdown.css";
 
+:root {
+
+  /* Colors */
+  --color-main-bg: rgba(0, 0, 0, 1);
+  --color-typography-primary: rgba(255, 255, 255, 1);
+  --color-primary-cta-highlight: rgba(254, 131, 0, 1);
+  --color-primary-cta-shadow: rgba(255, 60, 0, 1);
+  --color-secondary-interactive: rgba(25, 162, 138, 1);
+  --color-transparent-border: rgba(255, 255, 255, 0.2);
+
+  /* Typography */
+  --typo-subheader-size: 3rem;
+  --typo-body-size: 1rem;
+  --typo-body-size-large: 1.25rem;
+  --typo-body-weight: 600;
+
+  /* Element Styling */
+  --style-double-border: 0 0 0 2px var(--color-main-bg), 0 0 0 6px var(--color-transparent-border);
+}
+
+@font-face {
+  font-family: "Ameda";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/ameda.otf") format("opentype");
+}
+
 html, body {
-    margin: 0;
-    height: 100%;
+  margin: 0;
+  height: 100%;
+  background-color: var(--color-main-bg);
+  font-family: system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--color-typography-primary);
+}
+
+.md a {
+  color: var(--color-secondary-interactive);
+  font-weight: 400;
+}
+
+.nav-text {
+  font-size: var(--typo-body-size);
+  font-weight: var(--typo-body-weight);
+}
+
+.nav-text-cta {
+  color: var(--color-primary-cta-highlight);
+}
+
+.hero-message {
+  font-family: "Ameda", system-ui, sans-serif;
+  font-size: 7.5rem;
+  line-height: 7.875rem;
+  text-align: center;
+  color: var(--color-typography-primary);
+}
+
+.primary-cta {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.08), 0px 1px 0px rgba(255, 255, 255, 0.23);
+  box-shadow: var(--style-double-border);
+  font-size: var(--typo-body-size-large);
+  font-weight: var(--typo-body-weight);
+  text-align: center;
+  border-radius: 1rem;
+  padding: 1.2rem 2rem;
+  background: linear-gradient(180deg, var(--color-primary-cta-highlight) 0%, var(--color-primary-cta-shadow) 100%);
+  background-clip: padding-box;
+  background-size: cover;
+  background-position: center;
+}
+
+.primary-cta-container {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 2.5rem;
+}
+
+.docs-cta {
+  display: block;
+  font-size: var(--typo-body-size);
+  font-weight: var(--typo-body-weight);
+  padding-left: 2.5rem;
+  background: transparent url(/img/icon-docs.svg) left center no-repeat;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+#videos video {
+  box-shadow: var(--style-double-border);
+}
+
+#videos {
+  padding: 0 0.75rem;
+}
+
+
+.benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12rem 6rem;
+  width: 100%;
+}
+
+.section-title {
+  font-size: var(--typo-subheader-size);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 2rem;
+}
+
+.section-content {
+  font-size: var(--typo-body-size-large);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pricing-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12rem 6rem;
+  width: 100%;
+}
+
+.pricing-container .pricing-sticker {
+  width: 100%;
 }
 
 .logo-text {
-    font-family: "citizen", sans-serif;
-    font-style: normal;
-    border-color: rgb(123, 186, 177);
-    margin: .2em;
+  font-family: "citizen", sans-serif;
+  font-style: normal;
+  border-color: rgb(123, 186, 177);
+  margin: .2em;
 }
 
 .logo-icon > * {
-    display: block;
-    position: absolute;
+  display: block;
+  position: absolute;
 }
 .logo-icon .color {
-    display: none;
+  display: none;
 }
 #logo:hover .color {
-    display: block;
+  display: block;
 }
 
 .gradient-bg {
-    background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
-    background-attachment: fixed;
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+  background-attachment: fixed;
 }

@@ -2,10 +2,10 @@
   , area: "home" %}
 {% assign home = objects.home %}
 
-<div id="header" class="z-30 w-full flex flex-col justify-center items-center gap-6 md:pt-20 relative">
+<div id="header" class="z-30 w-full flex flex-col justify-center items-center gap-6 md:pt-60 relative">
   <div id="header-logo" class="flex items-center justify-between flex-col w-full">
-    <div class="shadow-image w-64 h-64 relative flex items-center justify-center scale-90 md:scale-100">
-      <img
+    {% comment %} <div class="shadow-image w-64 h-64 relative flex items-center justify-center scale-90 md:scale-100">
+      {% comment %} <img
         id="header-shadow"
         class="bg absolute z-0"
         src="/img/logo-shadow.png"
@@ -14,7 +14,7 @@
         id="header-image"
         src="/img/logo.png"
         class="fg z-10"
-        alt="archival" />
+        alt="archival" /> {% endcomment %}
       {% comment %}
         <video
         class="header-video absolute top-0 w-full h-full hidden"
@@ -33,94 +33,73 @@
         <source src="/vid/ptt.webm" type="video/webm">
         </video>
       {% endcomment %}
-    </div>
-    <h1 class="logo-text text-purple-dark font-bold text-5xl font-section-title">archival</h1>
-    <div id="header-ctas" class="w-full max-w-full scale-90 md:scale-100 md:max-w-[1200px] flex justify-around">
-      <a
-        id="header-docs"
-        href="/docs/getting-started.html"
-        class="flex flex-col items-center">
-        <div class="shadow-image relative w-48 h-48 scale-75 md:scale-100">
-          <img class="bg absolute top-0 left-0 w-full h-full z-0" src="/img/book-shadow.png" />
-          <img class="fg absolute top-0 left-0 w-full h-full z-20" src="/img/book.png" />
-        </div>
-        <h4 class="logo-text text-purple font-bold text-xl md:text-2xl font-section-title">Documentation</h4>
+    </div> {% endcomment %}
+    <h1 class="hero-message">Content-First<br/>Websites</h1>
+    <div id="header-ctas" class="w-full max-w-full md:max-w-[1200px] my-24">
+      <a href="https://editor.archival.dev/new" class="primary-cta-container">
+        <button class="primary-cta">
+          Create a website
+        </button>
       </a>
-      <a
-        id="header-create"
-        href="https://editor.archival.dev/new"
-        class="flex flex-col items-center">
-        <div class="shadow-image relative w-48 h-48 scale-75 md:scale-100">
-          <img class="bg absolute top-0 left-0 w-full h-full" src="/img/rocket-shadow.png" />
-          <img class="fg absolute top-0 left-0 w-full h-full" src="/img/rocket.png" />
-        </div>
-        <h4 class="logo-text text-purple font-bold text-xl md:text-2xl font-section-title">Create a Website</h4>
-      </a>
-    </div>
-  </div>
-</div>
-<div class="content p-6 md:p-20 pb-0 md:pb-0 max-w-screen-lg">
-  {% for section in home.sections %}
-    {% assign is_even = forloop.index0 | modulo: 2 %}
-    <div class="section text-xl p-8 pb-12 mb-24 bg-pink-light ring-peach ring-2 shadow-lg rounded-2xl relative">
-      <h2 class="text-4xl m-6 mt-0 font-section-title font-extrabold {% if is_even == 1 %}text-right{% endif %}">{{ section.title }}</h2>
-      <div class="content {% if is_even == 1 %}pr-10{% else %}pl-10{% endif %}">
-        {{ section.content }}
-      </div>
-      {% assign tl_class = "top-0 left-0 -translate-x-10 md:-translate-x-24 -translate-y-20" %}
-      {% assign tr_class = "top-0 right-0 translate-x-10 md:translate-x-24 -translate-y-20" %}
-      {% assign br_class = "bottom-0 right-0 translate-x-10 md:translate-x-24 translate-y-16  md:translate-y-0" %}
-      {% assign bl_class = "bottom-0 left-0 -translate-x-16 md:-translate-x-24 translate-y-16 md:translate-y-0" %}
-      {% if section.image_a.filename %}
-        <div class="z-30 image-a shadow-image absolute w-48 h-48 {% if is_even == 0 %}{{ bl_class }}{% else %}{{ tl_class }}{% endif %} scale-75 md:scale-100">
-          <img class="bg absolute top-0 left-0 w-full h-full z-0" src="{{section.image_a_shadow.url}}" />
-          <img class="fg absolute top-0 left-0 w-full h-full z-20" src="{{section.image_a.url}}" />
-        </div>
-      {% endif %}
-      {% if section.image_b.filename %}
-        <div class="z-30 image-b shadow-image absolute w-48 h-48 {% if is_even == 0 %}{{ tr_class }}{% else %}{{ br_class }}{% endif %} scale-75 md:scale-100">
-          <img class="bg absolute top-0 left-0 w-full h-full z-0" src="{{section.image_b_shadow.url}}" />
-          <img class="fg absolute top-0 left-0 w-full h-full z-20" src="{{section.image_b.url}}" />
-        </div>
-      {% endif %}
-    </div>
-  {% endfor %}
-</div>
-{% comment %}
-  <div class="text-lg flex justify-center mt-10">
-  <h4 class="font-section-title font-extrabold italic text-4xl color-teal">
-  <a href="/manifesto.html">{{ home.manifesto_link_title }}</a>
-  </h4>
-  </div>
-{% endcomment %}
 
-<div class="content w-full max-w-screen-lg mb-20 ">
-  <h2 class="text-4xl m-10 font-section-title font-extrabold">{{ home.videos_title }}</h2>
+      <a href="/docs/getting-started.html" class="docs-cta">
+        Read the docs
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+{% comment %} Video Section {% endcomment %}
+
+<div class="content w-full max-w-screen-lg mb-40 md:max-w-[1200px]">
   <div id="videos" class="w-full">
     {% for video in home.videos %}
       <div class="flex flex-col items-center gap-4">
         <video
           title="{{video.title}}"
+          {% if video.poster %}
+            poster="{{video.poster}}"
+          {% endif %}
           controls
-          class="w-full bg-pink-light ring-peach ring-4 shadow-lg lg:rounded-2xl">
+          class="w-full bg-pink-light shadow-lg lg:rounded-2xl">
           <source
             src="{{video.video.url}}"
             name="{{video.video.filename}}"
             type="{{video.video.mime}}">
         </video>
-        <h3 class="text-xl font-extrabold mx-4">{{ video.title }}</h3>
       </div>
     {% endfor %}
   </div>
 </div>
-<div class="content mx-6 md:mx-20 p-6 md:p-10 pb-0 max-w-screen-lg text-xl bg-pink-light ring-peach ring-2 shadow-lg rounded-2xl relative">
-  <div class="shadow-image w-48 h-48 absolute top-0 right-0 md:translate-x-24 -translate-y-24 scale-75 md:scale-100">
-    <img class="bg absolute top-0 left-0 w-full h-full" src="/img/coin-shadow.png" />
-    <img class="fg absolute top-0 left-0 w-full h-full" src="/img/coin.png" />
-  </div>
-  <h2 class="text-4xl m-6 mt-0 font-section-title font-extrabold ">{{ home.pricing_title }}</h2>
-  <div id="pricing" class="md">
-    {{ home.pricing_content }}
+
+
+{% comment %} Benefit Sections {% endcomment %}
+
+<div class="benefit-grid md:max-w-[1200px] mb-40">
+  {% for section in home.sections %}
+    <div class="benefit">
+      <h2 class="section-title">{{ section.title }}</h2>
+      <div class="section-content">
+        {{ section.content }}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+
+{% comment %} Pricing Section {% endcomment %}
+
+<div class="pricing-container md:max-w-[1200px]">
+
+  <img src="/img/pricing-sticker.png" class="pricing-sticker" />
+  <div class="pricing-description">
+    <h2 class="section-title">{{ home.pricing_title }}</h2>
+    <div id="pricing" class="md section-content">
+      {{ home.pricing_content }}
+    </div>
   </div>
 </div>
 <footer class="shadow-inner w-full h-80 mt-20 mb-20 md:mb-0"></footer>

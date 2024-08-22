@@ -1,22 +1,21 @@
 <nav
   id="nav"
   role="nav"
-  class="z-50 w-full bottom-0 shadow-up absolute py-5 flex justify-between font-bold gap-4 bg-white md:backdrop-blur-md md:bottom-auto md:top-0 md:shadow-lg md:fixed">
-  <div id="logo" class="mx-5">
+  class="z-50 w-full bottom-0 shadow-up absolute py-5 flex justify-between font-bold gap-4 md:backdrop-blur-md md:bottom-auto md:top-0 md:shadow-lg md:fixed md:max-w-[1200px] mx-auto inset-x-0">
+  <div id="logo" class="">
     <a href="/" class="flex gap-2 items-center">
-      <div class="logo-icon w-[44px] h-[44px] relative">
+      <div class="logo-icon w-[179px] h-[32px] relative">
         <div class="gray">
-          {% include "logo-svg" size: "44" %}
+          {% include "logo-svg-2" size: "32" %}
         </div>
         <div class="color">
-          {% include "logo-svg" size: "44"
+          {% include "logo-svg-2" size: "32"
             , color: true %}
         </div>
       </div>
-      <span class="logo-text text-2xl">archival</span>
     </a>
   </div>
-  <div class="flex-1 justify-end md:justify-center flex">
+  <div class="flex-1 justify-end md:justify-center flex hidden">
     <button id="quick-search-button" class="flex gap-4 font-light text-sm items-center text-gray-dark md:border md:opacity-60 md:border-gray md:bg-white md:rounded-lg md:px-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -47,22 +46,25 @@
       </div>
     </button>
   </div>
-  <ul class="flex-shrink justify-end gap-2 items-center flex-wrap mr-5 hidden md:flex">
+  <ul class="flex-shrink justify-end gap-8 items-center flex-wrap mr-5 hidden md:flex">
     {% assign docs_link = objects.docs | first %}
-    <li class="hover:text-teal">
+    <li class="nav-text">
       <a href="/{{ docs_link.path }}.html">Docs</a>
     </li>
     {% assign cli_link = objects.cli | first %}
-    <li class="hover:text-teal">
+    <li class="nav-text">
       <a href="/{{ cli_link.path }}.html">CLI</a>
     </li>
-    <li class="hover:text-teal">
+    <li class="nav-text">
       <a href="/manifesto.html">Manifesto</a>
     </li>
-    <li class="hover:text-teal">
+    <li class="nav-text">
       <a href="https://editor.archival.dev">Editor</a>
     </li>
-    <li class="w-5">
+    <li class="nav-text nav-text-cta">
+      <a href="https://editor.archival.dev/new">Create</a>
+    </li>
+    {% comment %} <li class="w-5">
       <a href="https://github.com/jesseditson/archival"><img src="/img/github-mark.png" alt="github" /></a>
     </li>
     <li class="w-5">
@@ -70,7 +72,7 @@
     </li>
     <li class="w-5">
       <a href="https://docs.rs/archival/"><img src="/img/rust.png" alt="rust library documentation" /></a>
-    </li>
+    </li> {% endcomment %}
   </ul>
   <div class="md:hidden mr-5 flex items-center">
     <button>

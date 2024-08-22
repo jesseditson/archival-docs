@@ -7,7 +7,7 @@ pricing_title = "Pricing"
 pricing_content = """
 Archival is run by a tiny team with a goal of staying small. You can use archival for free forever, and you can ship archival sites to platforms like Vercel, Netlify, or host archival websites on your own static servers.
 
-Our goal is to be cheaper and easier than the other options, and our pricing is ridiculously simple - **for $4 a month, you get unlimited traffic to your archival-hosted site, the ability to upload large streaming files and add custom domains**.
+Our goal is to be cheaper and easier than the other options, and our pricing is ridiculously simple - for $4 a month, you get unlimited traffic to your archival-hosted site, the ability to upload large streaming files and add custom domains.
 
 If you’re interested in hiring the archival team to build something custom for you, host a large number of sites on archival, or otherwise find our pricing model imperfect for your use case, reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we’ll get you what you need!
 """
@@ -68,9 +68,9 @@ filename = ""
 mime = "image/*"
 
 [[sections]]
-title = "Content-First Websites"
+title = "Content-First"
 content = """
-Most websites are built around showing content. Archival is a tool for defining the content structure of a website along with the presentation, which results in **super fast, database-free static websites, that can be updated dynamically as if they were built on expensive platforms like Wordpress or Squarespace**.
+Most websites are built around showing content. Archival is a tool for defining the content structure of a website along with the presentation, which results in super fast, database-free static websites, that can be updated dynamically as if they were built on expensive platforms like Wordpress or Squarespace.
 """
 
 [sections.image_a_shadow]
@@ -98,11 +98,39 @@ mime = "image/png"
 display_type = "image"
 
 [[sections]]
-title = "Use Any Framework, or Don’t"
+title = "Maintainable & Durable"
 content = """
-Many web frameworks are “full stack”, requiring you to lock in to an ecosystem and learn about complex topics like SSR and Databases to be productive & build fast websites.
+Archival websites are built to be easy to maintain & last forever. Archival uses git to track changes to your website, which makes it possible to rebuild your website at any point in its history, rewind to old versions, and track who made every change.
+"""
 
-**Archival templates work out of the box, and allow you to choose a framework that best fits your project’s needs - or no framework at all for super-fast, javascript-light websites.**
+[sections.image_a]
+sha = "d351c704a48549756308435f6f2402023d4e9e16f1a40a8fd6fb06c9429f4cee"
+mime = "image/png"
+filename = "git.png"
+display_type = "image"
+
+[sections.image_b]
+sha = "7e524b71d986d5d02f23aa3a82ec155fd8f26745cda23cac599368e9d1927caf"
+mime = "image/png"
+display_type = "image"
+filename = "hammer.png"
+
+[sections.image_b_shadow]
+display_type = "image"
+mime = "image/png"
+sha = "d12eb10374f6a514babf3848b902aea9203f3964157974d07082009404b7efc4"
+filename = "hammer-shadow.png"
+
+[sections.image_a_shadow]
+filename = "git-shadow.png"
+sha = "d410ac1b38ddceb0b6203fe3da305acbd45048ce5b949e1a7859c33f353bc045"
+display_type = "image"
+mime = "image/png"
+
+[[sections]]
+title = "Use Any Framework,<br/>or Don’t"
+content = """
+Many web frameworks are “full stack”, requiring you to lock in to an ecosystem and learn about complex topics like SSR and Databases to be productive & build fast websites. Archival templates work out of the box, and allow you to choose a framework that best fits your project’s needs - or no framework at all for super-fast, javascript-light websites.
 """
 
 [sections.image_b_shadow]
@@ -133,7 +161,7 @@ mime = "image/png"
 content = """
 Archival templates are ready to deploy immediately. All websites built with archival can be edited & deployed via editor.archival.dev to an archival subdomain or custom web domain, in minutes.
 
-**Archival's editor allows powerful on-the-go editing that is version controlled yet easier than updating a social media profile - the best of both custom websites and content management systems.**
+Archival's editor allows powerful on-the-go editing that is version controlled yet easier than updating a social media profile - the best of both custom websites and content management systems.
 """
 title = "Go to Production Immediately"
 
@@ -161,38 +189,9 @@ display_type = "image"
 mime = "image/png"
 filename = "cloud.png"
 
-[[sections]]
-title = "Maintainable and Durable"
-content = """
-Archival websites are built to be easy to maintain & last forever. Archival uses git to track changes to your website, which makes it possible to rebuild your website at any point in its history, rewind to old versions, and track who made every change.
-"""
-
-[sections.image_a]
-sha = "d351c704a48549756308435f6f2402023d4e9e16f1a40a8fd6fb06c9429f4cee"
-mime = "image/png"
-filename = "git.png"
-display_type = "image"
-
-[sections.image_b]
-sha = "7e524b71d986d5d02f23aa3a82ec155fd8f26745cda23cac599368e9d1927caf"
-mime = "image/png"
-display_type = "image"
-filename = "hammer.png"
-
-[sections.image_b_shadow]
-display_type = "image"
-mime = "image/png"
-sha = "d12eb10374f6a514babf3848b902aea9203f3964157974d07082009404b7efc4"
-filename = "hammer-shadow.png"
-
-[sections.image_a_shadow]
-filename = "git-shadow.png"
-sha = "d410ac1b38ddceb0b6203fe3da305acbd45048ce5b949e1a7859c33f353bc045"
-display_type = "image"
-mime = "image/png"
-
 [[videos]]
 title = "Launch a Podcast in less than 10 minutes"
+poster = "/img/video-poster.jpg"
 
 [videos.video]
 display_type = "video"

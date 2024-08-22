@@ -21,6 +21,7 @@ content = "markdown"
 [home.videos]
 title = "string"
 video = "video"
+poster = "string"
 
 [home.personas]
 image = "image"
