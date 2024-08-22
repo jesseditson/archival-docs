@@ -159,9 +159,7 @@ mime = "image/png"
 
 [[sections]]
 content = """
-Archival templates are ready to deploy immediately. All websites built with archival can be edited & deployed via editor.archival.dev to an archival subdomain or custom web domain, in minutes.
-
-Archival's editor allows powerful on-the-go editing that is version controlled yet easier than updating a social media profile - the best of both custom websites and content management systems.
+Archival templates are ready to deploy immediately. All websites built with archival can be edited & deployed via editor.archival.dev to an archival subdomain or custom web domain, in minutes. Archival's editor allows powerful on-the-go editing that is version controlled yet easier than updating a social media profile - the best of both custom websites and content management systems.
 """
 title = "Go to Production Immediately"
 

@@ -92,8 +92,7 @@
 
 {% comment %} Pricing Section {% endcomment %}
 
-<div class="pricing-container md:max-w-[1200px]">
-
+<div class="pricing-container md:max-w-[1200px] mb-40">
   <img src="/img/pricing-sticker.png" class="pricing-sticker" />
   <div class="pricing-description">
     <h2 class="section-title">{{ home.pricing_title }}</h2>
@@ -102,4 +101,12 @@
     </div>
   </div>
 </div>
-<footer class="shadow-inner w-full h-80 mt-20 mb-20 md:mb-0"></footer>
+
+
+{% comment %} Footer {% endcomment %}
+
+<footer class="footer md:max-w-[1200px]">
+  <img src="/img/archival-mark.svg" class="footer-mark" />
+  <p class="copyright">&copy; <span id="year"></span> Archival Labs, LLC. All rights reserved.</p>
+  <a href="#">Legal &rarr;</a>
+</footer>
