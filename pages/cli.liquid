@@ -1,16 +1,16 @@
 {% layout 'theme' title: "archival CLI"
   , area: "cli" %}
 
-<div class="mb-20 md:mb-0 md:mt-20 flex flex-1 gap-4 min-h-full md:pl-64 w-full">
-  <div id="docs-sidebar" class="z-10 w-64 font-mono fixed left-0 hidden md:flex flex-col font-bold">
+<div class="mb-20 md:mb-0 md:mt-20 flex flex-1 gap-4 min-h-full w-full md:max-w-[1200px] pt-32 pb-32">
+  <div id="docs-sidebar" class="z-10 w-64 hidden flex-col font-bold md:flex">
     {% for doc in objects.cli %}
-      <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md {% if cli.command == doc.command %}backdrop-blur-lg shadow-xl{% endif %}">
+      <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md side-nav-item {% if cli.command == doc.command %}side-nav-item-active{% endif %}">
         <h3>{{ doc.command }}</h3>
       </a>
     {% endfor %}
   </div>
 
-  <div id="docs" class="z-20 w-full min-h-full p-8 md:p-20 flex justify-center">
+  <div id="docs" class="z-20 w-full min-h-full flex justify-center">
     <div class="md w-full max-w-screen-md flex flex-col gap-4">
       <h1>
         <a href="#{{cli.command | url_encode }}" id="{{cli.command | url_encode }}">
