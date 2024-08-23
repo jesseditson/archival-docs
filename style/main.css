@@ -195,6 +195,14 @@ html, body {
   padding-bottom: 6rem;
 }
 
+.image-aside {
+  color: var(--color-typography-secondary);
+  font-size: var(--typo-body-size-large);
+  display: block;
+  text-align: center;
+  margin-top: 2rem;
+}
+
 .manifesto h2:last-of-type {
   font-family: "Ameda", system-ui, sans-serif;
   font-size: 7.5rem;
