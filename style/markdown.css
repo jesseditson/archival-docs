@@ -1,7 +1,7 @@
 /* Markdown Styles */
 
 .md h1, .md h2, .md h3, .md h4 {
-  
+
 }
 
 .md h1 {
@@ -36,6 +36,11 @@
     margin: 0 0 2rem;
     line-height: 2;
     color: rgba(255, 255, 255, 0.8);
+}
+
+.md a.cli-header-link,
+.md a.docs-section-anchor {
+  scroll-margin-top: 100px;
 }
 
 .md a.cli-header-link:hover {

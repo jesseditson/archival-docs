@@ -224,8 +224,10 @@ html, body {
   width: fit-content;
 }
 
-.cli-header-link:hover {
-  text-decoration: none;
+#docs-sidebar {
+  height: fit-content;
+  position: sticky;
+  top: 100px;
 }
 
 .logo-text {
