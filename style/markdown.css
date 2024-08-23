@@ -11,9 +11,21 @@
   margin: 0 0 1rem;
 }
 
+.md h1.cli-header {
+  margin: 0 0 4rem;
+}
+
+.md h1.cli-header code {
+  padding: 0.1rem 0.8rem 0.2rem;
+}
+
 .md h2 {
     font-weight: 700;
     font-size: 1.5rem;
+}
+
+.md h2.cli-subheader {
+  margin: 0 0 1rem;
 }
 
 .md h3, .md h4 {
@@ -21,9 +33,13 @@
 }
 
 .md p:not(:empty) {
-    padding: 0 0 2rem;
+    margin: 0 0 2rem;
     line-height: 2;
     color: rgba(255, 255, 255, 0.8);
+}
+
+.md a.cli-header-link:hover {
+  text-decoration: none;
 }
 
 .md blockquote {
@@ -38,18 +54,31 @@
     padding: 0;
 }
 
+#docs .md blockquote,
+#cli .md blockquote {
+  border: 1px solid rgba(254, 131, 0, 0.4);
+  background-color: rgba(264, 131, 0, 0.1);
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+}
+
+#docs .md blockquote p:last-child,
+#cli .md blockquote p:last-child {
+  margin: 0;
+}
+
 .md code {
   background-color: rgba(36, 37, 47, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 0.5rem;
-  padding: 0.1rem 0.4rem 0.2rem;
-  margin: 0 0.3em;
+  padding: 0.1rem 0.28rem 0.2rem;
+  margin: 0;
   color: rgba(255, 255, 255, 1);
 }
 
 .md pre code {
   background-color: rgba(36, 37, 47, 0.4);
-  margin: 0;
+  margin: 0 0 2rem;
   padding: 1.5rem;
 }
 

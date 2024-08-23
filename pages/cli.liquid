@@ -4,23 +4,23 @@
 <div class="mb-20 md:mb-0 md:mt-20 flex flex-1 gap-4 min-h-full w-full md:max-w-[1200px] pt-32 pb-32">
   <div id="docs-sidebar" class="z-10 w-64 hidden flex-col font-bold md:flex">
     {% for doc in objects.cli %}
-      <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md side-nav-item {% if cli.command == doc.command %}side-nav-item-active{% endif %}">
+      <a href="/{{doc.path}}.html" class="px-4 py-2 my-2 backdrop-blur-md side-nav-item {% if cli.command == doc.command %}side-nav-item-active{% endif %}">
         <h3>{{ doc.command }}</h3>
       </a>
     {% endfor %}
   </div>
 
-  <div id="docs" class="z-20 w-full min-h-full flex justify-center">
+  <div id="cli" class="z-20 w-full min-h-full flex justify-center">
     <div class="md w-full max-w-screen-md flex flex-col gap-4">
-      <h1>
-        <a href="#{{cli.command | url_encode }}" id="{{cli.command | url_encode }}">
+      <h1 class="cli-header">
+        <a href="#{{cli.command | url_encode }}" id="{{cli.command | url_encode }}" class="cli-header-link">
           <code>{{ cli.command }}</code>
         </a>
       </h1>
       {% assign num_options = cli.options | size %}
       {% if num_options > 0 %}
-        <h4 id="options">options</h4>
-        <div class="flex flex-wrap md:grid md:grid-cols-3 gap-4">
+        <h2 id="options" class="cli-subheader">Options</h2>
+        <div class="flex flex-wrap md:grid md:grid-cols-2 gap-4 cli-options">
           {% for option in cli.options %}
             <code class="flex items-center">{{ option.flags | escape }}</code>
             <p class="col-span-2">{{ option.description }}</p>
@@ -29,8 +29,8 @@
       {% endif %}
       {% assign num_args = cli.arguments | size %}
       {% if num_args > 0 %}
-        <h4 id="arguments">arguments</h4>
-        <div class="flex flex-wrap md:grid md:grid-cols-3 gap-4">
+        <h2 id="arguments" class="cli-subheader">Arguments</h2>
+        <div class="flex flex-wrap md:grid md:grid-cols-2 gap-4 cli-arguments">
           {% for arg in cli.arguments %}
             <code class="flex items-center">{{ arg.arg | escape }}</code>
             <p class="col-span-2">{{ arg.description }}</p>
@@ -40,7 +40,7 @@
       <hr/>
       <p>{{ cli.content }}</p>
 
-      <div class="flex justify-between text-lg font-bold font-mono mt-10 gap-5">
+      <div class="flex justify-between text-lg font-bold mt-10 gap-5">
         {% assign prev_order = cli.order | minus: 1 %}
         {% assign next_order = cli.order | plus: 1 %}
         {% for doc in objects.cli %}
@@ -53,7 +53,7 @@
         {% endfor %}
         {% if prev %}
           <a href="/{{ prev.path }}.html">
-            <div id="prev" class="bg-gradient-to-r from-pink-light to-peach ring-peach ring-1 px-4 py-2 rounded-lg shadow-md hover:shadow-xl">
+            <div id="prev" class="">
               ← {{ prev.command }}
             </div>
           </a>
@@ -62,7 +62,7 @@
         {% endif %}
         {% if next %}
           <a href="/{{ next.path }}.html">
-            <div id="next" class="bg-gradient-to-r from-pink-light to-peach ring-peach ring-1 px-4 py-2 rounded-lg shadow-md hover:shadow-xl">
+            <div id="next" class="">
               {{ next.command }} →
             </div>
           </a>
