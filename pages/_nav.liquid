@@ -48,14 +48,14 @@
   </div>
   <ul class="flex-shrink justify-end gap-8 items-center flex-wrap mr-5 hidden md:flex">
     {% assign docs_link = objects.docs | first %}
-    <li class="nav-text">
+    <li class="nav-text {% if area == 'cli' %}nav-active{% endif %}">
       <a href="/{{ docs_link.path }}.html">Docs</a>
     </li>
     {% assign cli_link = objects.cli | first %}
-    <li class="nav-text">
+    <li class="nav-text {% if area == 'docs' %}nav-active{% endif %}">
       <a href="/{{ cli_link.path }}.html">CLI</a>
     </li>
-    <li class="nav-text">
+    <li class="nav-text {% if area == 'manifesto' %}nav-active{% endif %}">
       <a href="/manifesto.html">Manifesto</a>
     </li>
     <li class="nav-text">

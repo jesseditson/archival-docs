@@ -56,11 +56,15 @@ html, body {
 }
 
 .nav-text-cta {
-  color: var(--color-primary-cta-highlight);
   background-color: rgba(254, 131, 0, 0.15);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
   transition: background-color 0.3s ease-in-out;
+  border-radius: 0.5rem;
+}
+
+.nav-text-cta a {
+  display: block;
+  color: var(--color-primary-cta-highlight);
+  padding: 0.5rem 0.9rem;
 }
 
 .nav-text-cta:hover {
@@ -68,11 +72,32 @@ html, body {
 }
 
 .hero-message {
+  position: relative;
   font-family: "Ameda", system-ui, sans-serif;
   font-size: 7.5rem;
   line-height: 7.875rem;
   text-align: center;
-  color: var(--color-typography-primary);
+  background: linear-gradient(45deg, #EF476F, #FFD166, #06D6A0, #118AB2);
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: moveColors 10s infinite ease-in-out;
+  -webkit-mask-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.6) 100%);
+  mask-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.6) 100%);
+}
+
+@keyframes moveColors {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .primary-cta {
@@ -175,6 +200,24 @@ html, body {
   font-family: "Ameda", system-ui, sans-serif;
   font-size: 7.5rem;
   margin: 8rem 0 5rem;
+}
+
+.side-nav-item-active {
+  background: var(--color-secondary-interactive);
+  border-radius: 0.5rem;
+}
+
+.side-nav-item:hover {
+  color: var(--color-secondary-interactive);
+}
+
+.side-nav-item.side-nav-item-active:hover {
+  color: var(--color-typography-primary);
+}
+
+.md a.docs-section-anchor {
+  color: var(--color-typography-primary);
+  margin: 2rem 0 0;
 }
 
 .logo-text {

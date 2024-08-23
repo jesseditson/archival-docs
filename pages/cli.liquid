@@ -4,13 +4,13 @@
 <div class="mb-20 md:mb-0 md:mt-20 flex flex-1 gap-4 min-h-full md:pl-64 w-full">
   <div id="docs-sidebar" class="z-10 w-64 font-mono fixed left-0 hidden md:flex flex-col font-bold">
     {% for doc in objects.cli %}
-      <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md {% if cli.command == doc.command %}backdrop-blur-lg shadow-xl bg-pink-light{% endif %}">
+      <a href="/{{doc.path}}.html" class="px-4 py-4 backdrop-blur-md border-b border-gray shadow-sm hover:shadow-md {% if cli.command == doc.command %}backdrop-blur-lg shadow-xl{% endif %}">
         <h3>{{ doc.command }}</h3>
       </a>
     {% endfor %}
   </div>
 
-  <div id="docs" class="z-20 w-full min-h-full bg-pink-light p-8 md:p-20 flex justify-center">
+  <div id="docs" class="z-20 w-full min-h-full p-8 md:p-20 flex justify-center">
     <div class="md w-full max-w-screen-md flex flex-col gap-4">
       <h1>
         <a href="#{{cli.command | url_encode }}" id="{{cli.command | url_encode }}">

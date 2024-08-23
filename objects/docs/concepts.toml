@@ -6,8 +6,7 @@ Archival is a fairly simple tool but has been designed to be used in some powerf
 
 [[sections]]
 title = "Archival as a Library"
-content = """
-Archival is normally used as a binary during local development and continuous integration. However, if you’d like to integrate it into a rust application, it exposes a rust-based API that allows use in various environments (even ones without filesystems like WASM) - the documentation for this use is available on crates.io: https://docs.rs/archival/latest/archival/
+content = """Archival is normally used as a binary during local development and continuous integration. However, if you’d like to integrate it into a rust application, it exposes a rust-based API that allows use in various environments (even ones without filesystems like WASM) - the documentation for this use is available on crates.io: https://docs.rs/archival/latest/archival/
 """
 
 [[sections]]

@@ -1,15 +1,19 @@
 /* Markdown Styles */
 
 .md h1, .md h2, .md h3, .md h4 {
-    @apply font-header font-extrabold;
+  
 }
 
 .md h1 {
-    @apply text-3xl;
+  font-size: var(--typo-subheader-size);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 1rem;
 }
 
 .md h2 {
-    @apply text-2xl;
+    font-weight: 700;
+    font-size: 1.5rem;
 }
 
 .md h3, .md h4 {
@@ -17,7 +21,9 @@
 }
 
 .md p:not(:empty) {
-    @apply py-4;
+    padding: 0 0 2rem;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .md blockquote {
@@ -33,11 +39,33 @@
 }
 
 .md code {
-    @apply bg-gray-light rounded-md px-2 py-1;
+  background-color: rgba(36, 37, 47, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.1rem 0.4rem 0.2rem;
+  margin: 0 0.3em;
+}
+
+.md pre code {
+  background-color: rgba(36, 37, 47, 0.4);
+  margin: 0;
+  padding: 1.5rem;
 }
 
 .md ul {
     @apply list-disc flex flex-col gap-4;
+    line-height: 2.5;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.md ul li {
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  list-style-position: inside;
+}
+
+.md ul li:last-child {
+  margin-bottom: 0;
 }
 
 .md a {
