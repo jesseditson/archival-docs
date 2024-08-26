@@ -24,7 +24,8 @@
   color: #8be9fd;
 }
 
-.hljs-keyword {
+.hljs-keyword,
+.hljs-name {
   color: #ff79c6;
 }
 
@@ -42,7 +43,6 @@
 
 .hljs-string,
 .hljs-meta,
-.hljs-name,
 .hljs-type,
 .hljs-symbol,
 .hljs-bullet,

@@ -88,7 +88,7 @@
 }
 
 .md ul {
-    @apply list-disc flex flex-col gap-4;
+    @apply list-disc flex flex-col;
     line-height: 2.5;
     color: rgba(255, 255, 255, 0.8);
 }

@@ -55,6 +55,10 @@ html, body {
   font-weight: var(--typo-body-weight);
 }
 
+.nav-text:hover {
+  color: var(--color-secondary-interactive);
+}
+
 .nav-text-cta {
   background-color: rgba(254, 131, 0, 0.15);
   transition: background-color 0.3s ease-in-out;
@@ -69,6 +73,11 @@ html, body {
 
 .nav-text-cta:hover {
   background-color: rgba(254, 131, 0, 0.35);
+}
+
+.nav-active {
+  color: var(--color-secondary-interactive);
+  border-bottom: 1px solid;
 }
 
 .hero-message {
@@ -156,6 +165,15 @@ html, body {
   font-size: var(--typo-body-size-large);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+.section-content a {
+  color: var(--color-secondary-interactive);
+}
+
+.section-content p {
+  margin: 0 0 2rem;
 }
 
 .pricing-container {
@@ -256,7 +274,77 @@ html, body {
   display: block;
 }
 
-.gradient-bg {
-  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
-  background-attachment: fixed;
+#mobile-menu {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+#mobile-menu .mobile-nav-item {
+  font-weight: 600;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+#mobile-menu .mobile-nav-item a {
+  padding: 1rem 0;
+  display: block;
+}
+
+#mobile-menu .mobile-nav-item-cta {
+  background: linear-gradient(180deg, var(--color-primary-cta-highlight) 0%, var(--color-primary-cta-shadow) 100%);
+  border-radius: 0.5rem;
+  margin: 0 4rem;
+}
+
+#mobile-menu .mobile-nav-item-cta a {
+  display: block;
+  color: var(--color-typography-primary);
+  padding: 1rem 0.9rem;
+}
+
+
+/* Responsive */
+
+@media (max-width: 1328px) {
+  #nav {
+    padding: 1.25rem 4rem;
+  }
+
+  .hero-message {
+    font-size: clamp(3rem, 10vw, 7.5rem);
+    line-height: clamp(3.15rem, calc(10vw * 1.05), 7.875rem);
+  }
+
+  #videos {
+    padding: 0 4rem;
+  }
+
+  #videos video {
+    border-radius: 1rem;
+  }
+
+  .benefit-grid,
+  .pricing-container {
+    padding: 0 4rem;
+    grid-template-columns: 1fr;
+    gap: 6rem 3rem;
+  }
+}
+
+@media (max-width: 928px) {
+  #header {
+    padding-top: 10rem;
+  }
+}
+
+@media (max-width: 600px) {
+  #nav {
+    padding: 1.25rem 2rem;
+  }
+  #videos {
+    padding: 0 2rem;
+  }
+  .benefit-grid,
+  .pricing-container {
+    padding: 0 2rem;
+  }
 }

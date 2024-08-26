@@ -1,7 +1,7 @@
 <nav
   id="nav"
   role="nav"
-  class="z-50 w-full bottom-0 shadow-up absolute py-5 flex justify-between font-bold gap-4 md:backdrop-blur-md md:bottom-auto md:top-0 md:shadow-lg md:fixed md:max-w-[1200px] mx-auto inset-x-0">
+  class="z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-auto top-0 shadow-lg max-w-[1200px] mx-auto inset-x-0">
   <div id="logo" class="">
     <a href="/" class="flex gap-2 items-center">
       <div class="logo-icon w-[179px] h-[32px] relative">
@@ -46,13 +46,13 @@
       </div>
     </button>
   </div>
-  <ul class="flex-shrink justify-end gap-8 items-center flex-wrap mr-5 hidden md:flex">
+  <ul class="flex-shrink justify-end gap-8 items-center flex-wrap hidden md:flex">
     {% assign docs_link = objects.docs | first %}
-    <li class="nav-text {% if area == 'cli' %}nav-active{% endif %}">
+    <li class="nav-text {% if area == 'docs' %}nav-active{% endif %}">
       <a href="/{{ docs_link.path }}.html">Docs</a>
     </li>
     {% assign cli_link = objects.cli | first %}
-    <li class="nav-text {% if area == 'docs' %}nav-active{% endif %}">
+    <li class="nav-text {% if area == 'cli' %}nav-active{% endif %}">
       <a href="/{{ cli_link.path }}.html">CLI</a>
     </li>
     <li class="nav-text {% if area == 'manifesto' %}nav-active{% endif %}">
@@ -74,7 +74,7 @@
       <a href="https://docs.rs/archival/"><img src="/img/rust.png" alt="rust library documentation" /></a>
     </li> {% endcomment %}
   </ul>
-  <div class="md:hidden mr-5 flex items-center">
+  <div class="md:hidden flex items-center">
     <button>
       <div id="menu-closed">
         <svg
@@ -132,40 +132,25 @@
     </button>
   </div>
 </nav>
-<div id="mobile-menu" class="hidden translate-y-full transition opacity-0 shadow-up bg-white absolute w-full pb-20 px-4 bottom-0 z-40 text-xl text-gray-dark rounded-lg md:hidden max-h-full overflow-y-auto">
+<div id="mobile-menu" class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-20 px-4 bottom-0 z-40 text-xl rounded-lg md:hidden max-h-full overflow-y-auto">
   {% if area == "home" %}
     <ul class="flex flex-col">
       {% assign docs_link = objects.docs | first %}
-      <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-        <a class="flex-1" href="/{{ docs_link.path }}.html">Documentation</a>
+      <li class="mobile-nav-item">
+        <a class="flex-1" href="/{{ docs_link.path }}.html">Docs</a>
       </li>
       {% assign cli_link = objects.cli | first %}
-      <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-        <a class="flex-1" href="/{{ cli_link.path }}.html">CLI docs</a>
+      <li class="mobile-nav-item">
+        <a class="flex-1" href="/{{ cli_link.path }}.html">CLI</a>
       </li>
-      <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+      <li class="mobile-nav-item">
         <a class="flex-1" href="/manifesto.html">Manifesto</a>
       </li>
-      <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
+      <li class="mobile-nav-item">
         <a class="flex-1" href="https://editor.archival.dev">Editor</a>
       </li>
-      <li class="flex gap-10 border-b border-gray-light px-8 py-3">
-        <a class="flex-1 flex items-center gap-4" href="https://github.com/jesseditson/archival"><img
-            class="w-5 h-5"
-            src="/img/github-mark.png"
-            alt="github" /> Github</a>
-      </li>
-      <li class="flex gap-10 border-b border-gray-light px-8 py-3">
-        <a class="flex-1 flex items-center gap-4" href="/chat.html"><img
-            src="/img/discord-mark.png"
-            class="w-5"
-            alt="discord" /> Discord</a>
-      </li>
-      <li class="flex gap-10 px-8 py-3">
-        <a class="flex-1 flex items-center gap-4" href="https://docs.rs/archival/"><img
-            src="/img/rust.png"
-            class="w-5 h-5"
-            alt="rust library documentation" /> Rust Library</a>
+      <li class="mobile-nav-item mobile-nav-item-cta">
+        <a class="flex-1" href="https://editor.archival.dev/new">Create</a>
       </li>
     </ul>
   {% elsif area == "docs" %}
