@@ -76,8 +76,15 @@ html, body {
 }
 
 .nav-active {
-  color: var(--color-secondary-interactive);
-  border-bottom: 1px solid;
+  background: linear-gradient(45deg, #EF476F, #FFD166, #06D6A0, #118AB2);
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: moveColors 10s infinite ease-in-out;
+  -webkit-mask-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.6) 100%);
+  mask-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.6) 100%);
 }
 
 .hero-message {
