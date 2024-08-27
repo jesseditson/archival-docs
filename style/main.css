@@ -129,6 +129,10 @@ html, body {
   margin: 0 auto 2.5rem;
 }
 
+.docs-container {
+  min-height: 100%;
+}
+
 .docs-cta {
   display: block;
   font-size: var(--typo-body-size);
@@ -210,7 +214,7 @@ html, body {
 }
 
 .manifesto {
-  padding-bottom: 6rem;
+  padding: 15rem 0 6rem;
 }
 
 .image-aside {
@@ -281,7 +285,7 @@ html, body {
 #mobile-menu .mobile-nav-item {
   font-weight: 600;
   text-align: center;
-  margin: 1rem 0;
+  margin: 0;
 }
 
 #mobile-menu .mobile-nav-item a {
@@ -309,6 +313,10 @@ html, body {
     padding: 1.25rem 4rem;
   }
 
+  .docs-container {
+    padding: 8rem 4rem;
+  }
+
   .hero-message {
     font-size: clamp(3rem, 10vw, 7.5rem);
     line-height: clamp(3.15rem, calc(10vw * 1.05), 7.875rem);
@@ -321,11 +329,9 @@ html, body {
   #videos video {
     border-radius: 1rem;
   }
-
   .benefit-grid,
   .pricing-container {
     padding: 0 4rem;
-    grid-template-columns: 1fr;
     gap: 6rem 3rem;
   }
 }
@@ -333,6 +339,17 @@ html, body {
 @media (max-width: 928px) {
   #header {
     padding-top: 10rem;
+  }
+
+  .benefit-grid,
+  .pricing-container {
+    grid-template-columns: 1fr;
+    gap: 3rem 3rem;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+    margin: 0 0 1rem;
   }
 }
 
@@ -343,8 +360,34 @@ html, body {
   #videos {
     padding: 0 2rem;
   }
+
+  .md h1.cli-header {
+    font-size: 6vw;
+  }
+
+  .manifesto {
+    padding-top: 8rem;
+  }
+
+  .manifesto .hero-message {
+    font-size: 16vw;
+  }
+
+  .manifesto-body {
+    padding: 0 2rem;
+  }
+
+  .docs-container {
+    padding: 8rem 2rem 2rem;
+  }
+
   .benefit-grid,
   .pricing-container {
     padding: 0 2rem;
+  }
+
+  .footer {
+    margin-top: 0;
+    padding: 4rem;
   }
 }

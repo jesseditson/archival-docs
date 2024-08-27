@@ -1,7 +1,7 @@
 {% layout 'theme' title: "archival documentation"
   , area: "docs" %}
 
-<div class="mb-20 md:mb-0 md:mt-20 flex flex-1 gap-4 min-h-full w-full md:max-w-[1200px] pt-32 pb-32">
+<div class="docs-container md:mb-0 md:mt-20 flex flex-1 gap-4 min-h-full w-full md:max-w-[1200px] pt-32 pb-32">
   <div id="docs-sidebar" class="z-10 w-64 hidden flex-col font-bold md:flex">
     {% for doc in objects.docs %}
       <a href="/{{doc.path}}.html" class="px-4 py-2 my-2 backdrop-blur-md side-nav-item {% if docs.title == doc.title %}side-nav-item-active{% endif %}">

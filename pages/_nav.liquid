@@ -133,7 +133,6 @@
   </div>
 </nav>
 <div id="mobile-menu" class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-20 px-4 bottom-0 z-40 text-xl rounded-lg md:hidden max-h-full overflow-y-auto">
-  {% if area == "home" %}
     <ul class="flex flex-col">
       {% assign docs_link = objects.docs | first %}
       <li class="mobile-nav-item">
@@ -153,21 +152,4 @@
         <a class="flex-1" href="https://editor.archival.dev/new">Create</a>
       </li>
     </ul>
-  {% elsif area == "docs" %}
-    <ul class="flex flex-col">
-      {% for doc in objects.docs %}
-        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-          <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% elsif area == "cli" %}
-    <ul class="flex flex-col">
-      {% for doc in objects.cli %}
-        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-          <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.command }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
 </div>
