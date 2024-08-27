@@ -106,12 +106,13 @@ html, body {
 }
 
 .connect-grid {
-  margin: 4rem 0 4rem;
+  margin: 4rem auto 4rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4rem;
   justify-items: center;
   align-items: center;
+
 }
 
 .connect-item {
@@ -141,6 +142,10 @@ html, body {
 .animated-path {
   fill: url(#animatedGradient-gs);
   transition: fill 0.3 ease;
+}
+
+.animated-svg {
+  margin: 0 auto;
 }
 
 .animated-svg:hover .animated-path {
@@ -400,6 +405,10 @@ html, body {
     padding: 0 4rem;
     gap: 6rem 3rem;
   }
+
+  .contact-container {
+    padding: 0 4rem;
+  }
 }
 
 @media (max-width: 928px) {
@@ -455,6 +464,20 @@ html, body {
   .benefit-grid,
   .pricing-container {
     padding: 0 2rem;
+  }
+
+  .contact-container {
+    padding: 0 2rem;
+  }
+
+  .connect-grid {
+    margin: 1.5rem auto;
+    max-width: 26.75rem;
+    gap: 0.8rem;
+  }
+
+  .connect-item {
+    transform: scale(0.65);
   }
 
   .footer {
