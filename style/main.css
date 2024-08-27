@@ -82,8 +82,6 @@ html, body {
   color: transparent;
   -webkit-text-fill-color: transparent;
   animation: moveColors 10s infinite ease-in-out;
-  -webkit-mask-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.6) 100%);
-  mask-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.6) 100%);
 }
 
 .hero-message {
@@ -127,6 +125,11 @@ html, body {
   background-clip: padding-box;
   background-size: cover;
   background-position: center;
+  transition: transform 0.1s ease-in-out;
+}
+
+.primary-cta:active {
+  transform: scale(0.95);
 }
 
 .primary-cta-container {
@@ -221,6 +224,11 @@ html, body {
 
 .manifesto {
   padding: 15rem 0 6rem;
+}
+
+.manifesto .md p:not(:empty) {
+  font-size: var(--typo-body-size-large);
+  line-height: 1.5;
 }
 
 .image-aside {
@@ -325,7 +333,7 @@ html, body {
 
   .hero-message {
     font-size: clamp(3rem, 12vw, 7.5rem);
-    line-height: clamp(3.15rem, calc(10vw * 1.05), 7.875rem);
+    line-height: clamp(3.15rem, calc(12vw * 1.05), 7.875rem);
   }
 
   #videos {
