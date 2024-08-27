@@ -55,11 +55,9 @@ html, body {
   font-weight: var(--typo-body-weight);
 }
 
-.nav-text:hover {
-  color: var(--color-secondary-interactive);
-}
-
 .nav-text-cta {
+  font-size: var(--typo-body-size);
+  font-weight: var(--typo-body-weight);
   background-color: rgba(254, 131, 0, 0.15);
   transition: background-color 0.3s ease-in-out;
   border-radius: 0.5rem;
@@ -75,7 +73,8 @@ html, body {
   background-color: rgba(254, 131, 0, 0.35);
 }
 
-.nav-active {
+.nav-active,
+.nav-text:hover {
   background: linear-gradient(45deg, #EF476F, #FFD166, #06D6A0, #118AB2);
   background-size: 300% 300%;
   background-clip: text;
@@ -325,7 +324,7 @@ html, body {
   }
 
   .hero-message {
-    font-size: clamp(3rem, 10vw, 7.5rem);
+    font-size: clamp(3rem, 12vw, 7.5rem);
     line-height: clamp(3.15rem, calc(10vw * 1.05), 7.875rem);
   }
 
@@ -348,6 +347,10 @@ html, body {
     padding-top: 10rem;
   }
 
+  #header-ctas {
+    margin-top: 3rem;
+  }
+
   .benefit-grid,
   .pricing-container {
     grid-template-columns: 1fr;
@@ -364,6 +367,7 @@ html, body {
   #nav {
     padding: 1.25rem 2rem;
   }
+
   #videos {
     padding: 0 2rem;
   }
