@@ -3,6 +3,7 @@ header_alt = "archival.dev"
 personas_title = "What Can Archival do for Me?"
 manifesto_link_title = "Read the archival manifesto"
 videos_title = "Show Me How It Works"
+contact_title = "Connect With Us"
 pricing_title = "Pricing"
 pricing_content = """
 Archival is run by a tiny team with a goal of staying small. You can use archival for free forever, and you can ship archival sites to platforms like Vercel, Netlify, or host archival websites on your own static servers.
