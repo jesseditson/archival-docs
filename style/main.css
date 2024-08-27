@@ -139,7 +139,7 @@ html, body {
 }
 
 .animated-path {
-  fill: rgba(255, 255, 255, 0.35);
+  fill: url(#animatedGradient-gs);
   transition: fill 0.3 ease;
 }
 
