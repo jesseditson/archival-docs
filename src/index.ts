@@ -37,6 +37,7 @@ const updateShadowImages = () => {
 
 const setupMobileMenu = () => {
   const menu = document.querySelector("#mobile-menu") as HTMLDivElement;
+  const backdrop = document.querySelector(".modal-backdrop") as HTMLDivElement;
   const nav = document.querySelector("nav") as HTMLDivElement;
   const [closedMenu, openMenu] = [
     document.querySelector("#menu-closed"),
@@ -50,14 +51,17 @@ const setupMobileMenu = () => {
     if (!open) {
       prevOp = setTimeout(() => {
         menu?.classList.toggle("hidden", true);
+        backdrop?.classList.toggle("hidden", true);
       }, 500);
     } else {
       menu?.classList.toggle("hidden", false);
+      backdrop?.classList.toggle("hidden", false);
     }
     setTimeout(() => {
       closedMenu?.classList.toggle("hidden", open);
       openMenu?.classList.toggle("hidden", !open);
       menu.classList.toggle("translate-y-full", !open);
+      backdrop.classList.toggle("opacity-0", !open);
       menu.classList.toggle("opacity-0", !open);
       nav.classList.toggle("shadow-up", !open);
     }, 25);
@@ -66,6 +70,9 @@ const setupMobileMenu = () => {
     toggleMenu(true);
   });
   openMenu?.addEventListener("click", () => {
+    toggleMenu(false);
+  });
+  backdrop?.addEventListener("click", () => {
     toggleMenu(false);
   });
 };
