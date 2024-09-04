@@ -392,6 +392,21 @@ html, body {
   z-index: 9997;
 }
 
+.nav-left,
+.nav-right {
+  display: block;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.nav-left {
+  background: transparent url(/img/nav-left.svg) no-repeat;
+}
+
+.nav-right {
+  background: transparent url(/img/nav-right.svg) no-repeat;
+}
+
 /* Responsive */
 
 @media only screen {
@@ -454,9 +469,15 @@ html, body {
   }
 }
 
-@media (max-width: 600px) {
-  #nav {
+@media (max-width: 768px) {
+  #nav,
+  #docs-nav {
     padding: 1.25rem 2rem;
+  }
+
+  #docs-nav {
+    display: flex;
+    justify-content: space-between;
   }
 
   #videos {

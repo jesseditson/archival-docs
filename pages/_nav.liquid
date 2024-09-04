@@ -60,15 +60,6 @@
     <li class="nav-text-cta">
       <a href="https://editor.archival.dev/new">Create</a>
     </li>
-    {% comment %} <li class="w-5">
-      <a href="https://github.com/jesseditson/archival"><img src="/img/github-mark.png" alt="github" /></a>
-    </li>
-    <li class="w-5">
-      <a href="/chat.html"><img src="/img/discord-mark.png" alt="discord" /></a>
-    </li>
-    <li class="w-5">
-      <a href="https://docs.rs/archival/"><img src="/img/rust.png" alt="rust library documentation" /></a>
-    </li> {% endcomment %}
   </ul>
   <div class="md:hidden flex items-center">
     <button>
@@ -149,4 +140,14 @@
       </li>
     </ul>
 </div>
+
+{% if area == 'docs' %}
+  <div id="docs-nav" class="hidden z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
+    <div class="nav-left"></div>
+    <div class="docs-current-view">
+      {{ docs.title }}
+    </div>
+    <div class="nav-right"></div>
+  </div>
+{% endif %}
 <div class="modal-backdrop hidden"></div>

@@ -54,7 +54,7 @@
 
 
 
-{% comment %} Video Section {% endcomment %}
+{% comment %} Video Section (Disabled until produced)
 
 <div class="content w-full max-w-screen-lg mb-40 md:max-w-[1200px]">
   <div id="videos" class="w-full">
@@ -77,10 +77,12 @@
   </div>
 </div>
 
+{% endcomment %}
+
 
 {% comment %} Benefit Sections {% endcomment %}
 
-<div class="benefit-grid md:max-w-[1200px] mb-40">
+<div class="benefit-grid md:max-w-[1200px] md:mt-40 md:mb-40 mt-20 mb-20">
   {% for section in home.sections %}
     <div class="benefit">
       <h2 class="section-title">{{ section.title }}</h2>
