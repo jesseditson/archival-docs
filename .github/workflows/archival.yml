@@ -1,14 +1,14 @@
-name: Archival
+name: archival
 on:
   push:
     branches:
       - main
+  pull_request:
 jobs:
-  build:
+  deploy:
+    name: "Build & deploy to archival"
     runs-on: ubuntu-latest
 
     steps:
       - name: Archival Build
-        uses: jesseditson/archival@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: jesseditson/archival
