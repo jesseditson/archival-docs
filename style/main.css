@@ -304,6 +304,7 @@ html, body {
   font-family: "Ameda", system-ui, sans-serif;
   font-size: 7.5rem;
   margin: 8rem 0 5rem;
+  font-weight: 400;
 }
 
 .side-nav-item-active {
