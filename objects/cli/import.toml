@@ -1,4 +1,4 @@
-order = 4
+order = 3
 command = "archival import"
 content = """
 This command handles importing external structured data into archival object files, and typically is used during automated workflows or initial site data population.

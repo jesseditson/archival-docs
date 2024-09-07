@@ -1,4 +1,4 @@
-order = 2
+order = 1
 command = "archival run"
 content = """
 This command runs a local static server and watches your archival site for changes. The site will be automatically rebuilt whenever files change.

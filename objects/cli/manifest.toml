@@ -1,4 +1,4 @@
-order = 5
+order = 4
 command = "archival manifest"
 content = """
 Print the value from a manifest field - typically this is useful in the context of a build script or CI environment.

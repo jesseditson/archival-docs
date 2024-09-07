@@ -1,4 +1,4 @@
-order = 6
+order = 5
 command = "archival prebuild"
 content = """
 Runs the commands listed in the manifest prebuild fields, in sequence, in subshells. If any command fails, this will print the failure and exit non-zero.

@@ -1,4 +1,4 @@
-order = 8
+order = 7
 command = "archival objects"
 content = """
 Lists the objects defined in this site, in a debug-friendly format. Mainly useful when troubleshooting a build issue.

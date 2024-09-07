@@ -120,30 +120,53 @@
   </div>
 </nav>
 <div id="mobile-menu" class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-10 px-4 bottom-0 z-40 text-xl rounded-lg md:hidden max-h-full overflow-y-auto">
-    <ul class="flex flex-col">
-      {% assign docs_link = objects.docs | first %}
-      <li class="mobile-nav-item">
-        <a class="flex-1" href="/{{ docs_link.path }}.html">Docs</a>
-      </li>
-      {% assign cli_link = objects.cli | first %}
-      <li class="mobile-nav-item">
-        <a class="flex-1" href="/{{ cli_link.path }}.html">CLI</a>
-      </li>
-      <li class="mobile-nav-item">
-        <a class="flex-1" href="/manifesto.html">Manifesto</a>
-      </li>
-      <li class="mobile-nav-item">
-        <a class="flex-1" href="https://editor.archival.dev">Editor</a>
-      </li>
-      <li class="mobile-nav-item mobile-nav-item-cta">
-        <a class="flex-1" href="https://editor.archival.dev/new">Create</a>
-      </li>
-    </ul>
+  <ul class="flex flex-col">
+    {% assign docs_link = objects.docs | first %}
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="/{{ docs_link.path }}.html">Docs</a>
+    </li>
+    {% assign cli_link = objects.cli | first %}
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="/{{ cli_link.path }}.html">CLI</a>
+    </li>
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="/manifesto.html">Manifesto</a>
+    </li>
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="https://editor.archival.dev">Editor</a>
+    </li>
+    <li class="mobile-nav-item mobile-nav-item-cta">
+      <a class="flex-1" href="https://editor.archival.dev/new">Create</a>
+    </li>
+  </ul>
 </div>
 
 {% if area == 'docs' or area == 'cli' %}
   <div id="docs-nav" class="hidden z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
-    <div class="nav-left"></div>
+    {% if area == 'docs' %}
+      {% assign other_pages = objects.docs %}
+      {% assign order = docs.order %}
+    {% elsif area == 'cli' %}
+      {% assign other_pages = objects.cli %}
+      {% assign order = cli.order %}
+    {% endif %}
+    {% if order > 0 %}
+      {% assign prev_index = order | minus: 1 %}
+      {% assign prev_page = other_pages | slice: prev_index | first %}
+      {% assign prev_link = prev_page.path | append: ".html" %}
+    {% endif %}
+    {% assign max_order = other_pages | size | minus: 1 %}
+    {% if order < max_order %}
+      {% assign next_index = order | plus: 1 %}
+      {% assign next_page = other_pages | slice: next_index | first %}
+      {% assign next_link = next_page.path | append: ".html" %}
+    {% endif %}
+    <a
+      {% if prev_link %}
+      href="/{{ prev_link }}"
+      {% endif %}>
+      <div class="nav-left{% unless prev_link %} nav-disabled{% endunless %}"></div>
+    </a>
     <div class="docs-current-view">
       {% if area == 'docs' %}
         {{ docs.title }}
@@ -151,7 +174,12 @@
         {{ cli.command }}
       {% endif %}
     </div>
-    <div class="nav-right"></div>
+    <a
+      {% if next_link %}
+      href="/{{ next_link }}"
+      {% endif %}>
+      <div class="nav-right{% unless next_link %} nav-disabled{% endunless %}"></div>
+    </a>
   </div>
   <div id="docs-selector" class="hidden z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-16 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
     {% if area == "docs" %}

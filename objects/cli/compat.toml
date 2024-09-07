@@ -1,4 +1,4 @@
-order = 3
+order = 2
 command = "archival compat"
 content = """
 Checks the compatibility of this version of archival against a version string. This will return a non-zero exit code if the specified version is incompatible - generally this is used during CI or automated builds.
