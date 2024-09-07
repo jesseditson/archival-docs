@@ -141,13 +141,36 @@
     </ul>
 </div>
 
-{% if area == 'docs' %}
+{% if area == 'docs' or area == 'cli' %}
   <div id="docs-nav" class="hidden z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
     <div class="nav-left"></div>
     <div class="docs-current-view">
-      {{ docs.title }}
+      {% if area == 'docs' %}
+        {{ docs.title }}
+      {% else %}
+        {{ cli.command }}
+      {% endif %}
     </div>
     <div class="nav-right"></div>
+  </div>
+  <div id="docs-selector" class="hidden z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-16 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
+    {% if area == "docs" %}
+      <ul class="flex flex-col w-full">
+        {% for doc in objects.docs %}
+          <li class="flex px-8 py-3 text-center {% if path == doc.path %}nav-active{% endif %}">
+            <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% elsif area == "cli" %}
+      <ul class="flex flex-col w-full">
+        {% for doc in objects.cli %}
+          <li class="flex px-8 py-3 text-center">
+            <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.command }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
 {% endif %}
 <div class="modal-backdrop hidden"></div>

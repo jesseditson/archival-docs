@@ -407,6 +407,10 @@ html, body {
   background: transparent url(/img/nav-right.svg) no-repeat;
 }
 
+.nav-disabled {
+  opacity: 0.5;
+}
+
 /* Responsive */
 
 @media only screen {
