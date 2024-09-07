@@ -142,7 +142,7 @@
 </div>
 
 {% if area == 'docs' or area == 'cli' %}
-  <div id="docs-nav" class="hidden z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
+  <div id="docs-nav" class="hidden z-[51] w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
     {% if area == 'docs' %}
       {% assign other_pages = objects.docs %}
       {% assign order = docs.order %}
@@ -167,7 +167,7 @@
       {% endif %}>
       <div class="nav-left{% unless prev_link %} nav-disabled{% endunless %}"></div>
     </a>
-    <div class="docs-current-view">
+    <div id="mobile-current-view" class="docs-current-view cursor-pointer select-none">
       {% if area == 'docs' %}
         {{ docs.title }}
       {% else %}
@@ -181,7 +181,7 @@
       <div class="nav-right{% unless next_link %} nav-disabled{% endunless %}"></div>
     </a>
   </div>
-  <div id="docs-selector" class="hidden z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-16 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
+  <div id="docs-selector" class="transition translate-y-full opacity-0 pointer-events-none [&.showing]:pointer-events-auto [&.showing]:opacity-100 [&.showing]:translate-y-0 z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-16 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
     {% if area == "docs" %}
       <ul class="flex flex-col w-full">
         {% for doc in objects.docs %}

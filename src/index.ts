@@ -1,6 +1,7 @@
 window.addEventListener("load", () => {
   // setupHeaderVideos();
   setupMobileMenu();
+  setupDocsMenu();
   setupQuickSearch();
 
   let needsUpdate = true;
@@ -33,6 +34,23 @@ const updateShadowImages = () => {
     const yShift = Math.log(size) * SHADOW_DISTANCE;
     shadow.style.transform = `translateY(${yShift - SHADOW_DISTANCE}px)`;
   });
+};
+
+const setupDocsMenu = () => {
+  const menuButton = document.querySelector("#mobile-current-view") as
+    | HTMLDivElement
+    | undefined;
+  const menu = document.querySelector("#docs-selector") as
+    | HTMLDivElement
+    | undefined;
+  if (menuButton && menu) {
+    const toggleMenu = (e: Event) => {
+      e.preventDefault();
+      menu.classList.toggle("showing");
+    };
+    menuButton.addEventListener("touchstart", toggleMenu);
+    menuButton.addEventListener("click", toggleMenu);
+  }
 };
 
 const setupMobileMenu = () => {
