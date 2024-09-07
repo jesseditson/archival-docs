@@ -1,22 +1,17 @@
 <nav
   id="nav"
   role="nav"
-  class="z-50 w-full bottom-0 shadow-up absolute py-5 flex justify-between font-bold gap-4 bg-white md:backdrop-blur-md md:bottom-auto md:top-0 md:shadow-lg md:fixed">
-  <div id="logo" class="mx-5">
+  class="z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-auto top-0 shadow-lg max-w-[1200px] mx-auto inset-x-0">
+  <div id="logo" class="">
     <a href="/" class="flex gap-2 items-center">
-      <div class="logo-icon w-[44px] h-[44px] relative">
+      <div class="logo-icon w-[179px] h-[32px] relative">
         <div class="gray">
-          {% include "logo-svg" size: "44" %}
-        </div>
-        <div class="color">
-          {% include "logo-svg" size: "44"
-            , color: true %}
+          {% include "logo-svg-2" size: "32" %}
         </div>
       </div>
-      <span class="logo-text text-2xl">archival</span>
     </a>
   </div>
-  <div class="flex-1 justify-end md:justify-center flex">
+  <div class="flex-1 justify-end md:justify-center flex hidden">
     <button id="quick-search-button" class="flex gap-4 font-light text-sm items-center text-gray-dark md:border md:opacity-60 md:border-gray md:bg-white md:rounded-lg md:px-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -47,32 +42,26 @@
       </div>
     </button>
   </div>
-  <ul class="flex-shrink justify-end gap-2 items-center flex-wrap mr-5 hidden md:flex">
+  <ul class="flex-shrink justify-end gap-8 items-center flex-wrap hidden md:flex">
     {% assign docs_link = objects.docs | first %}
-    <li class="hover:text-teal">
+    <li class="nav-text {% if area == 'docs' %}nav-active{% endif %}">
       <a href="/{{ docs_link.path }}.html">Docs</a>
     </li>
     {% assign cli_link = objects.cli | first %}
-    <li class="hover:text-teal">
+    <li class="nav-text {% if area == 'cli' %}nav-active{% endif %}">
       <a href="/{{ cli_link.path }}.html">CLI</a>
     </li>
-    <li class="hover:text-teal">
+    <li class="nav-text {% if area == 'manifesto' %}nav-active{% endif %}">
       <a href="/manifesto.html">Manifesto</a>
     </li>
-    <li class="hover:text-teal">
+    <li class="nav-text">
       <a href="https://editor.archival.dev">Editor</a>
     </li>
-    <li class="w-5">
-      <a href="https://github.com/jesseditson/archival"><img src="/img/github-mark.png" alt="github" /></a>
-    </li>
-    <li class="w-5">
-      <a href="/chat.html"><img src="/img/discord-mark.png" alt="discord" /></a>
-    </li>
-    <li class="w-5">
-      <a href="https://docs.rs/archival/"><img src="/img/rust.png" alt="rust library documentation" /></a>
+    <li class="nav-text-cta">
+      <a href="https://editor.archival.dev/new">Create</a>
     </li>
   </ul>
-  <div class="md:hidden mr-5 flex items-center">
+  <div class="md:hidden flex items-center">
     <button>
       <div id="menu-closed">
         <svg
@@ -130,57 +119,86 @@
     </button>
   </div>
 </nav>
-<div id="mobile-menu" class="hidden translate-y-full transition opacity-0 shadow-up bg-white absolute w-full pb-20 px-4 bottom-0 z-40 text-xl text-gray-dark rounded-lg md:hidden max-h-full overflow-y-auto">
-  {% if area == "home" %}
-    <ul class="flex flex-col">
-      {% assign docs_link = objects.docs | first %}
-      <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-        <a class="flex-1" href="/{{ docs_link.path }}.html">Documentation</a>
-      </li>
-      {% assign cli_link = objects.cli | first %}
-      <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-        <a class="flex-1" href="/{{ cli_link.path }}.html">CLI docs</a>
-      </li>
-      <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-        <a class="flex-1" href="/manifesto.html">Manifesto</a>
-      </li>
-      <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-        <a class="flex-1" href="https://editor.archival.dev">Editor</a>
-      </li>
-      <li class="flex gap-10 border-b border-gray-light px-8 py-3">
-        <a class="flex-1 flex items-center gap-4" href="https://github.com/jesseditson/archival"><img
-            class="w-5 h-5"
-            src="/img/github-mark.png"
-            alt="github" /> Github</a>
-      </li>
-      <li class="flex gap-10 border-b border-gray-light px-8 py-3">
-        <a class="flex-1 flex items-center gap-4" href="/chat.html"><img
-            src="/img/discord-mark.png"
-            class="w-5"
-            alt="discord" /> Discord</a>
-      </li>
-      <li class="flex gap-10 px-8 py-3">
-        <a class="flex-1 flex items-center gap-4" href="https://docs.rs/archival/"><img
-            src="/img/rust.png"
-            class="w-5 h-5"
-            alt="rust library documentation" /> Rust Library</a>
-      </li>
-    </ul>
-  {% elsif area == "docs" %}
-    <ul class="flex flex-col">
-      {% for doc in objects.docs %}
-        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-          <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% elsif area == "cli" %}
-    <ul class="flex flex-col">
-      {% for doc in objects.cli %}
-        <li class="flex hover:text-teal border-b border-gray-light px-8 py-3">
-          <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.command }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+<div id="mobile-menu" class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-10 px-4 bottom-0 z-40 text-xl rounded-lg md:hidden max-h-full overflow-y-auto">
+  <ul class="flex flex-col">
+    {% assign docs_link = objects.docs | first %}
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="/{{ docs_link.path }}.html">Docs</a>
+    </li>
+    {% assign cli_link = objects.cli | first %}
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="/{{ cli_link.path }}.html">CLI</a>
+    </li>
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="/manifesto.html">Manifesto</a>
+    </li>
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="https://editor.archival.dev">Editor</a>
+    </li>
+    <li class="mobile-nav-item mobile-nav-item-cta">
+      <a class="flex-1" href="https://editor.archival.dev/new">Create</a>
+    </li>
+  </ul>
 </div>
+
+{% if area == 'docs' or area == 'cli' %}
+  <div id="docs-nav" class="hidden z-[51] w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
+    {% if area == 'docs' %}
+      {% assign other_pages = objects.docs %}
+      {% assign order = docs.order %}
+    {% elsif area == 'cli' %}
+      {% assign other_pages = objects.cli %}
+      {% assign order = cli.order %}
+    {% endif %}
+    {% if order > 0 %}
+      {% assign prev_index = order | minus: 1 %}
+      {% assign prev_page = other_pages | slice: prev_index | first %}
+      {% assign prev_link = prev_page.path | append: ".html" %}
+    {% endif %}
+    {% assign max_order = other_pages | size | minus: 1 %}
+    {% if order < max_order %}
+      {% assign next_index = order | plus: 1 %}
+      {% assign next_page = other_pages | slice: next_index | first %}
+      {% assign next_link = next_page.path | append: ".html" %}
+    {% endif %}
+    <a
+      {% if prev_link %}
+      href="/{{ prev_link }}"
+      {% endif %}>
+      <div class="nav-left{% unless prev_link %} nav-disabled{% endunless %}"></div>
+    </a>
+    <div id="mobile-current-view" class="docs-current-view cursor-pointer select-none">
+      {% if area == 'docs' %}
+        {{ docs.title }}
+      {% else %}
+        {{ cli.command }}
+      {% endif %}
+    </div>
+    <a
+      {% if next_link %}
+      href="/{{ next_link }}"
+      {% endif %}>
+      <div class="nav-right{% unless next_link %} nav-disabled{% endunless %}"></div>
+    </a>
+  </div>
+  <div id="docs-selector" class="transition translate-y-full opacity-0 pointer-events-none [&.showing]:pointer-events-auto [&.showing]:opacity-100 [&.showing]:translate-y-0 z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-16 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
+    {% if area == "docs" %}
+      <ul class="flex flex-col w-full">
+        {% for doc in objects.docs %}
+          <li class="flex px-8 py-3 text-center {% if path == doc.path %}nav-active{% endif %}">
+            <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% elsif area == "cli" %}
+      <ul class="flex flex-col w-full">
+        {% for doc in objects.cli %}
+          <li class="flex px-8 py-3 text-center">
+            <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.command }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endif %}
+<div class="modal-backdrop hidden"></div>

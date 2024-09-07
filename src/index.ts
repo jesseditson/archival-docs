@@ -1,6 +1,7 @@
 window.addEventListener("load", () => {
   // setupHeaderVideos();
   setupMobileMenu();
+  setupDocsMenu();
   setupQuickSearch();
 
   let needsUpdate = true;
@@ -35,8 +36,26 @@ const updateShadowImages = () => {
   });
 };
 
+const setupDocsMenu = () => {
+  const menuButton = document.querySelector("#mobile-current-view") as
+    | HTMLDivElement
+    | undefined;
+  const menu = document.querySelector("#docs-selector") as
+    | HTMLDivElement
+    | undefined;
+  if (menuButton && menu) {
+    const toggleMenu = (e: Event) => {
+      e.preventDefault();
+      menu.classList.toggle("showing");
+    };
+    menuButton.addEventListener("touchstart", toggleMenu);
+    menuButton.addEventListener("click", toggleMenu);
+  }
+};
+
 const setupMobileMenu = () => {
   const menu = document.querySelector("#mobile-menu") as HTMLDivElement;
+  const backdrop = document.querySelector(".modal-backdrop") as HTMLDivElement;
   const nav = document.querySelector("nav") as HTMLDivElement;
   const [closedMenu, openMenu] = [
     document.querySelector("#menu-closed"),
@@ -50,14 +69,17 @@ const setupMobileMenu = () => {
     if (!open) {
       prevOp = setTimeout(() => {
         menu?.classList.toggle("hidden", true);
+        backdrop?.classList.toggle("hidden", true);
       }, 500);
     } else {
       menu?.classList.toggle("hidden", false);
+      backdrop?.classList.toggle("hidden", false);
     }
     setTimeout(() => {
       closedMenu?.classList.toggle("hidden", open);
       openMenu?.classList.toggle("hidden", !open);
       menu.classList.toggle("translate-y-full", !open);
+      backdrop.classList.toggle("opacity-0", !open);
       menu.classList.toggle("opacity-0", !open);
       nav.classList.toggle("shadow-up", !open);
     }, 25);
@@ -66,6 +88,9 @@ const setupMobileMenu = () => {
     toggleMenu(true);
   });
   openMenu?.addEventListener("click", () => {
+    toggleMenu(false);
+  });
+  backdrop?.addEventListener("click", () => {
     toggleMenu(false);
   });
 };

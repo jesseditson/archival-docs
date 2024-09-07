@@ -1,4 +1,4 @@
-order = 7
+order = 6
 command = "archival login"
 content = """
 Logs in to the archival editor and store credentials locally in `~/.archivalrc`.

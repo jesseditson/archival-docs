@@ -6,6 +6,7 @@ header_alt = "string"
 manifesto_link_title = "string"
 videos_title = "string"
 personas_title = "string"
+contact_title = "string"
 pricing_title = "string"
 pricing_content = "markdown"
 discord_url = "string"
@@ -21,6 +22,7 @@ content = "markdown"
 [home.videos]
 title = "string"
 video = "video"
+poster = "string"
 
 [home.personas]
 image = "image"

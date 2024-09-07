@@ -1,4 +1,4 @@
-order = 9
+order = 8
 command = "archival upload"
 content = """
 Uploads a file to archival’s CDN and sets a field in a local object with the resulting metadata. When uploading files via the command line, this allows you to do the same thing the editor does, which is to upload and store the uploaded sha in a local file field.
