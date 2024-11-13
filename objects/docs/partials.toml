@@ -7,7 +7,7 @@ For instance, you could define a file called `_video.liquid` like this:
 
 ```html
 {% if video.url != "" %}
-  <video title="{{videi.name}}" controls>
+  <video title="{{video.name}}" controls>
     <source
       src="{{video.url}}"
       name="{{video.filename}}"
