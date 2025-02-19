@@ -1,0 +1,160 @@
+order = 9
+title = "Custom Editors"
+description = """
+At the object level (e.g. in .toml files), archival only supports the primitive types listed in object fields. However, you may want to impose some validation, constraints, or totally custom UX for a given field, so that you and your clients can enjoy a more custom experience.
+
+Field editors can be customized in the `manifest.toml` file using the `editor_types` key, which may define custom types .
+
+For instance, to add custom validation to a date, you could add this to your manifest.toml:
+
+```toml
+# Makes a "day" type that requires XX/XX/XXXX format
+[editor_types.day]
+type = "date"
+validate = ['\\d{2}/\\d{2}/\\d{4}']
+```
+
+Note that validate is an array - you may provide multiple validators, and if you provide an object with a path, you may validate individual fields on object types like `meta` and `upload`:
+
+```toml
+# Makes a "custom" field that must be an object containing a non-empty "field_a"
+[editor_types.custom]
+type = "meta"
+[[editor_types.custom.validate]]
+path = "field_a"
+validate = '.+'
+```
+
+To add a custom UX/UI for this field, you can specify a URL to fetch an editor from:
+
+```toml
+[editor_types.pdf]
+type = "upload"
+editor_url = "/editors/pdf-editor.html"
+```
+
+### Using Validation
+
+Validation is always a regex, and operates on the final value that would be generated.
+
+When a field does not pass validation, the archival build will fail, so be aware that it may be more appropriate to make your web/liquid code resilient to a variety of values rather than using validation.
+
+### Using Archival Custom Editors
+
+Archival custom editors allow you to build literally any interface you like for generating the data that is eventually written to object toml files. This can be especially interesting for things like editing videos, cropping images, and other things that can be done in modern HTML code in the browser.
+
+Archival provides some custom editors out of the box - and some fields (markdown and all the `file` types) use them by default. These are:
+
+- `/editors/markdown/index.html`
+- `/editors/upload/index.html`
+- `/editors/image/index.html`
+- `/editors/video/index.html`
+- `/editors/audio/index.html`
+
+These will expand and this list will grow over time.
+
+### Building your own Custom Editors
+
+Custom editors are a simple html file that expose a UI. When a user edits an item we load your editor URL with some query parameters so you can show the correct UI.
+
+**Meta Tags**
+
+Each editor document may define meta tags to indicate to the archival editor what resources it will use and how to display it in the UI. All meta tags are defined with the following form:
+
+```html
+<meta name="archival-editor:[name]" content="[value]" />
+```
+
+The recognized meta tags are:
+
+- `archival-editor:resource` - this may be defined multiple times. The content of each is a path — relative or absolute — that this editor may fetch. For instance, scripts, styles, and API endpoints will need to be defined as resources.
+- `archival-editor:aspect` - this is the preferred aspect ratio of the inline editor, in the form of `w:h`. If this is not provided, editors will stretch to fill the width of the screen.
+- `archival-editor:display` - by default, editors are not interactive when displayed inline, and when they are clicked they will open in a dedicated field view. This default behavior can be explicitly specified by setting this to `full`. If this is set to `inline`, the editor will instead be interactive when displayed inline, and will not open in its own view when clicked. When in `inline` mode, the editor may still dispatch a `ShowFull` event to show the editor in full screen. Note that if you don’t have a full screen experience, you can just never send this event and your editor will never show in the larger format.
+
+**ArchivalEditor API**
+
+When archival loads a custom editor, it injects a global javascript API into the page that can be accessed at `globalThis.ArchivalEditor` - if you’re using typescript, you can use the types from `archival-editor-api` (https://www.npmjs.com/package/archival-editor-api):
+
+```tsx
+import type { ArchivalEditor } from "archival-editor";
+
+const editor = globalThis.ArchivalEditor as ArchivalEditor<"Markdown">;
+editor.onready((api) => {
+  // Set up your editor
+  return 
+});
+
+```
+
+The `ArchivalEditor` api is typed as:
+
+```tsx
+{
+	value: ValueType<T> | undefined;
+  objectName: string;
+  field: string;
+  type: T;
+  isInline: boolean;
+  send(evt: ArchivalEditorOutboundEvent);
+  listen(listener: (evt: ArchivalEditorInboundEvent) => any);
+}
+```
+
+To communicate with the archival editor at runtime, you can use the `send` and `listen` methods on the api.
+
+**Custom Editor Events**
+
+All editor events are in the format of:
+
+```tsx
+"EventName" | "EventName": [payload]
+```
+
+**Sent Events**
+
+**`WriteValue: value`**
+
+- `value`: a native representation of the new value, or `undefined` if cleared.
+
+When this event is fired, we will write the given value to the field.
+
+**`Close`**
+
+When you send this, the editor will close.
+
+**`ShowFull`**
+
+If an editor has the `display` meta tag set to `inline` , you may send this event to cause the editor to open the editor in full-screen mode. This is useful if you would like to allow users to do simple changes in the inline mode, but still support a more full-featured editor when they click an element in the inline editor.
+
+**`UploadFile: object`** 
+
+where the object contains the following keys:
+
+- `file`: Either a `File` or a `Blob` to upload
+- `filename`: the name of the file.
+- `name`: a human-readable name for the file.
+- `display_type`: `image`, `upload`, `video`, or `audio`.
+- `mime`: the mime type of the file.
+
+This will initiate a file upload. Your editor should start listening for `UploadProgress` events before firing this.
+
+**Recieved Events**
+
+**`UploadProgress`**
+
+- `filename`: the name of the file
+- `sha`: a hash of the file
+- `progress`: a number between 0 and 1 indicating progress
+
+**`UploadError`**
+
+- `filename`: the name of the file
+- `sha`: a hash of the file
+- `message`: the error message
+- `status` : the status code of the failure
+
+**`UploadComplete`**
+
+- `filename`: the name of the file
+- `sha`: a hash of the file
+"""
