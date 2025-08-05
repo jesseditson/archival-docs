@@ -13,7 +13,10 @@
   <div id="cli" class="z-20 w-full min-h-full flex justify-center">
     <div class="md w-full max-w-screen-md flex flex-col gap-4">
       <h1 class="cli-header">
-        <a href="#{{cli.command | url_encode }}" id="{{cli.command | url_encode }}" class="cli-header-link">
+        <a
+          href="#{{cli.command | url_encode }}"
+          id="{{cli.command | url_encode }}"
+          class="cli-header-link">
           <code>{{ cli.command }}</code>
         </a>
       </h1>

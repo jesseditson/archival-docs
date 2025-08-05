@@ -145,10 +145,10 @@
   <div id="docs-nav" class="hidden z-[51] w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
     {% if area == 'docs' %}
       {% assign other_pages = objects.docs %}
-      {% assign order = docs.order %}
+      {% assign order = docs.order | round %}
     {% elsif area == 'cli' %}
       {% assign other_pages = objects.cli %}
-      {% assign order = cli.order %}
+      {% assign order = cli.order | round %}
     {% endif %}
     {% if order > 0 %}
       {% assign prev_index = order | minus: 1 %}
@@ -182,10 +182,16 @@
     </a>
   </div>
   <div id="docs-selector" class="transition translate-y-full opacity-0 pointer-events-none [&.showing]:pointer-events-auto [&.showing]:opacity-100 [&.showing]:translate-y-0 z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-16 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
+    {% assign current_path = "" %}
+    {% if area == 'docs' %}
+      {% assign current_path = docs.path %}
+    {% else %}
+      {% assign current_path = cli.path %}
+    {% endif %}
     {% if area == "docs" %}
       <ul class="flex flex-col w-full">
         {% for doc in objects.docs %}
-          <li class="flex px-8 py-3 text-center {% if path == doc.path %}nav-active{% endif %}">
+          <li class="flex px-8 py-3 text-center {% if current_path == doc.path %}nav-active{% endif %}">
             <a class="flex-1" href="/{{ doc.path }}.html">{{ doc.title }}</a>
           </li>
         {% endfor %}

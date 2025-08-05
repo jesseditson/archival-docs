@@ -4,12 +4,16 @@
   <head>
     <meta charset="utf-8">
     <title>{{ title }}</title>
-    <meta name="description" content="{{description}}">
+    {% if description %}
+      <meta name="description" content="{{description}}">
+    {% endif %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
     <meta property="og:title" content="{{ title }}">
-    <meta property="og:description" content="{{description}}">
+    {% if description %}
+      <meta property="og:description" content="{{description}}">
+    {% endif %}
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://archival.dev">
     <meta property="og:image" content="https://archival.dev/img/og-image.png" />
@@ -46,12 +50,6 @@
   </head>
 
   <body class="overflow-auto h-auto">
-    {% assign path = "" %}
-    {% if docs %}
-      {% assign path = docs.path %}
-    {% elsif cli %}
-      {% assign path = cli.path %}
-    {% endif %}
     {% include "quick-search" %}
     {% include "nav" %}
     <main role="main" class="flex flex-col z-0 items-center w-full h-auto">
