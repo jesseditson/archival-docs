@@ -1,32 +1,76 @@
 order = -1
 content = """
-Archival was built by me - [Jesse Ditson](https://jesseditson.com). I’ve spent the last 20 years building websites and applications. In that time, I’ve seen a lot of patterns and technologies come and go.
 
-I originally designed archival to solve a personal issue I have - I love to build websites for friends and side projects, and I love to explore new tech - but I often find that the cost and maintainability of most stacks is too high for me to justify passion projects or small-scale client work. I needed a tool that would allow clients to change their website data whenever they wanted, but that didn’t require an expensive database - and I wanted something that would put HTML and native web code first. I realized that if I put “data files” directly in the same git repo as the website’s UI, I could write a very small tool to merge the data with the website using a simple templating language.
+Archival was created with a simple purpose: to make it possible for everyone who wants a website to have one.
 
-Archival’s co-versioned data model also came from the fact that when starting a project, I’ve found that it is very productive to imagine the data structure before the UI. I’m a fierce advocate for full-stack development and believe that great products require everyone involved to have a lot of context. I found that when a data model is designed after the app, it often is inefficiently arranged and is usually accessed via multiple layers of abstraction. By putting the data in the repo alongside the presentation, everything becomes more visible, and it becomes much harder to have data changes that break the UI.
+It is arguable that this has always been true. If you are sufficiently motivated, have the skills, or have the resources, you can make a website fairly easily today. However, most people still don’t have a website — in fact many businesses and personalities, who really ought to, don’t — so there are clearly barriers: cost, maintenance, or just the perception of what a website is.
 
-The tradeoffs in this model are really clear - specifically, your data must change fairly infrequently. But when I thought about how most content management systems work, they usually change far less frequently than would be needed to support a commit-per-change model. If you’re running a blog or a store or a landing page, you don’t need an expensive database running 24/7 in a data center somewhere. In fact, this just slows your app down because it forces all of the most expensive part of rendering (db queries, template parsing) to happen while someone is waiting. But if the data isn’t likely to have changed between reloads, static generation will be dramatically faster for your users.
+At Archival, we have a clear definition of what a website is (and isn’t)! And we make the best product for launching and maintaining a website in existence.
 
-> One interesting upside of this commit-per-change model is that you can always build the website, regardless of where in history you are. Archival is even shipped as a binary inside your repo, so as we make breaking changes, old versions of your website will still build just fine.
-> 
+This manifesto outlines how our approach is different, and why we think building it this way is a big deal.
 
-A secondary goal of archival is something that has always bothered me as a frontend developer, which is the inevitable monolithic nature of web frameworks, and career lock-in on frontend DSL (domain-specific languages). I’m a big believer in the web as a decentralized network, and tools like Angular or Next.js or Ruby on Rails are antithetical to the goals of webstandards and common browser support of a rich and robust set of tools.
+# What is a website?
 
-> In the last 20 years, frameworks and vendors have often supported future-looking features only to wind up diverging from specs, and ultimately causing fragmentation just so you can use a flashy API before it’s supported. In the meantime though, we’ve gotten incredible native support and parity in browsers, and we’re nearly at parity with mobile app development when it comes to what we can do with the web. The need for frameworks as abstractions for yet-unsupported features is smaller each day, and I would argue that we no longer need frameworks at all to support most use cases, and that they should be chosen for comfort only.
-> 
+The reason our product works so well is that it is not more complicated than is necessary.
 
-The existence of things like Rails’ turbolinks, and the opposite, Next.js’s SSR, which are both fairly unwieldy and difficult to maintain abstractions for native functionality, help to show that these frameworks serve mostly to help add velocity to the beginning of a project, at the cost of maintainability and upgrade cost later.
+For instance, most websites use a database to store data - databases require (at minimum) two things that are challenging to maintain: reliable storage, and a server that is connected to the internet. For your website to work, these servers must run 24 hours a day, 7 days a week, which is quite expensive both in terms of dollar costs and ecological costs. But having a database doesn’t even get you a website on its own…
 
-Archival aims to encourage as little framework use as possible. It enables getting started quickly, and you can certainly use JSX/React or Svelte in an archival site (there are templates to make it super easy). However, because it is explicitly non-full-stack, archival encourages the use of native web APIs when possible, and solves for things like SEO & WASM by rendering static files, which solves interoperability problems by just using web APIs as they were designed.
+Traditional stacks also use another server, which will store the visual part of your websites that your visitors will see. When a visitor views your website, this second server will load up the designed part of your site, make a request to the database server, then take the information returned and insert the content from the database into the design of your site, and finally return the merged version of your site to your users.
 
-> While building projects with archival, I’ve noticed that it’s actually quite good even as an application frontend, due to its being very lightweight and imposing a clear constraint on the build outputs being static files - like a mobile app, it’s very clear which resources will be dynamically fetched and which are “in the bundle”. This has enabled me to build rich PWAs and use WASM to build archival sites that use edge functions and remote data, without using frameworks or large abstractions. The Archival Editor is actually one such example - it’s an archival site with no data at all.
-> 
+This arrangement also has a major drawback in the form of scalability - a database can only answer one request at a time, otherwise the data could change while someone was asking for it. This means that you either need a really powerful database server so it can answer requests quickly, or you need complex mechanisms to increase the number of requests without creating inconsistencies.
 
-I’m excited to share this tool with you, and as we add functionality, I promise that we’ll always build with simplicity, maintainability and web standards at the forefront.
+There are reasons for all this complexity — specifically, databases are designed for handling many, many users editing at the same time. The goal is to provide a source of truth for things like forums, games, or Facebook — however, this technology is overly complex, expensive, and inappropriate for things like blogs, small businesses, personal websites. In fact, most websites don’t need a database at all, and can operate in a much lighter-weight environment than the server described above.
 
-## Jesse
+At Archival, we define web “sites” as sites that are changed less than once every few seconds, and only can be changed by a limited number of known people. Conversely, we define rich applications which need a write-locked multi-user databases as web “apps”. If you need a web “site” by this definition, Archival will be faster, more reliable, and dramatically cheaper than a legacy platform like Wordpress or Squarespace, which unnecessarily use web “app” technology to serve web “sites”.
 
-[jesse@archival.dev](mailto:jesse@archival.dev)
+# The Web Isn’t Just for People
+
+There are many more reasons to avoid expensive “request-time” operations, probably most importantly that [most traffic on the web is from robots](https://www.forbes.com/sites/emmawoollacott/2024/04/16/yes-the-bots-really-are-taking-over-the-internet/). This isn’t necessarily a bad thing - as AI becomes the “front door” of the internet, your website will benefit from “speaking the language of the bots” — in this case, things like [RSS](https://rss.com/blog/how-do-rss-feeds-work/) and [MCP](https://modelcontextprotocol.io/docs/getting-started/intro) — which will make sure that your content stays searchable & indexable.
+
+This means that the people who want your information — be it a podcast in a native app having the latest episodes or communicating the hours that you’re open via an external AI Chatbot to your customers — can get it from your website rather than relying on other sources which can be out of date or just plain wrong.
+
+Archival uses a novel approach to describing the information on your website that makes sense to both you and your visitors, even if your visitors are indexing servers, AI agents, or whatever the web evolves into in the distant future.
+
+# Why “Content-First” Matters
+
+Archival makes a very important distinction between content and presentation - and it goes a step further by making sure the content can be described in a way that makes sense to computers and humans. When arranging data this way, we can do something that historically has been very difficult: enabling content change tracking.
+
+The implications of knowing when *content* (as opposed to when the bytes that represent it in a certain format) has changed — and additionally, who changed it — is useful for myriad applications. Here are some of the ones we’re most excited about today:
+
+## **Caching**
+
+Because we know when content changed, we can use “caching” — where servers that are physically closer to your actual visitor store a copy of your website — incredibly efficiently. This means your site is both faster for your visitors and there are less requests to servers, which reduce ecological and financial costs of running a website.
+
+All websites are cached, but knowing when a website has new data (and therefore requires a more expensive round trip) is usually impossible. Because of our granular change tracking, Archival can leverage caching maximally efficiently and in ways not possible by traditional websites.
+
+## Granular Changes
+
+Most website platforms either don’t allow reverting or “undoing” changes, or only allow doing so in order. Archival shows you every change that has ever happened to your website, and allows undoing changes from the distant past without reverting the changes between now and then. In fact, rather than rewriting history, it just applies the opposite change — which means your website always has a complete and immutable history of every change to your website, which can be audited.
+
+In computer science, this is called an “acyclic graph” and it’s the same principles that power the provability of the block chain, which allows cryptocurrencies to maintain a shared proof of authenticity. We built it this way because it’s the best way to build it, but the implications for journalistic integrity could be important in the future.
+
+## Third Party Integrations
+
+Because your content can be described to computers, it can also be translated to other systems. You can imagine that a blog post could easily be a newsletter, or a push notification, or a facebook post. Because the third party services also use structured data, we can push changes you make to your website to other platforms automatically.
+
+Archival’s approach to making the “content change” the main trigger for updates means that we can perform efficient automation. In the future, you’ll be able to update your Archival site and know that all your other visitor touch points — social media networks, email newsletters, aggregators like Yelp or Spotify — are always correct, just because your website also is.
+
+By making your website the only thing you need to worry about, and making other sites “down stream”, we allow you to port and replicate your data anywhere you like without wasting huge amounts of time updating a growing number of platforms who all want your data. And if a platform disappoints you, you can delete your account and know that your data is safe on your own website.
+
+We think that this is an important step in “deplatforming”. If you own your own content and your own changes, we think that platforms will be less able to hold your customers and your information hostage, and that the web could once again be controlled by the people who use it, not a small number of billionaires.
+
+# Websites for Everyone
+
+One of our most important guiding principles at Archival is to not build a product that is only accessible to privileged people.
+
+We think that one of the main reasons that so many people use extractive or expensive platforms is because they’re trading the cost of learning something, an economic cost, or a maintenance cost, for convenience. These are costs that are easy to ignore if you have a certain advantage and impossible to overcome if you’re less privileged. It is our view that technology can bridge the final gap of making the internet accessible to everyone, and that the only reason it hasn’t yet is because of greed and financial engineering.
+
+At Archival, our goal is to make websites just as easy — and eventually easier — to use than a platform that will siphon your content, bait and switch, and sell you out, while always putting our customers in total control of their data and their website, and doing so at a price that is chosen based on what we believe is fair compensation for our labor, not “as much as possible”.
+
+We always make it possible to take your data out of our systems and put it somewhere else - in fact, Archival is an open source tool, which can run on almost every system in the world. If you want, you can build with Archival without using our editor. We built what we think is the best way to use Archival, and we think you’ll find that the value of our editor and its integrations to be far, far, greater than what we charge for it.
+
+Ultimately though, we’re building Archival this way because we think it’s what people want, and because we love the internet and want to share it with everyone.
+
+## [Jesse](mailto:jesse@archival.dev) & [Alex](mailto:alex@archival.dev)
 """
 title = "Manifesto"
