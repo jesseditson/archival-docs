@@ -1,6 +1,8 @@
 # This file is used to define the objects available on your site.
 
 [home]
+title = "string"
+description = "string"
 header = "image"
 header_alt = "string"
 manifesto_link_title = "string"
