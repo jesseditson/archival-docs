@@ -3,9 +3,9 @@ content = """
 
 Archival was created with a simple purpose: to make it possible for everyone who wants a website to have one.
 
-It is arguable that this has always been true. If you are sufficiently motivated, have the skills, or have the resources, you can make a website fairly easily today. However, most people still don’t have a website — in fact many businesses and personalities, who really ought to, don’t — so there are clearly barriers: cost, maintenance, or just the perception of what a website is.
+It is arguable that this has always been true. If you are sufficiently motivated, have the skills, or have the resources, you can make a website fairly easily today. However, most people still don’t have a website — in fact many businesses and personalities, who really should, don’t — so there are clearly barriers: cost, maintenance, or just the perception of what a website is.
 
-At Archival, we have a clear definition of what a website is (and isn’t)! And we make the best product for launching and maintaining a website in existence.
+At Archival, we have a clear definition of what a website is (and isn’t!), Which we will describe in this document. Our mission is to make the best product for launching and maintaining a website in existence.
 
 This manifesto outlines how our approach is different, and why we think building it this way is a big deal.
 
@@ -13,15 +13,15 @@ This manifesto outlines how our approach is different, and why we think building
 
 The reason our product works so well is that it is not more complicated than is necessary.
 
-For instance, most websites use a database to store data - databases require (at minimum) two things that are challenging to maintain: reliable storage, and a server that is connected to the internet. For your website to work, these servers must run 24 hours a day, 7 days a week, which is quite expensive both in terms of dollar costs and ecological costs. But having a database doesn’t even get you a website on its own…
+For instance, most websites use a database to store data - databases require (at minimum) two things that are challenging to maintain: reliable storage, and a server that is connected to the internet. **For your website to work, these servers must run 24 hours a day, 7 days a week, which is quite expensive both in terms of dollar costs and environmental costs**. But having a database doesn’t even get you a website on its own…
 
 Traditional stacks also use another server, which will store the visual part of your websites that your visitors will see. When a visitor views your website, this second server will load up the designed part of your site, make a request to the database server, then take the information returned and insert the content from the database into the design of your site, and finally return the merged version of your site to your users.
 
 This arrangement also has a major drawback in the form of scalability - a database can only answer one request at a time, otherwise the data could change while someone was asking for it. This means that you either need a really powerful database server so it can answer requests quickly, or you need complex mechanisms to increase the number of requests without creating inconsistencies.
 
-There are reasons for all this complexity — specifically, databases are designed for handling many, many users editing at the same time. The goal is to provide a source of truth for things like forums, games, or Facebook — however, this technology is overly complex, expensive, and inappropriate for things like blogs, small businesses, personal websites. In fact, most websites don’t need a database at all, and can operate in a much lighter-weight environment than the server described above.
+There are reasons for all this complexity — specifically, databases are designed for handling many, many users editing at the same time. The goal is to provide a source of truth for things like forums, games, or Facebook — however, **this technology is overly complex, expensive, and inappropriate for things like blogs, small businesses, personal websites.** In fact, most websites don’t need a database at all, and can operate in a much lighter-weight environment than the server described above.
 
-At Archival, we define web “sites” as sites that are changed less than once every few seconds, and only can be changed by a limited number of known people. Conversely, we define rich applications which need a write-locked multi-user databases as web “apps”. If you need a web “site” by this definition, Archival will be faster, more reliable, and dramatically cheaper than a legacy platform like Wordpress or Squarespace, which unnecessarily use web “app” technology to serve web “sites”.
+**At Archival, we define web “sites” as sites that are changed less than once every few seconds, and only can be changed by a limited number of known people. Conversely, we define rich applications which need a write-locked multi-user databases as web “apps”. If you need a web “site” by this definition, Archival will be faster, more reliable, and dramatically cheaper than a legacy platform like Wordpress or Squarespace, which unnecessarily use web “app” technology to serve web “sites”.**
 
 # The Web Isn’t Just for People
 
@@ -35,23 +35,23 @@ Archival uses a novel approach to describing the information on your website tha
 
 Archival makes a very important distinction between content and presentation - and it goes a step further by making sure the content can be described in a way that makes sense to computers and humans. When arranging data this way, we can do something that historically has been very difficult: enabling content change tracking.
 
-The implications of knowing when *content* (as opposed to when the bytes that represent it in a certain format) has changed — and additionally, who changed it — is useful for myriad applications. Here are some of the ones we’re most excited about today:
+**The implications of knowing when *content* (as opposed to when the bytes that represent it in a certain format) has changed — and additionally, who changed it — is useful for myriad applications.** Here are some of the ones we’re most excited about today:
 
 ## **Caching**
 
-Because we know when content changed, we can use “caching” — where servers that are physically closer to your actual visitor store a copy of your website — incredibly efficiently. This means your site is both faster for your visitors and there are less requests to servers, which reduce ecological and financial costs of running a website.
+Because we know when content changed, we can use “caching” — where servers that are physically closer to your actual visitor store a copy of your website — incredibly efficiently. This means your site is both faster for your visitors and there are less requests to servers, which reduce enviromnental and financial costs of running a website.
 
-All websites are cached, but knowing when a website has new data (and therefore requires a more expensive round trip) is usually impossible. Because of our granular change tracking, Archival can leverage caching maximally efficiently and in ways not possible by traditional websites.
+All websites are cached, but knowing when a website has new data (and therefore requires a more expensive round trip) is usually impossible. Because of our granular change tracking, **Archival can leverage caching maximally efficiently and in ways not possible by traditional websites.**
 
 ## Granular Changes
 
-Most website platforms either don’t allow reverting or “undoing” changes, or only allow doing so in order. Archival shows you every change that has ever happened to your website, and allows undoing changes from the distant past without reverting the changes between now and then. In fact, rather than rewriting history, it just applies the opposite change — which means your website always has a complete and immutable history of every change to your website, which can be audited.
+Most website platforms either don’t allow reverting or “undoing” changes, or only allow doing so in order. Archival shows you every change that has ever happened to your website, and allows undoing changes from the distant past without reverting the changes between now and then. In fact, rather than rewriting history, it just applies the opposite change — **which means you can always see a complete and immutable history of every change to your website, ever**.
 
 In computer science, this is called an “acyclic graph” and it’s the same principles that power the provability of the block chain, which allows cryptocurrencies to maintain a shared proof of authenticity. We built it this way because it’s the best way to build it, but the implications for journalistic integrity could be important in the future.
 
 ## Third Party Integrations
 
-Because your content can be described to computers, it can also be translated to other systems. You can imagine that a blog post could easily be a newsletter, or a push notification, or a facebook post. Because the third party services also use structured data, we can push changes you make to your website to other platforms automatically.
+Because your content can be described to computers, it can also be translated to other systems. You can imagine that **a blog post could easily be a newsletter, or a push notification, or a facebook post**. Because third party services also use structured data, **we can push changes you make to your website to other platforms automatically**.
 
 Archival’s approach to making the “content change” the main trigger for updates means that we can perform efficient automation. In the future, you’ll be able to update your Archival site and know that all your other visitor touch points — social media networks, email newsletters, aggregators like Yelp or Spotify — are always correct, just because your website also is.
 
@@ -63,13 +63,13 @@ We think that this is an important step in “deplatforming”. If you own your 
 
 One of our most important guiding principles at Archival is to not build a product that is only accessible to privileged people.
 
-We think that one of the main reasons that so many people use extractive or expensive platforms is because they’re trading the cost of learning something, an economic cost, or a maintenance cost, for convenience. These are costs that are easy to ignore if you have a certain advantage and impossible to overcome if you’re less privileged. It is our view that technology can bridge the final gap of making the internet accessible to everyone, and that the only reason it hasn’t yet is because of greed and financial engineering.
+We think that one of the main reasons that so many people use extractive or expensive platforms is because they’re trading the cost of learning something, an economic cost, or a maintenance cost, for convenience. These are costs that are easy to ignore if you have a certain advantage and impossible to overcome if you’re less privileged. **It is our view that technology can bridge the final gap of making the internet accessible to everyone, and that the only reason it hasn’t yet is because of greed and financial engineering.**
 
-At Archival, our goal is to make websites just as easy — and eventually easier — to use than a platform that will siphon your content, bait and switch, and sell you out, while always putting our customers in total control of their data and their website, and doing so at a price that is chosen based on what we believe is fair compensation for our labor, not “as much as possible”.
+At Archival, our mission is to make websites just as easy — and eventually easier — to use than a platform that will siphon your content, bait and switch, and sell you out, while always putting our customers in total control of their data and their website, and doing so at a price that is chosen based on what we believe is fair compensation for our labor, not “as much as possible”.
 
 We always make it possible to take your data out of our systems and put it somewhere else - in fact, Archival is an open source tool, which can run on almost every system in the world. If you want, you can build with Archival without using our editor. We built what we think is the best way to use Archival, and we think you’ll find that the value of our editor and its integrations to be far, far, greater than what we charge for it.
 
-Ultimately though, we’re building Archival this way because we think it’s what people want, and because we love the internet and want to share it with everyone.
+**Ultimately though, we’re building Archival this way because we think it’s what people want, and because we love the internet and want to share it with everyone.**
 
 ## [Jesse](mailto:jesse@archival.dev) & [Alex](mailto:alex@archival.dev)
 """
