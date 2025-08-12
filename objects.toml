@@ -14,10 +14,6 @@ pricing_content = "markdown"
 discord_url = "string"
 
 [home.sections]
-image_a = "image"
-image_a_shadow = "image"
-image_b = "image"
-image_b_shadow = "image"
 title = "string"
 content = "markdown"
 
@@ -25,11 +21,6 @@ content = "markdown"
 title = "string"
 video = "video"
 poster = "string"
-
-[home.personas]
-image = "image"
-title = "string"
-content = "markdown"
 
 [manifesto]
 title = "string"
