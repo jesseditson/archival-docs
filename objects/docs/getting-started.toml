@@ -4,7 +4,7 @@ title = "Getting Started"
 [[sections]]
 title = "Using editor.archival.dev/new"
 content = """
-The simplest way to set up an archival repo is to go to [editor.archival.dev/new](http://editor.archival.dev/new) and select a template. This will create a new git repo in your github account and a live version at an `.onarchival.dev` subdomain.
+The simplest way to set up an archival repo is to go to [editor.archival.dev/new](http://editor.archival.dev/new) and select a template. This will create a new git repo in your github account (or if you're signed in with email, we'll create one on our servers). You can either purchase a domain or use an existing one for your site.
 
 Once you have a site set up, click the gear icon and open the git repo - from there, you can view the git URL and use it to clone your new website locally.
 """
