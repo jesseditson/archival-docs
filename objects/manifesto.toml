@@ -19,7 +19,7 @@ Traditional stacks also use another server, which will store the visual part of 
 
 This arrangement also has a major drawback in the form of scalability - a database can only answer one request at a time, otherwise the data could change while someone was asking for it. This means that you either need a really powerful database server so it can answer requests quickly, or you need complex mechanisms to increase the number of requests without creating inconsistencies.
 
-There are reasons for all this complexity — specifically, databases are designed for handling many, many users editing at the same time. The goal is to provide a source of truth for things like forums, games, or Facebook — however, **this technology is overly complex, expensive, and inappropriate for things like blogs, small businesses, personal websites.** In fact, most websites don’t need a database at all, and can operate in a much lighter-weight environment than the server described above.
+There are reasons for all this complexity — specifically, databases are designed for handling many, many users editing at the same time. The goal is to provide an accurate representation of rapidly changing data for things like forums, games, or Facebook — however, **this technology is overly complex, expensive, and inappropriate for things like blogs, small businesses, personal websites.** In fact, most websites don’t need a database at all, and can operate in a much lighter-weight environment than the server described above.
 
 **At Archival, we define web “sites” as sites that are changed less than once every few seconds, and only can be changed by a limited number of known people. Conversely, we define rich applications which need a write-locked multi-user databases as web “apps”. If you need a web “site” by this definition, Archival will be faster, more reliable, and dramatically cheaper than a legacy platform like Wordpress or Squarespace, which unnecessarily use web “app” technology to serve web “sites”.**
 
@@ -27,15 +27,15 @@ There are reasons for all this complexity — specifically, databases are design
 
 There are many more reasons to avoid expensive “request-time” operations, probably most importantly that [most traffic on the web is from robots](https://www.forbes.com/sites/emmawoollacott/2024/04/16/yes-the-bots-really-are-taking-over-the-internet/). This isn’t necessarily a bad thing - as AI becomes the “front door” of the internet, your website will benefit from “speaking the language of the bots” — in this case, things like [RSS](https://rss.com/blog/how-do-rss-feeds-work/) and [MCP](https://modelcontextprotocol.io/docs/getting-started/intro) — which will make sure that your content stays searchable & indexable.
 
-This means that the people who want your information — be it a podcast in a native app having the latest episodes or communicating the hours that you’re open via an external AI Chatbot to your customers — can get it from your website rather than relying on other sources which can be out of date or just plain wrong.
+This means that when your website is updated, everything that references your website stays up to date as well, rather than relying on fragmented and potentially inaccurate information from various other sites. For instance, Archival can host podcasts and make sure that the latest episodes always show up or it can expose your hours to AI Chatbots so your customers can ask when you’re open.
 
-Archival uses a novel approach to describing the information on your website that makes sense to both you and your visitors, even if your visitors are indexing servers, AI agents, or whatever the web evolves into in the distant future.
+Archival uses a novel approach to describing the information on your website that makes sense to both you and your visitors, even if your visitors are indexing servers, AI agents, or whatever the web evolves into in the distant future — without you having to do anything except update your website when things change.
 
 # Why “Content-First” Matters
 
 Archival makes a very important distinction between content and presentation - and it goes a step further by making sure the content can be described in a way that makes sense to computers and humans. When arranging data this way, we can do something that historically has been very difficult: enabling content change tracking.
 
-**The implications of knowing when *content* (as opposed to when the bytes that represent it in a certain format) has changed — and additionally, who changed it — is useful for myriad applications.** Here are some of the ones we’re most excited about today:
+**The implications of knowing when *content* (as opposed to when the bytes that represent it in a certain format) has changed — and who changed it — is useful for myriad applications.** Here are some of the ones we’re most excited about today:
 
 ## **Caching**
 
