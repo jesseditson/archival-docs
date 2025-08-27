@@ -50,8 +50,10 @@
   </head>
 
   <body class="overflow-auto h-auto">
-    {% include "quick-search" %}
-    {% include "nav" %}
+    {% if area != "legal" %}
+      {% include "quick-search" %}
+      {% include "nav" %}
+    {% endif %}
     <main role="main" class="flex flex-col z-0 items-center w-full h-auto">
       {{ page_content }}
     </main>
@@ -66,12 +68,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/toml.min.js"></script>
     <script>
           hljs.highlightAll();
-          document.getElementById("year").textContent = new Date().getFullYear();
     </script>
     <script
       defer
       src="/umami.js"
       data-website-id="435e2f24-e6a7-4cb0-9275-651bcaf51db8"></script>
-  </body>
 
+    {% unless nofooter %}
+      {% comment %} Footer {% endcomment %}
+
+      <footer class="footer">
+        <img src="/img/archival-mark.svg" class="footer-mark" />
+        <p class="copyright">&copy;       
+        2025 Fuck Billionaires, LLC.<br>All rights reserved.</p>
+        <p class="footer-legal">
+          <a href="/privacy.html">Privacy</a>
+          |
+          <a href="/terms-of-service.html">Terms of Service</a>
+          |
+          <a href="/eula.html">EULA</a>
+        </p>
+      </footer>
+    {% endunless %}
+  </body>
 </html>

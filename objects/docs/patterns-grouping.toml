@@ -1,6 +1,7 @@
 order = 4
 title = "Patterns: Grouping"
 description = """
+{% raw %}
 In some cases you will want to have lists of items but don’t want long lists inside child definitions. It’s generally preferable to create lots of objects rather than long lists inside children.
 
 A common pattern for managing this is to use a string field as an enum, and then group them inside your liquid templates.
@@ -52,4 +53,5 @@ Now, when rendering, you can filter only the “to eat” suggestions in a list:
 ```
 
 This will keep your object definitions simpler and avoid having big tables in the editor, which can get unwieldy with large child definitons.
+{% endraw %}
 """

@@ -1,6 +1,7 @@
 order = 8
 title = "Generating non-html files"
 description = """
+{% raw %}
 While most archival content will likely be html, rendering non-html files is fully supported and is useful when either using archival data via an API (e.g. rendering `post.json` and calling it from a mobile application) or when exposing machine-readable data like rss feeds.
 
 To render a non-html file, just add the intended extension before the output. For instance, you could define `pages/rss-feed.rss.liquid`, and it will render to `dist/rss-feed.rss`.
@@ -45,4 +46,5 @@ A JSON file (e.g. `posts.json.liquid`) might look like this:
 	]
 }
 ```
+{% endraw %}
 """

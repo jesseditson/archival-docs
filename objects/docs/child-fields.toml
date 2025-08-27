@@ -1,6 +1,7 @@
 order = 3
 title = "Child Fields"
 description = """
+{% raw %}
 All objects can define children, by defining a field that has key value pairs. For instance, your `objects.toml` file could define:
 
 ```toml
@@ -75,4 +76,5 @@ When rendering this page, you can now iterate through the sections in our post t
 ```
 
 These fields are supported in the archival editor but will display as tables, so depending on your use case you may want to use groups instead when creating lists.
+{% endraw %}
 """

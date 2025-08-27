@@ -22,6 +22,7 @@ The `run` command automatically watches your filesystem and will rebuild your we
 [[sections]]
 title = "Manual installation (advanced)"
 content = """
+{% raw %}
 You don’t have to clone a template to use archival - you can also install it via cargo and manually create the file structure.
 
 First, install the rust toolchain via `rustup`: https://doc.rust-lang.org/cargo/getting-started/installation.html
@@ -55,4 +56,5 @@ This will create:
 - an example `test` object
 - a theme to render our page in
 - a page that renders our theme and our objects
+{% endraw %}
 """

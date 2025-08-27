@@ -1,3 +1,4 @@
+#:schema https://raw.githubusercontent.com/jesseditson/archival/refs/heads/main/objects.schema.json
 # This file is used to define the objects available on your site.
 
 [home]
@@ -44,3 +45,12 @@ description = "string"
 [cli.arguments]
 arg = "string"
 description = "string"
+
+[eula]
+content = "markdown"
+
+[terms_of_service]
+content = "markdown"
+
+[privacy_policy]
+content = "markdown"

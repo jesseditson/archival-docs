@@ -1,6 +1,7 @@
 order = 7
 title = "Layouts"
 description = """
+{% raw %}
 Layouts are effectively the opposite of partials, in that rather than rendering the partial inside the page, the page is rendered inside the layout. They are defined in the `layouts` dir or whichever dir your `manifest.toml` defines as the `layout_dir`.
 
 An example layout would be defined in `layouts/theme.liquid` and could look like this:
@@ -37,4 +38,5 @@ To use a layout, simply render the tag inside a page. For instance, if we had a 
   <p>{{ post.content }}</p>
 </article>
 ```
+{% endraw %}
 """

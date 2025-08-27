@@ -1,6 +1,7 @@
 order = 6
 title = "Partials"
 description = """
+{% raw %}
 Like most liquid templating environments, you can organize and reuse templates by creating partials. To indicate that a liquid template is a partial, prefix the name with an underscore. This will prevent the file from being rendered as its own html file, and enable it to be used as a partial.
 
 For instance, you could define a file called `_video.liquid` like this:
@@ -24,4 +25,5 @@ Then, in a page template you can use this partial:
 ```
 
 Partials may be defined in the pages dir directly or as subpaths (e.g. `pages/partials/_video.liquid` could be rendered using `{% include 'partials/video' video: object.video %}`)
+{% endraw %}
 """

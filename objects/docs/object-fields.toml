@@ -15,6 +15,7 @@ Values will be interpreted as a liquid [string](https://shopify.github.io/liquid
 [[sections]]
 title = "number"
 content = """
+{% raw %}
 Values will be displayed as a liquid [number](https://shopify.github.io/liquid/basics/types/#number).
 
 Note that while it’s perfectly valid to specify integers in files, these numbers are always interpreted as floats - specifically as signed 64 bit floats.
@@ -26,6 +27,7 @@ When rendering numbers, it’s typical to use the `round` filter to obtain the d
 ```html
 {{ object.number | round: 2 }}
 ```
+{% endraw %}
 """
 
 [[sections]]
@@ -39,6 +41,7 @@ There are only two values, which should be defined unquoted - either `true` or `
 [[sections]]
 title = "date"
 content = """
+{% raw %}
 Values will be interpreted as a liquid datetime, but represented as a string in toml files.
 
 The following date formats are supported in toml files:
@@ -63,6 +66,7 @@ This page was last updated at {{ object.date | date: "%Y-%m-%d %H:%M" }}.
 ```
 
 This filter uses the same formatting strings as [strftime](http://strftime.net/).
+{% endraw %}
 """
 
 [[sections]]
@@ -102,6 +106,7 @@ archival uses [comrak](https://crates.io/crates/comrak/0.18.0) to parse markdown
 [[sections]]
 title = "image, video, upload, audio"
 content = """
+{% raw %}
 These types are special object types that have the following keys:
 
 ```toml
@@ -133,4 +138,5 @@ Other metadata is useful depending on the file type. For instance, you could dis
       type="{{object.video.mime}}">
 </video>
 ```
+{% endraw %}
 """

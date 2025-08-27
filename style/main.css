@@ -265,7 +265,6 @@ html, body {
 }
 
 .footer {
-  margin-top: 12rem;
   padding-bottom: 6rem;
   color: var(--color-typography-secondary);
   text-align: center;
@@ -535,4 +534,36 @@ html, body {
     margin-top: 0;
     padding: 4rem;
   }
+}
+
+/* Legal */
+
+.legal {
+  padding: 4rem 0;
+}
+
+.legal .nav-top {
+  margin-bottom: 4rem;
+}
+
+.legal h1 {
+  color: var(--color-heading);
+  position: relative;
+  font-family: "Ameda", system-ui, sans-serif;
+  font-size: 7.5rem;
+  line-height: 9rem;
+  text-align: center;
+}
+
+.legal h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 3rem 0 2rem;
+  text-align: left;
+}
+
+.legal ul,
+.legal ol {
+  padding-left: 2rem;
+  margin-bottom: 1rem;
 }
