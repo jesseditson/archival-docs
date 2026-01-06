@@ -4,7 +4,6 @@
 @import "./markdown.css";
 
 :root {
-
   /* Colors */
   --color-main-bg: rgba(0, 0, 0, 1);
   --color-typography-primary: rgba(255, 255, 255, 1);
@@ -21,7 +20,8 @@
   --typo-body-weight: 600;
 
   /* Element Styling */
-  --style-double-border: 0 0 0 2px var(--color-main-bg), 0 0 0 6px var(--color-transparent-border);
+  --style-double-border: 0 0 0 2px var(--color-main-bg),
+    0 0 0 6px var(--color-transparent-border);
 }
 
 @font-face {
@@ -31,7 +31,8 @@
   src: url("/fonts/ameda.woff2") format("woff2");
 }
 
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
   background-color: var(--color-main-bg);
@@ -40,8 +41,7 @@ html, body {
   color: var(--color-typography-primary);
 }
 
-.md a,
-.footer a {
+.md a {
   color: var(--color-secondary-interactive);
   font-weight: 400;
 }
@@ -79,7 +79,7 @@ html, body {
 
 .nav-active,
 .nav-text:hover {
-  background: linear-gradient(45deg, #EF476F, #FFD166, #06D6A0, #118AB2);
+  background: linear-gradient(45deg, #ef476f, #ffd166, #06d6a0, #118ab2);
   background-size: 300% 300%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -88,24 +88,63 @@ html, body {
   animation: moveColors 10s infinite ease-in-out;
 }
 
-.hero-message, h1, .manifesto h2:last-of-type {
-  background: linear-gradient(45deg, #EF476F, #FFD166, #06D6A0, #118AB2);
+.hero-message,
+h1,
+.manifesto h2:last-of-type {
+  background: linear-gradient(45deg, #ef476f, #ffd166, #06d6a0, #118ab2);
   background-size: 300% 300%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
   animation: moveColors 10s infinite ease-in-out;
-  -webkit-mask-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.6) 100%);
-  mask-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.6) 100%);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+}
+
+.hero-comp {
+  width: 100%;
+  max-width: 60rem;
+  height: auto;
+  margin-bottom: 2rem;
 }
 
 .hero-message {
   position: relative;
-  font-family: "Ameda", system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   font-size: 7.5rem;
-  line-height: 7.875rem;
+  line-height: 0.9;
   text-align: center;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.hero-line-1 {
+  font-size: 1.015em;
+}
+
+.hero-line-2 {
+  font-size: 1.42em;
+  letter-spacing: -0.02em;
+}
+
+.lower-container {
+  width: 100%;
+  padding: 12rem 0;
+  background: #2da082 url("/img/wave-pattern.svg") repeat-x top;
+
+  .contact-container {
+    margin: 0 auto;
+    max-width: 30rem;
+  }
 }
 
 .contact-container .section-title {
@@ -119,7 +158,6 @@ html, body {
   gap: 4rem;
   justify-items: center;
   align-items: center;
-
 }
 
 .connect-item {
@@ -172,14 +210,19 @@ html, body {
 }
 
 .primary-cta {
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.08), 0px 1px 0px rgba(255, 255, 255, 0.23);
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.08),
+    0px 1px 0px rgba(255, 255, 255, 0.23);
   box-shadow: var(--style-double-border);
   font-size: var(--typo-body-size-large);
   font-weight: var(--typo-body-weight);
   text-align: center;
   border-radius: 1rem;
   padding: 1.2rem 2rem;
-  background: linear-gradient(180deg, var(--color-primary-cta-highlight) 0%, var(--color-primary-cta-shadow) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-cta-highlight) 0%,
+    var(--color-primary-cta-shadow) 100%
+  );
   background-clip: padding-box;
   background-size: cover;
   background-position: center;
@@ -214,6 +257,24 @@ html, body {
 
 .docs-cta:hover {
   opacity: 1;
+}
+
+.manifesto-cta {
+  display: block;
+  font-size: var(--typo-body-size);
+  font-weight: var(--typo-body-weight);
+  padding: 1rem 2rem;
+  padding-left: 4.5rem;
+  background: transparent url(/img/icon-docs.svg) left 2rem center no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.5rem;
+  width: fit-content;
+  margin: 0 auto;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.manifesto-cta:hover {
+  border-color: rgba(255, 255, 255, 1);
 }
 
 #videos video {
@@ -265,6 +326,7 @@ html, body {
 }
 
 .footer {
+  background-color: #2da082;
   padding-bottom: 6rem;
   color: var(--color-typography-secondary);
   text-align: center;
@@ -342,7 +404,7 @@ html, body {
   font-family: "citizen", sans-serif;
   font-style: normal;
   border-color: rgb(123, 186, 177);
-  margin: .2em;
+  margin: 0.2em;
 }
 
 .logo-icon > * {
@@ -373,7 +435,11 @@ html, body {
 }
 
 #mobile-menu .mobile-nav-item-cta {
-  background: linear-gradient(180deg, var(--color-primary-cta-highlight) 0%, var(--color-primary-cta-shadow) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-cta-highlight) 0%,
+    var(--color-primary-cta-shadow) 100%
+  );
   border-radius: 0.5rem;
   margin: 1rem 4rem;
 }
@@ -434,7 +500,7 @@ html, body {
 
   .hero-message {
     font-size: clamp(3rem, 14vw, 7.5rem);
-    line-height: clamp(3.15rem, calc(14vw * 1.05), 7.875rem);
+    line-height: 1.1;
   }
 
   #videos {

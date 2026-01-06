@@ -25,7 +25,7 @@ filename = ""
 mime = "image/*"
 
 [[sections]]
-title = "Websites for Everyone"
+title = "Content First"
 content = """
 Archival's Content-First websites are fast, cheap, flexible, and future-proof. The Archival editor handles everything for your website – domain, DNS, deploys, content management, and more – for a single monthly price. We can get you online in minutes and are the simplest and most reliable way to build a website in existence.
 """
