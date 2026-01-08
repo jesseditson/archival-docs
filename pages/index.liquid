@@ -2,7 +2,6 @@
 {% assign home = objects.home %}
 
 <div id="header" class="w-full flex flex-col justify-center items-center gap-6 pt-60 relative">
-  <img src="/img/hero-comp.svg" alt="" class="hero-comp" />
   <h1 class="hero-message">
     <span class="hero-line-1">Websites for</span><br/>
     <span class="hero-line-2">Everyone</span>
@@ -51,22 +50,45 @@
     we'll make you a few websites to choose from.
   </p>
 
-  <div class="build-input-container">
-    <textarea
-      class="build-textarea"
-      placeholder="I'm a professional massage therapist, my name is Anne Robertson and I specialize in lower back pain recovery."
-      rows="3"></textarea>
-    <div class="build-upload-area">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M14.1667 6.66667L10 2.5L5.83334 6.66667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M10 2.5V12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      You can also click here to select files, or images, video, or audio here
+  <div class="onboarding-start-container glow-container">
+    <div class="glowverlay showing"></div>
+    <div class="textarea-container">
+      <textarea
+        id="description-input"
+        rows="4"
+        class="w-full flex-1 bg-transparent resize-none focus:outline-none"
+        placeholder="I'm a professional massage therapist, my name is Anne Robertson and I specialize in lower back pain recovery."></textarea>
+    </div>
+
+    <div class="drag-drop-container cursor-pointer relative">
+      <form id="drag-drop-area" action="javascript:void(0);" class="group flex flex-col justify-center px-8 py-20">
+        <h4 class="drag-drop-instructions">
+          You can also click here to select files, or images, video, or audio here
+        </h4>
+      </form>
     </div>
   </div>
 
-  <button class="build-generate-btn">Generate</button>
+  <div class="generate-button-container">
+    <button id="generate-button" class="primary-cta" disabled>Generate</button>
+  </div>
+
+  <script>
+    (function() {
+      const textarea = document.getElementById('description-input');
+      const button = document.getElementById('generate-button');
+
+      function updateButtonState() {
+        if (textarea.value.trim().length > 0) {
+          button.disabled = false;
+        } else {
+          button.disabled = true;
+        }
+      }
+
+      textarea.addEventListener('input', updateButtonState);
+    })();
+  </script>
 </div>
 
 {% comment %} Video Section (Disabled until produced)
