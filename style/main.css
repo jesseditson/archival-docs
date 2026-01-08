@@ -136,6 +136,109 @@ h1,
   letter-spacing: -0.02em;
 }
 
+.build-section {
+  width: 100%;
+  max-width: 52rem;
+  margin: 6rem auto 12rem;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.build-heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-typography-primary);
+  margin: 0 0 1.5rem;
+}
+
+.build-description {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-typography-secondary);
+  margin: 0 0 3rem;
+  line-height: 1.6;
+}
+
+.build-input-container {
+  background: rgba(30, 30, 40, 0.8);
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  background-image: linear-gradient(
+      rgba(30, 30, 40, 0.8),
+      rgba(30, 30, 40, 0.8)
+    ),
+    linear-gradient(135deg, #06d6a0, #118ab2, #ef476f, #ffd166);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 80px rgba(6, 214, 160, 0.15);
+  margin-bottom: 2rem;
+}
+
+.build-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--color-typography-secondary);
+  font-size: 1rem;
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+  resize: none;
+  outline: none;
+}
+
+.build-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.build-upload-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.build-upload-area:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.build-upload-area svg {
+  flex-shrink: 0;
+}
+
+.build-generate-btn {
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-cta-highlight) 0%,
+    var(--color-primary-cta-shadow) 100%
+  );
+  color: var(--color-typography-primary);
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(255, 60, 0, 0.3);
+}
+
+.build-generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 60, 0, 0.4);
+}
+
+.build-generate-btn:active {
+  transform: translateY(0);
+}
+
 .lower-container {
   width: 100%;
   padding: 12rem 0;
@@ -500,7 +603,7 @@ h1,
 
   .hero-message {
     font-size: clamp(3rem, 14vw, 7.5rem);
-    line-height: 1.1;
+    line-height: 1;
   }
 
   #videos {
