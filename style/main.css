@@ -172,15 +172,15 @@ h1,
 }
 
 .hero-line-1 {
-  font-size: var(--typo-subheader-size);
+  font-size: clamp(1.5rem, 5vw, var(--typo-subheader-size));
   display: block;
-  margin-bottom: -7.5rem;
 }
 
 .hero-line-2 {
-  font-size: 11rem;
-  display: inline-block;
+  font-size: clamp(3rem, 18vw, 11rem);
+  display: block;
   padding-bottom: 0.15em;
+  line-height: 0.75;
 }
 
 .build-section {
@@ -264,15 +264,14 @@ h1.pricing-title {
 .pricing-title-line:first-child {
   display: block;
   white-space: nowrap;
-  font-size: var(--typo-subheader-size);
-  margin-bottom: 0;
+  font-size: clamp(1.5rem, 5vw, var(--typo-subheader-size));
 }
 
 .pricing-title-line-secondary {
-  display: inline-block;
+  display: block;
   white-space: nowrap;
-  font-size: 11rem;
-  margin-top: -2.5rem;
+  font-size: clamp(3rem, 18vw, 11rem);
+  line-height: 0.75;
   padding-bottom: 0.15em;
   background: radial-gradient(
     circle at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%),
