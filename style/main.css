@@ -20,8 +20,8 @@
   --typo-body-weight: 600;
 
   /* Element Styling */
-  --style-double-border: 0 0 0 2px var(--color-main-bg),
-    0 0 0 6px var(--color-transparent-border);
+  --style-double-border:
+    0 0 0 2px var(--color-main-bg), 0 0 0 6px var(--color-transparent-border);
 }
 
 @font-face {
@@ -29,6 +29,13 @@
   font-style: normal;
   font-weight: 400;
   src: url("/fonts/ameda.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Build";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/build-bold.otf") format("opentype");
 }
 
 html,
@@ -110,6 +117,29 @@ h1,
   );
 }
 
+#header {
+  position: relative;
+}
+
+#header::before {
+  content: "";
+  position: absolute;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1400px;
+  height: 900px;
+  background: radial-gradient(
+    circle,
+    rgba(6, 214, 160, 0.2),
+    rgba(17, 138, 178, 0.15),
+    transparent 60%
+  );
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .hero-comp {
   width: 100%;
   max-width: 60rem;
@@ -119,21 +149,28 @@ h1,
 
 .hero-message {
   position: relative;
-  font-family: "Poppins", system-ui, sans-serif;
+  z-index: 1;
+  font-family: "Build", system-ui, sans-serif;
   font-size: 7.5rem;
-  line-height: 0.9;
+  line-height: 0.8;
   text-align: center;
-  text-transform: uppercase;
-  font-weight: 800;
+  font-weight: 700;
+  font-feature-settings: "ss01" on;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  overflow: visible;
 }
 
 .hero-line-1 {
-  font-size: 1.015em;
+  font-size: var(--typo-subheader-size);
+  display: block;
+  margin-bottom: -7.5rem;
 }
 
 .hero-line-2 {
-  font-size: 1.42em;
-  letter-spacing: -0.02em;
+  font-size: 11rem;
+  display: inline-block;
+  padding-bottom: 0.15em;
 }
 
 .build-section {
@@ -145,11 +182,13 @@ h1,
 }
 
 .build-heading {
+  font-family: "Build", system-ui, sans-serif;
   font-size: var(--typo-subheader-size);
   font-weight: 700;
   line-height: 1.1;
   color: var(--color-typography-primary);
   margin: 0 0 2rem;
+  font-feature-settings: "ss01" on;
 }
 
 .build-description {
@@ -171,7 +210,7 @@ h1,
 .pricing-hero {
   position: relative;
   width: 100%;
-  padding: 12rem 2rem 10rem;
+  padding: 14rem 2rem 10rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -212,16 +251,19 @@ h1.pricing-title {
   mask-image: none !important;
 }
 
-.pricing-title-line {
+.pricing-title-line:first-child {
   display: block;
   white-space: nowrap;
-  font-size: 0.9em;
+  font-size: var(--typo-subheader-size);
+  margin-bottom: 0;
 }
 
 .pricing-title-line-secondary {
-  display: block;
+  display: inline-block;
   white-space: nowrap;
-  font-size: 1em;
+  font-size: 11rem;
+  margin-top: -2.5rem;
+  padding-bottom: 0.15em;
   background: linear-gradient(45deg, #ef476f, #ffd166, #06d6a0, #118ab2);
   background-size: 300% 300%;
   background-clip: text;
@@ -475,7 +517,9 @@ h1.pricing-title {
   height: 2rem;
   margin-left: 0.5rem;
   color: var(--color-typography-secondary);
-  transition: transform 0.3s ease, color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
 }
 
 .pricing-item-expandable:hover .pricing-item-chevron {
@@ -664,7 +708,9 @@ h1.pricing-title {
   filter: blur(30px);
   mix-blend-mode: screen;
   pointer-events: none;
-  animation: blobCoords 16s linear infinite, blobCoords2 8s linear infinite,
+  animation:
+    blobCoords 16s linear infinite,
+    blobCoords2 8s linear infinite,
     blobPulse 6s ease-in-out infinite;
   z-index: 3;
   -webkit-mask-image: radial-gradient(
@@ -892,8 +938,12 @@ h1.pricing-title {
 
 .primary-cta {
   display: inline-block;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.08), 0 1px 0 rgba(255, 255, 255, 0.23);
-  box-shadow: 0 0 0 2px #000, 0 0 0 6px rgba(255, 255, 255, 0.2);
+  text-shadow:
+    0 -1px 0 rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.23);
+  box-shadow:
+    0 0 0 2px #000,
+    0 0 0 6px rgba(255, 255, 255, 0.2);
   font-size: 1rem;
   font-weight: 700;
   text-align: center;
@@ -915,7 +965,9 @@ h1.pricing-title {
 }
 
 .primary-cta:hover {
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 1), 0 0 0 6px rgba(255, 255, 255, 0.3),
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 1),
+    0 0 0 6px rgba(255, 255, 255, 0.3),
     0 4px 12px rgba(255, 60, 0, 0.3);
 }
 
@@ -1056,10 +1108,12 @@ h1.pricing-title {
 }
 
 .section-title {
+  font-family: "Build", system-ui, sans-serif;
   font-size: var(--typo-subheader-size);
   font-weight: 700;
   line-height: 1.1;
   margin: 0 0 2rem;
+  font-feature-settings: "ss01" on;
 }
 
 .section-content {
