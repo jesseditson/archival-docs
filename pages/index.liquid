@@ -2,7 +2,7 @@
 {% assign home = objects.home %}
 
 <div id="header" class="w-full flex flex-col justify-center items-center gap-6 pt-60 relative">
-  <h1 class="hero-message">
+  <h1 class="hero-message" data-tilt-hero>
     <span class="hero-line-1">websites for</span><br/>
     <span class="hero-line-2">everyone</span>
   </h1>
@@ -121,7 +121,7 @@
 
 <div class="benefit-grid md:max-w-[1200px] md:mt-40 md:mb-40 mt-20 mb-20">
   {% for section in home.sections %}
-    <div class="benefit">
+    <div class="benefit" data-tilt>
       <h2 class="section-title">{{ section.title }}</h2>
       <div class="section-content">
         {{ section.content }}
@@ -129,6 +129,90 @@
     </div>
   {% endfor %}
 </div>
+
+<script>
+(function() {
+  // Card tilt effect
+  const cards = document.querySelectorAll('[data-tilt]');
+  const maxTilt = 8;
+  const perspective = 1000;
+  const transitionDuration = 150;
+
+  cards.forEach(card => {
+    let bounds;
+    let isHovering = false;
+
+    function handleMouseEnter() {
+      bounds = card.getBoundingClientRect();
+      isHovering = true;
+      card.style.transition = 'none';
+    }
+
+    function handleMouseMove(e) {
+      if (!isHovering) return;
+
+      const mouseX = e.clientX - bounds.left;
+      const mouseY = e.clientY - bounds.top;
+      const centerX = bounds.width / 2;
+      const centerY = bounds.height / 2;
+
+      const rotateX = ((mouseY - centerY) / centerY) * -maxTilt;
+      const rotateY = ((mouseX - centerX) / centerX) * maxTilt;
+
+      const percentX = (mouseX / bounds.width) * 100;
+      const percentY = (mouseY / bounds.height) * 100;
+      card.style.setProperty('--mouse-x', percentX + '%');
+      card.style.setProperty('--mouse-y', percentY + '%');
+
+      card.style.transform = `perspective(${perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    }
+
+    function handleMouseLeave() {
+      isHovering = false;
+      card.style.transition = `transform ${transitionDuration}ms ease-out`;
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      card.style.setProperty('--mouse-x', '50%');
+      card.style.setProperty('--mouse-y', '50%');
+    }
+
+    card.addEventListener('mouseenter', handleMouseEnter);
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+  });
+
+  // Hero title tilt effect (more subtle, tracks mouse across viewport)
+  const heroes = document.querySelectorAll('[data-tilt-hero]');
+  const heroMaxTilt = 12;
+  const heroPerspective = 1200;
+
+  heroes.forEach(hero => {
+    function handleMouseMove(e) {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      const rotateX = ((e.clientY - centerY) / centerY) * -heroMaxTilt;
+      const rotateY = ((e.clientX - centerX) / centerX) * heroMaxTilt;
+
+      // Update color gradient position
+      const percentX = (e.clientX / window.innerWidth) * 100;
+      const percentY = (e.clientY / window.innerHeight) * 100;
+      hero.style.setProperty('--hero-mouse-x', percentX + '%');
+      hero.style.setProperty('--hero-mouse-y', percentY + '%');
+
+      hero.style.transform = `perspective(${heroPerspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+
+    function handleMouseLeave() {
+      hero.style.transition = 'transform 0.5s ease-out';
+      hero.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+      setTimeout(() => { hero.style.transition = 'none'; }, 500);
+    }
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+  });
+})();
+</script>
 
 {% comment %} Manifesto CTA {% endcomment %}
 
