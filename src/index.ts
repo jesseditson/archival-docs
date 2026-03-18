@@ -31,6 +31,9 @@ const setupGenerateFrame = () => {
             iframe.style.height = event.data["resize"].height;
             break;
           case "start":
+            animateIframeToFullscreen(iframe);
+            break;
+          case "ready":
             window.location.href = srcOrigin + "/new";
             break;
         }
@@ -40,6 +43,59 @@ const setupGenerateFrame = () => {
 
   iframe.src = LANDING_IFRAME_URL;
 }
+
+const animateIframeToFullscreen = (iframe: HTMLIFrameElement) => {
+  // Avoid re-triggering if the transition has already started.
+  if (iframe.dataset.fullscreenAnimating === "true") {
+    return;
+  }
+  iframe.dataset.fullscreenAnimating = "true";
+
+  const rect = iframe.getBoundingClientRect();
+  const startTop = `${rect.top}px`;
+  const startLeft = `${rect.left}px`;
+  const startWidth = `${rect.width}px`;
+  const startHeight = `${rect.height}px`;
+
+  iframe.style.position = "fixed";
+  iframe.style.top = startTop;
+  iframe.style.left = startLeft;
+  iframe.style.width = startWidth;
+  iframe.style.height = startHeight;
+  iframe.style.margin = "0";
+  iframe.style.zIndex = "9999";
+
+  const animation = iframe.animate(
+    [
+      {
+        backgroundColor: "rgba(19,17,28,0)",
+        top: startTop,
+        left: startLeft,
+        width: startWidth,
+        height: startHeight,
+      },
+      {
+        backgroundColor: "rgba(19,17,28,1)",
+        top: "0px",
+        left: "0px",
+        width: "100vw",
+        height: "100vh",
+      },
+    ],
+    {
+      duration: 500,
+      easing: "cubic-bezier(0.2, 0.7, 0.2, 1)",
+      fill: "forwards",
+    }
+  );
+
+  animation.addEventListener("finish", () => {
+    iframe.style.top = "0";
+    iframe.style.left = "0";
+    iframe.style.width = "100vw";
+    iframe.style.height = "100vh";
+  });
+};
 
 // Factor by which to offset shadow
 const SHADOW_DISTANCE = 20;
