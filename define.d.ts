@@ -2,3 +2,4 @@
 // they will be baked into the app.
 
 declare const DEV: boolean;
+declare const LANDING_IFRAME_URL: string;

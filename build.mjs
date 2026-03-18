@@ -12,6 +12,7 @@ const ctx = await esbuild.context({
   plugins: [metaUrlPlugin()],
   define: {
     DEV: dev ? "true" : "false",
+    LANDING_IFRAME_URL: `"${dev ? "http://localhost:8788/landing-iframe.html" : "https://editor.archival.dev/landing-iframe.html"}"`
   },
   format: "esm",
   target: "es2022",
