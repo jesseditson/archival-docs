@@ -49,46 +49,7 @@
     Describe what type of site you'd like to create and<br class="build-description-break"/>
     we'll make you a few websites to choose from.
   </p>
-
-  <div class="onboarding-start-container glow-container">
-    <div class="glowverlay showing"></div>
-    <div class="textarea-container">
-      <textarea
-        id="description-input"
-        rows="4"
-        class="w-full flex-1 bg-transparent resize-none focus:outline-none"
-        placeholder="I'm a professional massage therapist, my name is Anne Robertson and I specialize in lower back pain recovery."></textarea>
-    </div>
-
-    <div class="drag-drop-container cursor-pointer relative">
-      <form id="drag-drop-area" action="javascript:void(0);" class="group flex flex-col justify-center px-8 py-20">
-        <h4 class="drag-drop-instructions">
-          You can also click here to select files, or images, video, or audio here
-        </h4>
-      </form>
-    </div>
-  </div>
-
-  <div class="generate-button-container">
-    <button id="generate-button" class="primary-cta" disabled>Generate</button>
-  </div>
-
-  <script>
-    (function() {
-      const textarea = document.getElementById('description-input');
-      const button = document.getElementById('generate-button');
-
-      function updateButtonState() {
-        if (textarea.value.trim().length > 0) {
-          button.disabled = false;
-        } else {
-          button.disabled = true;
-        }
-      }
-
-      textarea.addEventListener('input', updateButtonState);
-    })();
-  </script>
+  <iframe id="generate-frame"></iframe>
 </div>
 
 {% comment %} Video Section (Disabled until produced)
@@ -221,25 +182,6 @@
     Read the Manifesto
   </a>
 </div>
-
-
-{% comment %} Pricing Section {% endcomment %}
- 
-{% comment %} 
-<div class="pricing-container md:max-w-[1200px] mb-40">
-  <div class="pricing-image-container">
-    <img src="/img/pricing-sticker.png" class="pricing-sticker" />
-    <span class="image-aside">We're not kidding.</span>
-  </div>
-  
-  <div class="pricing-description">
-    <h2 class="section-title">{{ home.pricing_title }}</h2>
-    <div id="pricing" class="section-content">
-      {{ home.pricing_content }}
-    </div>
-  </div>
-</div>
- {% endcomment %}
 
 
 {% comment %} Contact Section {% endcomment %}

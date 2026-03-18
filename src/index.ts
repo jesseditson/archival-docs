@@ -1,4 +1,5 @@
 window.addEventListener("load", () => {
+  setupGenerateFrame();
   // setupHeaderVideos();
   setupMobileMenu();
   setupDocsMenu();
@@ -19,6 +20,26 @@ window.addEventListener("load", () => {
   window.addEventListener("resize", debouncedUpdate);
   update();
 });
+
+const setupGenerateFrame = () => {
+  const srcOrigin = new URL(LANDING_IFRAME_URL).origin;
+  window.addEventListener('message', (event) => {
+    console.log(event);
+      if (event.origin === srcOrigin) {
+        switch (Object.keys(event.data)[0]) {
+          case "resize":
+            iframe.style.height = event.data["resize"].height;
+            break;
+          case "start":
+            window.location.href = srcOrigin + "/new";
+            break;
+        }
+      }
+    });
+  const iframe = document.getElementById('generate-frame') as HTMLIFrameElement;
+
+  iframe.src = LANDING_IFRAME_URL;
+}
 
 // Factor by which to offset shadow
 const SHADOW_DISTANCE = 20;
