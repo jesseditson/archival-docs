@@ -78,8 +78,8 @@ const animateIframeToFullscreen = (iframe: HTMLIFrameElement) => {
         backgroundColor: "rgba(19,17,28,1)",
         top: "0px",
         left: "0px",
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "100%",
       },
     ],
     {
@@ -92,8 +92,8 @@ const animateIframeToFullscreen = (iframe: HTMLIFrameElement) => {
   animation.addEventListener("finish", () => {
     iframe.style.top = "0";
     iframe.style.left = "0";
-    iframe.style.width = "100vw";
-    iframe.style.height = "100vh";
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
   });
 };
 

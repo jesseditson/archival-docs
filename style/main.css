@@ -134,7 +134,7 @@ h1,
   top: 5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 1400px;
+  width: min(1400px, 100vw);
   height: 900px;
   background: radial-gradient(
     circle,
@@ -1428,10 +1428,7 @@ h1.pricing-title {
 .modal-backdrop {
   position: fixed;
   backdrop-filter: grayscale(1) blur(4px);
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 9997;
 }
