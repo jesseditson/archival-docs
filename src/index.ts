@@ -27,9 +27,11 @@ const setupGenerateFrame = () => {
     console.log(event);
       if (event.origin === srcOrigin) {
         switch (Object.keys(event.data)[0]) {
-          case "resize":
-            iframe.style.height = event.data["resize"].height;
+          case "resize": {
+            const h = event.data["resize"].height;
+            iframe.style.height = typeof h === "number" ? `${h}px` : h;
             break;
+          }
           case "start":
             animateIframeToFullscreen(iframe);
             break;
