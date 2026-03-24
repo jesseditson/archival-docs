@@ -213,7 +213,7 @@
             </div>
           </div>
 
-          <a class="primary-cta pricing-cta" href="https://editor.archival.dev/new">Get Started</a>
+          <a class="primary-cta pricing-cta" href="https://editor.archival.dev/new" data-umami-event="pricing-get-started">Get Started</a>
         </div>
       </div>
     </div>
@@ -229,7 +229,8 @@
       <a
         href="https://github.com/jesseditson/archival"
         class="connect-item"
-        title="GitHub">
+        title="GitHub"
+        data-umami-event="connect-github">
         <svg
           width="96"
           height="96"
@@ -292,7 +293,8 @@
       <a
         href="https://archival.dev/chat.html"
         class="connect-item"
-        title="Discord">
+        title="Discord"
+        data-umami-event="connect-discord">
         <svg
           width="100"
           height="75"
@@ -351,7 +353,8 @@
       <a
         href="https://docs.rs/archival/"
         class="connect-item"
-        title="Rust">
+        title="Rust"
+        data-umami-event="connect-rustdocs">
         <svg
           width="96"
           height="96"
@@ -412,7 +415,7 @@
       </a>
     </div>
     <div class="section-content email-info">
-      <a href="mailto:hi@archival.dev" class="email-link">
+      <a href="mailto:hi@archival.dev" class="email-link" data-umami-event="connect-email">
         hi@archival.dev
       </a>
     </div>
@@ -474,6 +477,11 @@
 
         // Toggle current accordion
         item.classList.toggle('expanded');
+
+        // Track accordion open in Umami
+        if (!isExpanded && typeof umami !== 'undefined') {
+          umami.track('pricing-accordion', { item: item.dataset.accordion });
+        }
       });
     });
   });

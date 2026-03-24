@@ -1,3 +1,5 @@
+declare const umami: { track: (event: string, data?: Record<string, string | number>) => void } | undefined;
+
 window.addEventListener("load", () => {
   setupGenerateFrame();
   // setupHeaderVideos();
@@ -33,6 +35,7 @@ const setupGenerateFrame = () => {
             break;
           }
           case "start":
+            if (typeof umami !== 'undefined') umami.track('hero-generate-start');
             animateIframeToFullscreen(iframe);
             break;
           case "ready":
@@ -164,6 +167,7 @@ const setupMobileMenu = () => {
     }, 25);
   };
   closedMenu?.addEventListener("click", () => {
+    if (typeof umami !== 'undefined') umami.track('mobile-menu-open');
     toggleMenu(true);
   });
   openMenu?.addEventListener("click", () => {
