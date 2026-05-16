@@ -13,9 +13,7 @@ content = """Archival is normally used as a binary during local development and 
 [[sections]]
 title = "Archival Binaries"
 content = """
-Most use of archival will be via a binary. Archival templates generally come with a locally-packaged version of the archival binary that it was built with, along with scripts to update these binaries, located in the `bin` folder.
-
-By packaging and versioning the binary with the website, we can be sure that even if we update our website in a backward-incompatible way with older versions of `archival`, we’ll still be able to build old versions of our website.
+Most use of archival will be via a binary. You can install archival via cargo by using `cargo install archival`, or via npm using `npm install archival`.
 """
 
 [[sections]]
