@@ -1,5 +1,6 @@
 order = 5
 title = "Page Templates"
+include_in_llm_docs = true
 description = """
 Page templates go in your `pages` directory (or whatever you’ve defined as the `pages_dir` in your `manifest.toml`), and are `.liquid` files.
 

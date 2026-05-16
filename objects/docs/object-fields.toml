@@ -1,5 +1,6 @@
 order = 2
 title = "Object Fields"
+include_in_llm_docs = true
 description = """
 When defining objects in your Object Definition File, each object’s schema is defined by key value pairs, where the keys are field names and the values are types. When rendering, each type is represented by a distinct liquid value or an object hash.
 

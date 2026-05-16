@@ -1,5 +1,6 @@
 order = 9
 title = "Custom Editors"
+include_in_llm_docs = true
 description = """
 At the object level (e.g. in .toml files), archival only supports the primitive types listed in object fields. However, you may want to impose some validation, constraints, or totally custom UX for a given field, so that you and your clients can enjoy a more custom experience.
 

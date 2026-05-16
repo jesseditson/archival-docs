@@ -1,5 +1,6 @@
 order = 1
 title = "Concepts"
+include_in_llm_docs = true
 description = """
 Archival is a fairly simple tool but has been designed to be used in some powerful ways.
 """

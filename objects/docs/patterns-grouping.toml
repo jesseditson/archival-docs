@@ -1,5 +1,6 @@
 order = 4
 title = "Patterns: Grouping"
+include_in_llm_docs = true
 description = """
 {% raw %}
 In some cases you will want to have lists of items but don’t want long lists inside child definitions. It’s generally preferable to create lots of objects rather than long lists inside children.

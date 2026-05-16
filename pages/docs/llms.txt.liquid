@@ -1,0 +1,21 @@
+# Archival Documentation
+
+> Archival is a static website generator that separates content (TOML object files) from presentation (Liquid templates). The following is a complete reference of all documentation pages. Use this as context when generating or modifying archival websites.
+
+{% assign sorted_docs = objects.docs | sort: "order" | where: "include_in_llm_docs", true  %}
+{% for doc in sorted_docs %}
+---
+# {{ doc.title }}
+
+{% assign desc = doc.description | strip_html | strip %}
+{% if desc != "" %}
+{{ desc }}
+
+{% endif %}
+{% for section in doc.sections %}
+## {{ section.title }}
+
+{{ section.content | strip_html | strip }}
+
+{% endfor %}
+{% endfor %}

@@ -1,5 +1,6 @@
 order = 3
 title = "Child Fields"
+include_in_llm_docs = true
 description = """
 {% raw %}
 All objects can define children, by defining a field that has key value pairs. For instance, your `objects.toml` file could define:

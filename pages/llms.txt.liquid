@@ -1,0 +1,27 @@
+# {{ home.title }}
+
+If you are working on an archival site, refer to /docs/llms.txt
+
+{% assign home_desc = home.description | strip_html | strip %}
+{% if home_desc != "" %}
+{{ home_desc }}
+
+{% endif %}
+## What is Archival?
+
+{% for section in home.sections %}
+### {{ section.title }}
+
+{{ section.content | strip_html | strip }}
+
+{% endfor %}
+
+## {{ home.pricing_title }}
+
+{{ home.pricing_content | strip_html | strip }}
+
+---
+
+# {{ manifesto.title }}
+
+{{ manifesto.content | strip_html | strip }}
