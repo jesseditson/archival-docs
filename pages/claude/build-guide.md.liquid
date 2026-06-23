@@ -1,0 +1,10 @@
+# {{ claude.guide_title }}
+
+{{ claude.guide_intro }}
+{% for section in claude.guide %}
+---
+
+## {{ section.title }}
+
+{{ section.content }}
+{% endfor %}

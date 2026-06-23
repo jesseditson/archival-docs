@@ -1,0 +1,300 @@
+home_eyebrow = "Prefer to build it yourself?"
+button_title = "Build an archival site with Claude"
+page_title = "Build with Claude"
+opening_message = """
+We're trying to open **Claude** to start building your Archival site. If a prompt to open Claude doesn't appear, make sure the Claude desktop app is installed — or copy the starter prompt below and paste it into a new Claude conversation.
+"""
+retry_label = "Open Claude"
+copy_link_title = "or copy the prompt instead"
+copied_label = "Copied to clipboard!"
+cowork_prompt = "You're helping me build a website with Archival (archival.dev), a content-first static site generator. First, fetch https://archival.dev/claude/build-guide.md for the canonical manifest format, schema, and conventions — follow it exactly. Ask me 2–3 quick questions about the site, then scaffold the Archival manifest, objects, pages, and templates. When it's ready, create a live preview using the Archival preview tool and give me the URL."
+
+guide_title = "Building an Archival site with Claude"
+guide_intro = """
+You're setting up a website with **Archival** — a content-first static site generator. This is the canonical, condensed reference; follow it exactly. The full documentation lives at https://archival.dev/docs/llms.txt if you need more depth.
+
+Archival's whole philosophy is **separation of content from presentation**: structured content lives in TOML, and presentation lives in Liquid templates. Your job is to set up that structure cleanly, then build a beautiful visual layer on top of it.
+"""
+
+[[guide]]
+title = "The one rule: content never lives in markup"
+content = """
+{% raw %}
+This is the most important rule in Archival, and the easiest to get wrong:
+
+**Never hardcode words, copy, images, links, or data directly into your Liquid markup.** Every piece of editable content belongs in a structured object (a TOML file), and templates pull it in with Liquid.
+
+Don't do this:
+
+```html
+<h1>Welcome to Anna's Bakery</h1>
+<p>We bake fresh sourdough every morning.</p>
+```
+
+Do this instead — define the content as an object…
+
+```toml
+# objects/home.toml
+title = "Welcome to Anna's Bakery"
+tagline = "We bake fresh sourdough every morning."
+```
+
+…and reference it from the template:
+
+```html
+<h1>{{ home.title }}</h1>
+<p>{{ home.tagline }}</p>
+```
+
+Why this matters: the site owner (who may not be a developer) edits content in one place, the content stays consistent everywhere it's used, and the same data can be rendered as a web page, an RSS feed, a JSON API, or an llms.txt. If you find yourself typing real sentences into a `.liquid` file, stop and move them into an object.
+{% endraw %}
+"""
+
+[[guide]]
+title = "Project structure"
+content = """
+A minimal Archival project looks like this:
+
+```
+manifest.toml          # site-wide config (version, build commands, site_url)
+objects.toml           # the schema: which object types exist and their fields
+objects/               # the content: one TOML file per object
+  home.toml
+  post/
+    my-first-post.toml
+pages/                 # Liquid page + partial templates -> built to dist/
+  index.liquid
+  _nav.liquid          # partials are prefixed with _
+layout/                # wrapping layouts (e.g. theme.liquid)
+  theme.liquid
+public/                # static assets copied verbatim into the build
+style/                 # css (optional; wire up via your build)
+dist/                  # build output (generated; never edit by hand)
+```
+
+Build the site with `archival build`, or run a live-reloading dev server with `archival run` (defaults to http://localhost:1024).
+"""
+
+[[guide]]
+title = "manifest.toml"
+content = """
+`manifest.toml` holds global configuration. Sensible defaults mean it's optional, but you'll usually want at least:
+
+```toml
+archival_version = "0.12.0"   # minimum compatible archival version
+site_url = "https://your-site.dev"
+prebuild = ["npm ci", "npm run build"]   # commands run before `archival build`
+```
+
+Other optional overrides: `object_definition_file` (default `objects.toml`), `pages_dir` (default `pages`), `objects_dir` (default `objects`), `layout_dir` (default `layout`), `build_dir` (default `dist`).
+"""
+
+[[guide]]
+title = "objects.toml — define your schema"
+content = """
+`objects.toml` declares every object **type** and its fields. Each field maps a name to a type.
+
+```toml
+[home]                 # a singleton: exactly one objects/home.toml
+title = "string"
+tagline = "string"
+hero = "image"
+
+[post]                 # a collection: many objects/post/*.toml
+title = "string"
+date = "date"
+content = "markdown"
+template = "post"      # render one page per post using pages/post.liquid
+```
+
+**Field types:** `string`, `number`, `boolean`, `date`, `markdown`, and the file types `image`, `video`, `audio`, `upload`.
+
+**Singletons vs collections:** if a type has a single instance (like `home`), create `objects/home.toml`. If there can be many (like `post`), create files under `objects/post/`.
+
+**Child fields** let an object contain repeating sub-records. Define them with a nested table:
+
+```toml
+[home]
+title = "string"
+[home.section]         # each home object can have many [[section]] entries
+heading = "string"
+body = "markdown"
+```
+
+**Reserved keys** (don't use as field names): `template`, `order`, `objects`, `object_name`, `page`, `page_name`.
+
+**`template`** is special: setting `template = "post"` makes Archival render one HTML page per object using `pages/post.liquid`, output to `dist/post/<name>.html`.
+"""
+
+[[guide]]
+title = "Object files — the actual content"
+content = """
+Objects are TOML files whose values fill in the schema. A singleton lives at `objects/home.toml`; collection items live at `objects/post/<name>.toml`.
+
+```toml
+# objects/post/hello-world.toml
+title = "Hello, World"
+date = "2026-01-15"
+order = 20260115
+content = \"\"\"
+## Markdown works here
+This body is parsed as Markdown.
+\"\"\"
+```
+
+Notes:
+- Omitted fields fall back to sensible defaults, so you don't have to set everything.
+- The special **`order`** integer field controls sort order when you iterate a type in templates.
+- File fields (`image`, `video`, etc.) are sub-tables; Archival populates `sha`/`url` when assets are uploaded:
+
+```toml
+[hero]
+filename = "storefront.jpg"
+mime = "image/jpeg"
+display_type = "image"
+```
+"""
+
+[[guide]]
+title = "Pages, layouts & partials"
+content = """
+{% raw %}
+Pages are `.liquid` files in `pages/`. `pages/index.liquid` builds to `dist/index.html`.
+
+**Layouts** wrap a page. Define `layout/theme.liquid` with a `{{ page_content }}` slot, then invoke it from a page with the `layout` tag, passing any variables you like:
+
+```html
+{% layout 'theme' title: home.title %}
+<h1>{{ home.title }}</h1>
+```
+
+```html
+<!-- layout/theme.liquid -->
+<!doctype html>
+<html>
+  <head><title>{{ title }}</title></head>
+  <body>{{ page_content }}</body>
+</html>
+```
+
+**Partials** are reusable snippets prefixed with `_`. `pages/_card.liquid` is included with `{% include 'card' %}`, and you can pass variables:
+
+```html
+{% include 'card' title: post.title, body: post.content %}
+```
+
+**Singletons are global:** an object like `home` is available in any template simply as `home.title`. Collections are available as `objects.post` to iterate:
+
+```html
+{% assign posts = objects.post | sort: "order" %}
+{% for post in posts %}
+  <a href="/post/{{ post.path }}.html">{{ post.title }}</a>
+{% endfor %}
+```
+{% endraw %}
+"""
+
+[[guide]]
+title = "Per-object templates & non-HTML files"
+content = """
+{% raw %}
+**One page per object:** when a type sets `template = "post"`, create `pages/post.liquid`. Archival renders it once per object in `objects/post/`, writing `dist/post/<name>.html`. Inside that template the current object is available by its type name:
+
+```html
+{% layout 'theme' title: post.title %}
+<article>
+  <h1>{{ post.title }}</h1>
+  <time>{{ post.date | date: "%B %-d, %Y" }}</time>
+  {{ post.content }}
+</article>
+```
+
+**Non-HTML output:** put the target extension before `.liquid`. `pages/feed.rss.liquid` builds to `dist/feed.rss`; `pages/posts.json.liquid` builds to `dist/posts.json`. Liquid works in any file type — that's how you generate RSS feeds, JSON APIs, and the llms.txt below.
+{% endraw %}
+"""
+
+[[guide]]
+title = "Pattern: prefer many objects over long lists"
+content = """
+{% raw %}
+Favor lots of small objects over giant child-field lists — they're far easier to edit. To build sections or categories, use a `string` field as an enum and group in the template with `where`:
+
+```toml
+# objects.toml
+[link]
+group = "string"
+title = "string"
+url = "string"
+```
+
+```html
+{% assign favorites = objects.link | where: "group", "favorites" %}
+<ul>
+  {% for link in favorites %}
+    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+  {% endfor %}
+</ul>
+```
+
+Use **child fields** for tightly-bound repeating data (e.g. the sections of one page); use **separate objects + grouping** for anything list-like that grows over time.
+{% endraw %}
+"""
+
+[[guide]]
+title = "Always ship an llms.txt"
+content = """
+{% raw %}
+**Every Archival site you build must generate an `llms.txt`.** It's a plain-text, LLM-friendly summary of the site, generated from the same objects that power the pages — so it never goes stale. Create `pages/llms.txt.liquid`:
+
+```liquid
+# {{ home.title }}
+
+{{ home.tagline }}
+
+## Posts
+{% assign posts = objects.post | sort: "order" %}
+{% for post in posts %}
+### {{ post.title }}
+{{ post.content | strip_html | strip }}
+
+{% endfor %}
+```
+
+Pull from the structured objects, strip HTML out of rendered Markdown with `| strip_html | strip`, and keep it to clean headings and prose. This builds to `dist/llms.txt`. If the site has distinct content areas, give each its own section.
+{% endraw %}
+"""
+
+[[guide]]
+title = "Carriers"
+content = """
+> ⚠️ **Editable placeholder — fill this in.** Carriers are an Archival-specific pattern, but the canonical instructions aren't written yet. Replace this section (edit `objects/claude.toml` → the **Carriers** entry under `[[guide]]`) with the real guidance on what a carrier is and how to build one, and this guide will update automatically. Until then, don't improvise carrier setup — ask the site owner.
+"""
+
+[[guide]]
+title = "Your real job: the visual design"
+content = """
+Once the content structure is in place, **spend your energy on the visual display.** The schema and objects are the easy, mechanical part; a distinctive, polished, well-considered design is where you add the most value.
+
+- Make deliberate typography, color, spacing, and layout choices — avoid generic, templated defaults.
+- Keep all copy and assets in objects so the design stays editable; the template is purely presentation.
+- Build responsive, accessible markup, and lean on partials and layouts to stay DRY.
+- Treat the structured content as a given, and make it look great.
+"""
+
+[[guide]]
+title = "Recommended build order"
+content = """
+1. Ask the site owner 2–3 quick questions (what the site is for, its key sections, the visual vibe).
+2. Write `manifest.toml` and `objects.toml` (the schema).
+3. Create the object files under `objects/` with real starter content.
+4. Build `layout/theme.liquid`, then the page templates and partials — focusing on visual design.
+5. Add `pages/llms.txt.liquid`.
+6. Run `archival build` (or `archival run`) and verify the output.
+7. Publish to Archival (see below).
+"""
+
+[[guide]]
+title = "Publishing to Archival"
+content = """
+> ⚠️ **Instructions pending.** The final step is uploading the finished site to Archival. The canonical steps aren't available yet and will be provided later. When they are, this section (edit `objects/claude.toml` → the **Publishing to Archival** entry under `[[guide]]`) will describe exactly how to upload. For now, tell the site owner the site is ready to publish and that upload instructions are coming.
+"""
