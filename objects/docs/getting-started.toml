@@ -4,30 +4,35 @@ title = "Getting Started"
 [[sections]]
 title = "Using editor.archival.dev/new"
 content = """
-The simplest way to set up an archival repo is to go to [editor.archival.dev/new](http://editor.archival.dev/new) and select a template. This will create a new git repo in your github account (or if you're signed in with email, we'll create one on our servers). You can either purchase a domain or use an existing one for your site.
+The simplest way to set up an archival repo is to go to [editor.archival.dev/new](http://editor.archival.dev/new) and we'll set you up with a working archival site right away. This will create a new git repo in your github account (or if you're signed in with email, we'll create one on our servers). You can either purchase a domain or use an existing one for your site.
 
-Once you have a site set up, click the gear icon and open the git repo - from there, you can view the git URL and use it to clone your new website locally.
+Once you have a site set up, you will see it at editor.archival.dev, where you can make changes to the content, preview in real time, adjust settings, and use task mode to change your site by making requests and uploading files.
+
+To get a local copy of your website, go to your site's settings and click the github icon. If you've created a repo with an email, just reach out and we can grant collaborator access to the upstream repo.
 """
 
 [[sections]]
 title = "Developing your archival website locally"
 content = """
-You can now run `archival run` or `bin/archival run` in your website’s repo.
+When you clone or create an archival repo, you can use the archival CLI to build, run, and maintain your website.
 
-You should see a message telling you that your website is available at `http://localhost:1024`. If you want to choose a different port, run `bin/archival run --port 1234`.
+If you already have the rust toolchain locally, you can install archival from cargo, using `cargo install archival`.
+
+If you'd prefer to just install binaries, you can install via npm using `npm install -g archival`, which will install the appropritate binary for your machine globally.
+
+You can now run `archival run` in your website’s repo.
+
+You should see a message telling you that your website is available at `http://localhost:1024`. If you want to choose a different port, run `archival run --port 1234`.
 
 The `run` command automatically watches your filesystem and will rebuild your website whenever files change. Try modifying an object file to see the site update.
 """
 
 [[sections]]
-title = "Manual installation (advanced)"
+title = "Manual site creation"
 content = """
 {% raw %}
-You don’t have to clone a template to use archival - you can also install it via cargo and manually create the file structure.
 
-First, install the rust toolchain via `rustup`: https://doc.rust-lang.org/cargo/getting-started/installation.html
-
-Then create a new git repo:
+To create an archival website without the archival onboarding experience or purchasing an archival site, you can install archival and create a simple structure locally:
 
 `mkdir my-website`
 
@@ -56,5 +61,6 @@ This will create:
 - an example `test` object
 - a theme to render our page in
 - a page that renders our theme and our objects
+
 {% endraw %}
 """
