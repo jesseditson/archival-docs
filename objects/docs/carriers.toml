@@ -1,0 +1,75 @@
+order = 8
+title = "Carriers"
+include_in_llm_docs = true
+description = """
+{% raw %}
+### What are carriers?
+
+Occasionally your website will need to do something using privileged keys (e.g. submit a form, call third party APIs, etc) - carriers are small javascript functions that can be used to abstract these calls so you don't leak your keys. They "carry information" to your website, should you need to use information not available at build time or via simple scripting.
+
+Carriers are serverless, stateless, and are deployed automatically whenever your site builds.
+
+Once deployed, a carrier is reachable at `/carriers/<carrier-name>` on your site. For example, a carrier in `carriers/submit-form/` is served at `https://yoursite.com/carriers/submit-form`.
+
+### Folder structure
+
+Carriers live in a top-level `carriers/` directory in your repo. Each subdirectory is a single carrier, and the directory name becomes the carrier's URL path:
+
+```
+carriers/
+  submit-form/
+    package.json        # optional — "main" selects the entry file
+    package-lock.json   # optional — used for a reproducible install
+    submit.js           # the carrier's entry file
+    .gitignore          # ignores generated carrier_* build files
+```
+
+- The directory name (`submit-form` above) is the carrier name and the URL segment: `/carriers/submit-form`.
+- By default the entry file is `index.js`. If you include a `package.json`, its `main` field selects the entry file instead (e.g. `"main": "submit.js"`).
+- If a `package.json` is present, dependencies are installed at deploy time — `npm ci` when a `package-lock.json` (or `npm-shrinkwrap.json`) exists, otherwise `npm install`. This means a carrier can depend on npm packages.
+- During a build, archival writes generated wrapper and config files named `carrier_*` into the carrier directory. Add `carrier_*` to a `.gitignore` so these build artifacts aren't committed.
+
+### Carrier request signature
+
+A carrier's entry file must `export default` an async function that receives three arguments:
+
+```js
+export default async function (params, body, env) {
+  // ...your logic
+}
+```
+
+- **`params`** — a [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) built from the request's query string.
+- **`body`** — the parsed request body for `POST` and `PUT` requests (`null` for other methods). How it's parsed depends on the request's `Content-Type`:
+  - `application/json` → a parsed JSON value
+  - `application/x-www-form-urlencoded`, `multipart/form-data`, or `application/form` → an object of the form fields
+  - anything else → the raw request text
+- **`env`** — an object of environment variables (see below).
+
+The function's return value determines the HTTP response:
+
+- **An object** is serialized to a `200` JSON response (`content-type: application/json`).
+- **A string** is returned as a `200` `text/plain` response. If the string begins with `redirect:`, the remainder is used as a `Location` header and a `302` redirect is sent instead.
+- **Throwing an error** produces a `500` response containing the error message.
+- Returning anything else produces a `500` response.
+
+A minimal carrier that validates a form post and redirects back to the site:
+
+```js
+export default async function (params, body, env) {
+  if (!body) {
+    throw new Error("Method Not Allowed");
+  }
+  // ...do something with the submitted fields...
+  return "redirect:" + env.SITE_URL + "?submitStatus=ok";
+}
+```
+
+### Available environment variables
+
+The `env` argument exposes variables injected at deploy time:
+
+- **`SITE_URL`** — the full URL of your site (e.g. `https://yoursite.com`). Use it to build absolute URLs for redirects and links rather than hard-coding your domain.
+
+{% endraw %}
+"""

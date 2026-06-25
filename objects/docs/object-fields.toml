@@ -52,9 +52,15 @@ The following date formats are supported in toml files:
 - `DD Month YYYY HH:MM:SS`
 - `DD Mon YYYY HH:MM:SS`
 - `MM/DD/YYYY HH:MM:SS`
+- `M/D/YY HH:MM:SS` (short form — a two-digit year is interpreted in the current century)
 - `Dow Mon DD HH:MM:SS YYYY`
 
-In all formats, you may specify offsets by appending either `+HHMM` or `-HHMM`
+In all formats, you may specify offsets by appending either `+HHMM` or `-HHMM`. If you don’t provide an offset, your machine’s local offset is used.
+
+A few conveniences:
+
+- You may use the keywords `now` or `today` (case-insensitive) in place of a date, and archival will fill in the current date and time when the site builds.
+- If you omit the time portion, it defaults to `00:00:00`.
 
 **Rendering dates**
 
@@ -101,6 +107,17 @@ archival uses [comrak](https://crates.io/crates/comrak/0.18.0) to parse markdown
 ```
 
 - [Autolinks](https://github.github.com/gfm/#autolinks-extension-) (links will automatically be clickable)
+
+In addition to the GFM extensions above, archival enables a few more comrak extensions:
+
+- **Footnotes** — reference a footnote with `[^1]` and define it later with `[^1]: …`.
+- **Description lists** — a term on one line followed by `: definition` lines.
+- **Superscript** — wrap text in `^carets^` to raise it.
+- **Header IDs** — headings are given `id` anchors automatically, so you can link directly to a section.
+
+**A note on HTML and security**
+
+archival renders markdown with raw/unsafe HTML *enabled* — any HTML you write inside a markdown field is passed through to the output as-is, and no tag filtering is applied. This is convenient when you trust the content (you’re the author), but it means markdown is **not** sanitized for you. If you ever render markdown that came from an untrusted source, sanitize it yourself before trusting the output.
 """
 
 
@@ -138,6 +155,133 @@ Other metadata is useful depending on the file type. For instance, you could dis
       name="{{object.video.filename}}"
       type="{{object.video.mime}}">
 </video>
+```
+{% endraw %}
+"""
+
+[[sections]]
+title = "enum"
+content = """
+{% raw %}
+An enum constrains a field to a fixed set of string values. Instead of a type name, you define an enum directly as an **array of strings** in your object definition:
+
+```toml
+[post]
+title = "string"
+status = ["draft", "published", "archived"]
+template = "post"
+```
+
+In an object file, the value must be one of the listed strings. archival validates this when it builds, and the build will fail if the value isn’t in the list:
+
+```toml
+title = "My Post"
+status = "published"
+```
+
+Enums render as a plain string, so you can print them or use them for control flow:
+
+```html
+{% if post.status == "published" %}
+  <article>{{ post.content }}</article>
+{% endif %}
+```
+
+This is different from the [grouping pattern](/docs/patterns-grouping.html), which uses an open-ended `string` field — an enum is the right choice when you want to *guarantee* the value is one of a known set.
+{% endraw %}
+"""
+
+[[sections]]
+title = "oneof"
+content = """
+{% raw %}
+A oneof (a union, or “tagged” type) lets a single field hold a value that may be one of several different types. You define it as an **array of tables**, where each table gives a `name` and a `type`:
+
+```toml
+[post]
+title = "string"
+template = "post"
+[[post.media]]
+name = "photo"
+type = "image"
+[[post.media]]
+name = "embed"
+type = "string"
+```
+
+The `type` of each option may be any scalar or file type (`string`, `number`, `image`, `video`, etc.).
+
+In an object file, you select one option by setting the `type` (to one of the option `name`s) and providing a `value` of that option’s type:
+
+```toml
+title = "My Post"
+# a string option:
+[media]
+type = "embed"
+value = "https://youtube.com/watch?v=…"
+```
+
+```toml
+title = "My Post"
+# an image option — value is a file table:
+[media]
+type = "photo"
+[media.value]
+sha = "9d18d8319c33ea2b10aeb6c833c1fe66304135e0e40aa6e509df5b6733fd3029"
+mime = "image/png"
+display_type = "image"
+filename = "cover.png"
+```
+
+When rendering, a oneof exposes two properties: `type` (the selected option name) and `value` (the underlying value). Branch on `type` to render the right thing:
+
+```html
+{% if post.media.type == "photo" %}
+  <img src="{{ post.media.value.url }}" alt="{{ post.title }}"/>
+{% elsif post.media.type == "embed" %}
+  <iframe src="{{ post.media.value }}"></iframe>
+{% endif %}
+```
+
+Reach for a oneof when a field is genuinely “either/or” — for example content that may be an image *or* a video. If you instead want a repeating list of structured items, use [child fields](/docs/child-fields.html).
+{% endraw %}
+"""
+
+[[sections]]
+title = "meta"
+content = """
+{% raw %}
+A `meta` field holds free-form, schema-less data. Use it when the shape of the data isn’t fixed ahead of time — arbitrary settings, custom attributes, or nested metadata that doesn’t warrant its own object definition.
+
+```toml
+[page]
+title = "string"
+config = "meta"
+```
+
+A `meta` value can contain strings, numbers, booleans, dates, arrays, and nested tables, mixed and nested freely. You write it as ordinary toml:
+
+```toml
+title = "Home"
+[config]
+theme = "dark"
+featured = true
+max_items = 6
+tags = ["news", "updates"]
+[config.contact]
+email = "hi@example.com"
+```
+
+Because `meta` is unstructured, archival does **not** validate its contents (though you can add constraints with a [custom editor](/docs/custom-editors.html) validator). When rendering, access keys with dot notation and iterate arrays like any other liquid value:
+
+```html
+<body class="theme-{{ page.config.theme }}">
+  {% if page.config.featured %}<span class="badge">Featured</span>{% endif %}
+  <ul>
+    {% for tag in page.config.tags %}<li>{{ tag }}</li>{% endfor %}
+  </ul>
+  <a href="mailto:{{ page.config.contact.email }}">Contact</a>
+</body>
 ```
 {% endraw %}
 """

@@ -5,6 +5,15 @@ Build an archival site - this will generate a static site inside a directory (di
 """
 
 [[options]]
+flags = "-b, --build-dir <path>"
+description = "override the directory to build to. Defaults to the manifest's build_dir (dist)."
+[[options]]
+flags = "-s, --skip-failures"
+description = "if a page fails to build, continue building the other pages and skip the failing one, rather than erroring early. Useful in CI when you'd rather ship a partial build than nothing."
+[[options]]
+flags = "-u, --upload-prefix <prefix>"
+description = "override the upload prefix. If no manifest.toml is present, this is required."
+[[options]]
 flags = "-h, --help"
 description = "print help for this command."
 [[arguments]]

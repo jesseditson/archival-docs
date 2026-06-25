@@ -1,0 +1,78 @@
+order = 11
+title = "Template Variables"
+include_in_llm_docs = true
+description = """
+{% raw %}
+When archival renders a page, it makes a handful of variables available to your liquid templates automatically — in addition to the objects you’ve defined. This page is a reference for those built-in variables.
+{% endraw %}
+"""
+
+[[sections]]
+title = "Global variables"
+content = """
+{% raw %}
+These variables are available in every page and template:
+
+- **`objects`** — every object type on your site, keyed by its name. `objects.post` is the list of all `post` objects; `objects.home` is a single `home` object. This is the most explicit way to reach any object type.
+- **pluralized accessors** — for convenience, each object type also gets a top-level variable. A type that holds a list is exposed under its **pluralized** name, and a single (root) object keeps its name. So a `post` type becomes `posts`, while a `home` object stays `home`:
+
+```html
+{% for post in posts %}
+  <a href="/{{ post.path }}.html">{{ post.title }}</a>
+{% endfor %}
+```
+
+- **`site_url`** — the `site_url` value from your `manifest.toml`, as a string. Useful for building absolute URLs:
+
+```html
+<link rel="canonical" href="{{ site_url }}/{{ post.path }}.html" />
+```
+
+- **`page`** — the name of the page currently being rendered.
+{% endraw %}
+"""
+
+[[sections]]
+title = "Variables on a template page"
+content = """
+{% raw %}
+When an object type defines a `template`, that template is rendered once for each object of that type (see [Page Templates](/docs/page-templates.html)). Inside that template, the current object is available under its definition name — for a `post` type, that’s `{{ post }}` — and each object also carries a few extra fields:
+
+- **`object_name`** — the type name of the object (e.g. `"post"`). Access it as `{{ post.object_name }}`.
+- **`order`** — the object’s `order` value, if it has one. Access it as `{{ post.order }}`.
+- **`path`** — the object’s path within your site, in the form `<object-type>/<filename>` (e.g. `post/my-first-post`). Access it as `{{ post.path }}`.
+
+```html
+<article data-order="{{ post.order }}">
+  <h1>{{ post.title }}</h1>
+  <a href="/{{ post.path }}.html">permalink</a>
+</article>
+```
+{% endraw %}
+"""
+
+[[sections]]
+title = "path is available on every object"
+content = """
+{% raw %}
+`path` isn’t limited to template pages — every object carries it, including objects you reach through `objects` or a pluralized accessor. This makes it easy to build links to objects that render their own pages:
+
+```html
+<ul>
+  {% for post in posts %}
+    <li><a href="/{{ post.path }}.html">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
+```
+
+Because `path` and `order` are populated by archival, they are **reserved** — you can’t define your own object fields with those names, and archival will error if you try.
+{% endraw %}
+"""
+
+[[sections]]
+title = "page_content (inside layouts)"
+content = """
+{% raw %}
+One more special variable, `page_content`, is available inside [layouts](/docs/layouts.html). It contains the rendered content of the page that invoked the layout. See the Layouts page for details.
+{% endraw %}
+"""

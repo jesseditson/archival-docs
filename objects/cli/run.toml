@@ -8,8 +8,14 @@ This command runs a local static server and watches your archival site for chang
 """
 
 [[options]]
-flags = "-p, --port <1024>"
-description = "choose a different port to run the local server on. Defaults to 1024"
+flags = "-p, --port <port>"
+description = "choose the port to run the local server on. By default, archival serves on the first available port starting at 1024 (so it’s usually 1024)."
+[[options]]
+flags = "-n, --noserve"
+description = "disable the static server and only watch and rebuild on file changes. Useful when another server is serving the build directory, or for IDE integrations."
+[[options]]
+flags = "-u, --upload-prefix <prefix>"
+description = "override the upload prefix. If no manifest.toml is present, this is required."
 [[options]]
 flags = "-h, --help"
 description = "print help for this command."

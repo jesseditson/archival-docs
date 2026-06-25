@@ -1,0 +1,14 @@
+order = 9
+command = "archival format"
+content = """
+Rewrites all of the toml files in an archival site — the `manifest.toml` and every object file — into archival’s canonical formatting. This is useful for keeping a site’s files tidy and consistent, especially across a team or as part of a CI check.
+
+Note that this rewrites object files based on their current object definitions, so it’s a convenient way to normalize files that were edited by hand.
+"""
+
+[[options]]
+flags = "-h, --help"
+description = "print help for this command."
+[[arguments]]
+arg = "[path/to/archival-site]"
+description = "optionally specify a path to an archival site. By default will run in the current working directory. "

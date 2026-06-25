@@ -1,0 +1,75 @@
+order = 13
+title = "Deploying"
+include_in_llm_docs = true
+description = """
+archival builds a plain static site into your `build_dir` (`dist` by default), which means you can host it just about anywhere. You have a few options, from fully automated archival hosting to deploying the static output yourself.
+"""
+
+[[sections]]
+title = "Publishing with the archival editor"
+content = """
+If you created your site through [editor.archival.dev](https://editor.archival.dev/new), publishing is already handled for you. archival hosts your site, and changes you make in the editor — or push to your connected git repository — are built and deployed automatically. You can point a purchased or existing domain at your site from its settings. For most people, this is all you need.
+"""
+
+[[sections]]
+title = "Deploying with the archival GitHub Action"
+content = """
+{% raw %}
+If you manage your site in your own GitHub repository and want archival to host it, use the archival GitHub Action. It installs archival, runs your `prebuild` commands, builds the site, and syncs the result to archival’s hosting:
+
+```yaml
+# .github/workflows/archival.yml
+name: archival
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Archival Build
+        uses: jesseditson/archival@main
+```
+
+The action accepts a few optional inputs:
+
+- `archival-version` — the version of archival to install from cargo (e.g. `0.14.0`).
+- `archival-bin` — a path to an existing archival binary to use instead of installing one.
+- `api-host` — the archival API host that build events are sent to (defaults to `https://api.archival.dev`).
+{% endraw %}
+"""
+
+[[sections]]
+title = "Hosting the static build yourself"
+content = """
+{% raw %}
+Because `archival build` produces an ordinary static site, you can deploy the `dist` folder to any static host — GitHub Pages, Cloudflare Pages, Netlify, S3, or your own server. The general recipe is:
+
+1. Install archival (`cargo install archival`, or `cargo binstall archival`).
+2. If your site uses a javascript or css toolchain, run `archival prebuild` first so those assets exist.
+3. Run `archival build`.
+4. Publish the contents of `dist`.
+
+As an example, here’s how this very site deploys to Cloudflare Pages:
+
+```yaml
+publish-pages:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - name: Install archival
+      uses: taiki-e/install-action@v2
+      with:
+        tool: cargo-binstall
+    - run: cargo binstall --no-confirm archival
+    - run: archival build
+    - name: Deploy
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        command: pages deploy dist --project-name=your-project
+```
+
+If you pin a minimum archival version in your `manifest.toml`, you can guard your CI against accidentally building with an incompatible version by running `archival compat <version>` — it exits non-zero when the versions don’t match. See the [compat command](/cli/compat.html) for details.
+{% endraw %}
+"""

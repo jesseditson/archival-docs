@@ -1,0 +1,83 @@
+order = 12
+title = "Uploading Files"
+include_in_llm_docs = true
+description = """
+The `image`, `video`, `audio`, and `upload` field types don’t store a file directly in your object toml — they store a small reference (a content hash and some metadata) to a file hosted on a CDN. You can populate these fields in two ways: through the archival editor, or with the `archival upload` command. This guide covers the command-line flow.
+"""
+
+[[sections]]
+title = "Log in first"
+content = """
+Uploading is an authenticated action, so before your first upload run:
+
+```bash
+archival login
+```
+
+This opens a browser to authenticate and stores an access token in `~/.archivalrc`. You only need to do this once per machine.
+"""
+
+[[sections]]
+title = "Uploading a file"
+content = """
+{% raw %}
+The `archival upload` command takes the object to write to, the field to set, and the file to upload:
+
+```bash
+archival upload <object> <field> <file>
+```
+
+- **`<object>`** — the object to upload to. This is the object’s path relative to your `objects_dir`, without the `.toml` extension — for example `post/my-first-post`. For a root object (like `home`), just use its name.
+- **`<field>`** — the field to point at the uploaded file. For a nested field, use dots to indicate child indexes and fields — for example `section.0.image` targets the first `section`’s `image`.
+- **`<file>`** — a path to the file on disk.
+
+For example, to set the `cover` field on a post:
+
+```bash
+archival upload post/my-first-post cover ./images/cover.png
+```
+
+Uploads are associated with a repository. By default archival infers this from your first git remote (only GitHub remotes are supported), but you can set it explicitly:
+
+```bash
+archival upload -r github/your-name/your-repo post/my-first-post cover ./cover.png
+```
+{% endraw %}
+"""
+
+[[sections]]
+title = "What gets written"
+content = """
+{% raw %}
+archival hashes the file (a SHA-256), guesses its mime type and display type from the file, uploads it to the CDN, and writes a file reference into your object. The result looks like this:
+
+```toml
+[cover]
+sha = "31f4725e732340541f83065d7bde1eba22a3aa2dd507f2811b8f69a07250379b"
+filename = "cover.png"
+mime = "image/png"
+display_type = "image"
+```
+
+This is the same structure documented under the [file field types](/docs/object-fields.html), so once a field is uploaded you render it just like any other file field.
+{% endraw %}
+"""
+
+[[sections]]
+title = "Where files are served from"
+content = """
+{% raw %}
+The `url` you use in templates is generated automatically from two `manifest.toml` settings:
+
+- `uploads_url` — the CDN host. Defaults to `https://uploads.archival.dev`.
+- `upload_prefix` — an optional path prefix added to every file URL, used to distinguish sites that share the same CDN host.
+
+The final URL is built as `<uploads_url>/<upload_prefix><sha>/<filename>`. In templates you don’t need to construct this yourself — just use the generated `url`:
+
+```html
+<img src="{{ post.cover.url }}" alt="{{ post.title }}" />
+```
+
+You can override the prefix for a single command with `-u, --upload-prefix` (this is required if you’re uploading in a directory with no `manifest.toml`).
+{% endraw %}
+"""
