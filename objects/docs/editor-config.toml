@@ -1,0 +1,75 @@
+order = 11
+title = "Archival Editor Configuration"
+include_in_llm_docs = true
+description = """
+The optional `archival_editor.toml` file lets you customize how your site's content appears in the [Archival editor](https://editor.archival.dev).
+
+This file is most useful when creating an archival template or for customizing the editing experience in the archival editor.
+
+Place `archival_editor.toml` in the root of your repo, alongside `objects.toml` and `manifest.toml`. The editor reads it automatically when your site loads, and re-reads it whenever the file changes.
+
+### Object Views
+
+The file configures **views** for your object types. A view controls which fields are shown as columns when you browse the list of objects of a given type in the editor.
+
+The top-level key of each entry is the name of an object type, exactly as it appears in `objects.toml`. Under each object type you define one or more `views` as a TOML array of tables:
+
+```toml
+# Configure views for the "post" object type
+[[post.views]]
+name = "default"
+primary = "title"
+secondary = "published_at"
+tertiary = "author"
+
+[[post.views]]
+name = "by date"
+primary = "published_at"
+secondary = "title"
+```
+
+Each view supports the following fields:
+
+- `name` (required) — the label for this view. It appears in the view selector dropdown above the object list.
+- `primary` (required) — the field shown in the first column of the list.
+- `secondary` (optional) — the field shown in the second column.
+- `tertiary` (optional) — the field shown in the third column.
+
+The values of `primary`, `secondary`, and `tertiary` are field names defined for that object type in `objects.toml`. You can also use the special value `filename`, which displays the object's filename (its slug) rather than one of its fields.
+
+### How views are displayed
+
+- The **first view** listed for an object type is selected by default when you open that object's list.
+- The editor always appends a built-in **`slug`** view that shows only the `filename` column, so you can switch back to it at any time from the view selector.
+- If an object type has no entry in `archival_editor.toml`, its list shows a single `filename` column.
+- Around the columns you configure, every row also includes the object's `order` (always first) and an `actions` column (always last).
+
+### Example
+
+Given an object type defined in `objects.toml`:
+
+```toml
+[post]
+title = "string"
+author = "string"
+published_at = "date"
+body = "markdown"
+```
+
+This `archival_editor.toml` gives editors two ways to browse posts — one organized around the title, and one organized around the publish date:
+
+```toml
+[[post.views]]
+name = "default"
+primary = "title"
+secondary = "author"
+tertiary = "published_at"
+
+[[post.views]]
+name = "by date"
+primary = "published_at"
+secondary = "title"
+```
+
+See [Object Fields](/docs/object-fields.html) for the field types you can reference, and [Custom Editors](/docs/custom-editors.html) for customizing how individual fields are edited.
+"""
