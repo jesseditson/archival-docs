@@ -47,6 +47,21 @@ description = "string"
 arg = "string"
 description = "string"
 
+[claude]
+home_eyebrow = "string"
+button_title = "string"
+page_title = "string"
+opening_message = "markdown"
+retry_label = "string"
+copy_link_title = "string"
+copied_label = "string"
+cowork_prompt = "string"
+guide_title = "string"
+guide_intro = "string"
+[claude.guide]
+title = "string"
+content = "string"
+
 [eula]
 content = "markdown"
 

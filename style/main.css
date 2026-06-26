@@ -219,6 +219,156 @@ h1,
   min-height: 21rem;
 }
 
+/* Build with Claude */
+
+.claude-build-section {
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto 8rem;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.claude-build-eyebrow {
+  font-size: var(--typo-body-size);
+  color: var(--color-typography-secondary);
+  margin: 0;
+}
+
+.claude-build-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  background-color: #d97757;
+  color: #fff;
+  font-size: var(--typo-body-size-large);
+  font-weight: 700;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(217, 119, 87, 0.35);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.claude-build-button:hover {
+  background-color: #e2876b;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(217, 119, 87, 0.45);
+}
+
+.claude-build-logo {
+  display: inline-flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #fff;
+}
+
+.claude-logo-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.claude-build-label {
+  line-height: 1;
+}
+
+/* /build-with-claude launch page */
+
+.claude-launch {
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 14rem 2rem 8rem;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.claude-launch-logo {
+  display: inline-flex;
+  width: 4.5rem;
+  height: 4.5rem;
+  color: #d97757;
+  animation: claudeSpin 18s linear infinite;
+}
+
+@keyframes claudeSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.claude-launch-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.claude-launch-message {
+  font-size: var(--typo-body-size-large);
+  color: var(--color-typography-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.claude-launch .claude-build-button {
+  margin-top: 0.5rem;
+}
+
+.claude-copy-link {
+  background: none;
+  border: 0;
+  color: var(--color-typography-secondary);
+  font-size: var(--typo-body-size);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.claude-copy-link:hover {
+  color: var(--color-typography-primary);
+}
+
+.claude-copy-link.is-copied {
+  color: var(--color-secondary-interactive);
+  text-decoration: none;
+}
+
+.claude-prompt-source {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .claude-launch {
+    padding: 10rem 1.5rem 6rem;
+  }
+
+  .claude-launch-title {
+    font-size: 2rem;
+  }
+}
+
 .pricing-page {
   width: 100%;
 }
