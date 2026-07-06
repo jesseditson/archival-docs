@@ -210,6 +210,49 @@
               <li class="callout-item" data-callout="2" id="c3-2" style="--i:2;"><b>2</b> Rich text that feels like a word processor, stored as clean content.</li>
               <li class="callout-item" data-callout="3" id="c3-3" style="--i:3;"><b>3</b> Unsaved edits are flagged, and any field reverts with one click.</li>
             </ol>
+          {% elsif n == 4 %}
+            <div class="product-frame product-frame--media">
+              <div class="product-frame-glow" aria-hidden="true"></div>
+
+              {% comment %} Image field editor: dropzone + upload progress + conversion/CDN badges {% endcomment %}
+              <div class="pf-media-card pf-glass">
+                <div class="pf-dropzone" data-callout-target="1">
+                  <div class="pf-thumb" aria-hidden="true"></div>
+                  <div class="pf-dropzone-text">
+                    <span class="pf-dropzone-title">Drop image to upload</span>
+                    <span class="pf-dropzone-sub">or click to browse</span>
+                  </div>
+                </div>
+
+                <div class="pf-upload-progress" data-callout-target="2">
+                  <div class="pf-progress-track">
+                    <div class="pf-progress-fill" style="width: 67%;"></div>
+                  </div>
+                  <div class="pf-progress-label">Uploading&hellip; 67%</div>
+                </div>
+
+                <div class="pf-media-badges">
+                  <span class="pf-badge">HEIC &rarr; PNG, auto</span>
+                  <span class="pf-badge pf-badge--cdn" data-callout-target="3">Served from CDN &middot; deduplicated</span>
+                </div>
+              </div>
+
+              <button class="callout-marker" data-callout="1" style="--cx:35%; --cy:34%; --i:1;" aria-describedby="c4-1">1</button>
+              <button class="callout-marker" data-callout="2" style="--cx:55%; --cy:66%; --i:2;" aria-describedby="c4-2">2</button>
+              <button class="callout-marker" data-callout="3" style="--cx:30%; --cy:84%; --i:3;" aria-describedby="c4-3">3</button>
+            </div>
+
+            <svg class="callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path class="callout-line" data-callout="1" style="--i:1;" d="M35 34 L6 26" pathLength="1"/>
+              <path class="callout-line" data-callout="2" style="--i:2;" d="M55 66 L100 74" pathLength="1"/>
+              <path class="callout-line" data-callout="3" style="--i:3;" d="M30 84 L4 92" pathLength="1"/>
+            </svg>
+
+            <ol class="callout-legend">
+              <li class="callout-item" data-callout="1" id="c4-1" style="--i:1;"><b>1</b> Drag in a photo — that's the whole workflow.</li>
+              <li class="callout-item" data-callout="2" id="c4-2" style="--i:2;"><b>2</b> Phone formats like HEIC convert automatically as they upload.</li>
+              <li class="callout-item" data-callout="3" id="c4-3" style="--i:3;"><b>3</b> Files go to a fast global network, and the same file is never stored twice.</li>
+            </ol>
           {% else %}
             {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
           {% endif %}
