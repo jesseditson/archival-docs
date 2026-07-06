@@ -21,7 +21,69 @@
           <div class="section-content">{{ section.content }}</div>
         </div>
         <div class="product-frame-wrap" data-tilt>
-          {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
+          {% if n == 1 %}
+            <div class="product-frame product-frame--shell">
+              <div class="product-frame-glow" aria-hidden="true"></div>
+
+              {% comment %} Top chrome bar {% endcomment %}
+              <div class="pf-chrome" data-callout-target="1">
+                <span class="pf-chrome-btn">Dashboard</span>
+                <div class="pf-mode-toggle"><span class="on">Content</span><span>Task</span></div>
+                <div class="pf-chrome-right">
+                  <span class="pf-chrome-btn">Mobile</span>
+                  <span class="pf-chrome-btn">View Live</span>
+                  <span class="pf-chrome-btn">History</span>
+                  <span class="pf-status"><i class="pf-dot ok"></i>Up to date</span>
+                </div>
+              </div>
+
+              <div class="pf-body">
+                {% comment %} Objects sidebar {% endcomment %}
+                <div class="pf-sidebar" data-callout-target="4">
+                  <div class="pf-sidebar-item active">Posts <b>12</b></div>
+                  <div class="pf-sidebar-item">Pages <b>4</b></div>
+                  <div class="pf-sidebar-item">Media <b>38</b></div>
+                  <div class="pf-sidebar-item">Settings</div>
+                </div>
+
+                {% comment %} Glass editing panel {% endcomment %}
+                <div class="pf-panel pf-glass" data-callout-target="2">
+                  <div class="pf-field"><label>Title</label><div class="pf-input">Hello, world</div></div>
+                  <div class="pf-field"><label>Published</label><div class="pf-input">Jul 6, 2026</div></div>
+                  <div class="pf-field"><label>Draft</label><div class="pf-toggle"></div></div>
+                </div>
+
+                {% comment %} Live preview with mobile device frame {% endcomment %}
+                <div class="pf-preview" data-callout-target="3">
+                  <div class="pf-device">
+                    <div class="pf-device-notch"></div>
+                    <div class="pf-device-screen"></div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="callout-marker" data-callout="1" style="--cx:20%; --cy:7%; --i:1;" aria-describedby="c1-1">1</button>
+              <button class="callout-marker" data-callout="2" style="--cx:44%; --cy:52%; --i:2;" aria-describedby="c1-2">2</button>
+              <button class="callout-marker" data-callout="3" style="--cx:80%; --cy:55%; --i:3;" aria-describedby="c1-3">3</button>
+              <button class="callout-marker" data-callout="4" style="--cx:9%; --cy:45%; --i:4;" aria-describedby="c1-4">4</button>
+            </div>
+
+            <svg class="callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path class="callout-line" data-callout="1" style="--i:1;" d="M20 7 L20 -6" pathLength="1"/>
+              <path class="callout-line" data-callout="2" style="--i:2;" d="M44 52 L-4 62" pathLength="1"/>
+              <path class="callout-line" data-callout="3" style="--i:3;" d="M80 55 L104 66" pathLength="1"/>
+              <path class="callout-line" data-callout="4" style="--i:4;" d="M9 45 L-6 40" pathLength="1"/>
+            </svg>
+
+            <ol class="callout-legend">
+              <li class="callout-item" data-callout="1" id="c1-1" style="--i:1;"><b>1</b> Switch between editing content and asking Archival to make changes for you.</li>
+              <li class="callout-item" data-callout="2" id="c1-2" style="--i:2;"><b>2</b> A simple, focused panel to edit the page you're on — no code required.</li>
+              <li class="callout-item" data-callout="3" id="c1-3" style="--i:3;"><b>3</b> Your real, live website — including a true-to-life mobile preview.</li>
+              <li class="callout-item" data-callout="4" id="c1-4" style="--i:4;"><b>4</b> Every kind of content on your site, one tab away.</li>
+            </ol>
+          {% else %}
+            {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
+          {% endif %}
         </div>
       </section>
     {% endunless %}
@@ -34,5 +96,62 @@
     <div class="build-description">{{ cta.content }}</div>
     <iframe id="generate-frame"></iframe>
   </section>
+
+  <script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Reveal sections on scroll
+    var sections = document.querySelectorAll('[data-product-section]');
+    if (reduce) {
+      sections.forEach(function (s) { s.classList.add('is-visible'); });
+    } else if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.25 });
+      sections.forEach(function (s) { io.observe(s); });
+    } else {
+      sections.forEach(function (s) { s.classList.add('is-visible'); });
+    }
+
+    // Cross-highlight callouts: marker <-> line <-> legend <-> target
+    sections.forEach(function (section) {
+      function setActive(n, on) {
+        section.querySelectorAll('[data-callout="' + n + '"], [data-callout-target="' + n + '"]')
+          .forEach(function (el) { el.classList.toggle('callout-active', on); });
+      }
+      section.querySelectorAll('[data-callout]').forEach(function (trigger) {
+        var n = trigger.getAttribute('data-callout');
+        trigger.addEventListener('mouseenter', function () { setActive(n, true); });
+        trigger.addEventListener('mouseleave', function () { setActive(n, false); });
+        trigger.addEventListener('focus', function () { setActive(n, true); });
+        trigger.addEventListener('blur', function () { setActive(n, false); });
+      });
+    });
+
+    // 3D tilt on frames (adapted from the homepage tilt script)
+    if (!reduce) {
+      document.querySelectorAll('.product-frame-wrap[data-tilt]').forEach(function (card) {
+        var frame = card.querySelector('.product-frame');
+        if (!frame) return;
+        var maxTilt = 6, bounds;
+        card.addEventListener('mouseenter', function () { bounds = frame.getBoundingClientRect(); frame.style.transition = 'none'; });
+        card.addEventListener('mousemove', function (e) {
+          if (!bounds) return;
+          var mx = e.clientX - bounds.left, my = e.clientY - bounds.top;
+          var rx = ((my - bounds.height / 2) / (bounds.height / 2)) * -maxTilt;
+          var ry = ((mx - bounds.width / 2) / (bounds.width / 2)) * maxTilt;
+          frame.style.transform = 'perspective(1200px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+        });
+        card.addEventListener('mouseleave', function () {
+          frame.style.transition = 'transform 0.4s ease-out';
+          frame.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)';
+        });
+      });
+    }
+  })();
+  </script>
 
 </div>
