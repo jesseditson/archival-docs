@@ -1,0 +1,38 @@
+{% layout 'theme' title: objects.product.title, description: objects.product.description, area: "product" %}
+{% assign product = objects.product %}
+
+<div class="product-page w-full flex flex-col items-center">
+
+  <header class="product-hero w-full max-w-[1200px] px-8 pt-60 pb-20 text-center">
+    <h1 class="hero-message" data-tilt-hero>
+      <span class="hero-line-1">see what you can</span>
+      <span class="hero-line-2">build</span>
+    </h1>
+  </header>
+
+  {% comment %} Feature sections — each filled by an implementation task {% endcomment %}
+  {% for section in product.sections %}
+    {% assign n = forloop.index %}
+    {% comment %} The closing CTA (last section) is rendered separately below. {% endcomment %}
+    {% unless forloop.last %}
+      <section class="product-section {% cycle 'frame-right', 'frame-left' %}" data-product-section data-section="{{ n }}">
+        <div class="product-copy">
+          <h2 class="section-title">{{ section.title }}</h2>
+          <div class="section-content">{{ section.content }}</div>
+        </div>
+        <div class="product-frame-wrap" data-tilt>
+          {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
+        </div>
+      </section>
+    {% endunless %}
+  {% endfor %}
+
+  {% comment %} Closing CTA (reuses homepage prompt iframe pattern) {% endcomment %}
+  {% assign cta = product.sections | last %}
+  <section class="product-cta build-section">
+    <h2 class="build-heading">{{ cta.title }}</h2>
+    <div class="build-description">{{ cta.content }}</div>
+    <iframe id="generate-frame"></iframe>
+  </section>
+
+</div>

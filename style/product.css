@@ -1,0 +1,36 @@
+/* Product tour page — page-level layout. Frame + annotation styles: added in Task 2. */
+.product-page {
+  width: 100%;
+}
+.product-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 8rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.product-section.frame-left {
+  direction: rtl;
+}
+.product-section.frame-left > * {
+  direction: ltr;
+}
+.product-copy {
+  max-width: 32rem;
+}
+.product-cta {
+  margin-top: 4rem;
+}
+@media (max-width: 768px) {
+  .product-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 5rem auto;
+  }
+  .product-section.frame-left {
+    direction: ltr;
+  }
+}
