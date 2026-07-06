@@ -3,6 +3,12 @@
   width: 100%;
   overflow-x: clip;
 }
+/* Give the two masthead lines a little breathing room so the "you"
+   descenders don't collide with the "build" ascenders. Scoped to the
+   product hero so the homepage's identical hero is unaffected. */
+.product-hero .hero-line-2 {
+  margin-top: 0.12em;
+}
 .product-section {
   width: 100%;
   max-width: 1200px;
