@@ -333,6 +333,67 @@
               <li class="callout-item" data-callout="2" id="c5-2" style="--i:2;"><b>2</b> Every site is backed by a real repository you control.</li>
               <li class="callout-item" data-callout="3" id="c5-3" style="--i:3;"><b>3</b> A full, timestamped history of every deploy at a glance.</li>
             </ol>
+          {% elsif n == 6 %}
+            <div class="product-frame product-frame--history">
+              <div class="product-frame-glow" aria-hidden="true"></div>
+
+              {% comment %} Slide-in History panel: uncommitted changes + published commits {% endcomment %}
+              <div class="pf-history-panel pf-glass">
+                <div class="pf-history-header">
+                  <span class="pf-history-title">History</span>
+                </div>
+
+                <div class="pf-history-group" data-callout-target="1">
+                  <div class="pf-history-group-label">Upcoming changes</div>
+                  <div class="pf-change-row">
+                    <i class="pf-dot warn" aria-hidden="true"></i>
+                    <span class="pf-change-desc">Edited: Home &rsaquo; Hero title</span>
+                  </div>
+                  <div class="pf-change-row">
+                    <i class="pf-dot warn" aria-hidden="true"></i>
+                    <span class="pf-change-desc">Added: Post &rsaquo; Summer sale</span>
+                  </div>
+                </div>
+
+                <div class="pf-history-group">
+                  <div class="pf-history-group-label">Published</div>
+                  <div class="pf-commit-row">
+                    <i class="pf-dot ok" aria-hidden="true"></i>
+                    <span class="pf-commit-date">Jul 6</span>
+                    <span class="pf-commit-msg">Update homepage copy</span>
+                    <button class="pf-revert-btn" type="button" data-callout-target="3">Revert</button>
+                  </div>
+                  <div class="pf-commit-row" data-callout-target="2">
+                    <i class="pf-dot ok" aria-hidden="true"></i>
+                    <span class="pf-commit-date">Jul 4</span>
+                    <span class="pf-commit-msg">Add new gallery images</span>
+                    <button class="pf-revert-btn" type="button">Revert</button>
+                  </div>
+                  <div class="pf-commit-row">
+                    <i class="pf-dot ok" aria-hidden="true"></i>
+                    <span class="pf-commit-date">Jul 1</span>
+                    <span class="pf-commit-msg">Fix contact form styling</span>
+                    <button class="pf-revert-btn" type="button">Revert</button>
+                  </div>
+                </div>
+              </div>
+
+              <button class="callout-marker" data-callout="1" style="--cx:50%; --cy:26%; --i:1;" aria-describedby="c6-1">1</button>
+              <button class="callout-marker" data-callout="2" style="--cx:40%; --cy:58%; --i:2;" aria-describedby="c6-2">2</button>
+              <button class="callout-marker" data-callout="3" style="--cx:78%; --cy:66%; --i:3;" aria-describedby="c6-3">3</button>
+            </div>
+
+            <svg class="callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path class="callout-line" data-callout="1" style="--i:1;" d="M50 26 L50 6" pathLength="1"/>
+              <path class="callout-line" data-callout="2" style="--i:2;" d="M40 58 L2 52" pathLength="1"/>
+              <path class="callout-line" data-callout="3" style="--i:3;" d="M78 66 L102 74" pathLength="1"/>
+            </svg>
+
+            <ol class="callout-legend">
+              <li class="callout-item" data-callout="1" id="c6-1" style="--i:1;"><b>1</b> See exactly what's changed before it goes live.</li>
+              <li class="callout-item" data-callout="2" id="c6-2" style="--i:2;"><b>2</b> Every publish is a point in time you can return to.</li>
+              <li class="callout-item" data-callout="3" id="c6-3" style="--i:3;"><b>3</b> Roll back any change &mdash; one edit or a whole day &mdash; instantly.</li>
+            </ol>
           {% else %}
             {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
           {% endif %}
