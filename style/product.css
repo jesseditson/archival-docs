@@ -182,17 +182,23 @@
     transform: translateY(30px);
     transition: opacity 0.7s ease-out, transform 0.7s ease-out;
   }
+  /* Reveal (opacity/transform) carries the staggered delay; hover properties
+     (box-shadow, color) transition with no delay so hover responds instantly. */
   .callout-marker {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.4);
-    transition: opacity 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.3s ease-out;
-    transition-delay: calc(0.5s + var(--i, 1) * 0.12s);
+    transition:
+      opacity 0.35s ease-out calc(0.5s + var(--i, 1) * 0.12s),
+      transform 0.35s ease-out calc(0.5s + var(--i, 1) * 0.12s),
+      box-shadow 0.15s ease-out;
   }
   .callout-item {
     opacity: 0;
     transform: translateY(8px);
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out, color 0.2s ease-out;
-    transition-delay: calc(0.5s + var(--i, 1) * 0.12s);
+    transition:
+      opacity 0.4s ease-out calc(0.5s + var(--i, 1) * 0.12s),
+      transform 0.4s ease-out calc(0.5s + var(--i, 1) * 0.12s),
+      color 0.15s ease-out;
   }
 
   .product-section.is-visible .product-frame { opacity: 1; transform: none; }
