@@ -1177,3 +1177,12 @@
   .product-frame--publish { padding: 1rem; min-height: 24rem; }
   .pf-publish-modal { padding: 0.85rem; gap: 0.65rem; max-width: none; }
 }
+
+/* ============ Closing CTA (Section 8): finale spacing/centering polish ============ */
+.product-cta.build-section {
+  margin-top: 10rem;
+  max-width: 52rem;
+}
+.product-cta .primary-cta-container {
+  margin-top: 2rem;
+}
