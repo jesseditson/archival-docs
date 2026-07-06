@@ -394,6 +394,66 @@
               <li class="callout-item" data-callout="2" id="c6-2" style="--i:2;"><b>2</b> Every publish is a point in time you can return to.</li>
               <li class="callout-item" data-callout="3" id="c6-3" style="--i:3;"><b>3</b> Roll back any change &mdash; one edit or a whole day &mdash; instantly.</li>
             </ol>
+          {% elsif n == 7 %}
+            <div class="product-frame product-frame--publish">
+              <div class="product-frame-glow" aria-hidden="true"></div>
+
+              {% comment %} Dimmed editor top bar, peeking out behind the modal {% endcomment %}
+              <div class="pf-publish-topbar">
+                <span class="pf-publish-topbar-label">Editor</span>
+                <span class="pf-status" data-callout-target="3"><i class="pf-dot warn" aria-hidden="true"></i>Publishing&hellip;</span>
+              </div>
+
+              {% comment %} Publish Changes modal, dimming the editor behind it {% endcomment %}
+              <div class="pf-publish-backdrop">
+                <div class="pf-publish-modal pf-glass">
+                  <div class="pf-publish-header">
+                    <span class="pf-publish-title">Publish Changes</span>
+                  </div>
+
+                  <div class="pf-publish-changes" data-callout-target="1">
+                    <div class="pf-publish-change-row">
+                      <span class="pf-publish-change-desc">Edited: Home &rsaquo; Hero</span>
+                      <button class="pf-publish-undo" type="button">Undo</button>
+                    </div>
+                    <div class="pf-publish-change-row">
+                      <span class="pf-publish-change-desc">Added: Pricing &rsaquo; Tier</span>
+                      <button class="pf-publish-undo" type="button">Undo</button>
+                    </div>
+                    <div class="pf-publish-change-row">
+                      <span class="pf-publish-change-desc">Removed: Blog &rsaquo; Draft</span>
+                      <button class="pf-publish-undo" type="button">Undo</button>
+                    </div>
+                  </div>
+
+                  <div class="pf-publish-summary">
+                    <label class="pf-publish-label">Commit summary</label>
+                    <div class="pf-input pf-publish-textarea">Refresh hero and pricing</div>
+                  </div>
+
+                  <div class="pf-publish-actions">
+                    <button class="pf-publish-cancel" type="button">Cancel</button>
+                    <button class="pf-cta" type="button" data-callout-target="2">Publish</button>
+                  </div>
+                </div>
+              </div>
+
+              <button class="callout-marker" data-callout="1" style="--cx:42%; --cy:38%; --i:1;" aria-describedby="c7-1">1</button>
+              <button class="callout-marker" data-callout="2" style="--cx:70%; --cy:74%; --i:2;" aria-describedby="c7-2">2</button>
+              <button class="callout-marker" data-callout="3" style="--cx:24%; --cy:9%; --i:3;" aria-describedby="c7-3">3</button>
+            </div>
+
+            <svg class="callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path class="callout-line" data-callout="1" style="--i:1;" d="M42 38 L2 30" pathLength="1"/>
+              <path class="callout-line" data-callout="2" style="--i:2;" d="M70 74 L102 82" pathLength="1"/>
+              <path class="callout-line" data-callout="3" style="--i:3;" d="M24 9 L4 2" pathLength="1"/>
+            </svg>
+
+            <ol class="callout-legend">
+              <li class="callout-item" data-callout="1" id="c7-1" style="--i:1;"><b>1</b> Review everything that will change, and undo any of it.</li>
+              <li class="callout-item" data-callout="2" id="c7-2" style="--i:2;"><b>2</b> One click and your site is live in seconds on Archival hosting.</li>
+              <li class="callout-item" data-callout="3" id="c7-3" style="--i:3;"><b>3</b> Because it's a plain static site, you can also host the output anywhere yourself.</li>
+            </ol>
           {% else %}
             {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
           {% endif %}
