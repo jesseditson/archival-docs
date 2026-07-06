@@ -140,6 +140,76 @@
               <li class="callout-item" data-callout="2" id="c2-2" style="--i:2;"><b>2</b> Attach photos, video, or audio you already have.</li>
               <li class="callout-item" data-callout="3" id="c2-3" style="--i:3;"><b>3</b> Archival generates three complete, real sites — pick your favorite and go live.</li>
             </ol>
+          {% elsif n == 3 %}
+            <div class="product-frame product-frame--content">
+              <div class="product-frame-glow" aria-hidden="true"></div>
+
+              {% comment %} Schema-driven object edit form {% endcomment %}
+              <div class="pf-content-form pf-glass">
+                <div class="pf-content-fields" data-callout-target="1">
+                  <div class="pf-field">
+                    <label>Title</label>
+                    <div class="pf-input">Notes from the field</div>
+                  </div>
+                  <div class="pf-fields-row">
+                    <div class="pf-field">
+                      <label>Published</label>
+                      <div class="pf-input">Jul 6, 2026</div>
+                    </div>
+                    <div class="pf-field">
+                      <label>Featured</label>
+                      <div class="pf-toggle"></div>
+                    </div>
+                  </div>
+                  <div class="pf-field pf-field--unsynced">
+                    <label><i class="pf-dot" aria-hidden="true"></i>Category</label>
+                    <div class="pf-select">Essays<span class="pf-select-caret" aria-hidden="true">&#9662;</span></div>
+                  </div>
+                </div>
+
+                {% comment %} Milkdown-style rich text area {% endcomment %}
+                <div class="pf-markdown" data-callout-target="2">
+                  <div class="pf-markdown-toolbar">
+                    <span class="pf-md-btn"><b>B</b></span>
+                    <span class="pf-md-btn"><i>I</i></span>
+                    <span class="pf-md-btn">H</span>
+                    <span class="pf-md-btn">&bull;</span>
+                    <span class="pf-md-btn pf-md-btn--link" aria-hidden="true">&#128279;</span>
+                  </div>
+                  <div class="pf-markdown-body">
+                    <p class="pf-md-line">Some mornings the light comes in <strong>sideways</strong>, and everything else can wait.</p>
+                    <ul class="pf-md-list">
+                      <li>Started before sunrise, finished long after.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {% comment %} Unsynced flag + revert/clear controls {% endcomment %}
+                <div class="pf-unsynced-bar" data-callout-target="3">
+                  <span class="pf-unsynced-flag"><i class="pf-dot" aria-hidden="true"></i>1 field unsynced</span>
+                  <span class="pf-unsynced-actions">
+                    <button class="pf-text-link pf-unsynced" type="button">Revert</button>
+                    <button class="pf-text-link pf-unsynced" type="button">Clear</button>
+                  </span>
+                </div>
+              </div>
+
+              <button class="callout-marker" data-callout="1" style="--cx:28%; --cy:30%; --i:1;" aria-describedby="c3-1">1</button>
+              <button class="callout-marker" data-callout="2" style="--cx:60%; --cy:60%; --i:2;" aria-describedby="c3-2">2</button>
+              <button class="callout-marker" data-callout="3" style="--cx:30%; --cy:82%; --i:3;" aria-describedby="c3-3">3</button>
+            </div>
+
+            <svg class="callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path class="callout-line" data-callout="1" style="--i:1;" d="M28 30 L4 22" pathLength="1"/>
+              <path class="callout-line" data-callout="2" style="--i:2;" d="M60 60 L100 68" pathLength="1"/>
+              <path class="callout-line" data-callout="3" style="--i:3;" d="M30 82 L6 92" pathLength="1"/>
+            </svg>
+
+            <ol class="callout-legend">
+              <li class="callout-item" data-callout="1" id="c3-1" style="--i:1;"><b>1</b> Real, typed fields — text, dates, switches, dropdowns — not a pile of boxes.</li>
+              <li class="callout-item" data-callout="2" id="c3-2" style="--i:2;"><b>2</b> Rich text that feels like a word processor, stored as clean content.</li>
+              <li class="callout-item" data-callout="3" id="c3-3" style="--i:3;"><b>3</b> Unsaved edits are flagged, and any field reverts with one click.</li>
+            </ol>
           {% else %}
             {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
           {% endif %}
