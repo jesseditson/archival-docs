@@ -1,6 +1,7 @@
 /* Product tour page — page-level layout. Frame + annotation styles: added in Task 2. */
 .product-page {
   width: 100%;
+  overflow-x: clip;
 }
 .product-section {
   width: 100%;
@@ -149,7 +150,7 @@
   stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
   stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  stroke-dashoffset: 0;
 }
 .callout-line.callout-active { stroke: rgba(255, 131, 0, 1); }
 
@@ -201,6 +202,7 @@
     transition-delay: calc(0.5s + var(--i, 1) * 0.12s);
   }
   .callout-line {
+    stroke-dashoffset: 1;
     transition: stroke-dashoffset 0.6s ease-out, stroke 0.3s ease-out;
     transition-delay: calc(0.5s + var(--i, 1) * 0.12s);
   }
