@@ -10,7 +10,7 @@
     </h1>
   </header>
 
-  {% comment %} Feature sections — each filled by an implementation task {% endcomment %}
+  {% comment %} Feature sections, each filled by an implementation task {% endcomment %}
   {% for section in product.sections %}
     {% assign n = forloop.index %}
     {% comment %} The closing CTA (last section) is rendered separately below. {% endcomment %}
@@ -69,10 +69,10 @@
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c1-1" style="--i:1;"><b>1</b> Switch between editing content and asking Archival to make changes for you.</li>
-              <li class="callout-item" data-callout="2" id="c1-2" style="--i:2;"><b>2</b> A simple, focused panel to edit the page you're on — no code required.</li>
-              <li class="callout-item" data-callout="3" id="c1-3" style="--i:3;"><b>3</b> Your real, live website — including a true-to-life mobile preview.</li>
-              <li class="callout-item" data-callout="4" id="c1-4" style="--i:4;"><b>4</b> Every kind of content on your site, one tab away.</li>
+              <li class="callout-item" data-callout="1" id="c1-1" style="--i:1;"><b>1</b> Switch between editing content and task mode.</li>
+              <li class="callout-item" data-callout="2" id="c1-2" style="--i:2;"><b>2</b> A focused panel to edit your page. No code required.</li>
+              <li class="callout-item" data-callout="3" id="c1-3" style="--i:3;"><b>3</b> Your live site, with a true-to-life mobile preview.</li>
+              <li class="callout-item" data-callout="4" id="c1-4" style="--i:4;"><b>4</b> Every kind of content, one tab away.</li>
             </ol>
           {% elsif n == 2 %}
             <div class="product-frame product-frame--prompt">
@@ -123,9 +123,9 @@
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c2-1" style="--i:1;"><b>1</b> Describe your site in plain language — no templates to pick through.</li>
+              <li class="callout-item" data-callout="1" id="c2-1" style="--i:1;"><b>1</b> Describe your site in plain language.</li>
               <li class="callout-item" data-callout="2" id="c2-2" style="--i:2;"><b>2</b> Attach photos, video, or audio you already have.</li>
-              <li class="callout-item" data-callout="3" id="c2-3" style="--i:3;"><b>3</b> Archival generates three complete, real sites — pick your favorite and go live.</li>
+              <li class="callout-item" data-callout="3" id="c2-3" style="--i:3;"><b>3</b> Pick from three complete, real sites and go live.</li>
             </ol>
           {% elsif n == 3 %}
             <div class="product-frame product-frame--content">
@@ -187,9 +187,9 @@
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c3-1" style="--i:1;"><b>1</b> Real, typed fields — text, dates, switches, dropdowns — not a pile of boxes.</li>
-              <li class="callout-item" data-callout="2" id="c3-2" style="--i:2;"><b>2</b> Rich text that feels like a word processor, stored as clean content.</li>
-              <li class="callout-item" data-callout="3" id="c3-3" style="--i:3;"><b>3</b> Unsaved edits are flagged, and any field reverts with one click.</li>
+              <li class="callout-item" data-callout="1" id="c3-1" style="--i:1;"><b>1</b> Real, typed fields, not a pile of boxes.</li>
+              <li class="callout-item" data-callout="2" id="c3-2" style="--i:2;"><b>2</b> Rich text editing, stored as clean content.</li>
+              <li class="callout-item" data-callout="3" id="c3-3" style="--i:3;"><b>3</b> Unsaved edits are flagged and revert in one click.</li>
             </ol>
           {% elsif n == 4 %}
             <div class="product-frame product-frame--media">
@@ -224,9 +224,9 @@
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c4-1" style="--i:1;"><b>1</b> Drag in a photo — that's the whole workflow.</li>
-              <li class="callout-item" data-callout="2" id="c4-2" style="--i:2;"><b>2</b> Phone formats like HEIC convert automatically as they upload.</li>
-              <li class="callout-item" data-callout="3" id="c4-3" style="--i:3;"><b>3</b> Files go to a fast global network, and the same file is never stored twice.</li>
+              <li class="callout-item" data-callout="1" id="c4-1" style="--i:1;"><b>1</b> Drag in a photo. That's the whole workflow.</li>
+              <li class="callout-item" data-callout="2" id="c4-2" style="--i:2;"><b>2</b> Phone formats like HEIC convert automatically.</li>
+              <li class="callout-item" data-callout="3" id="c4-3" style="--i:3;"><b>3</b> Served from a fast CDN, and never stored twice.</li>
             </ol>
           {% elsif n == 5 %}
             <div class="product-frame product-frame--settings">
@@ -298,9 +298,9 @@
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c5-1" style="--i:1;"><b>1</b> Buy a domain here or bring your own — Archival manages the DNS.</li>
-              <li class="callout-item" data-callout="2" id="c5-2" style="--i:2;"><b>2</b> Every site is backed by a real repository you control.</li>
-              <li class="callout-item" data-callout="3" id="c5-3" style="--i:3;"><b>3</b> A full, timestamped history of every deploy at a glance.</li>
+              <li class="callout-item" data-callout="1" id="c5-1" style="--i:1;"><b>1</b> Buy a domain or bring your own. Archival runs DNS.</li>
+              <li class="callout-item" data-callout="2" id="c5-2" style="--i:2;"><b>2</b> Backed by a real repository you control.</li>
+              <li class="callout-item" data-callout="3" id="c5-3" style="--i:3;"><b>3</b> A timestamped history of every deploy.</li>
             </ol>
           {% elsif n == 6 %}
             <div class="product-frame product-frame--history">
@@ -354,8 +354,8 @@
 
             <ol class="callout-legend">
               <li class="callout-item" data-callout="1" id="c6-1" style="--i:1;"><b>1</b> See exactly what's changed before it goes live.</li>
-              <li class="callout-item" data-callout="2" id="c6-2" style="--i:2;"><b>2</b> Every publish is a point in time you can return to.</li>
-              <li class="callout-item" data-callout="3" id="c6-3" style="--i:3;"><b>3</b> Roll back any change &mdash; one edit or a whole day &mdash; instantly.</li>
+              <li class="callout-item" data-callout="2" id="c6-2" style="--i:2;"><b>2</b> Every publish is a point you can return to.</li>
+              <li class="callout-item" data-callout="3" id="c6-3" style="--i:3;"><b>3</b> Roll back any change instantly.</li>
             </ol>
           {% elsif n == 7 %}
             <div class="product-frame product-frame--publish">
@@ -407,12 +407,12 @@
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c7-1" style="--i:1;"><b>1</b> Review everything that will change, and undo any of it.</li>
-              <li class="callout-item" data-callout="2" id="c7-2" style="--i:2;"><b>2</b> One click and your site is live in seconds on Archival hosting.</li>
-              <li class="callout-item" data-callout="3" id="c7-3" style="--i:3;"><b>3</b> Because it's a plain static site, you can also host the output anywhere yourself.</li>
+              <li class="callout-item" data-callout="1" id="c7-1" style="--i:1;"><b>1</b> Review every change, and undo any of it.</li>
+              <li class="callout-item" data-callout="2" id="c7-2" style="--i:2;"><b>2</b> One click and you're live in seconds.</li>
+              <li class="callout-item" data-callout="3" id="c7-3" style="--i:3;"><b>3</b> It's a plain static site you can host anywhere.</li>
             </ol>
           {% else %}
-            {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
+            {% comment %} FRAME {{ n }}: bespoke editor UI added by its task {% endcomment %}
           {% endif %}
         </div>
       </section>

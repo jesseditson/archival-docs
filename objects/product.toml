@@ -1,23 +1,23 @@
 order = -1
 title = "Archival | Product"
-description = "See the Archival editor — describe a site and it's built, edit content not code, and publish to a domain you own. A guided tour of the product."
+description = "See the Archival editor. Describe a site and it's built, edit content not code, and publish to a domain you own. A guided tour of the product."
 
 [[sections]]
 title = "Meet the editor that builds itself"
 content = """
-This is the Archival editor. Your live website on one side, a simple editing panel on the other — no code, no clutter. Everything you need to run your site lives here: content, media, settings, history, and publishing.
+This is the Archival editor. Your live website on one side, a simple editing panel on the other. No code, no clutter. Everything you need to run your site lives here: content, media, settings, history, and publishing.
 """
 
 [[sections]]
 title = "Describe it. Get three real sites."
 content = """
-Start by describing the site you want — and attach any photos, video, or audio you already have. Archival generates three complete, real websites to choose from. Later, you can keep changing your site the same way: just describe what you'd like in plain language.
+Start by describing the site you want, and attach any photos, video, or audio you already have. Archival generates three complete, real websites to choose from. Later, you can keep changing your site the same way: just describe what you'd like in plain language.
 """
 
 [[sections]]
 title = "Content, not code"
 content = """
-Archival organizes your site as real, typed content — posts, products, pages — not a tangle of boxes. Rich text editing feels like a word processor, dates and switches are simple inputs, and you edit each thing in one place. Change your mind? Every field reverts with one click.
+Archival organizes your site as real, typed content like posts, products, and pages, not a tangle of boxes. Rich text editing feels like a word processor, dates and switches are simple inputs, and you edit each thing in one place. Change your mind? Every field reverts with one click.
 """
 
 [[sections]]
@@ -29,19 +29,19 @@ Drag in a photo and you're done. Archival converts phone formats like HEIC autom
 [[sections]]
 title = "Your site, your settings"
 content = """
-Point a domain you already own at your site, or buy a new one right here — Archival handles the DNS. See your plan, your connected repository, and a full history of every deploy in one place. It's your site, on your address.
+Point a domain you already own at your site, or buy a new one right here. Archival handles the DNS. See your plan, your connected repository, and a full history of every deploy in one place. It's your site, on your address.
 """
 
 [[sections]]
 title = "Every change, tracked forever"
 content = """
-Archival remembers every change you've ever made. Browse your full history, see exactly what changed and when, and roll back anything — a single edit or a whole day's work — instantly. Your site can never be lost.
+Archival remembers every change you've ever made. Browse your full history, see exactly what changed and when, and roll back anything instantly, from a single edit to a whole day's work. Your site can never be lost.
 """
 
 [[sections]]
-title = "Publish instantly — or host it anywhere"
+title = "Publish instantly, or host it anywhere"
 content = """
-Review your changes, write a quick note, and publish — your site is live in seconds on Archival's hosting. And because Archival builds a plain, standard website, you own the output completely: host it yourself anywhere, anytime. No lock-in, ever.
+Review your changes, write a quick note, and publish. Your site is live in seconds on Archival's hosting. And because Archival builds a plain, standard website, you own the output completely: host it yourself anywhere, anytime. No lock-in, ever.
 """
 
 [[sections]]
