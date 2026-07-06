@@ -393,3 +393,122 @@
     gap: 0.5rem;
   }
 }
+
+/* ============ Frame 2 (Prompt + 3-up template chooser): scoped primitives ============ */
+.product-frame--prompt {
+  width: 100%;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.pf-prompt-card {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.pf-prompt-textarea {
+  min-height: 4rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--pf-hairline);
+  color: var(--pf-text-dim);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.pf-prompt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.pf-attach-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--pf-text-dim);
+  background: var(--pf-glass);
+  border: 1px dashed var(--pf-hairline);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem 0.3rem 0.5rem;
+  white-space: nowrap;
+}
+.pf-chip-icon {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--pf-teal);
+}
+.pf-chip:nth-child(2) .pf-chip-icon { background: var(--pf-violet); }
+.pf-chip:nth-child(3) .pf-chip-icon { background: var(--pf-purple); }
+.pf-generate-btn { white-space: nowrap; }
+
+.pf-chooser {
+  display: grid;
+  grid-template-columns: auto repeat(3, minmax(0, 1fr)) auto;
+  align-items: center;
+  gap: 0.6rem;
+}
+.pf-paddle {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--pf-glass);
+  border: 1px solid var(--pf-hairline);
+  color: var(--pf-text-dim);
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+.pf-site-card {
+  background: var(--pf-panel-2);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  opacity: 0.65;
+  transform: scale(0.94);
+  min-width: 0;
+}
+.pf-site-card--active {
+  opacity: 1;
+  transform: scale(1);
+  border-color: var(--pf-violet);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.4), 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.pf-site-header {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.6), rgba(0, 200, 255, 0.4));
+}
+.pf-site-block {
+  height: 1.3rem;
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.08);
+}
+.pf-site-block--wide { height: 2rem; }
+.pf-golive-btn {
+  margin-top: 0.25rem;
+  height: 1.75rem;
+  font-size: 0.68rem;
+  padding: 0 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .product-frame--prompt { padding: 1rem; gap: 1.25rem; }
+  .pf-chooser { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pf-paddle { display: none; }
+}

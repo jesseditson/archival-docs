@@ -81,6 +81,65 @@
               <li class="callout-item" data-callout="3" id="c1-3" style="--i:3;"><b>3</b> Your real, live website — including a true-to-life mobile preview.</li>
               <li class="callout-item" data-callout="4" id="c1-4" style="--i:4;"><b>4</b> Every kind of content on your site, one tab away.</li>
             </ol>
+          {% elsif n == 2 %}
+            <div class="product-frame product-frame--prompt">
+              <div class="product-frame-glow" aria-hidden="true"></div>
+
+              {% comment %} Glowing AI prompt card {% endcomment %}
+              <div class="pf-prompt-card pf-glass">
+                <div class="pf-prompt-textarea" data-callout-target="1">Describe what type of site you'd like to create&hellip;</div>
+                <div class="pf-prompt-row">
+                  <div class="pf-attach-row" data-callout-target="2">
+                    <span class="pf-chip"><i class="pf-chip-icon" aria-hidden="true"></i>Photos</span>
+                    <span class="pf-chip"><i class="pf-chip-icon" aria-hidden="true"></i>Video</span>
+                    <span class="pf-chip"><i class="pf-chip-icon" aria-hidden="true"></i>Audio</span>
+                  </div>
+                  <button class="pf-cta pf-generate-btn" type="button">Generate</button>
+                </div>
+              </div>
+
+              {% comment %} 3-up generated template chooser {% endcomment %}
+              <div class="pf-chooser" data-callout-target="3">
+                <button class="pf-paddle pf-paddle-prev" type="button" aria-label="Previous site">&#8249;</button>
+
+                <div class="pf-site-card">
+                  <div class="pf-site-header"></div>
+                  <div class="pf-site-block pf-site-block--wide"></div>
+                  <div class="pf-site-block"></div>
+                </div>
+
+                <div class="pf-site-card pf-site-card--active">
+                  <div class="pf-site-header"></div>
+                  <div class="pf-site-block pf-site-block--wide"></div>
+                  <div class="pf-site-block"></div>
+                  <button class="pf-cta pf-golive-btn" type="button">Go Live</button>
+                </div>
+
+                <div class="pf-site-card">
+                  <div class="pf-site-header"></div>
+                  <div class="pf-site-block pf-site-block--wide"></div>
+                  <div class="pf-site-block"></div>
+                </div>
+
+                <button class="pf-paddle pf-paddle-next" type="button" aria-label="Next site">&#8250;</button>
+              </div>
+
+              <button class="callout-marker" data-callout="1" style="--cx:50%; --cy:22%; --i:1;" aria-describedby="c2-1">1</button>
+              <button class="callout-marker" data-callout="2" style="--cx:24%; --cy:40%; --i:2;" aria-describedby="c2-2">2</button>
+              <button class="callout-marker" data-callout="3" style="--cx:50%; --cy:78%; --i:3;" aria-describedby="c2-3">3</button>
+            </div>
+
+            <svg class="callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path class="callout-line" data-callout="1" style="--i:1;" d="M50 22 L50 4" pathLength="1"/>
+              <path class="callout-line" data-callout="2" style="--i:2;" d="M24 40 L2 34" pathLength="1"/>
+              <path class="callout-line" data-callout="3" style="--i:3;" d="M50 78 L50 98" pathLength="1"/>
+            </svg>
+
+            <ol class="callout-legend">
+              <li class="callout-item" data-callout="1" id="c2-1" style="--i:1;"><b>1</b> Describe your site in plain language — no templates to pick through.</li>
+              <li class="callout-item" data-callout="2" id="c2-2" style="--i:2;"><b>2</b> Attach photos, video, or audio you already have.</li>
+              <li class="callout-item" data-callout="3" id="c2-3" style="--i:3;"><b>3</b> Archival generates three complete, real sites — pick your favorite and go live.</li>
+            </ol>
           {% else %}
             {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
           {% endif %}
