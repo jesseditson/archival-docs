@@ -253,6 +253,86 @@
               <li class="callout-item" data-callout="2" id="c4-2" style="--i:2;"><b>2</b> Phone formats like HEIC convert automatically as they upload.</li>
               <li class="callout-item" data-callout="3" id="c4-3" style="--i:3;"><b>3</b> Files go to a fast global network, and the same file is never stored twice.</li>
             </ol>
+          {% elsif n == 5 %}
+            <div class="product-frame product-frame--settings">
+              <div class="product-frame-glow" aria-hidden="true"></div>
+
+              {% comment %} Overview + DNS + recent deploys {% endcomment %}
+              <div class="pf-settings-card pf-glass">
+                <div class="pf-settings-overview">
+                  <div class="pf-settings-row">
+                    <span class="pf-settings-site"><i class="pf-dot ok" aria-hidden="true"></i>acme.com</span>
+                    <span class="pf-settings-live">Live</span>
+                  </div>
+                  <div class="pf-settings-row">
+                    <span class="pf-settings-label">Plan</span>
+                    <span class="pf-settings-value">$14/mo</span>
+                  </div>
+                  <div class="pf-settings-row" data-callout-target="2">
+                    <span class="pf-settings-label">GitHub</span>
+                    <span class="pf-settings-value">acme-studio/acme-site</span>
+                  </div>
+                  <div class="pf-settings-row">
+                    <span class="pf-settings-label">Billing</span>
+                    <span class="pf-settings-value">&bull;&bull;&bull;&bull; 4242</span>
+                  </div>
+                </div>
+
+                <div class="pf-dns" data-callout-target="1">
+                  <div class="pf-dns-title">DNS records</div>
+                  <div class="pf-dns-row">
+                    <span class="pf-dns-type">A</span>
+                    <span class="pf-dns-host">@</span>
+                    <span class="pf-dns-value">76.76.21.21</span>
+                  </div>
+                  <div class="pf-dns-row">
+                    <span class="pf-dns-type">CNAME</span>
+                    <span class="pf-dns-host">www</span>
+                    <span class="pf-dns-value">cname.archival.dev</span>
+                  </div>
+                  <div class="pf-dns-row">
+                    <span class="pf-dns-type">TXT</span>
+                    <span class="pf-dns-host">@</span>
+                    <span class="pf-dns-value">v=spf1 include:_spf&hellip;</span>
+                  </div>
+                </div>
+
+                <div class="pf-deploys" data-callout-target="3">
+                  <div class="pf-deploys-title">Recent deploys</div>
+                  <div class="pf-deploy-row">
+                    <span class="pf-deploy-date">Jul 6</span>
+                    <span class="pf-deploy-msg">Update homepage copy</span>
+                    <i class="pf-dot ok" aria-hidden="true"></i>
+                  </div>
+                  <div class="pf-deploy-row">
+                    <span class="pf-deploy-date">Jul 4</span>
+                    <span class="pf-deploy-msg">Add new gallery images</span>
+                    <i class="pf-dot ok" aria-hidden="true"></i>
+                  </div>
+                  <div class="pf-deploy-row">
+                    <span class="pf-deploy-date">Jul 1</span>
+                    <span class="pf-deploy-msg">Fix contact form styling</span>
+                    <i class="pf-dot ok" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+
+              <button class="callout-marker" data-callout="1" style="--cx:62%; --cy:30%; --i:1;" aria-describedby="c5-1">1</button>
+              <button class="callout-marker" data-callout="2" style="--cx:26%; --cy:46%; --i:2;" aria-describedby="c5-2">2</button>
+              <button class="callout-marker" data-callout="3" style="--cx:40%; --cy:78%; --i:3;" aria-describedby="c5-3">3</button>
+            </div>
+
+            <svg class="callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path class="callout-line" data-callout="1" style="--i:1;" d="M62 30 L100 20" pathLength="1"/>
+              <path class="callout-line" data-callout="2" style="--i:2;" d="M26 46 L2 40" pathLength="1"/>
+              <path class="callout-line" data-callout="3" style="--i:3;" d="M40 78 L14 94" pathLength="1"/>
+            </svg>
+
+            <ol class="callout-legend">
+              <li class="callout-item" data-callout="1" id="c5-1" style="--i:1;"><b>1</b> Buy a domain here or bring your own — Archival manages the DNS.</li>
+              <li class="callout-item" data-callout="2" id="c5-2" style="--i:2;"><b>2</b> Every site is backed by a real repository you control.</li>
+              <li class="callout-item" data-callout="3" id="c5-3" style="--i:3;"><b>3</b> A full, timestamped history of every deploy at a glance.</li>
+            </ol>
           {% else %}
             {% comment %} FRAME {{ n }} — bespoke editor UI added by its task {% endcomment %}
           {% endif %}
