@@ -1,7 +1,9 @@
-{% layout 'theme' title: objects.product.title, description: objects.product.description, area: "product" %}
+{% layout 'theme' title: objects.product.title
+  , description: objects.product.description
+  , area: "product" %}
 {% assign product = objects.product %}
 
-<div class="product-page w-full flex flex-col items-center">
+  <div class="product-page w-full flex flex-col items-center">
 
   <header class="product-hero w-full max-w-[1200px] px-8 pt-60 pb-20 text-center">
     <h1 class="hero-message" data-tilt-hero>
@@ -15,7 +17,10 @@
     {% assign n = forloop.index %}
     {% comment %} The closing CTA (last section) is rendered separately below. {% endcomment %}
     {% unless forloop.last %}
-      <section class="product-section {% cycle 'frame-right', 'frame-left' %}" data-product-section data-section="{{ n }}">
+      <section
+        class="product-section {% cycle 'frame-right', 'frame-left' %}"
+        data-product-section
+        data-section="{{ n }}">
         <div class="product-copy">
           <h2 class="section-title">{{ section.title }}</h2>
           <div class="section-content">{{ section.content }}</div>
@@ -28,17 +33,22 @@
               {% comment %} Top chrome bar {% endcomment %}
               <div class="pf-chrome" data-callout-target="1">
                 <span class="pf-chrome-btn">History</span>
-                <div class="pf-mode-toggle"><span class="on">Content</span><span>Task</span></div>
+                <div class="pf-mode-toggle">
+                  <span class="on">Content</span>
+                  <span>Task</span>
+                </div>
                 <div class="pf-chrome-right">
-                  <span class="pf-chrome-btn">Mobile</span>
+                  <span class="pf-chrome-btn" data-callout-target="4">Mobile</span>
                   <span class="pf-chrome-btn">View Live</span>
-                  <span class="pf-status"><i class="pf-dot ok"></i></span>
+                  <span class="pf-status">
+                    <i class="pf-dot ok"></i>
+                  </span>
                 </div>
               </div>
 
               <div class="pf-body">
                 {% comment %} Site sections sidebar {% endcomment %}
-                <div class="pf-sidebar" data-callout-target="4">
+                <div class="pf-sidebar">
                   <div class="pf-sidebar-item active">Site</div>
                   <div class="pf-sidebar-item">Gallery</div>
                   <div class="pf-sidebar-item">About</div>
@@ -47,9 +57,18 @@
 
                 {% comment %} Glass editing panel {% endcomment %}
                 <div class="pf-panel pf-glass" data-callout-target="2">
-                  <div class="pf-field"><label>Title</label><div class="pf-input">Hello, world</div></div>
-                  <div class="pf-field"><label>Published</label><div class="pf-input">Jul 6, 2026</div></div>
-                  <div class="pf-field"><label>Draft</label><div class="pf-toggle"></div></div>
+                  <div class="pf-field">
+                    <label>Title</label>
+                    <div class="pf-input">Hello, world</div>
+                  </div>
+                  <div class="pf-field">
+                    <label>Published</label>
+                    <div class="pf-input">Jul 6, 2026</div>
+                  </div>
+                  <div class="pf-field">
+                    <label>Draft</label>
+                    <div class="pf-toggle"></div>
+                  </div>
                 </div>
 
                 {% comment %} Live preview: desktop website wireframe {% endcomment %}
@@ -64,7 +83,11 @@
                     <div class="pf-browser-page">
                       <div class="pf-wire-nav">
                         <div class="pf-wire-logo"></div>
-                        <div class="pf-wire-navlinks"><span></span><span></span><span></span></div>
+                        <div class="pf-wire-navlinks">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
                       </div>
                       <div class="pf-wire-hero">
                         <div class="pf-wire-hero-copy">
@@ -85,17 +108,61 @@
                 </div>
               </div>
 
-              <button type="button" class="callout-marker" data-callout="1" style="--cx:52%; --cy:9.2%; --i:1;" aria-describedby="c1-1">1</button>
-              <button type="button" class="callout-marker" data-callout="2" style="--cx:28.1%; --cy:61.7%; --i:2;" aria-describedby="c1-2">2</button>
-              <button type="button" class="callout-marker" data-callout="3" style="--cx:80.4%; --cy:58.1%; --i:3;" aria-describedby="c1-3">3</button>
-              <button type="button" class="callout-marker" data-callout="4" style="--cx:12.1%; --cy:63.5%; --i:4;" aria-describedby="c1-4">4</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="1"
+                style="--cx:52%; --cy:9.2%; --i:1;"
+                aria-describedby="c1-1">1</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="2"
+                style="--cx:28.1%; --cy:61.7%; --i:2;"
+                aria-describedby="c1-2">2</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="3"
+                style="--cx:80.4%; --cy:58.1%; --i:3;"
+                aria-describedby="c1-3">3</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="4"
+                style="--cx:72.5%; --cy:15.5%; --i:4;"
+                aria-describedby="c1-4">4</button>
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c1-1" style="--i:1;"><b>1</b> Switch between editing content and task mode.</li>
-              <li class="callout-item" data-callout="2" id="c1-2" style="--i:2;"><b>2</b> A focused panel to edit your page. No code required.</li>
-              <li class="callout-item" data-callout="3" id="c1-3" style="--i:3;"><b>3</b> Your live site, previewed right as you edit.</li>
-              <li class="callout-item" data-callout="4" id="c1-4" style="--i:4;"><b>4</b> Every kind of content, one tab away.</li>
+              <li
+                class="callout-item"
+                data-callout="1"
+                id="c1-1"
+                style="--i:1;">
+                <b>1</b>
+                Switch between editing content and task mode.</li>
+              <li
+                class="callout-item"
+                data-callout="2"
+                id="c1-2"
+                style="--i:2;">
+                <b>2</b>
+                A focused panel to edit your page. No code required.</li>
+              <li
+                class="callout-item"
+                data-callout="3"
+                id="c1-3"
+                style="--i:3;">
+                <b>3</b>
+                Your live site, previewed right as you edit.</li>
+              <li
+                class="callout-item"
+                data-callout="4"
+                id="c1-4"
+                style="--i:4;">
+                <b>4</b>
+                Preview your site on mobile any time.</li>
             </ol>
           {% elsif n == 2 %}
             <div class="product-frame product-frame--prompt">
@@ -106,9 +173,12 @@
                 <div class="pf-prompt-textarea" data-callout-target="1">Describe what type of site you'd like to create&hellip;</div>
                 <div class="pf-prompt-row">
                   <div class="pf-attach-row" data-callout-target="2">
-                    <span class="pf-chip"><i class="pf-chip-icon" aria-hidden="true"></i>Photos</span>
-                    <span class="pf-chip"><i class="pf-chip-icon" aria-hidden="true"></i>Video</span>
-                    <span class="pf-chip"><i class="pf-chip-icon" aria-hidden="true"></i>Audio</span>
+                    <span class="pf-chip">
+                      <i class="pf-chip-icon" aria-hidden="true"></i>Photos</span>
+                    <span class="pf-chip">
+                      <i class="pf-chip-icon" aria-hidden="true"></i>Video</span>
+                    <span class="pf-chip">
+                      <i class="pf-chip-icon" aria-hidden="true"></i>Audio</span>
                   </div>
                   <button class="pf-cta pf-generate-btn" type="button">Generate</button>
                 </div>
@@ -116,7 +186,10 @@
 
               {% comment %} 3-up generated template chooser {% endcomment %}
               <div class="pf-chooser" data-callout-target="3">
-                <button class="pf-paddle pf-paddle-prev" type="button" aria-label="Previous site">&#8249;</button>
+                <button
+                  class="pf-paddle pf-paddle-prev"
+                  type="button"
+                  aria-label="Previous site">&#8249;</button>
 
                 <div class="pf-site-card">
                   <div class="pf-site-header"></div>
@@ -137,18 +210,54 @@
                   <div class="pf-site-block"></div>
                 </div>
 
-                <button class="pf-paddle pf-paddle-next" type="button" aria-label="Next site">&#8250;</button>
+                <button
+                  class="pf-paddle pf-paddle-next"
+                  type="button"
+                  aria-label="Next site">&#8250;</button>
               </div>
 
-              <button type="button" class="callout-marker" data-callout="1" style="--cx:94.7%; --cy:21.7%; --i:1;" aria-describedby="c2-1">1</button>
-              <button type="button" class="callout-marker" data-callout="2" style="--cx:53.6%; --cy:39.2%; --i:2;" aria-describedby="c2-2">2</button>
-              <button type="button" class="callout-marker" data-callout="3" style="--cx:50%; --cy:57%; --i:3;" aria-describedby="c2-3">3</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="1"
+                style="--cx:94.7%; --cy:21.7%; --i:1;"
+                aria-describedby="c2-1">1</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="2"
+                style="--cx:53.6%; --cy:39.2%; --i:2;"
+                aria-describedby="c2-2">2</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="3"
+                style="--cx:50%; --cy:57%; --i:3;"
+                aria-describedby="c2-3">3</button>
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c2-1" style="--i:1;"><b>1</b> Describe your site in plain language.</li>
-              <li class="callout-item" data-callout="2" id="c2-2" style="--i:2;"><b>2</b> Attach photos, video, or audio you already have.</li>
-              <li class="callout-item" data-callout="3" id="c2-3" style="--i:3;"><b>3</b> Pick from three complete, real sites and go live.</li>
+              <li
+                class="callout-item"
+                data-callout="1"
+                id="c2-1"
+                style="--i:1;">
+                <b>1</b>
+                Describe your site in plain language.</li>
+              <li
+                class="callout-item"
+                data-callout="2"
+                id="c2-2"
+                style="--i:2;">
+                <b>2</b>
+                Attach photos, video, or audio you already have.</li>
+              <li
+                class="callout-item"
+                data-callout="3"
+                id="c2-3"
+                style="--i:3;">
+                <b>3</b>
+                Pick from several complete, real sites and go live.</li>
             </ol>
           {% elsif n == 3 %}
             <div class="product-frame product-frame--content">
@@ -172,22 +281,29 @@
                     </div>
                   </div>
                   <div class="pf-field pf-field--unsynced">
-                    <label><i class="pf-dot" aria-hidden="true"></i>Category</label>
-                    <div class="pf-select">Essays<span class="pf-select-caret" aria-hidden="true">&#9662;</span></div>
+                    <label>
+                      <i class="pf-dot" aria-hidden="true"></i>Category</label>
+                    <div class="pf-select">Essays<span class="pf-select-caret" aria-hidden="true">&#9662;</span>
+                    </div>
                   </div>
                 </div>
 
                 {% comment %} Milkdown-style rich text area {% endcomment %}
                 <div class="pf-markdown" data-callout-target="2">
                   <div class="pf-markdown-toolbar">
-                    <span class="pf-md-btn"><b>B</b></span>
-                    <span class="pf-md-btn"><i>I</i></span>
+                    <span class="pf-md-btn">
+                      <b>B</b>
+                    </span>
+                    <span class="pf-md-btn">
+                      <i>I</i>
+                    </span>
                     <span class="pf-md-btn">H</span>
                     <span class="pf-md-btn">&bull;</span>
                     <span class="pf-md-btn pf-md-btn--link" aria-hidden="true">&#128279;</span>
                   </div>
                   <div class="pf-markdown-body">
-                    <p class="pf-md-line">Some mornings the light comes in <strong>sideways</strong>, and everything else can wait.</p>
+                    <p class="pf-md-line">Some mornings the light comes in
+                      <strong>sideways</strong>, and everything else can wait.</p>
                     <ul class="pf-md-list">
                       <li>Started before sunrise, finished long after.</li>
                     </ul>
@@ -196,7 +312,8 @@
 
                 {% comment %} Unsynced flag + revert/clear controls {% endcomment %}
                 <div class="pf-unsynced-bar" data-callout-target="3">
-                  <span class="pf-unsynced-flag"><i class="pf-dot" aria-hidden="true"></i>1 field unsynced</span>
+                  <span class="pf-unsynced-flag">
+                    <i class="pf-dot" aria-hidden="true"></i>1 field unsynced</span>
                   <span class="pf-unsynced-actions">
                     <button class="pf-text-link pf-unsynced" type="button">Revert</button>
                     <button class="pf-text-link pf-unsynced" type="button">Clear</button>
@@ -204,15 +321,48 @@
                 </div>
               </div>
 
-              <button type="button" class="callout-marker" data-callout="1" style="--cx:94.7%; --cy:29.9%; --i:1;" aria-describedby="c3-1">1</button>
-              <button type="button" class="callout-marker" data-callout="2" style="--cx:94.7%; --cy:68.7%; --i:2;" aria-describedby="c3-2">2</button>
-              <button type="button" class="callout-marker" data-callout="3" style="--cx:94.7%; --cy:88.8%; --i:3;" aria-describedby="c3-3">3</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="1"
+                style="--cx:94.7%; --cy:29.9%; --i:1;"
+                aria-describedby="c3-1">1</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="2"
+                style="--cx:94.7%; --cy:68.7%; --i:2;"
+                aria-describedby="c3-2">2</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="3"
+                style="--cx:94.7%; --cy:88.8%; --i:3;"
+                aria-describedby="c3-3">3</button>
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c3-1" style="--i:1;"><b>1</b> Real, typed fields, not a pile of boxes.</li>
-              <li class="callout-item" data-callout="2" id="c3-2" style="--i:2;"><b>2</b> Rich text editing, stored as clean content.</li>
-              <li class="callout-item" data-callout="3" id="c3-3" style="--i:3;"><b>3</b> Unsaved edits are flagged and revert in one click.</li>
+              <li
+                class="callout-item"
+                data-callout="1"
+                id="c3-1"
+                style="--i:1;">
+                <b>1</b>
+                Real, typed fields, not a pile of boxes.</li>
+              <li
+                class="callout-item"
+                data-callout="2"
+                id="c3-2"
+                style="--i:2;">
+                <b>2</b>
+                Rich text editing, stored as clean content.</li>
+              <li
+                class="callout-item"
+                data-callout="3"
+                id="c3-3"
+                style="--i:3;">
+                <b>3</b>
+                Unsaved edits are flagged and revert in one click.</li>
             </ol>
           {% elsif n == 4 %}
             <div class="product-frame product-frame--media">
@@ -241,15 +391,48 @@
                 </div>
               </div>
 
-              <button type="button" class="callout-marker" data-callout="1" style="--cx:94.7%; --cy:32.8%; --i:1;" aria-describedby="c4-1">1</button>
-              <button type="button" class="callout-marker" data-callout="2" style="--cx:94.7%; --cy:59.5%; --i:2;" aria-describedby="c4-2">2</button>
-              <button type="button" class="callout-marker" data-callout="3" style="--cx:73%; --cy:76.7%; --i:3;" aria-describedby="c4-3">3</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="1"
+                style="--cx:94.7%; --cy:32.8%; --i:1;"
+                aria-describedby="c4-1">1</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="2"
+                style="--cx:94.7%; --cy:59.5%; --i:2;"
+                aria-describedby="c4-2">2</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="3"
+                style="--cx:73%; --cy:76.7%; --i:3;"
+                aria-describedby="c4-3">3</button>
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c4-1" style="--i:1;"><b>1</b> Drag in a photo. That's the whole workflow.</li>
-              <li class="callout-item" data-callout="2" id="c4-2" style="--i:2;"><b>2</b> Phone formats like HEIC convert automatically.</li>
-              <li class="callout-item" data-callout="3" id="c4-3" style="--i:3;"><b>3</b> Served from a fast CDN, and never stored twice.</li>
+              <li
+                class="callout-item"
+                data-callout="1"
+                id="c4-1"
+                style="--i:1;">
+                <b>1</b>
+                Drag in a photo. That's the whole workflow.</li>
+              <li
+                class="callout-item"
+                data-callout="2"
+                id="c4-2"
+                style="--i:2;">
+                <b>2</b>
+                Phone formats like HEIC convert automatically.</li>
+              <li
+                class="callout-item"
+                data-callout="3"
+                id="c4-3"
+                style="--i:3;">
+                <b>3</b>
+                Served from a fast CDN, and never stored twice.</li>
             </ol>
           {% elsif n == 5 %}
             <div class="product-frame product-frame--settings">
@@ -259,7 +442,8 @@
               <div class="pf-settings-card pf-glass">
                 <div class="pf-settings-overview">
                   <div class="pf-settings-row">
-                    <span class="pf-settings-site"><i class="pf-dot ok" aria-hidden="true"></i>acme.com</span>
+                    <span class="pf-settings-site">
+                      <i class="pf-dot ok" aria-hidden="true"></i>acme.com</span>
                     <span class="pf-settings-live">Live</span>
                   </div>
                   <div class="pf-settings-row">
@@ -315,15 +499,48 @@
                 </div>
               </div>
 
-              <button type="button" class="callout-marker" data-callout="1" style="--cx:86%; --cy:14%; --i:1;" aria-describedby="c5-1">1</button>
-              <button type="button" class="callout-marker" data-callout="2" style="--cx:56.8%; --cy:34%; --i:2;" aria-describedby="c5-2">2</button>
-              <button type="button" class="callout-marker" data-callout="3" style="--cx:94.7%; --cy:68.8%; --i:3;" aria-describedby="c5-3">3</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="1"
+                style="--cx:86%; --cy:14%; --i:1;"
+                aria-describedby="c5-1">1</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="2"
+                style="--cx:56.8%; --cy:34%; --i:2;"
+                aria-describedby="c5-2">2</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="3"
+                style="--cx:94.7%; --cy:68.8%; --i:3;"
+                aria-describedby="c5-3">3</button>
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c5-1" style="--i:1;"><b>1</b> Buy a domain or bring your own. Archival runs DNS.</li>
-              <li class="callout-item" data-callout="2" id="c5-2" style="--i:2;"><b>2</b> Backed by a real repository you control.</li>
-              <li class="callout-item" data-callout="3" id="c5-3" style="--i:3;"><b>3</b> A timestamped history of every deploy.</li>
+              <li
+                class="callout-item"
+                data-callout="1"
+                id="c5-1"
+                style="--i:1;">
+                <b>1</b>
+                Buy a domain or bring your own. Archival runs DNS.</li>
+              <li
+                class="callout-item"
+                data-callout="2"
+                id="c5-2"
+                style="--i:2;">
+                <b>2</b>
+                Backed by a real repository you control.</li>
+              <li
+                class="callout-item"
+                data-callout="3"
+                id="c5-3"
+                style="--i:3;">
+                <b>3</b>
+                A timestamped history of every deploy.</li>
             </ol>
           {% elsif n == 6 %}
             <div class="product-frame product-frame--history">
@@ -365,20 +582,56 @@
                     <i class="pf-dot ok" aria-hidden="true"></i>
                     <span class="pf-commit-date">Jun 28</span>
                     <span class="pf-commit-msg">Update team photos</span>
-                    <button class="pf-revert-btn" type="button" data-callout-target="3">Revert</button>
+                    <button
+                      class="pf-revert-btn"
+                      type="button"
+                      data-callout-target="3">Revert</button>
                   </div>
                 </div>
               </div>
 
-              <button type="button" class="callout-marker" data-callout="1" style="--cx:94.7%; --cy:35.2%; --i:1;" aria-describedby="c6-1">1</button>
-              <button type="button" class="callout-marker" data-callout="2" style="--cx:94.7%; --cy:72.6%; --i:2;" aria-describedby="c6-2">2</button>
-              <button type="button" class="callout-marker" data-callout="3" style="--cx:76.7%; --cy:84%; --i:3;" aria-describedby="c6-3">3</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="1"
+                style="--cx:94.7%; --cy:35.2%; --i:1;"
+                aria-describedby="c6-1">1</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="2"
+                style="--cx:94.7%; --cy:72.6%; --i:2;"
+                aria-describedby="c6-2">2</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="3"
+                style="--cx:76.7%; --cy:84%; --i:3;"
+                aria-describedby="c6-3">3</button>
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c6-1" style="--i:1;"><b>1</b> See exactly what's changed before it goes live.</li>
-              <li class="callout-item" data-callout="2" id="c6-2" style="--i:2;"><b>2</b> Every publish is a point you can return to.</li>
-              <li class="callout-item" data-callout="3" id="c6-3" style="--i:3;"><b>3</b> Roll back any change instantly.</li>
+              <li
+                class="callout-item"
+                data-callout="1"
+                id="c6-1"
+                style="--i:1;">
+                <b>1</b>
+                See exactly what's changed before it goes live.</li>
+              <li
+                class="callout-item"
+                data-callout="2"
+                id="c6-2"
+                style="--i:2;">
+                <b>2</b>
+                Every publish is a point you can return to.</li>
+              <li
+                class="callout-item"
+                data-callout="3"
+                id="c6-3"
+                style="--i:3;">
+                <b>3</b>
+                Roll back any change instantly.</li>
             </ol>
           {% elsif n == 7 %}
             <div class="product-frame product-frame--publish">
@@ -387,7 +640,8 @@
               {% comment %} Dimmed editor top bar, peeking out behind the modal {% endcomment %}
               <div class="pf-publish-topbar">
                 <span class="pf-publish-topbar-label">Editor</span>
-                <span class="pf-status" data-callout-target="3"><i class="pf-dot warn" aria-hidden="true"></i>Publishing&hellip;</span>
+                <span class="pf-status" data-callout-target="3">
+                  <i class="pf-dot warn" aria-hidden="true"></i>Publishing&hellip;</span>
               </div>
 
               {% comment %} Publish Changes modal, dimming the editor behind it {% endcomment %}
@@ -419,20 +673,56 @@
 
                   <div class="pf-publish-actions">
                     <button class="pf-publish-cancel" type="button">Cancel</button>
-                    <button class="pf-cta" type="button" data-callout-target="2">Publish</button>
+                    <button
+                      class="pf-cta"
+                      type="button"
+                      data-callout-target="2">Publish</button>
                   </div>
                 </div>
               </div>
 
-              <button type="button" class="callout-marker" data-callout="1" style="--cx:85.9%; --cy:45.2%; --i:1;" aria-describedby="c7-1">1</button>
-              <button type="button" class="callout-marker" data-callout="2" style="--cx:82%; --cy:70%; --i:2;" aria-describedby="c7-2">2</button>
-              <button type="button" class="callout-marker" data-callout="3" style="--cx:77.1%; --cy:7.2%; --i:3;" aria-describedby="c7-3">3</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="1"
+                style="--cx:85.9%; --cy:45.2%; --i:1;"
+                aria-describedby="c7-1">1</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="2"
+                style="--cx:82%; --cy:70%; --i:2;"
+                aria-describedby="c7-2">2</button>
+              <button
+                type="button"
+                class="callout-marker"
+                data-callout="3"
+                style="--cx:77.1%; --cy:7.2%; --i:3;"
+                aria-describedby="c7-3">3</button>
             </div>
 
             <ol class="callout-legend">
-              <li class="callout-item" data-callout="1" id="c7-1" style="--i:1;"><b>1</b> Review every change, and undo any of it.</li>
-              <li class="callout-item" data-callout="2" id="c7-2" style="--i:2;"><b>2</b> One click and you're live in seconds.</li>
-              <li class="callout-item" data-callout="3" id="c7-3" style="--i:3;"><b>3</b> It's a plain static site you can host anywhere.</li>
+              <li
+                class="callout-item"
+                data-callout="1"
+                id="c7-1"
+                style="--i:1;">
+                <b>1</b>
+                Review every change, and undo any of it.</li>
+              <li
+                class="callout-item"
+                data-callout="2"
+                id="c7-2"
+                style="--i:2;">
+                <b>2</b>
+                One click and you're live in seconds.</li>
+              <li
+                class="callout-item"
+                data-callout="3"
+                id="c7-3"
+                style="--i:3;">
+                <b>3</b>
+                It's a plain static site you can host anywhere.</li>
             </ol>
           {% else %}
             {% comment %} FRAME {{ n }}: bespoke editor UI added by its task {% endcomment %}
@@ -440,7 +730,7 @@
         </div>
       </section>
     {% endunless %}
-  {% endfor %}
+{% endfor %}
 
   {% comment %} Closing CTA (reuses homepage prompt iframe pattern) {% endcomment %}
   {% assign cta = product.sections | last %}
@@ -449,13 +739,45 @@
     <div class="build-description">{{ cta.content }}</div>
     <iframe id="generate-frame"></iframe>
     <div class="primary-cta-container">
-      <a href="https://editor.archival.dev/new" class="primary-cta" data-umami-event="product-cta-create">Create your site</a>
+      <a
+        href="https://editor.archival.dev/new"
+        class="primary-cta"
+        data-umami-event="product-cta-create">Create your site</a>
     </div>
   </section>
 
   <script>
-  (function () {
+      (function () {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Uniformly scale each frame to fit its column. The frame is laid out at a
+    // fixed design width (--pf-dw), so its internal layout never reflows; zoom
+    // scales the whole thing — content and the %-pinned callout markers alike —
+    // keeping every marker aligned to its target at any window size.
+    var rootFontPx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var frames = [];
+    document.querySelectorAll('.product-frame-wrap').forEach(function (wrap) {
+      var frame = wrap.querySelector('.product-frame');
+      if (!frame) return;
+      var dwRaw = getComputedStyle(frame).getPropertyValue('--pf-dw').trim();
+      var dw = dwRaw.indexOf('rem') > -1 ? parseFloat(dwRaw) * rootFontPx : parseFloat(dwRaw);
+      if (dw) { frames.push({ wrap: wrap, frame: frame, dw: dw }); }
+    });
+    function fit() {
+      frames.forEach(function (f) {
+        var cw = f.wrap.clientWidth;
+        if (!cw) return;
+        // Never scale past the design size; only shrink to fit narrower columns.
+        f.frame.style.zoom = Math.min(1, cw / f.dw);
+      });
+    }
+    fit();
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(fit);
+      frames.forEach(function (f) { ro.observe(f.wrap); });
+    } else {
+      window.addEventListener('resize', fit);
+    }
 
     // Reveal sections on scroll
     var sections = document.querySelectorAll('[data-product-section]');
@@ -525,7 +847,7 @@
         });
       });
     }
-  })();
+      })();
   </script>
 
 </div>
