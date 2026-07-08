@@ -451,9 +451,11 @@
 
     // Cross-highlight callouts: marker <-> line <-> legend <-> target
     sections.forEach(function (section) {
+      var frame = section.querySelector('.product-frame');
       function setActive(n, on) {
         section.querySelectorAll('[data-callout="' + n + '"], [data-callout-target="' + n + '"]')
           .forEach(function (el) { el.classList.toggle('callout-active', on); });
+        if (frame) { frame.classList.toggle('is-focusing', on); }
       }
       section.querySelectorAll('[data-callout]').forEach(function (trigger) {
         var n = trigger.getAttribute('data-callout');
