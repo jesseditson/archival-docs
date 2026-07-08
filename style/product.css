@@ -1046,9 +1046,9 @@
 
 .pf-settings-card {
   padding: 1.1rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
   min-width: 0;
 }
 
@@ -1100,8 +1100,8 @@
   flex-direction: column;
   gap: 0.5rem;
   min-width: 0;
-  border-left: 1px solid var(--pf-hairline);
-  padding-left: 1.1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--pf-hairline);
 }
 .pf-dns-title,
 .pf-deploys-title {
@@ -1140,7 +1140,6 @@
 }
 
 .pf-deploys {
-  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -1180,14 +1179,7 @@
   }
   .pf-settings-card {
     padding: 0.75rem;
-    grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
-  }
-  .pf-dns {
-    border-left: none;
-    padding-left: 0;
-    border-top: 1px solid var(--pf-hairline);
-    padding-top: 0.75rem;
   }
 }
 
