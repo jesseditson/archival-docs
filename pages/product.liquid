@@ -27,23 +27,22 @@
 
               {% comment %} Top chrome bar {% endcomment %}
               <div class="pf-chrome" data-callout-target="1">
-                <span class="pf-chrome-btn">Dashboard</span>
+                <span class="pf-chrome-btn">History</span>
                 <div class="pf-mode-toggle"><span class="on">Content</span><span>Task</span></div>
                 <div class="pf-chrome-right">
                   <span class="pf-chrome-btn">Mobile</span>
                   <span class="pf-chrome-btn">View Live</span>
-                  <span class="pf-chrome-btn">History</span>
-                  <span class="pf-status"><i class="pf-dot ok"></i>Up to date</span>
+                  <span class="pf-status"><i class="pf-dot ok"></i></span>
                 </div>
               </div>
 
               <div class="pf-body">
-                {% comment %} Objects sidebar {% endcomment %}
+                {% comment %} Site sections sidebar {% endcomment %}
                 <div class="pf-sidebar" data-callout-target="4">
-                  <div class="pf-sidebar-item active">Posts <b>12</b></div>
-                  <div class="pf-sidebar-item">Pages <b>4</b></div>
-                  <div class="pf-sidebar-item">Media <b>38</b></div>
-                  <div class="pf-sidebar-item">Settings</div>
+                  <div class="pf-sidebar-item active">Site</div>
+                  <div class="pf-sidebar-item">Gallery</div>
+                  <div class="pf-sidebar-item">About</div>
+                  <div class="pf-sidebar-item">Contact</div>
                 </div>
 
                 {% comment %} Glass editing panel {% endcomment %}
@@ -53,16 +52,40 @@
                   <div class="pf-field"><label>Draft</label><div class="pf-toggle"></div></div>
                 </div>
 
-                {% comment %} Live preview with mobile device frame {% endcomment %}
+                {% comment %} Live preview: desktop website wireframe {% endcomment %}
                 <div class="pf-preview" data-callout-target="3">
-                  <div class="pf-device">
-                    <div class="pf-device-notch"></div>
-                    <div class="pf-device-screen"></div>
+                  <div class="pf-browser">
+                    <div class="pf-browser-bar">
+                      <span class="pf-browser-dot"></span>
+                      <span class="pf-browser-dot"></span>
+                      <span class="pf-browser-dot"></span>
+                      <div class="pf-browser-url"></div>
+                    </div>
+                    <div class="pf-browser-page">
+                      <div class="pf-wire-nav">
+                        <div class="pf-wire-logo"></div>
+                        <div class="pf-wire-navlinks"><span></span><span></span><span></span></div>
+                      </div>
+                      <div class="pf-wire-hero">
+                        <div class="pf-wire-hero-copy">
+                          <div class="pf-wire-line pf-wire-line--title"></div>
+                          <div class="pf-wire-line"></div>
+                          <div class="pf-wire-line pf-wire-line--short"></div>
+                          <div class="pf-wire-btn"></div>
+                        </div>
+                        <div class="pf-wire-hero-art"></div>
+                      </div>
+                      <div class="pf-wire-cards">
+                        <div class="pf-wire-card"></div>
+                        <div class="pf-wire-card"></div>
+                        <div class="pf-wire-card"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <button type="button" class="callout-marker" data-callout="1" style="--cx:50.2%; --cy:17.6%; --i:1;" aria-describedby="c1-1">1</button>
+              <button type="button" class="callout-marker" data-callout="1" style="--cx:52%; --cy:9.2%; --i:1;" aria-describedby="c1-1">1</button>
               <button type="button" class="callout-marker" data-callout="2" style="--cx:28.1%; --cy:61.7%; --i:2;" aria-describedby="c1-2">2</button>
               <button type="button" class="callout-marker" data-callout="3" style="--cx:80.4%; --cy:58.1%; --i:3;" aria-describedby="c1-3">3</button>
               <button type="button" class="callout-marker" data-callout="4" style="--cx:12.1%; --cy:63.5%; --i:4;" aria-describedby="c1-4">4</button>
@@ -71,7 +94,7 @@
             <ol class="callout-legend">
               <li class="callout-item" data-callout="1" id="c1-1" style="--i:1;"><b>1</b> Switch between editing content and task mode.</li>
               <li class="callout-item" data-callout="2" id="c1-2" style="--i:2;"><b>2</b> A focused panel to edit your page. No code required.</li>
-              <li class="callout-item" data-callout="3" id="c1-3" style="--i:3;"><b>3</b> Your live site, with a true-to-life mobile preview.</li>
+              <li class="callout-item" data-callout="3" id="c1-3" style="--i:3;"><b>3</b> Your live site, previewed right as you edit.</li>
               <li class="callout-item" data-callout="4" id="c1-4" style="--i:4;"><b>4</b> Every kind of content, one tab away.</li>
             </ol>
           {% elsif n == 2 %}
