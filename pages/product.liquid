@@ -26,7 +26,7 @@
           <div class="section-content">{{ section.content }}</div>
         </div>
         <div class="product-frame-wrap" data-tilt>
-          {% if n == 1 %}
+          {% if section.key == "editor" %}
             <div class="product-frame product-frame--shell">
               <div class="product-frame-glow" aria-hidden="true"></div>
 
@@ -164,7 +164,7 @@
                 <b>4</b>
                 Preview your site on mobile any time.</li>
             </ol>
-          {% elsif n == 2 %}
+          {% elsif section.key == "prompt" %}
             <div class="product-frame product-frame--prompt">
               <div class="product-frame-glow" aria-hidden="true"></div>
 
@@ -259,112 +259,7 @@
                 <b>3</b>
                 Pick from several complete, real sites and go live.</li>
             </ol>
-          {% elsif n == 3 %}
-            <div class="product-frame product-frame--content">
-              <div class="product-frame-glow" aria-hidden="true"></div>
-
-              {% comment %} Schema-driven object edit form {% endcomment %}
-              <div class="pf-content-form pf-glass">
-                <div class="pf-content-fields" data-callout-target="1">
-                  <div class="pf-field">
-                    <label>Title</label>
-                    <div class="pf-input">Notes from the field</div>
-                  </div>
-                  <div class="pf-fields-row">
-                    <div class="pf-field">
-                      <label>Published</label>
-                      <div class="pf-input">Jul 6, 2026</div>
-                    </div>
-                    <div class="pf-field">
-                      <label>Featured</label>
-                      <div class="pf-toggle"></div>
-                    </div>
-                  </div>
-                  <div class="pf-field pf-field--unsynced">
-                    <label>
-                      <i class="pf-dot" aria-hidden="true"></i>Category</label>
-                    <div class="pf-select">Essays<span class="pf-select-caret" aria-hidden="true">&#9662;</span>
-                    </div>
-                  </div>
-                </div>
-
-                {% comment %} Milkdown-style rich text area {% endcomment %}
-                <div class="pf-markdown" data-callout-target="2">
-                  <div class="pf-markdown-toolbar">
-                    <span class="pf-md-btn">
-                      <b>B</b>
-                    </span>
-                    <span class="pf-md-btn">
-                      <i>I</i>
-                    </span>
-                    <span class="pf-md-btn">H</span>
-                    <span class="pf-md-btn">&bull;</span>
-                    <span class="pf-md-btn pf-md-btn--link" aria-hidden="true">&#128279;</span>
-                  </div>
-                  <div class="pf-markdown-body">
-                    <p class="pf-md-line">Some mornings the light comes in
-                      <strong>sideways</strong>, and everything else can wait.</p>
-                    <ul class="pf-md-list">
-                      <li>Started before sunrise, finished long after.</li>
-                    </ul>
-                  </div>
-                </div>
-
-                {% comment %} Unsynced flag + revert/clear controls {% endcomment %}
-                <div class="pf-unsynced-bar" data-callout-target="3">
-                  <span class="pf-unsynced-flag">
-                    <i class="pf-dot" aria-hidden="true"></i>1 field unsynced</span>
-                  <span class="pf-unsynced-actions">
-                    <button class="pf-text-link pf-unsynced" type="button">Revert</button>
-                    <button class="pf-text-link pf-unsynced" type="button">Clear</button>
-                  </span>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                class="callout-marker"
-                data-callout="1"
-                style="--cx:94.7%; --cy:29.9%; --i:1;"
-                aria-describedby="c3-1">1</button>
-              <button
-                type="button"
-                class="callout-marker"
-                data-callout="2"
-                style="--cx:94.7%; --cy:68.7%; --i:2;"
-                aria-describedby="c3-2">2</button>
-              <button
-                type="button"
-                class="callout-marker"
-                data-callout="3"
-                style="--cx:94.7%; --cy:88.8%; --i:3;"
-                aria-describedby="c3-3">3</button>
-            </div>
-
-            <ol class="callout-legend">
-              <li
-                class="callout-item"
-                data-callout="1"
-                id="c3-1"
-                style="--i:1;">
-                <b>1</b>
-                Real, typed fields, not a pile of boxes.</li>
-              <li
-                class="callout-item"
-                data-callout="2"
-                id="c3-2"
-                style="--i:2;">
-                <b>2</b>
-                Rich text editing, stored as clean content.</li>
-              <li
-                class="callout-item"
-                data-callout="3"
-                id="c3-3"
-                style="--i:3;">
-                <b>3</b>
-                Unsaved edits are flagged and revert in one click.</li>
-            </ol>
-          {% elsif n == 4 %}
+          {% elsif section.key == "media" %}
             <div class="product-frame product-frame--media">
               <div class="product-frame-glow" aria-hidden="true"></div>
 
@@ -434,7 +329,7 @@
                 <b>3</b>
                 Served from a fast CDN, and never stored twice.</li>
             </ol>
-          {% elsif n == 5 %}
+          {% elsif section.key == "settings" %}
             <div class="product-frame product-frame--settings">
               <div class="product-frame-glow" aria-hidden="true"></div>
 
@@ -542,7 +437,7 @@
                 <b>3</b>
                 A timestamped history of every deploy.</li>
             </ol>
-          {% elsif n == 6 %}
+          {% elsif section.key == "history" %}
             <div class="product-frame product-frame--history">
               <div class="product-frame-glow" aria-hidden="true"></div>
 
@@ -632,97 +527,6 @@
                 style="--i:3;">
                 <b>3</b>
                 Roll back any change instantly.</li>
-            </ol>
-          {% elsif n == 7 %}
-            <div class="product-frame product-frame--publish">
-              <div class="product-frame-glow" aria-hidden="true"></div>
-
-              {% comment %} Dimmed editor top bar, peeking out behind the modal {% endcomment %}
-              <div class="pf-publish-topbar">
-                <span class="pf-publish-topbar-label">Editor</span>
-                <span class="pf-status" data-callout-target="3">
-                  <i class="pf-dot warn" aria-hidden="true"></i>Publishing&hellip;</span>
-              </div>
-
-              {% comment %} Publish Changes modal, dimming the editor behind it {% endcomment %}
-              <div class="pf-publish-backdrop">
-                <div class="pf-publish-modal pf-glass">
-                  <div class="pf-publish-header">
-                    <span class="pf-publish-title">Publish Changes</span>
-                  </div>
-
-                  <div class="pf-publish-changes" data-callout-target="1">
-                    <div class="pf-publish-change-row">
-                      <span class="pf-publish-change-desc">Edited: About &rsaquo; Intro</span>
-                      <button class="pf-publish-undo" type="button">Undo</button>
-                    </div>
-                    <div class="pf-publish-change-row">
-                      <span class="pf-publish-change-desc">Added: Pricing &rsaquo; Tier</span>
-                      <button class="pf-publish-undo" type="button">Undo</button>
-                    </div>
-                    <div class="pf-publish-change-row">
-                      <span class="pf-publish-change-desc">Removed: Blog &rsaquo; Draft</span>
-                      <button class="pf-publish-undo" type="button">Undo</button>
-                    </div>
-                  </div>
-
-                  <div class="pf-publish-summary">
-                    <label class="pf-publish-label">Commit summary</label>
-                    <div class="pf-input pf-publish-textarea">Refresh hero and pricing</div>
-                  </div>
-
-                  <div class="pf-publish-actions">
-                    <button class="pf-publish-cancel" type="button">Cancel</button>
-                    <button
-                      class="pf-cta"
-                      type="button"
-                      data-callout-target="2">Publish</button>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                class="callout-marker"
-                data-callout="1"
-                style="--cx:85.9%; --cy:45.2%; --i:1;"
-                aria-describedby="c7-1">1</button>
-              <button
-                type="button"
-                class="callout-marker"
-                data-callout="2"
-                style="--cx:82%; --cy:70%; --i:2;"
-                aria-describedby="c7-2">2</button>
-              <button
-                type="button"
-                class="callout-marker"
-                data-callout="3"
-                style="--cx:77.1%; --cy:7.2%; --i:3;"
-                aria-describedby="c7-3">3</button>
-            </div>
-
-            <ol class="callout-legend">
-              <li
-                class="callout-item"
-                data-callout="1"
-                id="c7-1"
-                style="--i:1;">
-                <b>1</b>
-                Review every change, and undo any of it.</li>
-              <li
-                class="callout-item"
-                data-callout="2"
-                id="c7-2"
-                style="--i:2;">
-                <b>2</b>
-                One click and you're live in seconds.</li>
-              <li
-                class="callout-item"
-                data-callout="3"
-                id="c7-3"
-                style="--i:3;">
-                <b>3</b>
-                It's a plain static site you can host anywhere.</li>
             </ol>
           {% else %}
             {% comment %} FRAME {{ n }}: bespoke editor UI added by its task {% endcomment %}
