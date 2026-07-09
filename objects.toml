@@ -23,6 +23,24 @@ title = "string"
 video = "video"
 poster = "string"
 
+[pricing]
+title_line_1 = "string"
+title_line_2 = "string"
+tagline = "string"
+total_label = "string"
+total_price = "string"
+total_term = "string"
+cta_label = "string"
+cta_url = "string"
+
+[pricing.items]
+icon = "string"
+name = "string"
+description = "string"
+price = "string"
+slug = "string"
+content = "markdown"
+
 [manifesto]
 title = "string"
 content = "markdown"

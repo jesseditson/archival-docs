@@ -1,14 +1,16 @@
 {% layout 'theme' title: "Archival | Pricing"
   , area: "pricing" %}
 
+{% assign pricing = objects.pricing %}
+
 <div class="pricing-page">
   <section class="pricing-hero">
     <div class="pricing-hero-content">
       <h1 class="hero-message pricing-title" data-tilt-hero>
-        <span class="pricing-title-line">priced for</span>
-        <span class="pricing-title-line pricing-title-line-secondary">everyone</span>
+        <span class="pricing-title-line">{{ pricing.title_line_1 }}</span>
+        <span class="pricing-title-line pricing-title-line-secondary">{{ pricing.title_line_2 }}</span>
       </h1>
-      <p class="pricing-tagline">No hidden charges. Just straightforward, simple pricing.</p>
+      <p class="pricing-tagline">{{ pricing.tagline }}</p>
     </div>
 
     <div class="pricing-breakdown-container">
@@ -16,9 +18,12 @@
         <div class="glowverlay showing"></div>
         <div class="pricing-breakdown-content">
           <div class="pricing-items">
-            <div class="pricing-item pricing-item-expandable" data-accordion="complete-website">
+            {% for item in pricing.items %}
+            <div class="pricing-item pricing-item-expandable" data-accordion="{{ item.slug }}">
               <div class="pricing-item-content">
                 <div class="pricing-item-icon">
+                  {% case item.icon %}
+                  {% when "cube" %}
                   <svg
                     width="24"
                     height="24"
@@ -44,45 +49,7 @@
                       stroke-linecap="round"
                       stroke-linejoin="round" />
                   </svg>
-                </div>
-                <div class="pricing-item-details">
-                  <div class="pricing-item-name">Complete Website</div>
-                  <div class="pricing-item-desc">Custom design & hosting</div>
-                </div>
-                <div class="pricing-item-price">Included</div>
-                <div class="pricing-item-chevron">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M4 6L8 10L12 6"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                </div>
-              </div>
-              <div class="pricing-item-expanded">
-                <div class="pricing-item-expanded-content">
-                  <p>Get a fully-featured website tailored to your needs. Our complete website package includes:</p>
-                  <ul>
-                    <li>Fully customizable template designed by our professional design team</li>
-                    <li>Responsive layout that works perfectly on all devices</li>
-                    <li>Fast, reliable hosting with 99.9% uptime guarantee</li>
-                    <li>Site editor to easily update your website's content</li>
-                    <li>Optimized performance for lightning-fast page loads</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="pricing-item pricing-item-expandable" data-accordion="your-domain">
-              <div class="pricing-item-content">
-                <div class="pricing-item-icon">
+                  {% when "globe" %}
                   <svg
                     width="24"
                     height="24"
@@ -110,45 +77,7 @@
                       stroke-linecap="round"
                       stroke-linejoin="round" />
                   </svg>
-                </div>
-                <div class="pricing-item-details">
-                  <div class="pricing-item-name">Your Domain</div>
-                  <div class="pricing-item-desc">Free SSL & no setup fees</div>
-                </div>
-                <div class="pricing-item-price">Included</div>
-                <div class="pricing-item-chevron">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M4 6L8 10L12 6"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                </div>
-              </div>
-              <div class="pricing-item-expanded">
-                <div class="pricing-item-expanded-content">
-                  <p>Your custom domain comes fully configured and secure from day one:</p>
-                  <ul>
-                    <li>Free custom domain registration for first year ($35 limit)</li>
-                    <li>Free SSL certificate for secure HTTPS connections</li>
-                    <li>Automatic certificate renewal - never worry about expiration</li>
-                    <li>Zero setup fees or hidden charges</li>
-                    <li>DNS management included with simple configuration</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="pricing-item pricing-item-expandable" data-accordion="generous-limits">
-              <div class="pricing-item-content">
-                <div class="pricing-item-icon">
+                  {% when "clock" %}
                   <svg
                     width="24"
                     height="24"
@@ -168,12 +97,13 @@
                       stroke-linecap="round"
                       stroke-linejoin="round" />
                   </svg>
+                  {% endcase %}
                 </div>
                 <div class="pricing-item-details">
-                  <div class="pricing-item-name">Generous Limits</div>
-                  <div class="pricing-item-desc">High bandwidth & storage</div>
+                  <div class="pricing-item-name">{{ item.name }}</div>
+                  <div class="pricing-item-desc">{{ item.description }}</div>
                 </div>
-                <div class="pricing-item-price">Included</div>
+                <div class="pricing-item-price">{{ item.price }}</div>
                 <div class="pricing-item-chevron">
                   <svg
                     width="16"
@@ -192,28 +122,22 @@
               </div>
               <div class="pricing-item-expanded">
                 <div class="pricing-item-expanded-content">
-                  <p>Built for growth with resources that scale with your success:</p>
-                  <ul>
-                    <li>100GB bandwidth per month - plenty for most websites</li>
-                    <li>10GB storage space for your content and assets</li>
-                    <li>Unlimited page views and visitors</li>
-                    <li>CDN acceleration for global content delivery</li>
-                    <li>Daily backups to keep your data safe</li>
-                  </ul>
+                  {{ item.content }}
                 </div>
               </div>
             </div>
+            {% endfor %}
           </div>
 
           <div class="pricing-total">
-            <div class="pricing-total-label">Total monthly cost</div>
+            <div class="pricing-total-label">{{ pricing.total_label }}</div>
             <div class="pricing-total-amount">
-              <span class="pricing-total-price">$14</span>
-              <span>/month</span>
+              <span class="pricing-total-price">{{ pricing.total_price }}</span>
+              <span class="pricing-total-term">{{ pricing.total_term }}</span>
             </div>
           </div>
 
-          <a class="primary-cta pricing-cta" href="https://editor.archival.dev/new" data-umami-event="pricing-get-started">Get Started</a>
+          <a class="primary-cta pricing-cta" href="{{ pricing.cta_url }}" data-umami-event="pricing-get-started">{{ pricing.cta_label }}</a>
         </div>
       </div>
     </div>

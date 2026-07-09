@@ -1,0 +1,56 @@
+title_line_1 = "priced for"
+title_line_2 = "everyone"
+tagline = "No hidden charges. Just straightforward, simple pricing."
+total_label = "Total monthly cost"
+total_price = "$14"
+total_term = "/month"
+cta_label = "Get Started"
+cta_url = "https://editor.archival.dev/new"
+
+[[items]]
+icon = "cube"
+name = "Complete Website"
+description = "Custom design & hosting"
+price = "Included"
+slug = "complete-website"
+content = """
+Get a fully-featured website tailored to your needs. Our complete website package includes:
+
+- Fully customizable template designed by our professional design team
+- Responsive layout that works perfectly on all devices
+- Fast, reliable hosting with 99.9% uptime guarantee
+- Site editor to easily update your website's content
+- Optimized performance for lightning-fast page loads
+"""
+
+[[items]]
+icon = "globe"
+name = "Your Domain"
+description = "Free SSL & no setup fees"
+price = "Included"
+slug = "your-domain"
+content = """
+Your custom domain comes fully configured and secure from day one:
+
+- Free custom domain registration for first year ($35 limit)
+- Free SSL certificate for secure HTTPS connections
+- Automatic certificate renewal - never worry about expiration
+- Zero setup fees or hidden charges
+- DNS management included with simple configuration
+"""
+
+[[items]]
+icon = "clock"
+name = "Generous Limits"
+description = "High bandwidth & storage"
+price = "Included"
+slug = "generous-limits"
+content = """
+Built for growth with resources that scale with your success:
+
+- 100GB bandwidth per month - plenty for most websites
+- 10GB storage space for your content and assets
+- Unlimited page views and visitors
+- CDN acceleration for global content delivery
+- Daily backups to keep your data safe
+"""
