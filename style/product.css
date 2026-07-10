@@ -3,6 +3,73 @@
   width: 100%;
   overflow-x: clip;
 }
+
+/* ============ Callout marker positions ============ */
+/* Every numbered marker is placed as a percentage of its frame — x across the
+   width, y down the height. These are the knobs: nudge a value to move a marker.
+   Grouped by section; the number matches the badge shown on the frame. The
+   wiring rules below feed each variable to its marker — no need to touch those. */
+.product-page {
+  /* Editor — "A powerful, dynamic editor for your website." */
+  --m-editor-1-x: 51.8%;
+  --m-editor-1-y: 15.6%;
+  --m-editor-2-x: 30.4%;
+  --m-editor-2-y: 59.9%;
+  --m-editor-3-x: 77.2%;
+  --m-editor-3-y: 56.8%;
+  --m-editor-4-x: 70.1%;
+  --m-editor-4-y: 20.9%;
+
+  /* Prompt — "Describe what you want: Get real websites." */
+  --m-prompt-1-x: 94.7%;
+  --m-prompt-1-y: 21.7%;
+  --m-prompt-2-x: 53.6%;
+  --m-prompt-2-y: 39.2%;
+  --m-prompt-3-x: 50%;
+  --m-prompt-3-y: 57%;
+
+  /* Settings — "Your site, your settings." */
+  --m-settings-1-x: 73%;
+  --m-settings-1-y: 78%;
+  --m-settings-2-x: 42%;
+  --m-settings-2-y: 26%;
+  --m-settings-3-x: 68%;
+  --m-settings-3-y: 50%;
+
+  /* Media — "Media that just works." */
+  --m-media-1-x: 94.7%;
+  --m-media-1-y: 32.8%;
+  --m-media-2-x: 94.7%;
+  --m-media-2-y: 59.5%;
+  --m-media-3-x: 73%;
+  --m-media-3-y: 76.7%;
+
+  /* History — "Every change, tracked forever." */
+  --m-history-1-x: 94.7%;
+  --m-history-1-y: 35.2%;
+  --m-history-2-x: 94.7%;
+  --m-history-2-y: 72.6%;
+  --m-history-3-x: 76.7%;
+  --m-history-3-y: 84%;
+}
+
+/* Wiring: feed each frame's markers from the variables above. */
+.product-frame--shell .callout-marker[data-callout="1"] { --cx: var(--m-editor-1-x); --cy: var(--m-editor-1-y); }
+.product-frame--shell .callout-marker[data-callout="2"] { --cx: var(--m-editor-2-x); --cy: var(--m-editor-2-y); }
+.product-frame--shell .callout-marker[data-callout="3"] { --cx: var(--m-editor-3-x); --cy: var(--m-editor-3-y); }
+.product-frame--shell .callout-marker[data-callout="4"] { --cx: var(--m-editor-4-x); --cy: var(--m-editor-4-y); }
+.product-frame--prompt .callout-marker[data-callout="1"] { --cx: var(--m-prompt-1-x); --cy: var(--m-prompt-1-y); }
+.product-frame--prompt .callout-marker[data-callout="2"] { --cx: var(--m-prompt-2-x); --cy: var(--m-prompt-2-y); }
+.product-frame--prompt .callout-marker[data-callout="3"] { --cx: var(--m-prompt-3-x); --cy: var(--m-prompt-3-y); }
+.product-frame--settings .callout-marker[data-callout="1"] { --cx: var(--m-settings-1-x); --cy: var(--m-settings-1-y); }
+.product-frame--settings .callout-marker[data-callout="2"] { --cx: var(--m-settings-2-x); --cy: var(--m-settings-2-y); }
+.product-frame--settings .callout-marker[data-callout="3"] { --cx: var(--m-settings-3-x); --cy: var(--m-settings-3-y); }
+.product-frame--media .callout-marker[data-callout="1"] { --cx: var(--m-media-1-x); --cy: var(--m-media-1-y); }
+.product-frame--media .callout-marker[data-callout="2"] { --cx: var(--m-media-2-x); --cy: var(--m-media-2-y); }
+.product-frame--media .callout-marker[data-callout="3"] { --cx: var(--m-media-3-x); --cy: var(--m-media-3-y); }
+.product-frame--history .callout-marker[data-callout="1"] { --cx: var(--m-history-1-x); --cy: var(--m-history-1-y); }
+.product-frame--history .callout-marker[data-callout="2"] { --cx: var(--m-history-2-x); --cy: var(--m-history-2-y); }
+.product-frame--history .callout-marker[data-callout="3"] { --cx: var(--m-history-3-x); --cy: var(--m-history-3-y); }
 /* Give the two masthead lines a little breathing room so the "you"
    descenders don't collide with the "build" ascenders. Scoped to the
    product hero so the homepage's identical hero is unaffected. */
