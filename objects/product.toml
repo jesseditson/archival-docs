@@ -18,28 +18,28 @@ This is the Archival editor. Your live website on one side, a simple editing pan
 
 [[sections]]
 key = "settings"
-title = "Your site, your settings"
+title = "Your site, your settings."
 content = """
 Point a domain you already own at your site, or buy a new one right here. Archival handles the DNS. See your plan, your connected repository, and a full history of every deploy in one place. It's your site, on your address.
 """
 
 [[sections]]
 key = "media"
-title = "Media that just works"
+title = "Media that just works."
 content = """
 Drag in a photo and you're done. Archival converts phone formats like HEIC automatically, uploads to a fast global network, and never stores the same file twice. No resizing, no exporting, no fuss.
 """
 
 [[sections]]
 key = "history"
-title = "Every change, tracked forever"
+title = "Every change, tracked forever."
 content = """
 Archival remembers every change you've ever made. Browse your full history, see exactly what changed and when, and roll back anything instantly, from a single edit to a whole day's work. Your site can never be lost.
 """
 
 [[sections]]
 key = "cta"
-title = "Build yours right now"
+title = "Build yours right now."
 content = """
 Describe what type of site you'd like to create and we'll make you a few websites to choose from.
 """
