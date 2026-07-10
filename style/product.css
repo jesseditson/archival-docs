@@ -83,13 +83,17 @@
    .product-hero so the homepage masthead is untouched. */
 @media (max-width: 768px) {
   .product-hero .hero-message {
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
   }
+  /* Keep the two masthead lines the same rendered width — the signature of
+     this treatment. "see what you can" has many more characters than "build",
+     so line 1's font must stay ~0.28x line 2's. The vw factors and the caps
+     (3.1rem vs 11rem) hold that ratio at every width, top and bottom. */
   .product-hero .hero-line-1 {
-    font-size: clamp(1.75rem, 6.5vw, var(--typo-subheader-size));
+    font-size: clamp(1.5rem, 8.5vw, 3.1rem);
   }
   .product-hero .hero-line-2 {
-    font-size: clamp(3rem, 21vw, 11rem);
+    font-size: clamp(3rem, 30vw, 11rem);
   }
 }
 .product-section {
@@ -116,7 +120,12 @@
 }
 @media (max-width: 768px) {
   .product-section {
-    grid-template-columns: 1fr;
+    /* minmax(0, …) — not a bare 1fr — so the single column can shrink below
+       the frame's fixed design width. Otherwise the frame's min-content pins
+       the column at --pf-dw (536px), overflowing the phone and clipping the
+       copy; here it lets the column match the viewport so the copy wraps and
+       fit() scales the frame down with zoom. */
+    grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
     margin: 5rem auto;
   }
