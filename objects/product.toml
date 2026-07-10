@@ -11,7 +11,7 @@ Start with a description, then attach any photos, video, or audio you already ha
 
 [[sections]]
 key = "editor"
-title = "A powerful, dynamic editor for your website."
+title = "A simple, powerful, dynamic editing experience."
 content = """
 This is the Archival editor. Your live website on one side, a simple editing panel on the other. Everything you need to run your site lives here: content, media, settings, history, and publishing. Make quick changes to content, layout, and styling without touching any code.
 """
@@ -20,7 +20,7 @@ This is the Archival editor. Your live website on one side, a simple editing pan
 key = "settings"
 title = "Your site, your settings."
 content = """
-Point a domain you already own at your site, or buy a new one right here. Archival handles the DNS. See your plan, your connected repository, and a full history of every deploy in one place. It's your site, on your address.
+Point a domain you already own at your new Archival site, or we'll help you register a new one. See your plan, your connected repository, manage DNS, and a view your deployment history all in one place.
 """
 
 [[sections]]
