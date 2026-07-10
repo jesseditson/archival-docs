@@ -1384,9 +1384,12 @@
   align-items: center;
   gap: 0.4rem;
   min-width: 0;
-  /* Match the commit rows' left inset so the warn dots line up in the same
-     column as the ok dots below; keep the glass highlight, drop the border. */
-  padding: 0.45rem 0.1rem;
+  /* Keep the warn dots in the same column as the ok dots below (dot at the
+     commit rows' 0.1rem inset), but let the glass highlight breathe to the
+     left of the dot: pull the row left and pad it back so the dot holds its
+     x while the background extends past it. */
+  padding: 0.45rem 0.1rem 0.45rem 0.5rem;
+  margin-left: -0.4rem;
   border-radius: 0.25rem;
   background: var(--pf-glass);
 }
