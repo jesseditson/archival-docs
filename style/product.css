@@ -11,13 +11,13 @@
    wiring rules below feed each variable to its marker — no need to touch those. */
 .product-page {
   /* Editor — "A powerful, dynamic editor for your website." */
-  --m-editor-1-x: 51.8%;
-  --m-editor-1-y: 15.6%;
-  --m-editor-2-x: 30.4%;
-  --m-editor-2-y: 59.9%;
-  --m-editor-3-x: 77.2%;
-  --m-editor-3-y: 56.8%;
-  --m-editor-4-x: 70.1%;
+  --m-editor-1-x: 34%;
+  --m-editor-1-y: 9.6%;
+  --m-editor-2-x: 42%;
+  --m-editor-2-y: 76%;
+  --m-editor-3-x: 75%;
+  --m-editor-3-y: 66%;
+  --m-editor-4-x: 68.1%;
   --m-editor-4-y: 20.9%;
 
   /* Prompt — "Describe what you want: Get real websites." */
@@ -54,22 +54,70 @@
 }
 
 /* Wiring: feed each frame's markers from the variables above. */
-.product-frame--shell .callout-marker[data-callout="1"] { --cx: var(--m-editor-1-x); --cy: var(--m-editor-1-y); }
-.product-frame--shell .callout-marker[data-callout="2"] { --cx: var(--m-editor-2-x); --cy: var(--m-editor-2-y); }
-.product-frame--shell .callout-marker[data-callout="3"] { --cx: var(--m-editor-3-x); --cy: var(--m-editor-3-y); }
-.product-frame--shell .callout-marker[data-callout="4"] { --cx: var(--m-editor-4-x); --cy: var(--m-editor-4-y); }
-.product-frame--prompt .callout-marker[data-callout="1"] { --cx: var(--m-prompt-1-x); --cy: var(--m-prompt-1-y); }
-.product-frame--prompt .callout-marker[data-callout="2"] { --cx: var(--m-prompt-2-x); --cy: var(--m-prompt-2-y); }
-.product-frame--prompt .callout-marker[data-callout="3"] { --cx: var(--m-prompt-3-x); --cy: var(--m-prompt-3-y); }
-.product-frame--settings .callout-marker[data-callout="1"] { --cx: var(--m-settings-1-x); --cy: var(--m-settings-1-y); }
-.product-frame--settings .callout-marker[data-callout="2"] { --cx: var(--m-settings-2-x); --cy: var(--m-settings-2-y); }
-.product-frame--settings .callout-marker[data-callout="3"] { --cx: var(--m-settings-3-x); --cy: var(--m-settings-3-y); }
-.product-frame--media .callout-marker[data-callout="1"] { --cx: var(--m-media-1-x); --cy: var(--m-media-1-y); }
-.product-frame--media .callout-marker[data-callout="2"] { --cx: var(--m-media-2-x); --cy: var(--m-media-2-y); }
-.product-frame--media .callout-marker[data-callout="3"] { --cx: var(--m-media-3-x); --cy: var(--m-media-3-y); }
-.product-frame--history .callout-marker[data-callout="1"] { --cx: var(--m-history-1-x); --cy: var(--m-history-1-y); }
-.product-frame--history .callout-marker[data-callout="2"] { --cx: var(--m-history-2-x); --cy: var(--m-history-2-y); }
-.product-frame--history .callout-marker[data-callout="3"] { --cx: var(--m-history-3-x); --cy: var(--m-history-3-y); }
+.product-frame--shell .callout-marker[data-callout="1"] {
+  --cx: var(--m-editor-1-x);
+  --cy: var(--m-editor-1-y);
+}
+.product-frame--shell .callout-marker[data-callout="2"] {
+  --cx: var(--m-editor-2-x);
+  --cy: var(--m-editor-2-y);
+}
+.product-frame--shell .callout-marker[data-callout="3"] {
+  --cx: var(--m-editor-3-x);
+  --cy: var(--m-editor-3-y);
+}
+.product-frame--shell .callout-marker[data-callout="4"] {
+  --cx: var(--m-editor-4-x);
+  --cy: var(--m-editor-4-y);
+}
+.product-frame--prompt .callout-marker[data-callout="1"] {
+  --cx: var(--m-prompt-1-x);
+  --cy: var(--m-prompt-1-y);
+}
+.product-frame--prompt .callout-marker[data-callout="2"] {
+  --cx: var(--m-prompt-2-x);
+  --cy: var(--m-prompt-2-y);
+}
+.product-frame--prompt .callout-marker[data-callout="3"] {
+  --cx: var(--m-prompt-3-x);
+  --cy: var(--m-prompt-3-y);
+}
+.product-frame--settings .callout-marker[data-callout="1"] {
+  --cx: var(--m-settings-1-x);
+  --cy: var(--m-settings-1-y);
+}
+.product-frame--settings .callout-marker[data-callout="2"] {
+  --cx: var(--m-settings-2-x);
+  --cy: var(--m-settings-2-y);
+}
+.product-frame--settings .callout-marker[data-callout="3"] {
+  --cx: var(--m-settings-3-x);
+  --cy: var(--m-settings-3-y);
+}
+.product-frame--media .callout-marker[data-callout="1"] {
+  --cx: var(--m-media-1-x);
+  --cy: var(--m-media-1-y);
+}
+.product-frame--media .callout-marker[data-callout="2"] {
+  --cx: var(--m-media-2-x);
+  --cy: var(--m-media-2-y);
+}
+.product-frame--media .callout-marker[data-callout="3"] {
+  --cx: var(--m-media-3-x);
+  --cy: var(--m-media-3-y);
+}
+.product-frame--history .callout-marker[data-callout="1"] {
+  --cx: var(--m-history-1-x);
+  --cy: var(--m-history-1-y);
+}
+.product-frame--history .callout-marker[data-callout="2"] {
+  --cx: var(--m-history-2-x);
+  --cy: var(--m-history-2-y);
+}
+.product-frame--history .callout-marker[data-callout="3"] {
+  --cx: var(--m-history-3-x);
+  --cy: var(--m-history-3-y);
+}
 /* Give the two masthead lines a little breathing room so the "you"
    descenders don't collide with the "build" ascenders. Scoped to the
    product hero so the homepage's identical hero is unaffected. */
@@ -422,14 +470,13 @@
   }
 }
 
-/* ============ Responsive: collapse callouts on mobile ============ */
+/* ============ Responsive: callouts on mobile ============ */
 @media (max-width: 768px) {
   .product-frame {
     font-size: 0.7rem;
   }
-  .callout-marker {
-    display: none;
-  }
+  /* Keep the numbered markers visible at every size — they scale with the
+     frame's zoom and are the link to the numbered legend below. */
   .callout-item b {
     background: rgba(255, 131, 0, 0.18);
   }
@@ -511,7 +558,10 @@
   flex: 1 1 auto;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(3.75rem, 0.42fr) minmax(0, 1fr) minmax(0, 1.15fr);
+  grid-template-columns: minmax(3.75rem, 0.42fr) minmax(0, 1fr) minmax(
+      0,
+      1.15fr
+    );
 }
 
 .pf-sidebar {
@@ -621,7 +671,11 @@
   gap: 0.55rem;
   padding: 0.65rem 0.7rem;
   overflow: hidden;
-  background: linear-gradient(180deg, rgba(139, 92, 246, 0.07), transparent 45%);
+  background: linear-gradient(
+    180deg,
+    rgba(139, 92, 246, 0.07),
+    transparent 45%
+  );
 }
 .pf-wire-nav {
   display: flex;
@@ -1330,10 +1384,11 @@
   align-items: center;
   gap: 0.4rem;
   min-width: 0;
-  padding: 0.45rem 0.6rem;
+  /* Match the commit rows' left inset so the warn dots line up in the same
+     column as the ok dots below; keep the glass highlight, drop the border. */
+  padding: 0.45rem 0.1rem;
   border-radius: 0.25rem;
   background: var(--pf-glass);
-  border-left: 2px solid var(--pf-warn);
 }
 .pf-change-row .pf-dot {
   flex-shrink: 0;
