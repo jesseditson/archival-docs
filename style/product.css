@@ -28,13 +28,13 @@
   --m-prompt-3-x: 50%;
   --m-prompt-3-y: 57%;
 
-  /* Settings — "Your site, your settings." */
-  --m-settings-1-x: 73%;
-  --m-settings-1-y: 78%;
-  --m-settings-2-x: 42%;
-  --m-settings-2-y: 26%;
-  --m-settings-3-x: 68%;
-  --m-settings-3-y: 50%;
+  /* Settings — "Your site, your settings." (1 GitHub, 2 deploys, 3 DNS) */
+  --m-settings-1-x: 42%;
+  --m-settings-1-y: 26%;
+  --m-settings-2-x: 68%;
+  --m-settings-2-y: 50%;
+  --m-settings-3-x: 73%;
+  --m-settings-3-y: 78%;
 
   /* Media — "Media that just works." */
   --m-media-1-x: 94.7%;
