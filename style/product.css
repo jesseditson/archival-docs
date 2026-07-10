@@ -76,6 +76,22 @@
 .product-hero .hero-line-2 {
   margin-top: 0.12em;
 }
+/* On phones the shared hero sizing leaves "see what you can build" small and
+   floating in the masthead. Let it fill the width like the frames below —
+   trim the padding and push the viewport-relative sizes up. The rem caps are
+   unchanged, so the desktop hero stays exactly as it is. Scoped to
+   .product-hero so the homepage masthead is untouched. */
+@media (max-width: 768px) {
+  .product-hero .hero-message {
+    padding: 0 0.5rem;
+  }
+  .product-hero .hero-line-1 {
+    font-size: clamp(1.75rem, 6.5vw, var(--typo-subheader-size));
+  }
+  .product-hero .hero-line-2 {
+    font-size: clamp(3rem, 21vw, 11rem);
+  }
+}
 .product-section {
   width: 100%;
   max-width: 1200px;
