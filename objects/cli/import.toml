@@ -1,5 +1,6 @@
 order = 3
 command = "archival import"
+description = "Import external structured data into archival object files, for automated workflows or initial site data population."
 content = """
 This command handles importing external structured data into archival object files, and typically is used during automated workflows or initial site data population.
 """

@@ -1,5 +1,6 @@
 order = 0
 command = "archival build"
+description = "Build your archival site into static files, ready to deploy to any host."
 content = """
 Build an archival site - this will generate a static site inside a directory (dist unless you have overridden it in manifest.toml).
 """

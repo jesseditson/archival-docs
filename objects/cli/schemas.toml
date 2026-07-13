@@ -1,5 +1,6 @@
 order = 10
 command = "archival schemas"
+description = "Generate JSON Schema files from your site's object definitions, for editor autocomplete, CI validation, and structured LLM outputs."
 content = """
 Generates [JSON Schema](https://json-schema.org/) files from your site’s object definitions. These schemas describe the exact shape of each object type, which is useful for editor autocomplete and inline validation while you hand-edit object toml files, for validating data in CI, and for sending to LLMs that support structured outputs.
 

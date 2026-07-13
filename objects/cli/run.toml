@@ -1,5 +1,6 @@
 order = 1
 command = "archival run"
+description = "Run a local static server that watches your archival site and automatically rebuilds it whenever files change."
 content = """
 This command runs a local static server and watches your archival site for changes. The site will be automatically rebuilt whenever files change.
 

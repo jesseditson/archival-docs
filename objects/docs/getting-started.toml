@@ -1,5 +1,8 @@
 order = 0
 title = "Getting Started"
+description = """
+Set up a new archival site through the hosted editor at editor.archival.dev, or install the archival CLI locally to clone, build, and run your site from a git repo.
+"""
 
 [[sections]]
 title = "Using editor.archival.dev/new"
