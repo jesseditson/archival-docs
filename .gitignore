@@ -6,3 +6,7 @@ dist
 
 # node
 node_modules
+
+# agent working notes — keep local, never commit to a branch
+docs/superpowers/
+.superpowers/
