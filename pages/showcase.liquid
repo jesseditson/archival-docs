@@ -16,9 +16,9 @@
   {% for site in showcase.sites %}
     <div class="benefit" data-tilt>
       <a href="{{ site.url }}" target="_blank" rel="noopener" data-umami-event="showcase-site" data-umami-event-site="{{ site.name }}">
-        {% if site.screenshot.url %}
-          <img src="{{ site.screenshot.url }}" alt="{{ site.name }}" class="w-full rounded-lg mb-4" />
-        {% endif %}
+        {% unless site.screenshot.url == blank %}
+          <img src="{{ site.screenshot.url }}" alt="Screenshot of {{ site.name }}" class="w-full rounded-lg mb-4" />
+        {% endunless %}
         <h2 class="section-title">{{ site.name }}</h2>
         <div class="section-content">
           <p>{{ site.description }}</p>

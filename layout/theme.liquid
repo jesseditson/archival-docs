@@ -46,7 +46,7 @@
       {% assign canonical_url = site_url | append: '/' | append: path_str | append: '.html' %}
     {% endif %}
 
-    <title>{{ page_title }}</title>
+    <title>{{ page_title | escape }}</title>
     {% unless meta_description == blank %}
       <meta name="description" content="{{ meta_description | escape }}">
     {% endunless %}
