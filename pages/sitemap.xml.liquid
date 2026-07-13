@@ -5,39 +5,39 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>{{ site_url }}/product.html</loc>
+    <loc>{{ site_url }}/product</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>{{ site_url }}/pricing.html</loc>
+    <loc>{{ site_url }}/pricing</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>{{ site_url }}/manifesto.html</loc>
+    <loc>{{ site_url }}/manifesto</loc>
     <priority>0.8</priority>
   </url>
   {% for doc in objects.docs %}
   <url>
-    <loc>{{ site_url }}/{{ doc.path }}.html</loc>
+    <loc>{{ site_url }}/{{ doc.path }}</loc>
     <priority>0.6</priority>
   </url>
   {% endfor %}
   {% for command in objects.cli %}
   <url>
-    <loc>{{ site_url }}/{{ command.path }}.html</loc>
+    <loc>{{ site_url }}/{{ command.path }}</loc>
     <priority>0.5</priority>
   </url>
   {% endfor %}
   <url>
-    <loc>{{ site_url }}/privacy.html</loc>
+    <loc>{{ site_url }}/privacy</loc>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>{{ site_url }}/terms-of-service.html</loc>
+    <loc>{{ site_url }}/terms-of-service</loc>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>{{ site_url }}/eula.html</loc>
+    <loc>{{ site_url }}/eula</loc>
     <priority>0.2</priority>
   </url>
 </urlset>

@@ -43,7 +43,9 @@
     {% if path_str == blank %}
       {% assign canonical_url = site_url | append: '/' %}
     {% else %}
-      {% assign canonical_url = site_url | append: '/' | append: path_str | append: '.html' %}
+      {% comment %} No .html: the host 308-redirects /foo.html -> /foo, and a canonical
+         pointing at a redirect is routinely ignored by search engines. {% endcomment %}
+      {% assign canonical_url = site_url | append: '/' | append: path_str %}
     {% endif %}
 
     <title>{{ page_title | escape }}</title>
