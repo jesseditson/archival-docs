@@ -4,42 +4,37 @@ description = "See the Archival editor. Describe a site and it's built, edit con
 
 [[sections]]
 key = "prompt"
-title = "Describe what you want: Get real websites."
+title = "Get started in minutes"
 content = """
-Start with a description, then attach any photos, video, or audio you already have. Archival generates several complete, real websites to choose from. Later, you can keep changing your site the same way: just describe what you'd like in plain language.
+Start with a description, then attach any photos, video, or audio you already have. Archival chooses one of our human-built templates to get you started, and populates content based on your prompt.
 """
 
 [[sections]]
 key = "editor"
-title = "A simple, powerful, dynamic editing experience."
+title = "Update your site from anywhere, in seconds"
 content = """
-This is the Archival editor. Your live website on one side, a simple editing panel on the other. Everything you need to run your site lives here: content, media, settings, history, and publishing. Make quick changes to content, layout, and styling without touching any code.
+Updating an Archival site is easier than posting to social media.
+
+Change content in one place and we update it everywhere — or just tell task mode what should change and we'll handle the rest.
 """
 
 [[sections]]
 key = "settings"
-title = "Your site, your settings."
+title = "Complex infrastructure, made simple"
 content = """
-Point a domain you already own at your new Archival site, or we'll help you register a new one. See your plan, your connected repository, manage DNS, and a view your deployment history all in one place.
-"""
-
-[[sections]]
-key = "media"
-title = "Media that just works."
-content = """
-Drag in a photo and you're done. Archival converts phone formats like HEIC automatically, uploads to a fast global network, and never stores the same file twice. No resizing, no exporting, no fuss.
+Point a domain you already own at your new Archival site, or we'll help you register a new one. Archival gives you powerful tools if you need them, but manages the tricky parts of deployment and hosting automatically.
 """
 
 [[sections]]
 key = "history"
-title = "Every change, tracked forever."
+title = "Every change, tracked forever"
 content = """
-Archival remembers every change you've ever made. Browse your full history, see exactly what changed and when, and roll back anything instantly, from a single edit to a whole day's work. Your site can never be lost.
+Archival remembers every change you've ever made. Browse your full history, see exactly what changed and when, and roll back anything instantly, from a single edit to a whole day's work. Archival websites, and all changes to them, last forever.
 """
 
 [[sections]]
 key = "cta"
 title = "Build yours right now."
 content = """
-Describe what type of site you'd like to create and we'll make you a few websites to choose from.
+Describe what type of site you'd like to create and we'll get you live in a few minutes.
 """
