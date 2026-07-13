@@ -1,0 +1,40 @@
+order = -1
+title = "Archival | Product"
+description = "See the Archival editor. Describe a site and it's built, edit content not code, and publish to a domain you own. A guided tour of the product."
+
+[[sections]]
+key = "prompt"
+title = "Get started in minutes"
+content = """
+Start with a description, then attach any photos, video, or audio you already have. Archival chooses one of our human-built templates to get you started, and populates content based on your prompt.
+"""
+
+[[sections]]
+key = "editor"
+title = "Update your site from anywhere, in seconds"
+content = """
+Updating an Archival site is easier than posting to social media.
+
+Change content in one place and we update it everywhere — or just tell task mode what should change and we'll handle the rest.
+"""
+
+[[sections]]
+key = "settings"
+title = "Complex infrastructure, made simple"
+content = """
+Point a domain you already own at your new Archival site, or we'll help you register a new one. Archival gives you powerful tools if you need them, but manages the tricky parts of deployment and hosting automatically.
+"""
+
+[[sections]]
+key = "history"
+title = "Every change, tracked forever"
+content = """
+Archival remembers every change you've ever made. Browse your full history, see exactly what changed and when, and roll back anything instantly, from a single edit to a whole day's work. Archival websites, and all changes to them, last forever.
+"""
+
+[[sections]]
+key = "cta"
+title = "Build yours right now."
+content = """
+Describe what type of site you'd like to create and we'll get you live in a few minutes.
+"""

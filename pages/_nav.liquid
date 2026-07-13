@@ -43,6 +43,9 @@
     </button>
   </div>
   <ul class="flex-shrink justify-end gap-8 items-center flex-wrap hidden md:flex">
+    <li class="nav-text {% if area == 'product' %}nav-active{% endif %}">
+      <a href="/product.html" data-umami-event="nav-product">Product</a>
+    </li>
     {% assign docs_link = objects.docs | first %}
     <li class="nav-text {% if area == 'docs' %}nav-active{% endif %}">
       <a href="/{{ docs_link.path }}.html" data-umami-event="nav-docs">Docs</a>
@@ -124,6 +127,9 @@
 </nav>
 <div id="mobile-menu" class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-10 px-4 bottom-0 z-40 text-xl rounded-lg md:hidden max-h-full overflow-y-auto">
   <ul class="flex flex-col">
+    <li class="mobile-nav-item">
+      <a class="flex-1" href="/product.html" data-umami-event="mobile-nav-product">Product</a>
+    </li>
     {% assign docs_link = objects.docs | first %}
     <li class="mobile-nav-item">
       <a class="flex-1" href="/{{ docs_link.path }}.html" data-umami-event="mobile-nav-docs">Docs</a>

@@ -1,0 +1,1606 @@
+/* Product tour page — page-level layout. Frame + annotation styles: added in Task 2. */
+.product-page {
+  width: 100%;
+  overflow-x: clip;
+}
+
+/* ============ Callout marker positions ============ */
+/* Every numbered marker is placed as a percentage of its frame — x across the
+   width, y down the height. These are the knobs: nudge a value to move a marker.
+   Grouped by section; the number matches the badge shown on the frame. The
+   wiring rules below feed each variable to its marker — no need to touch those. */
+.product-page {
+  /* Editor — "A powerful, dynamic editor for your website." */
+  --m-editor-1-x: 34%;
+  --m-editor-1-y: 9.6%;
+  --m-editor-2-x: 42%;
+  --m-editor-2-y: 76%;
+  --m-editor-3-x: 75%;
+  --m-editor-3-y: 66%;
+  --m-editor-4-x: 68.1%;
+  --m-editor-4-y: 20.9%;
+
+  /* Prompt — "Describe what you want: Get real websites." */
+  --m-prompt-1-x: 94.7%;
+  --m-prompt-1-y: 21.7%;
+  --m-prompt-2-x: 53.6%;
+  --m-prompt-2-y: 39.2%;
+  --m-prompt-3-x: 50%;
+  --m-prompt-3-y: 57%;
+
+  /* Settings — "Your site, your settings." (1 GitHub, 2 deploys, 3 DNS) */
+  --m-settings-1-x: 42%;
+  --m-settings-1-y: 26%;
+  --m-settings-2-x: 68%;
+  --m-settings-2-y: 50%;
+  --m-settings-3-x: 73%;
+  --m-settings-3-y: 78%;
+
+  /* Media — "Media that just works." */
+  --m-media-1-x: 94.7%;
+  --m-media-1-y: 32.8%;
+  --m-media-2-x: 94.7%;
+  --m-media-2-y: 59.5%;
+  --m-media-3-x: 73%;
+  --m-media-3-y: 76.7%;
+
+  /* History — "Every change, tracked forever." */
+  --m-history-1-x: 94.7%;
+  --m-history-1-y: 35.2%;
+  --m-history-2-x: 94.7%;
+  --m-history-2-y: 72.6%;
+  --m-history-3-x: 76.7%;
+  --m-history-3-y: 84%;
+}
+
+/* Wiring: feed each frame's markers from the variables above. */
+.product-frame--shell .callout-marker[data-callout="1"] {
+  --cx: var(--m-editor-1-x);
+  --cy: var(--m-editor-1-y);
+}
+.product-frame--shell .callout-marker[data-callout="2"] {
+  --cx: var(--m-editor-2-x);
+  --cy: var(--m-editor-2-y);
+}
+.product-frame--shell .callout-marker[data-callout="3"] {
+  --cx: var(--m-editor-3-x);
+  --cy: var(--m-editor-3-y);
+}
+.product-frame--shell .callout-marker[data-callout="4"] {
+  --cx: var(--m-editor-4-x);
+  --cy: var(--m-editor-4-y);
+}
+.product-frame--prompt .callout-marker[data-callout="1"] {
+  --cx: var(--m-prompt-1-x);
+  --cy: var(--m-prompt-1-y);
+}
+.product-frame--prompt .callout-marker[data-callout="2"] {
+  --cx: var(--m-prompt-2-x);
+  --cy: var(--m-prompt-2-y);
+}
+.product-frame--prompt .callout-marker[data-callout="3"] {
+  --cx: var(--m-prompt-3-x);
+  --cy: var(--m-prompt-3-y);
+}
+.product-frame--settings .callout-marker[data-callout="1"] {
+  --cx: var(--m-settings-1-x);
+  --cy: var(--m-settings-1-y);
+}
+.product-frame--settings .callout-marker[data-callout="2"] {
+  --cx: var(--m-settings-2-x);
+  --cy: var(--m-settings-2-y);
+}
+.product-frame--settings .callout-marker[data-callout="3"] {
+  --cx: var(--m-settings-3-x);
+  --cy: var(--m-settings-3-y);
+}
+.product-frame--media .callout-marker[data-callout="1"] {
+  --cx: var(--m-media-1-x);
+  --cy: var(--m-media-1-y);
+}
+.product-frame--media .callout-marker[data-callout="2"] {
+  --cx: var(--m-media-2-x);
+  --cy: var(--m-media-2-y);
+}
+.product-frame--media .callout-marker[data-callout="3"] {
+  --cx: var(--m-media-3-x);
+  --cy: var(--m-media-3-y);
+}
+.product-frame--history .callout-marker[data-callout="1"] {
+  --cx: var(--m-history-1-x);
+  --cy: var(--m-history-1-y);
+}
+.product-frame--history .callout-marker[data-callout="2"] {
+  --cx: var(--m-history-2-x);
+  --cy: var(--m-history-2-y);
+}
+.product-frame--history .callout-marker[data-callout="3"] {
+  --cx: var(--m-history-3-x);
+  --cy: var(--m-history-3-y);
+}
+/* Give the two masthead lines a little breathing room so the "you"
+   descenders don't collide with the "build" ascenders. Scoped to the
+   product hero so the homepage's identical hero is unaffected. */
+.product-hero .hero-line-2 {
+  margin-top: 0.12em;
+}
+/* On phones the shared hero sizing leaves the hero message small and
+   floating in the masthead. Let it fill the width like the frames below —
+   trim the padding and push the viewport-relative sizes up. The rem caps are
+   unchanged, so the desktop hero stays exactly as it is. Scoped to
+   .product-hero so the homepage masthead is untouched. */
+@media (max-width: 768px) {
+  .product-hero .hero-message {
+    padding: 0 0.25rem;
+  }
+}
+.product-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 8rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+.product-section.frame-left {
+  direction: rtl;
+}
+.product-section.frame-left > * {
+  direction: ltr;
+}
+.product-copy {
+  max-width: 32rem;
+}
+.product-cta {
+  margin-top: 4rem;
+}
+@media (max-width: 768px) {
+  .product-section {
+    /* minmax(0, …) — not a bare 1fr — so the single column can shrink below
+       the frame's fixed design width. Otherwise the frame's min-content pins
+       the column at --pf-dw (536px), overflowing the phone and clipping the
+       copy; here it lets the column match the viewport so the copy wraps and
+       fit() scales the frame down with zoom. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    margin: 5rem auto;
+  }
+  .product-section.frame-left {
+    direction: ltr;
+  }
+}
+
+/* ============ Product frames: editor design tokens (scoped) ============ */
+.product-frame {
+  --pf-canvas: #13111c;
+  --pf-panel: #1c1c1c;
+  --pf-panel-2: #121212;
+  --pf-glass: rgba(255, 255, 255, 0.06);
+  --pf-glass-strong: rgba(255, 255, 255, 0.1);
+  --pf-hairline: rgba(255, 255, 255, 0.1);
+  --pf-text: #f5f5f5;
+  --pf-text-dim: #cccccc;
+  --pf-cta: linear-gradient(180deg, #fe8300 0%, #ff3c00 100%);
+  --pf-unsynced: rgba(254, 131, 0, 1);
+  --pf-ok: #00d676;
+  --pf-warn: #ffbf00;
+  --pf-err: #ff3c00;
+  --pf-violet: rgba(139, 92, 246, 1);
+  --pf-teal: #7ec8b8;
+  --pf-purple: #b87fd4;
+  --pf-dw: 33.5rem;
+
+  position: relative;
+  border-radius: 1rem;
+  background: var(--pf-canvas);
+  border: 1px solid var(--pf-hairline);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  color: var(--pf-text);
+  font-family:
+    system-ui,
+    -apple-system,
+    "SF Pro",
+    sans-serif;
+  font-size: 0.8125rem;
+  overflow: hidden;
+  isolation: isolate;
+
+  /* Frames are laid out at a fixed design width and scaled as a whole to fit
+     their column (zoom set by the fit() script). Because the internal layout
+     never reflows, the callout markers — pinned in % of the frame — stay
+     aligned to their targets at every window size. --pf-dw matches the widest
+     column, so zoom is 1 at the largest layout and only ever scales down. */
+  width: var(--pf-dw, 33.5rem);
+  margin-inline: auto;
+  zoom: var(--pf-zoom, 1);
+}
+
+/* Ambient glow behind a frame's content (product signature) */
+.product-frame-glow {
+  position: absolute;
+  inset: -30% -10% auto -10%;
+  height: 120%;
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255, 0, 150, 0.25) 0%,
+    rgba(0, 200, 255, 0.18) 35%,
+    rgba(0, 255, 100, 0.12) 55%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  opacity: 0.5;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Frosted panel + chrome primitives reused across frames */
+.pf-glass {
+  background: var(--pf-glass);
+  border: 1px solid var(--pf-hairline);
+  backdrop-filter: blur(12px);
+  border-radius: 0.5rem;
+}
+.pf-cta {
+  background: var(--pf-cta);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  padding: 0 1rem;
+  height: 2.25rem;
+  box-shadow: 0 0 12px rgba(255, 60, 0, 0.2);
+}
+.pf-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  margin-right: 0.4rem;
+}
+.pf-dot.ok {
+  background: var(--pf-ok);
+}
+.pf-dot.warn {
+  background: var(--pf-warn);
+}
+.pf-dot.err {
+  background: var(--pf-err);
+}
+.pf-toggle {
+  width: 2.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: var(--pf-violet);
+  position: relative;
+}
+.pf-toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: #fff;
+}
+.pf-input {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.375rem;
+  height: 2.25rem;
+  padding: 0 0.6rem;
+  color: var(--pf-text);
+  display: flex;
+  align-items: center;
+}
+.pf-unsynced {
+  color: var(--pf-unsynced);
+}
+
+/* ============ Annotated callouts ============ */
+.product-frame-wrap {
+  position: relative;
+}
+
+.callout-marker {
+  position: absolute;
+  left: var(--cx);
+  top: var(--cy);
+  transform: translate(-50%, -50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--pf-cta, linear-gradient(180deg, #fe8300, #ff3c00));
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 0 0 3px rgba(255, 131, 0, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+  cursor: default;
+  z-index: 4;
+}
+.callout-marker.callout-active {
+  box-shadow:
+    0 0 0 5px rgba(255, 131, 0, 0.45),
+    0 2px 10px rgba(0, 0, 0, 0.6);
+}
+/* A ring that radiates outward from the active marker on an infinite loop.
+   Kept to a modest scale so it never clips against the frame's overflow. */
+.callout-marker.callout-active::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 131, 0, 0.6);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .callout-marker.callout-active::after {
+    animation: callout-radiate 1.6s ease-out infinite;
+  }
+}
+@keyframes callout-radiate {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.85);
+    opacity: 0;
+  }
+}
+
+.callout-legend {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.callout-item {
+  color: var(--color-typography-secondary);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding-left: 0.25rem;
+  cursor: default;
+}
+.callout-item b {
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 131, 0, 0.18);
+  color: var(--color-primary-cta-highlight);
+  font-size: 0.75rem;
+}
+.callout-item.callout-active {
+  color: var(--color-typography-primary);
+}
+
+/* Spotlight the active callout on hover: the targeted region stays in full
+   color while the rest of the frame dims and desaturates. No outline — the
+   contrast does the pointing. Everything reverts on mouse-out.
+
+   Each rule dims the "off-path" branches — direct children (of the frame, or
+   of any element that contains the active target) that neither are nor contain
+   the active target. Dimming the top of each off-path branch lets the filter
+   cascade to its descendants without compounding, and keeps the active
+   target's whole ancestor chain in full color. Markers are dimmed separately
+   so their reveal-delayed opacity transition never gates the hover response. */
+.product-frame.is-focusing
+  > :not(:has(.callout-active)):not(.callout-active):not(.callout-marker),
+.product-frame.is-focusing
+  :has(.callout-active)
+  > :not(:has(.callout-active)):not(.callout-active):not(.callout-marker) {
+  filter: grayscale(0.92) brightness(0.6);
+  opacity: 0.5;
+}
+.product-frame.is-focusing .callout-marker:not(.callout-active) {
+  filter: grayscale(0.85) brightness(0.5);
+}
+
+/* ============ Reveal / draw-in animations ============ */
+@media (prefers-reduced-motion: no-preference) {
+  .product-frame {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 0.7s ease-out,
+      transform 0.7s ease-out;
+  }
+  /* Reveal (opacity/transform) carries the staggered delay; hover properties
+     (box-shadow, color) transition with no delay so hover responds instantly. */
+  .callout-marker {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+    transition:
+      opacity 0.35s ease-out calc(0.5s + var(--i, 1) * 0.12s),
+      transform 0.35s ease-out calc(0.5s + var(--i, 1) * 0.12s),
+      box-shadow 0.15s ease-out,
+      filter 0.18s ease-out;
+  }
+  /* Spotlight dim/undim fades in and out with no reveal delay. Applied to
+     every frame element except the markers, whose transition is tuned above. */
+  .product-frame *:not(.callout-marker) {
+    transition:
+      filter 0.28s ease-out,
+      opacity 0.28s ease-out;
+  }
+  .callout-item {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.4s ease-out calc(0.5s + var(--i, 1) * 0.12s),
+      transform 0.4s ease-out calc(0.5s + var(--i, 1) * 0.12s),
+      color 0.15s ease-out;
+  }
+
+  .product-section.is-visible .product-frame {
+    opacity: 1;
+    transform: none;
+  }
+  .product-section.is-visible .callout-marker {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .product-section.is-visible .callout-item {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============ Responsive: callouts on mobile ============ */
+@media (max-width: 768px) {
+  .product-frame {
+    font-size: 0.7rem;
+  }
+  /* Keep the numbered markers visible at every size — they scale with the
+     frame's zoom and are the link to the numbered legend below. */
+  .callout-item b {
+    background: rgba(255, 131, 0, 0.18);
+  }
+}
+
+/* ============ Frame 1 (Hero — full editor shell): scoped shell primitives ============ */
+.product-frame--shell {
+  padding: 1.75rem;
+}
+
+/* The editor UI as a floating window, framed by the canvas stage like the
+   other visuals (which float a glass card on the padded canvas). */
+.pf-window {
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  border: 1px solid var(--pf-hairline);
+  background: var(--pf-canvas);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.pf-chrome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--pf-hairline);
+  background: var(--pf-panel-2);
+  flex: 0 0 auto;
+}
+.pf-chrome-btn {
+  font-size: 0.7rem;
+  color: var(--pf-text-dim);
+  background: var(--pf-glass);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.375rem;
+  padding: 0.3rem 0.6rem;
+  white-space: nowrap;
+}
+.pf-mode-toggle {
+  display: flex;
+  gap: 0.15rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 999px;
+  padding: 0.15rem;
+  margin-left: 0.25rem;
+}
+.pf-mode-toggle span {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  color: var(--pf-text-dim);
+  white-space: nowrap;
+}
+.pf-mode-toggle span.on {
+  background: var(--pf-violet);
+  color: #fff;
+}
+.pf-chrome-right {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pf-status {
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--pf-text-dim);
+  white-space: nowrap;
+}
+
+.pf-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(3.75rem, 0.42fr) minmax(0, 1fr) minmax(
+      0,
+      1.15fr
+    );
+}
+
+.pf-sidebar {
+  border-right: 1px solid var(--pf-hairline);
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow: hidden;
+}
+.pf-sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--pf-text-dim);
+  padding: 0.4rem 0.6rem;
+  border-radius: 999px;
+}
+.pf-sidebar-item b {
+  font-weight: 600;
+  font-size: 0.65rem;
+  opacity: 0.75;
+}
+.pf-sidebar-item.active {
+  background: var(--pf-purple);
+  color: #1c1030;
+  font-weight: 600;
+}
+.pf-sidebar-item.active b {
+  color: #1c1030;
+  opacity: 0.7;
+}
+
+.pf-panel {
+  margin: 0.75rem;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: hidden;
+}
+.pf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.pf-field label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pf-text-dim);
+}
+
+.pf-preview {
+  background: var(--pf-panel-2);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  overflow: hidden;
+}
+/* Desktop website preview: a browser window wrapping a wireframe layout.
+   Everything is a neutral skeleton block so it reads as "your live site"
+   without inventing fake content. */
+.pf-browser {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.6rem;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.pf-browser-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.55rem;
+  background: var(--pf-panel-2);
+  border-bottom: 1px solid var(--pf-hairline);
+}
+.pf-browser-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.pf-browser-url {
+  flex: 1 1 auto;
+  margin-left: 0.4rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--pf-hairline);
+}
+.pf-browser-page {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.65rem 0.7rem;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(139, 92, 246, 0.07),
+    transparent 45%
+  );
+}
+.pf-wire-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.pf-wire-logo {
+  width: 1.8rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--pf-violet), var(--pf-teal));
+}
+.pf-wire-navlinks {
+  display: flex;
+  gap: 0.35rem;
+}
+.pf-wire-navlinks span {
+  width: 1.1rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.pf-wire-hero {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  gap: 0.6rem;
+}
+.pf-wire-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.pf-wire-line {
+  height: 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.pf-wire-line--title {
+  height: 0.6rem;
+  width: 85%;
+  background: rgba(255, 255, 255, 0.24);
+}
+.pf-wire-line--short {
+  width: 60%;
+}
+.pf-wire-btn {
+  margin-top: 0.25rem;
+  width: 2.4rem;
+  height: 0.7rem;
+  border-radius: 0.25rem;
+  background: var(--pf-cta);
+}
+.pf-wire-hero-art {
+  height: 3rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--pf-hairline);
+  background: linear-gradient(
+    150deg,
+    rgba(139, 92, 246, 0.4),
+    rgba(0, 200, 255, 0.25) 60%,
+    rgba(0, 255, 100, 0.15)
+  );
+}
+.pf-wire-cards {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+.pf-wire-card {
+  height: 1.6rem;
+  border-radius: 0.35rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--pf-hairline);
+}
+
+@media (max-width: 768px) {
+  .pf-body {
+    grid-template-columns: minmax(4.5rem, 0.6fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .pf-panel {
+    margin: 0.5rem;
+    padding: 0.6rem;
+    gap: 0.5rem;
+  }
+}
+
+/* ============ Frame 2 (Prompt + 3-up template chooser): scoped primitives ============ */
+.product-frame--prompt {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.pf-prompt-card {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.pf-prompt-textarea {
+  min-height: 4rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--pf-hairline);
+  color: var(--pf-text-dim);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.pf-prompt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.pf-attach-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--pf-text-dim);
+  background: var(--pf-glass);
+  border: 1px dashed var(--pf-hairline);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem 0.3rem 0.5rem;
+  white-space: nowrap;
+}
+.pf-chip-icon {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--pf-teal);
+}
+.pf-chip:nth-child(2) .pf-chip-icon {
+  background: var(--pf-violet);
+}
+.pf-chip:nth-child(3) .pf-chip-icon {
+  background: var(--pf-purple);
+}
+.pf-generate-btn {
+  white-space: nowrap;
+}
+
+.pf-chooser {
+  display: grid;
+  grid-template-columns: auto repeat(3, minmax(0, 1fr)) auto;
+  align-items: center;
+  gap: 0.6rem;
+}
+.pf-paddle {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--pf-glass);
+  border: 1px solid var(--pf-hairline);
+  color: var(--pf-text-dim);
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+.pf-site-card {
+  background: var(--pf-panel-2);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  opacity: 0.65;
+  transform: scale(0.94);
+  min-width: 0;
+}
+.pf-site-card--active {
+  opacity: 1;
+  transform: scale(1);
+  border-color: var(--pf-violet);
+  box-shadow:
+    0 0 0 1px rgba(139, 92, 246, 0.4),
+    0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.pf-site-header {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.6),
+    rgba(0, 200, 255, 0.4)
+  );
+}
+.pf-site-block {
+  height: 1.3rem;
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.08);
+}
+.pf-site-block--wide {
+  height: 2rem;
+}
+.pf-golive-btn {
+  margin-top: 0.25rem;
+  height: 1.75rem;
+  font-size: 0.68rem;
+  padding: 0 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .product-frame--prompt {
+    padding: 1rem;
+    gap: 1.25rem;
+  }
+  .pf-chooser {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .pf-paddle {
+    display: none;
+  }
+}
+
+/* ============ Frame 3 (Schema-driven content editor): scoped primitives ============ */
+.product-frame--content {
+  padding: 1.75rem;
+}
+
+.pf-content-form {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.pf-content-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: 0.9rem;
+  min-width: 0;
+}
+.pf-fields-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  min-width: 0;
+}
+.pf-fields-row .pf-field {
+  min-width: 0;
+}
+
+.pf-select {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.375rem;
+  height: 2.25rem;
+  padding: 0 0.6rem;
+  color: var(--pf-text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+.pf-select-caret {
+  color: var(--pf-text-dim);
+  font-size: 0.6rem;
+  margin-left: 0.5rem;
+}
+
+.pf-field--unsynced {
+  border-left: 2px solid var(--pf-unsynced);
+  padding-left: 0.6rem;
+}
+.pf-field--unsynced label {
+  display: flex;
+  align-items: center;
+}
+.pf-field--unsynced .pf-dot {
+  background: var(--pf-unsynced);
+}
+
+.pf-markdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--pf-hairline);
+  border-bottom: 1px solid var(--pf-hairline);
+  min-width: 0;
+}
+.pf-markdown-toolbar {
+  display: flex;
+  gap: 0.35rem;
+}
+.pf-md-btn {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--pf-text-dim);
+  background: var(--pf-glass);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.375rem;
+}
+.pf-md-btn--link {
+  font-size: 0.6rem;
+}
+.pf-markdown-body {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.pf-md-line {
+  color: var(--pf-text-dim);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.pf-md-line strong {
+  color: var(--pf-text);
+  font-weight: 700;
+}
+.pf-md-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--pf-text-dim);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.pf-unsynced-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  border-left: 2px solid var(--pf-unsynced);
+  padding-left: 0.6rem;
+  min-width: 0;
+}
+.pf-unsynced-flag {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--pf-unsynced);
+}
+.pf-unsynced-bar .pf-dot {
+  background: var(--pf-unsynced);
+}
+.pf-unsynced-actions {
+  display: flex;
+  gap: 0.9rem;
+}
+.pf-text-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: default;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .product-frame--content {
+    padding: 1rem;
+  }
+  .pf-content-form {
+    padding: 0.75rem;
+    gap: 0.6rem;
+  }
+  .pf-fields-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ============ Frame 4 (Media/image editor): scoped primitives ============ */
+.product-frame--media {
+  padding: 1.75rem;
+}
+
+.pf-media-card {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.pf-dropzone {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem;
+  border: 1px dashed var(--pf-hairline);
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  min-width: 0;
+}
+.pf-thumb {
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 0.375rem;
+  background: linear-gradient(135deg, var(--pf-teal), var(--pf-violet));
+}
+.pf-dropzone-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.pf-dropzone-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pf-text);
+}
+.pf-dropzone-sub {
+  font-size: 0.7rem;
+  color: var(--pf-text-dim);
+}
+
+.pf-upload-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+.pf-progress-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--pf-hairline);
+  overflow: hidden;
+}
+.pf-progress-fill {
+  position: relative;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--pf-cta);
+  overflow: hidden;
+}
+.pf-progress-label {
+  font-size: 0.7rem;
+  color: var(--pf-text-dim);
+}
+
+.pf-media-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pf-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--pf-text-dim);
+  background: var(--pf-glass);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
+}
+.pf-badge--cdn {
+  color: var(--pf-ok);
+  border-color: rgba(0, 214, 118, 0.35);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pf-progress-fill::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.35),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: pf-progress-shimmer 1.8s linear infinite;
+  }
+}
+@keyframes pf-progress-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-frame--media {
+    padding: 1rem;
+  }
+  .pf-media-card {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  .pf-dropzone {
+    flex-wrap: wrap;
+  }
+}
+
+/* ============ Frame 5 (Site settings + deploys + DNS): scoped primitives ============ */
+.product-frame--settings {
+  padding: 1.75rem;
+}
+
+.pf-settings-card {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.pf-settings-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+}
+.pf-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.pf-settings-site {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--pf-text);
+  min-width: 0;
+}
+.pf-settings-live {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--pf-ok);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.pf-settings-label {
+  color: var(--pf-text-dim);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+.pf-settings-value {
+  color: var(--pf-text);
+  font-size: 0.8rem;
+  text-align: right;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf-dns {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--pf-hairline);
+}
+.pf-dns-title,
+.pf-deploys-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--pf-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pf-dns-row {
+  display: grid;
+  grid-template-columns: 2.75rem 2.75rem minmax(0, 1fr);
+  gap: 0.4rem;
+  align-items: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  min-width: 0;
+}
+.pf-dns-type {
+  color: var(--pf-teal);
+  font-weight: 600;
+}
+.pf-dns-host {
+  color: var(--pf-text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.pf-dns-value {
+  color: var(--pf-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.pf-deploys {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--pf-hairline);
+  min-width: 0;
+}
+.pf-deploy-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.pf-deploy-date {
+  color: var(--pf-text-dim);
+  font-size: 0.7rem;
+  width: 2.75rem;
+  flex-shrink: 0;
+}
+.pf-deploy-msg {
+  color: var(--pf-text);
+  font-size: 0.78rem;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pf-deploy-row .pf-dot {
+  margin-right: 0;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .product-frame--settings {
+    padding: 1rem;
+  }
+  .pf-settings-card {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+}
+
+/* ============ Frame 6 (Version history panel): scoped primitives ============ */
+.product-frame--history {
+  padding: 1.75rem;
+}
+
+.pf-history-panel {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.pf-history-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--pf-hairline);
+}
+.pf-history-title {
+  font-weight: 700;
+  color: var(--pf-text);
+  font-size: 0.9rem;
+}
+
+.pf-history-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.pf-history-group-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--pf-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pf-change-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  /* Keep the warn dots in the same column as the ok dots below (dot at the
+     commit rows' 0.1rem inset), but let the glass highlight breathe to the
+     left of the dot: pull the row left and pad it back so the dot holds its
+     x while the background extends past it. */
+  padding: 0.45rem 0.1rem 0.45rem 0.5rem;
+  margin-left: -0.4rem;
+  border-radius: 0.25rem;
+  background: var(--pf-glass);
+}
+.pf-change-row .pf-dot {
+  flex-shrink: 0;
+}
+.pf-change-desc {
+  color: var(--pf-text);
+  font-size: 0.78rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf-commit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.4rem 0.1rem;
+  border-bottom: 1px solid var(--pf-hairline);
+}
+.pf-commit-row:last-child {
+  border-bottom: none;
+}
+.pf-commit-row .pf-dot {
+  flex-shrink: 0;
+  margin-right: 0;
+}
+.pf-commit-date {
+  color: var(--pf-text-dim);
+  font-size: 0.7rem;
+  width: 2.5rem;
+  flex-shrink: 0;
+}
+.pf-commit-msg {
+  color: var(--pf-text);
+  font-size: 0.78rem;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf-revert-btn {
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--pf-text-dim);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.375rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .product-frame--history {
+    padding: 1rem;
+  }
+  .pf-history-panel {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+}
+
+/* ============ Frame 7 (Publish modal): scoped primitives ============ */
+.product-frame--publish {
+  min-height: 26rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.pf-publish-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--pf-hairline);
+  min-width: 0;
+  opacity: 0.6;
+}
+.pf-publish-topbar-label {
+  font-size: 0.7rem;
+  color: var(--pf-text-dim);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf-publish-backdrop {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 0.75rem;
+  min-width: 0;
+}
+
+.pf-publish-modal {
+  width: 100%;
+  max-width: 24rem;
+  min-width: 0;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+.pf-publish-header {
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--pf-hairline);
+}
+.pf-publish-title {
+  font-weight: 700;
+  color: var(--pf-text);
+  font-size: 0.9rem;
+}
+
+.pf-publish-changes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+.pf-publish-change-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  min-width: 0;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.25rem;
+  background: var(--pf-glass);
+}
+.pf-publish-change-desc {
+  color: var(--pf-text);
+  font-size: 0.78rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pf-publish-undo {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--pf-teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: default;
+}
+
+.pf-publish-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+.pf-publish-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--pf-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pf-publish-textarea {
+  height: 3.5rem;
+  align-items: flex-start;
+  padding-top: 0.5rem;
+  white-space: normal;
+  line-height: 1.4;
+  min-width: 0;
+}
+
+.pf-publish-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+.pf-publish-cancel {
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--pf-text-dim);
+  border: 1px solid var(--pf-hairline);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  padding: 0 1rem;
+  height: 2.25rem;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .product-frame--publish {
+    padding: 1rem;
+    min-height: 24rem;
+  }
+  .pf-publish-modal {
+    padding: 0.85rem;
+    gap: 0.65rem;
+    max-width: none;
+  }
+}
+
+/* ============ Closing CTA (Section 8): finale spacing/centering polish ============ */
+.product-cta.build-section {
+  margin-top: 10rem;
+  max-width: 52rem;
+}
+.product-cta .primary-cta-container {
+  margin-top: 2rem;
+}

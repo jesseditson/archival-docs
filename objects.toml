@@ -73,3 +73,11 @@ content = "markdown"
 
 [privacy_policy]
 content = "markdown"
+
+[product]
+title = "string"
+description = "string"
+[product.sections]
+key = "string"
+title = "string"
+content = "markdown"
