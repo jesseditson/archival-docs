@@ -82,3 +82,20 @@ description = "string"
 key = "string"
 title = "string"
 content = "markdown"
+
+[showcase]
+title = "string"
+tagline = "string"
+
+[showcase.sites]
+name = "string"
+url = "string"
+screenshot = "image"
+description = "string"
+built_by = "string"
+
+[showcase.quotes]
+quote = "markdown"
+author = "string"
+role = "string"
+site_url = "string"
