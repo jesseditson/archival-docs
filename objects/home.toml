@@ -10,11 +10,13 @@ videos_title = "Show Me How It Works"
 contact_title = "Connect With Us"
 pricing_title = "Pricing"
 pricing_content = """
-Archival is run by a tiny team with a goal of staying small. You can use archival for free forever, and you can ship archival sites to platforms like Vercel, Netlify, or host archival websites on your own static servers.
+Archival is run by a tiny team with a goal of staying small.
 
-Our goal is to be as easy as a social media profile to build and maintain, while being far less expensive than more complicated web platforms. Our pricing is ridiculously simple - <span class="emphasized">for $14 a month, you get unlimited traffic to your archival-hosted site, the ability to upload large streaming files and add custom domains.
+The Archival editor — hosting, custom domains, DNS, and large file uploads — is $14 a month. That is the whole price: no tiers, no hidden charges. Hosted sites include 100GB of bandwidth and 10GB of storage per month.
 
-If you’re interested in hiring the archival team to build something custom for you, host a large number of sites on archival, or otherwise find our pricing model imperfect for your use case, reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we’ll get you what you need!
+Archival itself is open source. The `archival` CLI is free to use and always will be, and you can build archival sites and host them yourself, or deploy them to platforms like Vercel, Netlify, or any static host.
+
+If you're interested in hiring the archival team to build something custom for you, host a large number of sites on archival, or otherwise find our pricing model imperfect for your use case, reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we'll get you what you need!
 """
 discord_url = "https://discord.gg/Q9Cj6bWTbW"
 

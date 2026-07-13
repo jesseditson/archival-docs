@@ -1,5 +1,6 @@
 order = 5
 command = "archival prebuild"
+description = "Run the commands listed in the manifest's prebuild field, in sequence, exiting non-zero on failure."
 content = """
 Runs the commands listed in the manifest prebuild fields, in sequence, in subshells. If any command fails, this will print the failure and exit non-zero.
 """

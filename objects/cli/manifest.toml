@@ -1,5 +1,6 @@
 order = 4
 command = "archival manifest"
+description = "Print the value of a manifest field, useful in a build script or CI environment."
 content = """
 Print the value from a manifest field - typically this is useful in the context of a build script or CI environment.
 """

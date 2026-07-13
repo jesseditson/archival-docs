@@ -1,5 +1,6 @@
 order = 6
 command = "archival login"
+description = "Log in to the archival editor and store credentials locally in ~/.archivalrc."
 content = """
 Logs in to the archival editor and store credentials locally in `~/.archivalrc`.
 
