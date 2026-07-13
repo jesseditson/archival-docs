@@ -3,24 +3,79 @@
 
   <head>
     <meta charset="utf-8">
-    <title>{{ title }}</title>
-    {% if description %}
-      <meta name="description" content="{{description}}">
-    {% endif %}
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
-    <meta property="og:title" content="{{ title }}">
-    {% if description %}
-      <meta property="og:description" content="{{description}}">
+    {% comment %} Title suffix varies by area so 15 docs pages don't collide. {% endcomment %}
+    {% if area == 'docs' %}
+      {% assign title_suffix = 'Archival Docs' %}
+    {% elsif area == 'cli' %}
+      {% assign title_suffix = 'Archival CLI' %}
+    {% else %}
+      {% assign title_suffix = 'Archival' %}
     {% endif %}
+
+    {% comment %} Bare truthy-guard before comparing or filtering: this Liquid
+       engine errors on Unknown variable if a layout arg that was never passed
+       at all (e.g. pages/cli.liquid omits description and path) is compared or
+       filtered directly. A bare truthy check on an unset var is safe and falsy,
+       so it lets us fall through to the blank-safe defaults without crashing. {% endcomment %}
+    {% if title %}
+      {% assign title_str = title %}
+    {% else %}
+      {% assign title_str = blank %}
+    {% endif %}
+    {% if title_str == blank %}
+      {% assign page_title = home.title %}
+    {% else %}
+      {% assign page_title = title_str | append: ' | ' | append: title_suffix %}
+    {% endif %}
+
+    {% if description %}
+      {% assign meta_description = description | strip_html | strip | truncate: 155 %}
+    {% else %}
+      {% assign meta_description = "" %}
+    {% endif %}
+
+    {% if path %}
+      {% assign path_str = path %}
+    {% else %}
+      {% assign path_str = blank %}
+    {% endif %}
+    {% if path_str == blank %}
+      {% assign canonical_url = site_url | append: '/' %}
+    {% else %}
+      {% assign canonical_url = site_url | append: '/' | append: path_str | append: '.html' %}
+    {% endif %}
+
+    <title>{{ page_title }}</title>
+    {% unless meta_description == blank %}
+      <meta name="description" content="{{ meta_description | escape }}">
+    {% endunless %}
+    {% if noindex %}
+      <meta name="robots" content="noindex">
+    {% endif %}
+    <link rel="canonical" href="{{ canonical_url }}" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:title" content="{{ page_title | escape }}">
+    {% unless meta_description == blank %}
+      <meta property="og:description" content="{{ meta_description | escape }}">
+    {% endunless %}
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://archival.dev">
-    <meta property="og:image" content="https://archival.dev/img/og-image.png" />
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{{ site_url }}/img/og-image.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1024" />
     <meta property="og:image:height" content="1024" />
     <meta property="og:image:alt" content="archival.dev" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title | escape }}">
+    {% unless meta_description == blank %}
+      <meta name="twitter:description" content="{{ meta_description | escape }}">
+    {% endunless %}
+    <meta name="twitter:image" content="{{ site_url }}/img/og-image.png">
 
     <link rel="manifest" href="/site.webmanifest" />
 
@@ -61,17 +116,31 @@
       {{ page_content }}
     </main>
 
-    <!-- syntax highlighting -->
-    <link rel="stylesheet" href="/style/hljs-dracula.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    {% if area == 'docs' or area == 'cli' %}
+      <!-- syntax highlighting -->
+      <link rel="stylesheet" href="/style/hljs-dracula.css" />
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+        integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp"
+        crossorigin="anonymous"></script>
 
-    <!-- documentation languages -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/toml.min.js"></script>
-    <script>
-          hljs.highlightAll();
-    </script>
+      <!-- documentation languages -->
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"
+        integrity="sha384-44q2s9jxk8W5N9gAB0yn7UYLi9E2oVw8eHyaTZLkDS3WuZM/AttkAiVj6JoZuGS4"
+        crossorigin="anonymous"></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"
+        integrity="sha384-ORwtVEfrCZ0gzGacgmfv1wOtxcPIaVfHKwq8dKQjObRwx3qpKjsSg1ldTu1PEgXd"
+        crossorigin="anonymous"></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/ini.min.js"
+        integrity="sha384-QrHbXsWtJOiJjnLPKgutUfoIrj34yz0+JKPw4CFIDImvaTDQ/wxYyEz/zB3639vM"
+        crossorigin="anonymous"></script>
+      <script>
+        hljs.highlightAll();
+      </script>
+    {% endif %}
     <script
       defer
       src="/umami.js"
@@ -83,7 +152,7 @@
       <footer class="footer">
         <img src="/img/archival-mark.svg" class="footer-mark" />
         <p class="copyright">&copy;       
-        2025 Fuck Billionaires, LLC.<br>All rights reserved.</p>
+        2026 Fuck Billionaires, LLC.<br>All rights reserved.</p>
         <p class="footer-legal">
           <a href="/privacy.html" data-umami-event="footer-privacy">Privacy</a>
           |
