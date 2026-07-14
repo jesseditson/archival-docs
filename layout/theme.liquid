@@ -29,8 +29,20 @@
       {% assign page_title = title_str | append: ' | ' | append: title_suffix %}
     {% endif %}
 
+    {% comment %} Docs descriptions wrap their bodies in liquid raw/endraw tags to stop
+       archival's liquid pass from interpreting the templating examples in their code
+       blocks. Truncating for the meta tag keeps the opening tag but cuts the closing
+       one, orphaning it: the stray opener then swallows everything up to the body's
+       closing tag and leaves the literal opener visible as text on the page. So strip
+       both tokens before truncating. They are assembled from pieces below because
+       writing them literally here would be parsed as real tags — even inside a
+       comment — and panics the liquid parser. {% endcomment %}
+    {% assign pct = '%' %}
+    {% assign raw_open = '{' | append: pct | append: ' raw ' | append: pct | append: '}' %}
+    {% assign raw_close = '{' | append: pct | append: ' endraw ' | append: pct | append: '}' %}
+
     {% if description %}
-      {% assign meta_description = description | strip_html | strip | truncate: 155 %}
+      {% assign meta_description = description | replace: raw_open, '' | replace: raw_close, '' | strip_html | strip | truncate: 155 %}
     {% else %}
       {% assign meta_description = "" %}
     {% endif %}
