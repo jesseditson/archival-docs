@@ -50,7 +50,7 @@ Because `archival build` produces an ordinary static site, you can deploy the `d
 3. Run `archival build`.
 4. Publish the contents of `dist`.
 
-As an example, here’s how this very site deploys to Cloudflare Pages:
+As an example, here’s how you would deploy an archival site to Cloudflare Pages via github actions:
 
 ```yaml
 publish-pages:
