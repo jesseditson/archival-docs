@@ -14,6 +14,46 @@ Values will be interpreted as a liquid [string](https://shopify.github.io/liquid
 """
 
 [[sections]]
+title = "secret"
+content = """
+{% raw %}
+A `secret` holds a string that your site needs but your *built site* must never contain — an API key, a webhook signing secret, a third-party token.
+
+```toml
+[settings]
+title = "string"
+api_key = "secret"
+```
+
+In an object file it's an ordinary string:
+
+```toml
+title = "My Site"
+api_key = "sk_live_abc123"
+```
+
+**Secrets are removed from templates.** A `secret` field is never added to a page or template context at all, so referencing one isn't an empty value — it's an unknown variable, and the build fails:
+
+```html
+<!-- this fails the build, it does not render blank -->
+{{ settings.api_key }}
+```
+
+That's deliberate: a typo can't quietly ship a key into your HTML, and the build error never contains the value.
+
+**Secrets are readable where the code runs on your side of the wall:**
+
+- From [carriers](/docs/carriers.html), on the third argument — `objects.settings.api_key`. Carriers are exactly the place to use one.
+- From the rust library, via `FieldValue::as_secret`. `Display` and the liquid `ValueView` both redact, so `as_secret` is the only way to read the value.
+- From [`archival types`](/cli/types.html), which includes secret fields — anything consuming those types is a server-side consumer.
+
+In the archival editor, a secret field is masked until you reveal it, and list views never show it.
+
+**A secret is not encrypted.** It's written to your object's toml file as plain text, which means it's committed to your repo and lives in your git history like any other value. `secret` keeps a value out of your *built site*, not out of your *repo*. If a value must not exist in your git history at all, don't put it in an object — keep it in your carrier's own deployment configuration.
+{% endraw %}
+"""
+
+[[sections]]
 title = "number"
 content = """
 {% raw %}
