@@ -24,6 +24,13 @@ window.addEventListener("load", () => {
 });
 
 const setupGenerateFrame = () => {
+  // Only index and product embed the frame. Bail before anything else so pages
+  // without it don't throw and abort the rest of the load handler.
+  const iframe = document.getElementById('generate-frame') as HTMLIFrameElement | null;
+  if (!iframe) {
+    return;
+  }
+
   const srcOrigin = new URL(LANDING_IFRAME_URL).origin;
   window.addEventListener('message', (event) => {
     console.log(event);
@@ -44,7 +51,6 @@ const setupGenerateFrame = () => {
         }
       }
     });
-  const iframe = document.getElementById('generate-frame') as HTMLIFrameElement;
 
   iframe.src = LANDING_IFRAME_URL;
 }
