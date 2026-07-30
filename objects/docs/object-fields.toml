@@ -10,7 +10,9 @@ The available types are:
 [[sections]]
 title = "string"
 content = """
-Values will be interpreted as a liquid [string](https://shopify.github.io/liquid/basics/types/#string). 
+Values will be interpreted as a liquid [string](https://shopify.github.io/liquid/basics/types/#string).
+
+Note that string values are themselves rendered as liquid — see [liquid in field values](#liquid%20in%20field%20values).
 """
 
 [[sections]]
@@ -119,7 +121,7 @@ This filter uses the same formatting strings as [strftime](http://strftime.net/)
 [[sections]]
 title = "markdown"
 content = """
-Values will be parsed as markdown before rendering, and output as HTML.
+Values will be parsed as markdown before rendering, and output as HTML. Only fields declared as `markdown` are parsed this way — markdown written into a `string` field is emitted as-is, without being converted.
 
 Markdown is a simple formatting language that is intended to allow you to write formatting into a human-readable text that can then be translated into actual formatting code later. For more info on markdown, check out the [Markdown Guide](https://www.markdownguide.org/getting-started/) or the [Syntax page](https://daringfireball.net/projects/markdown/syntax).
 
@@ -158,6 +160,10 @@ In addition to the GFM extensions above, archival enables a few more comrak exte
 **A note on HTML and security**
 
 archival renders markdown with raw/unsafe HTML *enabled* — any HTML you write inside a markdown field is passed through to the output as-is, and no tag filtering is applied. This is convenient when you trust the content (you’re the author), but it means markdown is **not** sanitized for you. If you ever render markdown that came from an untrusted source, sanitize it yourself before trusting the output.
+
+**A note on liquid**
+
+Liquid you write inside a markdown field is *rendered*, not printed — as it is in every other field type. See [liquid in field values](#liquid%20in%20field%20values) below for how that works, how to escape it, and the one markdown-specific gotcha (use single quotes for liquid string literals here).
 """
 
 
@@ -324,4 +330,55 @@ Because `meta` is unstructured, archival does **not** validate its contents (tho
 </body>
 ```
 {% endraw %}
+"""
+
+[[sections]]
+title = "liquid in field values"
+content = """
+{% raw %}
+For complex cases, field values may contain liquid, which may reference the site's archival content.
+
+Once a page template has rendered, archival takes a **second pass** over the result: if the output still contains `{{` or `{%`, it is parsed and rendered again. That second pass is what evaluates liquid you wrote inside your *content*, so a `{{ site_url }}` typed into a field is rendered, not printed.
+
+This applies to every field value that reaches your output as text — `string`, `markdown`, `enum` values, strings inside `meta`, and fields on [child objects](/docs/child-fields.html). Every value below renders the site url:
+
+```toml
+title = "Hosted at {{ site_url }}"
+status = "{{ site_url }}"
+
+[meta]
+note = "also {{ site_url }}"
+
+[[links]]
+label = "and {{ site_url }}"
+```
+
+The second pass uses the same context your page template saw, so your objects and all the [template variables](/docs/template-variables.html) are available, and control flow (`{% if %}`, `{% for %}`) works just like it does in a template.
+
+There are some subtleties to be aware of:
+
+**Unknown variables fail the build.** A `{{ }}` in your content that names something which doesn’t exist is a build error, not an empty string — exactly as it would be in a template. This is the same rule that makes [secret](#secret) fields fail loudly.
+
+**Only one extra pass runs.** Liquid produced *by* the second pass isn’t rendered again — it’s emitted literally. If field `a` holds `{{ post.b }}` and field `b` holds `{{ site_url }}`, rendering `a` outputs the text `{{ site_url }}`, not the url.
+
+**In markdown fields, markdown is converted first.** A `markdown` field becomes HTML before the second pass runs, so your liquid lands inside whatever HTML comrak produced — a tag on its own line ends up wrapped in a `<p>`. More importantly, comrak escapes double quotes to `&quot;`, which liquid can’t parse, so **use single quotes for string literals in markdown fields**:
+
+```html
+{{ post.date | date: '%Y' }}
+```
+{% endraw %}**Escaping.** To keep liquid syntax literal in a field value, wrap it in a raw tag — which is why the examples throughout these docs are written that way:
+
+```html
+{{ '{% raw %}' }}
+This {{ '{' }}{ site_url }{{ '}' }} is printed, not rendered.
+{{ '{% endraw %}' }}
+```
+
+{% raw %}
+A raw tag in a **page template** works differently, because the template’s own render consumes it: it emits its contents, and the second pass then evaluates them. To print literal liquid from a template, escape the braces *inside* a raw tag:
+{% endraw %}
+
+```html
+{{ '{% raw %}' }}{{ '{' }}{ site_url }{{ '}' }}{{ '{% endraw %}' }}
+```
 """
