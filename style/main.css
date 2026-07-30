@@ -1410,8 +1410,25 @@ h1.pricing-title {
 
 #docs-sidebar {
   height: fit-content;
+  max-height: calc(100vh - 100px - 2rem);
   position: sticky;
   top: 100px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Scrollable nav surfaces keep their scrollbars hidden */
+#docs-sidebar,
+#docs-selector,
+#mobile-menu {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#docs-sidebar::-webkit-scrollbar,
+#docs-selector::-webkit-scrollbar,
+#mobile-menu::-webkit-scrollbar {
+  display: none;
 }
 
 .logo-text {
