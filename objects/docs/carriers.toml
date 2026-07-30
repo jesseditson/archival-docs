@@ -61,8 +61,11 @@ The package exports the whole contract, so you can name any part of it explicitl
 | `Carrier<Objects>` | The handler itself — the default export of your entry file. The type parameter is an escape hatch if you'd rather name your objects type than rely on the generated augmentation. |
 | `CarrierParams` | The first argument: a `URLSearchParams`. |
 | `CarrierBody` | The second argument: parsed JSON, a form body, text, or `null`. |
-| `CarrierObjects` / `SiteObjects` | The third argument: your site's objects merged with archival's env vars. |
-| `CarrierEnv` | Just the env vars archival injects (currently `SITE_URL`). |
+| `CarrierObjects` / `SiteObjects` | The third argument: your site's objects merged with the vars archival injects. |
+| `CarrierEnv` | Just the injected vars — `SITE_URL` and `UPLOADS`. |
+| `CarrierUploads` | The `UPLOADS` var: `list()` and `get()`. |
+| `CarrierUpload` | One upload's body and metadata, as `get()` resolves it. |
+| `CarrierUploadEntry` | A `{ sha, filename }` pair, as `list()` returns them. |
 | `CarrierFormBody` | A parsed form submission — `{ [key: string]: string \\| Blob }`. |
 | `CarrierJsonValue` | Any value that survives a JSON round trip. |
 | `CarrierResponse` | What a carrier may return. |
@@ -111,12 +114,13 @@ export default async function (params, body, objects) {
   - `application/json` → a parsed JSON value
   - `application/x-www-form-urlencoded`, `multipart/form-data`, or `application/form` → an object of the form fields (file fields arrive as a `Blob`)
   - anything else → the raw request text
-- **`objects`** — your site's objects, plus the env vars archival injects (see below).
+- **`objects`** — your site's objects, plus the vars archival injects (see below).
 
 The function's return value determines the HTTP response:
 
 - **An object** is serialized to a `200` JSON response (`content-type: application/json`).
 - **A string** is returned as a `200` `text/plain` response. If the string begins with `redirect:`, the remainder is used as a `Location` header and a `302` redirect is sent instead.
+- **A [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)** is sent as-is, for when you need to set your own status, headers, or body — serving a file, for instance.
 - **Throwing an error** produces a `500` response containing the error message.
 - Returning anything else produces a `500` response.
 
@@ -136,7 +140,7 @@ export default async function (params, body, objects) {
 [[sections]]
 title = "The objects argument"
 content = """
-Carriers used to receive a plain `env` object. They now receive **your site's whole object tree**, with archival's env vars merged in — so a carrier can read the same content your templates render without refetching or duplicating it.
+Carriers used to receive a plain `env` object. They now receive **your site's whole object tree**, with archival's own vars merged in — so a carrier can read the same content your templates render without refetching or duplicating it.
 
 ```js
 export default async function (params, body, objects) {
@@ -156,15 +160,66 @@ The values match what a liquid template sees:
 - File fields (`image`, `video`, `audio`, `upload`) carry their resolved `url`, alongside `filename`, `sha`, `mime` and `display_type`.
 - `date` fields are ISO 8601 strings, since JSON has no date type.
 
-**Env vars** are merged over your objects, so they win if a site object shares their name:
+**Archival's own vars** are merged over your objects, so they win if a site object shares their name:
 
 - **`SITE_URL`** — the full URL of your site (e.g. `https://yoursite.com`). Use it to build absolute URLs for redirects and links rather than hard-coding your domain.
+- **`UPLOADS`** — the files uploaded to your site, readable at request time. See [Reading uploads](#Reading%20uploads).
 
 A few things worth knowing:
 
-- Objects are **embedded at deploy time**, so a carrier sees a snapshot from the build it was deployed with, not live content. Publishing your site redeploys its carriers with fresh values.
+- Objects are **embedded at deploy time**, so a carrier sees a snapshot from the build it was deployed with, not live content. Publishing your site redeploys its carriers with fresh values. (`UPLOADS` is the exception — it reads your files when the request runs.)
 - The tree is **deeply frozen**, so one request can't mutate what the next request sees.
 - Because they're embedded, there's an upper bound on how large a site's objects can be (5MB serialized). A site over that fails its carrier deploy rather than silently shipping a carrier with missing data.
+"""
+
+[[sections]]
+title = "Reading uploads"
+content = """
+`objects.UPLOADS` reads the files you've [uploaded to your site](/docs/uploading-files.html). Unlike the rest of `objects` it isn't a snapshot — it reads at request time, so a carrier sees files uploaded since it was deployed. Reads are scoped to your own site, and there is no way to write.
+
+This is what lets a carrier put a file behind a check your site can't make on its own — a password, a signed link, a purchase — or serve one under a name that isn't known until the request arrives.
+
+`list()` gives every file, as the name it was uploaded with and the content hash it's stored under:
+
+```ts
+await objects.UPLOADS.list();
+// [{ sha: "31f4725e…", filename: "cover.png" }, …]
+```
+
+`get()` reads one, by name, and resolves to `null` when nothing matches:
+
+```ts
+const upload = await objects.UPLOADS.get("cover.png");
+```
+
+Names aren't unique — the same name can be uploaded more than once, under different hashes — so looking one up by name alone **throws when it's ambiguous** rather than guessing. Pass the hash to say which you meant, or pass a file field straight off `objects`, which already carries its own:
+
+```ts
+await objects.UPLOADS.get("cover.png", "31f4725e…");
+await objects.UPLOADS.get(objects.settings.menu);
+```
+
+What you get back is the file's body and metadata: `body`, `size`, `etag`, `httpEtag`, `arrayBuffer()`, `text()`, `json()`, `blob()`, and `writeHttpMetadata(headers)`, which copies the stored content type onto a `Headers` you're building.
+
+Returning a `Response` is how you serve one back:
+
+```ts
+const carrier: Carrier = async (params, body, objects) => {
+  if (params.get("password") !== objects.settings.download_password) {
+    return "redirect:/login";
+  }
+  const upload = await objects.UPLOADS.get("private-menu.pdf");
+  if (!upload) {
+    return "redirect:/404";
+  }
+  const headers = new Headers();
+  upload.writeHttpMetadata(headers);
+  headers.set("etag", upload.httpEtag);
+  return new Response(upload.body, { headers });
+};
+```
+
+Bear in mind that a file which is already referenced by a published object is served from the CDN too, at its own `url` — reading it through a carrier doesn't hide it. Gating only means something for files nothing on your site links to.
 """
 
 [[sections]]
@@ -197,7 +252,7 @@ const carrier: Carrier = async (params, body, objects) => ({
 });
 ```
 
-Until you generate, reading anything but the env vars off `objects` is a compile error — deliberately, so a carrier can't silently read an object that isn't there.
+Until you generate, reading anything but the injected vars off `objects` is a compile error — deliberately, so a carrier can't silently read an object that isn't there.
 
 The generator needs the `archival` binary on your `PATH` or in your `node_modules` (`npm install --save-dev archival`, or `cargo install archival`).
 

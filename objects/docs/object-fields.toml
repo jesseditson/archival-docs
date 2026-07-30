@@ -338,7 +338,7 @@ content = """
 {% raw %}
 For complex cases, field values may contain liquid, which may reference the site's archival content.
 
-Once a page template has rendered, archival takes a **second pass** over the result: if the output still contains `{{` or `{%`, it is parsed and rendered again. That second pass is what evaluates liquid you wrote inside your *content*, so a `{{ site_url }}` typed into a field is rendered, not printed.
+Wherever a template outputs a value, archival checks the value for liquid and, if it finds any, renders it right there — in the middle of rendering your page. That is what evaluates liquid you wrote inside your *content*, so a `{{ site_url }}` typed into a field is rendered, not printed.
 
 This applies to every field value that reaches your output as text — `string`, `markdown`, `enum` values, strings inside `meta`, and fields on [child objects](/docs/child-fields.html). Every value below renders the site url:
 
@@ -353,15 +353,37 @@ note = "also {{ site_url }}"
 label = "and {{ site_url }}"
 ```
 
-The second pass uses the same context your page template saw, so your objects and all the [template variables](/docs/template-variables.html) are available, and control flow (`{% if %}`, `{% for %}`) works just like it does in a template.
+Because the value renders in place, it sees exactly what the surrounding template sees at that point: your objects, all the [template variables](/docs/template-variables.html), and anything the template itself has created. Control flow (`{% if %}`, `{% for %}`) works just like it does in a template.
+
+That includes template-local variables. A value output inside a loop can use the loop variable and `forloop`:
+
+```html
+{% for post in posts %}{{ post.body }}{% endfor %}
+```
+
+```toml
+body = "Posted by {{ post.author }} — entry #{{ forloop.index }}"
+```
+
+and a value output after an `{% assign %}` can use what was assigned:
+
+```html
+{% assign featured = posts | first %}{{ featured.body }}
+```
+
+```toml
+body = "Read more from {{ featured.author }}"
+```
 
 There are some subtleties to be aware of:
 
 **Unknown variables fail the build.** A `{{ }}` in your content that names something which doesn’t exist is a build error, not an empty string — exactly as it would be in a template. This is the same rule that makes [secret](#secret) fields fail loudly.
 
-**Only one extra pass runs.** Liquid produced *by* the second pass isn’t rendered again — it’s emitted literally. If field `a` holds `{{ post.b }}` and field `b` holds `{{ site_url }}`, rendering `a` outputs the text `{{ site_url }}`, not the url.
+**A value has to hold complete liquid.** A block your value opens must be closed by the same value. A field holding only `{% if x %}`, with the matching `{% endif %}` in your page template, is a parse error.
 
-**In markdown fields, markdown is converted first.** A `markdown` field becomes HTML before the second pass runs, so your liquid lands inside whatever HTML comrak produced — a tag on its own line ends up wrapped in a `<p>`. More importantly, comrak escapes double quotes to `&quot;`, which liquid can’t parse, so **use single quotes for string literals in markdown fields**:
+**Only one extra level renders.** Liquid produced *by* a value isn’t rendered again — it’s emitted literally. If field `a` holds `{{ post.b }}` and field `b` holds `{{ site_url }}`, rendering `a` outputs the text `{{ site_url }}`, not the url. A field that refers to itself terminates for the same reason.
+
+**In markdown fields, markdown is converted first.** A `markdown` field becomes HTML before its liquid is rendered, so your liquid lands inside whatever HTML comrak produced — a tag on its own line ends up wrapped in a `<p>`. More importantly, comrak escapes double quotes to `&quot;`, which liquid can’t parse, so **use single quotes for string literals in markdown fields**:
 
 ```html
 {{ post.date | date: '%Y' }}
@@ -372,13 +394,5 @@ There are some subtleties to be aware of:
 {{ '{% raw %}' }}
 This {{ '{' }}{ site_url }{{ '}' }} is printed, not rendered.
 {{ '{% endraw %}' }}
-```
-
-{% raw %}
-A raw tag in a **page template** works differently, because the template’s own render consumes it: it emits its contents, and the second pass then evaluates them. To print literal liquid from a template, escape the braces *inside* a raw tag:
-{% endraw %}
-
-```html
-{{ '{% raw %}' }}{{ '{' }}{ site_url }{{ '}' }}{{ '{% endraw %}' }}
 ```
 """

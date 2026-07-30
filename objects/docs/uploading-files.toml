@@ -79,5 +79,7 @@ The final URL is built as `<uploads_url>/<upload_prefix><sha>/<filename>`. In te
 ```
 
 You can override the prefix for a single command with `-u, --upload-prefix` (this is required if you’re uploading in a directory with no `manifest.toml`).
+
+Files on the CDN are served to anyone who knows the URL. If you need one readable only under some condition, a [carrier](/docs/carriers.html#Reading%20uploads) can read your uploads directly and decide whether to hand the file over.
 {% endraw %}
 """
