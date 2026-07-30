@@ -1,4 +1,4 @@
-order = 11
+order = 12
 title = "Archival Editor Configuration"
 include_in_llm_docs = true
 description = """
@@ -71,5 +71,5 @@ primary = "published_at"
 secondary = "title"
 ```
 
-See [Object Fields](/docs/object-fields.html) for the field types you can reference, and [Custom Editors](/docs/custom-editors.html) for customizing how individual fields are edited.
+See [Object Fields](/docs/object-fields.html) for the field types you can reference, [Validators](/docs/validators.html) for constraining what they may contain, and [Custom Editors](/docs/custom-editors.html) for customizing how individual fields are edited.
 """

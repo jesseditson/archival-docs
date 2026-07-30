@@ -1,32 +1,10 @@
-order = 10
+order = 11
 title = "Custom Editors"
 include_in_llm_docs = true
 description = """
-At the object level (e.g. in .toml files), archival only supports the primitive types listed in object fields. However, you may want to impose some validation, constraints, or totally custom UX for a given field, so that you and your clients can enjoy a more custom experience.
+At the object level (e.g. in .toml files), archival only supports the primitive types listed in object fields. However, you may want a totally custom UX for a given field, so that you and your clients can enjoy a more custom experience.
 
-Field editors can be customized in the `manifest.toml` file using the `editor_types` key, which may define custom types .
-
-For instance, to add custom validation to a date, you could add this to your manifest.toml:
-
-```toml
-# Makes a "day" type that requires XX/XX/XXXX format
-[editor_types.day]
-type = "date"
-validate = ['\\d{2}/\\d{2}/\\d{4}']
-```
-
-Note that validate is an array - you may provide multiple validators, and if you provide an object with a path, you may validate individual fields on object types like `meta` and `upload`:
-
-```toml
-# Makes a "custom" field that must be an object containing a non-empty "field_a"
-[editor_types.custom]
-type = "meta"
-[[editor_types.custom.validate]]
-path = "field_a"
-validate = '.+'
-```
-
-To add a custom UX/UI for this field, you can specify a URL to fetch an editor from:
+Field editors are customized in the `manifest.toml` file using the `editor_types` key, which defines custom types. Each custom type aliases a built-in type, and may specify a URL to fetch an editor from:
 
 ```toml
 [editor_types.pdf]
@@ -34,11 +12,7 @@ type = "upload"
 editor_url = "/editors/pdf-editor.html"
 ```
 
-### Using Validation
-
-Validation is always a regex, and operates on the final value that would be generated.
-
-When a field does not pass validation, the archival build will fail, so be aware that it may be more appropriate to make your web/liquid code resilient to a variety of values rather than using validation.
+The same `editor_types` key is also where you constrain what a field may contain — see [Validators](/docs/validators.html).
 
 ### Using Archival Custom Editors
 

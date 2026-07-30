@@ -1,0 +1,123 @@
+order = 10
+title = "Validators"
+include_in_llm_docs = true
+description = '''
+A validator constrains what a field is allowed to contain. Validators are regular expressions, defined on a custom type in your `manifest.toml`, and archival checks them whenever a value is written to an object.
+
+Reach for one when a field has a shape the rest of your site depends on — a date written a particular way, a slug with no spaces in it, an upload that has to be a PDF.
+'''
+
+[[sections]]
+title = "Defining a validator"
+content = '''
+Validators live under the `editor_types` key in `manifest.toml`. Each entry defines a new type name, the built-in type it aliases, and the constraints to apply to it:
+
+```toml
+# a "day" type: a string that must look like MM/DD/YYYY
+[editor_types.day]
+type = "string"
+validate = ['^\d{2}/\d{2}/\d{4}$']
+```
+
+Once defined, use that type name anywhere a field type is expected in your [object definition file](/docs/concepts.html):
+
+```toml
+[post]
+title = "string"
+published = "day"
+```
+
+`validate` is always an array, even when there's only one of them — a bare string is a manifest error. When you provide several, **all** of them must pass:
+
+```toml
+[editor_types.slug]
+type = "string"
+validate = ['^[a-z0-9-]+$', '^.{1,64}$']
+```
+
+These examples use toml *literal* strings (single quotes), which is usually what you want for a regex — inside a double-quoted toml string, every backslash has to be escaped as a double backslash.
+'''
+
+[[sections]]
+title = "Validating part of a value"
+content = '''
+Some field types hold more than a single scalar. For those, a validator may instead be written as a table with a `path`, which selects the part of the value to check:
+
+```toml
+# a "custom" field that must be an object containing a non-empty "field_a"
+[editor_types.custom]
+type = "meta"
+[[editor_types.custom.validate]]
+path = "field_a"
+validate = '.+'
+```
+
+Paths are dot-separated, and a numeric segment is read as an array index — `contact.emails.0` reaches into a nested table and then into the first element of an array.
+
+Path validators are only allowed on the nested types: `meta`, `upload`, `image`, `video`, and `audio`. Using one on any other type is a manifest error.
+
+For the [file types](/docs/object-fields.html), the available keys are the ones archival stores: `sha`, `filename`, `name`, `description`, `mime`, and `display_type`. So restricting an upload to PDFs looks like this:
+
+```toml
+[editor_types.pdf]
+type = "upload"
+[[editor_types.pdf.validate]]
+path = "mime"
+validate = '^application/pdf$'
+```
+
+If a path doesn't resolve — the key isn't set at all — archival matches your regex against the empty string instead. A regex like `.+` fails, which is how the `custom` example above requires `field_a` to be present; one that can match nothing, like `^\d*$`, passes.
+
+Both forms may be mixed in the same array. A plain string validator alongside a path validator still applies to the value as a whole.
+'''
+
+[[sections]]
+title = "What the regex matches"
+content = '''
+Validators use [rust regex syntax](https://docs.rs/regex/latest/regex/#syntax) — the usual character classes, repetition, groups, and alternation, but no backreferences or lookaround.
+
+A validator is a **search**, not a full match: `\d{4}` is satisfied by any value that contains four digits anywhere in it. Anchor with `^` and `$` when you mean the entire value.
+
+Values are converted to a string before matching, so it's worth knowing what that string is:
+
+- `string`, `markdown`, and `enum` match their raw contents.
+- `secret` matches its real value — validation is one of the few places a secret isn't redacted.
+- `number` matches its numeric form, e.g. `12` or `1.5`.
+- `boolean` matches `true` or `false`.
+- `date` matches an RFC 2822 timestamp, e.g. `Fri, 17 Dec 2021 00:00:00 +0000` — **not** the format you wrote in your toml file. To constrain how a date is written, alias `string` rather than `date`.
+- `meta` and the file types stringify to a representation of the whole value that is awkward to match against. Use a `path` validator for these instead.
+
+An invalid regex is a hard error: archival refuses to load a manifest it can't compile, so a typo surfaces the first time you run any archival command rather than silently never matching.
+'''
+
+[[sections]]
+title = "When validators run"
+content = '''
+Validators run when archival **writes** a value — edits made in the archival editor, and writes made through the library's editing API. A failing value is rejected: the write doesn't happen, and the error reports the value, the field path, and the regex that rejected it.
+
+They are not re-run against object files that already exist on disk. As of archival 0.16, `archival build` reads your objects as they are, so a value that was hand-edited into a toml file, or that predates the validator, will still build. Validation guards the editing experience; it is not a build-time gate.
+
+Two things worth planning around:
+
+- Adding a validator to a type that already has values won't tell you which existing objects violate it. Check those yourself before relying on the constraint.
+- Templates should still be written defensively. A validator makes a shape likely, not guaranteed — it's often more appropriate to make your liquid resilient to a range of values than to assume validation held.
+
+For a constraint you want checked structurally rather than by pattern, use an [enum](/docs/object-fields.html): enum values are checked when the object file is parsed, and an object with a value outside the list is reported as an invalid file and left out of the build.
+'''
+
+[[sections]]
+title = "Validators and custom editors"
+content = '''
+`editor_types` also carries `editor_url`, which replaces the editing UI for a field. The two features are independent and compose — a type may validate, provide a custom editor, or do both:
+
+```toml
+[editor_types.pdf]
+type = "upload"
+editor_url = "/editors/pdf-editor.html"
+[[editor_types.pdf.validate]]
+path = "mime"
+validate = '^application/pdf$'
+```
+
+See [Custom Editors](/docs/custom-editors.html) for building the editor itself.
+'''

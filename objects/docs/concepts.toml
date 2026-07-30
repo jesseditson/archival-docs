@@ -124,5 +124,5 @@ These fields are:
 
 - `uploads_url`: the CDN host that uploaded files are served from. Default `https://uploads.archival.dev`. The automatically-generated `url` of a file field is built as `<uploads_url>/<upload_prefix><sha>/<filename>`.
 - `upload_prefix`: a path prefix added to every uploaded file’s URL. This is used to differentiate sites that share the same `uploads_url`. Defaults to empty.
-- `editor_types`: define custom field types, validation, and custom editor UIs. See [Custom Editors](/docs/custom-editors.html).
+- `editor_types`: define custom field types, validation, and custom editor UIs. See [Validators](/docs/validators.html) and [Custom Editors](/docs/custom-editors.html).
 """

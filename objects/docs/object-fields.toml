@@ -312,7 +312,7 @@ tags = ["news", "updates"]
 email = "hi@example.com"
 ```
 
-Because `meta` is unstructured, archival does **not** validate its contents (though you can add constraints with a [custom editor](/docs/custom-editors.html) validator). When rendering, access keys with dot notation and iterate arrays like any other liquid value:
+Because `meta` is unstructured, archival does **not** validate its contents (though you can constrain individual keys with a [validator](/docs/validators.html)). When rendering, access keys with dot notation and iterate arrays like any other liquid value:
 
 ```html
 <body class="theme-{{ page.config.theme }}">
