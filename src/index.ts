@@ -138,6 +138,13 @@ const setupDocsMenu = () => {
     };
     menuButton.addEventListener("touchstart", toggleMenu);
     menuButton.addEventListener("click", toggleMenu);
+    // Section links navigate within the current page, so the menu won't be
+    // dismissed by a page load - close it explicitly.
+    menu.querySelectorAll(".mobile-nav-subitem").forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("showing");
+      });
+    });
   }
 };
 

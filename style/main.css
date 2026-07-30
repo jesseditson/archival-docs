@@ -1360,6 +1360,44 @@ h1.pricing-title {
   color: var(--color-typography-primary);
 }
 
+.side-nav-sections {
+  display: flex;
+  flex-direction: column;
+  margin: -0.25rem 0 0.75rem 1.25rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--color-transparent-border);
+}
+
+.side-nav-subitem {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  color: var(--color-typography-secondary);
+}
+
+.side-nav-subitem:hover {
+  color: var(--color-secondary-interactive);
+}
+
+.mobile-nav-sections {
+  display: flex;
+  flex-direction: column;
+  margin: 0 2rem 0.5rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--color-transparent-border);
+}
+
+.mobile-nav-subitem {
+  display: block;
+  padding: 0.4rem 0.5rem;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--color-typography-secondary);
+}
+
 .md a.docs-section-anchor {
   color: var(--color-typography-primary);
   margin: 2rem 0 0;
