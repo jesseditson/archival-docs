@@ -13,8 +13,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const SCHEMAS = [
-  "manifest.schema.json",
-  "objects.schema.json",
+  "archival.schema.json",
+  "archival_objects.schema.json",
   "archival_editor.schema.json",
   "archival_template.schema.json",
 ];

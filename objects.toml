@@ -1,4 +1,4 @@
-#:schema https://raw.githubusercontent.com/jesseditson/archival/refs/heads/main/objects.schema.json
+#:schema https://archival.dev/schemas/archival_objects.schema.json
 # This file is used to define the objects available on your site.
 
 [home]
