@@ -4,6 +4,12 @@ on:
     branches:
       - main
   pull_request:
+  # archival's publish-schemas workflow fires this on release. The schemas served
+  # at /schemas/ are fetched from that repo at build time (scripts/fetch-schemas.mjs),
+  # so they only update when this site redeploys - and nothing here changes when a
+  # schema does.
+  repository_dispatch:
+    types: [publish-schemas]
 jobs:
   deploy:
     name: "Build & deploy to archival"

@@ -10,3 +10,6 @@ node_modules
 # agent working notes — keep local, never commit to a branch
 docs/superpowers/
 .superpowers/
+
+# Fetched from the archival repo at build time by scripts/fetch-schemas.mjs
+public/schemas
