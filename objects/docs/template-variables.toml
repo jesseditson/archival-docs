@@ -29,6 +29,8 @@ These variables are available in every page and template:
 ```
 
 - **`page`** — the name of the page currently being rendered.
+
+These variables are also available inside partials rendered with `{% render %}`, which otherwise sees only the arguments passed to it (see [Partials](/docs/partials.html)).
 {% endraw %}
 """
 
