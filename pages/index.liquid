@@ -52,6 +52,16 @@
   <iframe id="generate-frame"></iframe>
 </div>
 
+{% comment %} Build with Claude Section {% endcomment %}
+
+<div class="claude-build-section">
+  <p class="claude-build-eyebrow">{{ claude.home_eyebrow }}</p>
+  <a href="/build-with-claude.html" class="claude-build-button" data-umami-event="cta-build-with-claude">
+    <span class="claude-build-logo" aria-hidden="true">{% include 'claude-logo' %}</span>
+    <span class="claude-build-label">{{ claude.button_title }}</span>
+  </a>
+</div>
+
 {% comment %} Video Section (Disabled until produced)
 
 <div class="content w-full max-w-screen-lg mb-40 md:max-w-[1200px]">

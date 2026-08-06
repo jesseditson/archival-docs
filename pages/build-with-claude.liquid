@@ -1,0 +1,92 @@
+{% layout 'theme' title: claude.page_title, area: "home" %}
+
+{% capture deeplink %}claude://cowork/new?prompt={{ claude.cowork_prompt | url_encode }}{% endcapture %}
+
+<div class="claude-launch">
+  <span class="claude-launch-logo" aria-hidden="true">{% include 'claude-logo' %}</span>
+
+  <h1 class="claude-launch-title">{{ claude.page_title }}</h1>
+
+  <div class="claude-launch-message md">
+    {{ claude.opening_message }}
+  </div>
+
+  <a
+    href="{{ deeplink }}"
+    id="claude-open-btn"
+    class="claude-build-button"
+    data-umami-event="build-with-claude-open">
+    <span class="claude-build-logo" aria-hidden="true">{% include 'claude-logo' %}</span>
+    <span class="claude-build-label">{{ claude.retry_label }}</span>
+  </a>
+
+  <button
+    type="button"
+    id="claude-copy-btn"
+    class="claude-copy-link"
+    data-copied-label="{{ claude.copied_label }}"
+    data-umami-event="build-with-claude-copy">
+    {{ claude.copy_link_title }}
+  </button>
+
+  {% comment %} Raw prompt text, read by JS for clipboard copy. {% endcomment %}
+  <textarea id="claude-prompt" class="claude-prompt-source" readonly aria-hidden="true" tabindex="-1">{{ claude.cowork_prompt }}</textarea>
+</div>
+
+<script>
+(function () {
+  var openBtn = document.getElementById("claude-open-btn");
+  var copyBtn = document.getElementById("claude-copy-btn");
+  var promptEl = document.getElementById("claude-prompt");
+
+  // Attempt to open the Claude desktop app shortly after the page renders.
+  if (openBtn) {
+    var deeplink = openBtn.getAttribute("href");
+    window.setTimeout(function () {
+      try {
+        window.location.href = deeplink;
+      } catch (e) {
+        /* Custom protocol not registered — the copy fallback below still works. */
+      }
+    }, 500);
+  }
+
+  // Copy-prompt fallback.
+  if (copyBtn && promptEl) {
+    var defaultLabel = copyBtn.textContent;
+    var copiedLabel = copyBtn.getAttribute("data-copied-label") || "Copied!";
+
+    function flash() {
+      copyBtn.textContent = copiedLabel;
+      copyBtn.classList.add("is-copied");
+      window.setTimeout(function () {
+        copyBtn.textContent = defaultLabel;
+        copyBtn.classList.remove("is-copied");
+      }, 2000);
+    }
+
+    copyBtn.addEventListener("click", function () {
+      var text = promptEl.value;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(flash, function () {
+          fallbackCopy();
+        });
+      } else {
+        fallbackCopy();
+      }
+
+      function fallbackCopy() {
+        promptEl.removeAttribute("aria-hidden");
+        promptEl.select();
+        try {
+          document.execCommand("copy");
+          flash();
+        } catch (e) {
+          /* leave the prompt selected so the user can copy manually */
+        }
+        promptEl.setAttribute("aria-hidden", "true");
+      }
+    });
+  }
+})();
+</script>
