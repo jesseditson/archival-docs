@@ -1,7 +1,9 @@
-{% layout 'theme' title: "Pricing"
+{%
+  layout 'theme' title: "Pricing"
   , area: "pricing"
   , description: pricing.tagline
-  , path: "pricing" %}
+  , path: "pricing"
+%}
 
 {% assign pricing = objects.pricing %}
 
@@ -21,113 +23,117 @@
         <div class="pricing-breakdown-content">
           <div class="pricing-items">
             {% for item in pricing.items %}
-            <div class="pricing-item pricing-item-expandable" data-accordion="{{ item.slug }}">
-              <div class="pricing-item-content">
-                <div class="pricing-item-icon">
-                  {% case item.icon %}
-                  {% when "cube" %}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M21 16V8C20.9996 7.64928 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64928 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M3.27002 6.96L12 12.01L20.73 6.96"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M12 22.08V12"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                  {% when "globe" %}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M2 12H22"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                  {% when "clock" %}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M12 6V12L16 14"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                  {% endcase %}
+              <div class="pricing-item pricing-item-expandable" data-accordion="{{ item.slug }}">
+                <div class="pricing-item-content">
+                  <div class="pricing-item-icon">
+                    {% case item.icon %}
+                      {% when "cube" %}
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M21 16V8C20.9996 7.64928 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64928 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path
+                            d="M3.27002 6.96L12 12.01L20.73 6.96"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path
+                            d="M12 22.08V12"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        </svg>
+                      {% when "globe" %}
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path
+                            d="M2 12H22"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path
+                            d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        </svg>
+                      {% when "clock" %}
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path
+                            d="M12 6V12L16 14"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        </svg>
+                    {% endcase %}
+                  </div>
+                  <div class="pricing-item-details">
+                    <div class="pricing-item-name">{{ item.name }}</div>
+                    <div class="pricing-item-desc">{{ item.description }}</div>
+                  </div>
+                  <div class="pricing-item-price">{{ item.price }}</div>
+                  <div class="pricing-item-chevron">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 6L8 10L12 6"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+                  </div>
                 </div>
-                <div class="pricing-item-details">
-                  <div class="pricing-item-name">{{ item.name }}</div>
-                  <div class="pricing-item-desc">{{ item.description }}</div>
-                </div>
-                <div class="pricing-item-price">{{ item.price }}</div>
-                <div class="pricing-item-chevron">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M4 6L8 10L12 6"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
+                <div class="pricing-item-expanded">
+                  <div class="pricing-item-expanded-content">
+                    {{ item.content }}
+                  </div>
                 </div>
               </div>
-              <div class="pricing-item-expanded">
-                <div class="pricing-item-expanded-content">
-                  {{ item.content }}
-                </div>
-              </div>
-            </div>
             {% endfor %}
           </div>
 
@@ -139,7 +145,9 @@
             </div>
           </div>
 
-          <a class="primary-cta pricing-cta" href="{{ pricing.cta_url }}" data-umami-event="pricing-get-started">{{ pricing.cta_label }}</a>
+          <a class="primary-cta pricing-cta" href="{{ pricing.cta_url }}" data-umami-event="pricing-get-started">
+            {{- pricing.cta_label -}}
+          </a>
         </div>
       </div>
     </div>
@@ -156,14 +164,16 @@
         href="https://github.com/jesseditson/archival"
         class="connect-item"
         title="GitHub"
-        data-umami-event="connect-github">
+        data-umami-event="connect-github"
+      >
         <svg
           width="96"
           height="96"
           viewBox="0 0 96 96"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          class="animated-svg">
+          class="animated-svg"
+        >
           <defs>
             <linearGradient
               id="animatedGradient"
@@ -220,14 +230,16 @@
         href="https://archival.dev/chat.html"
         class="connect-item"
         title="Discord"
-        data-umami-event="connect-discord">
+        data-umami-event="connect-discord"
+      >
         <svg
           width="100"
           height="75"
           viewBox="0 0 100 75"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          class="animated-svg">
+          class="animated-svg"
+        >
           <defs>
             <linearGradient
               id="animatedGradient"
@@ -280,14 +292,16 @@
         href="https://docs.rs/archival/"
         class="connect-item"
         title="Rust"
-        data-umami-event="connect-rustdocs">
+        data-umami-event="connect-rustdocs"
+      >
         <svg
           width="96"
           height="96"
           viewBox="0 0 96 96"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          class="animated-svg">
+          class="animated-svg"
+        >
           <defs>
             <linearGradient
               id="animatedGradient"
@@ -341,61 +355,61 @@
       </a>
     </div>
     <div class="section-content email-info">
-      <a href="mailto:hi@archival.dev" class="email-link" data-umami-event="connect-email">
-        hi@archival.dev
-      </a>
+      <a href="mailto:hi@archival.dev" class="email-link" data-umami-event="connect-email"> hi@archival.dev </a>
     </div>
   </div>
 </div>
 
 <script>
-(function() {
-  // Hero title tilt effect
-  const heroes = document.querySelectorAll('[data-tilt-hero]');
-  const heroMaxTilt = 12;
-  const heroPerspective = 1200;
+  (function () {
+    // Hero title tilt effect
+    const heroes = document.querySelectorAll('[data-tilt-hero]');
+    const heroMaxTilt = 12;
+    const heroPerspective = 1200;
 
-  heroes.forEach(hero => {
-    function handleMouseMove(e) {
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
+    heroes.forEach((hero) => {
+      function handleMouseMove(e) {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
 
-      const rotateX = ((e.clientY - centerY) / centerY) * -heroMaxTilt;
-      const rotateY = ((e.clientX - centerX) / centerX) * heroMaxTilt;
+        const rotateX = ((e.clientY - centerY) / centerY) * -heroMaxTilt;
+        const rotateY = ((e.clientX - centerX) / centerX) * heroMaxTilt;
 
-      // Update color gradient position
-      const percentX = (e.clientX / window.innerWidth) * 100;
-      const percentY = (e.clientY / window.innerHeight) * 100;
-      hero.style.setProperty('--hero-mouse-x', percentX + '%');
-      hero.style.setProperty('--hero-mouse-y', percentY + '%');
+        // Update color gradient position
+        const percentX = (e.clientX / window.innerWidth) * 100;
+        const percentY = (e.clientY / window.innerHeight) * 100;
+        hero.style.setProperty('--hero-mouse-x', percentX + '%');
+        hero.style.setProperty('--hero-mouse-y', percentY + '%');
 
-      hero.style.transform = `perspective(${heroPerspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    }
+        hero.style.transform = `perspective(${heroPerspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
 
-    function handleMouseLeave() {
-      hero.style.transition = 'transform 0.5s ease-out';
-      hero.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
-      setTimeout(() => { hero.style.transition = 'none'; }, 500);
-    }
+      function handleMouseLeave() {
+        hero.style.transition = 'transform 0.5s ease-out';
+        hero.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+        setTimeout(() => {
+          hero.style.transition = 'none';
+        }, 500);
+      }
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
-  });
-})();
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseleave', handleMouseLeave);
+    });
+  })();
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const accordionItems = document.querySelectorAll('.pricing-item-expandable');
 
-    accordionItems.forEach(item => {
+    accordionItems.forEach((item) => {
       const content = item.querySelector('.pricing-item-content');
 
-      content.addEventListener('click', function() {
+      content.addEventListener('click', function () {
         const isExpanded = item.classList.contains('expanded');
 
         // Close all other accordions
-        accordionItems.forEach(otherItem => {
+        accordionItems.forEach((otherItem) => {
           if (otherItem !== item) {
             otherItem.classList.remove('expanded');
           }

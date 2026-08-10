@@ -1,8 +1,10 @@
-{% layout 'theme' title: showcase.title
+{%
+  layout 'theme' title: showcase.title
   , area: "showcase"
   , description: showcase.tagline
   , path: "showcase"
-  , noindex: true %}
+  , noindex: true
+%}
 
 <div class="w-full flex flex-col justify-center items-center gap-6 pt-60 relative">
   <h1 class="hero-message" data-tilt-hero>
@@ -15,7 +17,13 @@
 <div class="benefit-grid md:max-w-[1200px] md:mt-40 md:mb-40 mt-20 mb-20">
   {% for site in showcase.sites %}
     <div class="benefit" data-tilt>
-      <a href="{{ site.url }}" target="_blank" rel="noopener" data-umami-event="showcase-site" data-umami-event-site="{{ site.name }}">
+      <a
+        href="{{ site.url }}"
+        target="_blank"
+        rel="noopener"
+        data-umami-event="showcase-site"
+        data-umami-event-site="{{ site.name }}"
+      >
         {% unless site.screenshot.url == blank %}
           <img src="{{ site.screenshot.url }}" alt="Screenshot of {{ site.name }}" class="w-full rounded-lg mb-4" />
         {% endunless %}
