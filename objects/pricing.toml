@@ -2,15 +2,10 @@ title_line_1 = "priced for"
 title_line_2 = "everyone"
 tagline = "No hidden charges. Just straightforward, simple pricing."
 
-# PLACEHOLDER CONTENT — the Developer and White Glove tiers below use
-# provisional copy. Deliberately no bandwidth/storage numbers or other
-# specific commitments until those are decided. Editor carries the real
-# details from the previous single-price plan.
-
 [[tiers]]
 icon = "terminal"
 name = "Developer"
-audience = "Hosting, and nothing you don't need"
+audience = "Build cool websites, we'll handle the rest"
 price = "$5"
 term = "/mo"
 slug = "developer"
@@ -18,17 +13,20 @@ featured = false
 cta_label = "Get Started"
 cta_url = "https://editor.archival.dev/new"
 features = """
-- Deploy straight from your repository
-- Free SSL, renewed automatically
-- Global CDN
-- Bring your own domain
-- Full access to the command line tools
+- Build anything with Archival
+- No centralized platform infrastructure
+- Continuous Deployment from a Github repo
+- Virtually unlimited traffic
+- Large asset uploads (10GB storage included)
+- Serverless Carriers included
+- Global CDN & Edge Caching
+- DNS management & automatic domain mapping
 """
 
 [[tiers]]
 icon = "pencil"
 name = "Editor"
-audience = "Hosting plus the visual site editor"
+audience = "Professional features, edit from anywhere"
 price = "$15"
 term = "/mo"
 slug = "editor"
@@ -37,26 +35,29 @@ cta_label = "Get Started"
 cta_url = "https://editor.archival.dev/new"
 features = """
 - Everything in Developer
-- Visual site editor for everyday content changes
-- Custom domain registered free for the first year ($35 limit)
-- 100GB bandwidth per month, 10GB storage
-- Daily backups
+- Per-site content editor usable usable from everywhere
+- Custom editors and editor configuration
+- Yearly domain renewal (registered with us, limit $40/yr)
+- Granular edit history
+- AI-assisted automatic site updates
+- All our roadmap features, forever
 """
 
 [[tiers]]
 icon = "diamond"
 name = "White Glove"
-audience = "We design it, build it, and keep it running"
+audience = "Focus on your business, we'll make sure your website is always up to date"
 price = "$150"
 term = "/mo"
 slug = "white-glove"
 featured = false
 cta_label = "Talk to us"
-cta_url = "mailto:hi@archival.dev"
+cta_url = "mailto:white-glove@archival.dev"
 features = """
 - Everything in Editor
-- A site designed for you by our team
-- We migrate your existing content
-- Ongoing changes handled for you
-- Direct line to us when you need it
+- Beautiful templates, customized for your business
+- Dedicated Site Representative
+- 100 included content or visual changes per month
+- Special pricing on our network of designers & developers for rich feature & design changes
+- Just email us what you want and a real human will handle it
 """
