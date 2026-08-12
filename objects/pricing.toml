@@ -35,7 +35,7 @@ cta_label = "Get Started"
 cta_url = "https://editor.archival.dev/new"
 features = """
 - Everything in Developer
-- Per-site content editor usable usable from everywhere
+- Per-site content editor usable from everywhere
 - Custom editors and editor configuration
 - Yearly domain renewal (registered with us, limit $40/yr)
 - Granular edit history

@@ -12,11 +12,11 @@ pricing_title = "Pricing"
 pricing_content = """
 Archival is run by a tiny team with a goal of staying small.
 
-There are three plans, priced for what you actually need. Hosting on its own is $5 a month. The Archival editor — hosting, custom domains, DNS, and large file uploads — is $15 a month, and includes 100GB of bandwidth and 10GB of storage. If you would rather we designed the site and ran it for you, that is $150 a month. No hidden charges on any of them.
+There are three plans, priced for what you actually need. Developer is $5 a month: continuous deployment from a GitHub repo, virtually unlimited traffic, 10GB of asset storage, a global CDN, and DNS management. Editor is $15 a month and adds the per-site content editor, custom editor configuration, granular edit history, and yearly domain renewal. White Glove is $150 a month, where we build the site from a template customized for you and a real person handles your changes. No hidden charges on any of them.
 
 Archival itself is open source. The `archival` CLI is free to use and always will be, and you can build archival sites and host them yourself, or deploy them to platforms like Vercel, Netlify, or any static host.
 
-If you're interested in hiring the archival team to build something custom for you, host a large number of sites on archival, or otherwise find our pricing model imperfect for your use case, reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we'll get you what you need!
+If you need more than the three plans cover — a custom build beyond what White Glove handles, hosting a large number of sites, or a use case our pricing model doesn't fit — reach out to [pricing@archival.dev](mailto:pricing@archival.dev) and we'll get you what you need!
 """
 discord_url = "https://discord.gg/Q9Cj6bWTbW"
 
