@@ -853,6 +853,12 @@ h1.pricing-title {
   .contact-container {
     margin: 0 auto;
     max-width: 30rem;
+    /* Tailwind's preflight makes this border-box globally, so the
+       horizontal padding added at <=1328px was being subtracted from
+       the 30rem instead of sitting outside it — leaving 22rem of
+       content and wrapping the section title. content-box keeps 30rem
+       of actual content at every breakpoint. */
+    box-sizing: content-box;
   }
 }
 
