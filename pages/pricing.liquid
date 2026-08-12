@@ -15,133 +15,91 @@
       <p class="pricing-tagline">{{ pricing.tagline }}</p>
     </div>
 
-    <div class="pricing-breakdown-container">
-      <div class="pricing-breakdown glow-container">
+    <div class="pricing-tiers">
+      {% for tier in pricing.tiers %}
+      <div
+        class="pricing-tier{% if tier.featured %} pricing-tier-featured glow-container{% endif %}"
+        data-tier="{{ tier.slug }}">
+        {% if tier.featured %}
         <div class="glowverlay showing"></div>
-        <div class="pricing-breakdown-content">
-          <div class="pricing-items">
-            {% for item in pricing.items %}
-            <div class="pricing-item pricing-item-expandable" data-accordion="{{ item.slug }}">
-              <div class="pricing-item-content">
-                <div class="pricing-item-icon">
-                  {% case item.icon %}
-                  {% when "cube" %}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M21 16V8C20.9996 7.64928 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64928 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M3.27002 6.96L12 12.01L20.73 6.96"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M12 22.08V12"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                  {% when "globe" %}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M2 12H22"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                  {% when "clock" %}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                    <path
-                      d="M12 6V12L16 14"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                  {% endcase %}
-                </div>
-                <div class="pricing-item-details">
-                  <div class="pricing-item-name">{{ item.name }}</div>
-                  <div class="pricing-item-desc">{{ item.description }}</div>
-                </div>
-                <div class="pricing-item-price">{{ item.price }}</div>
-                <div class="pricing-item-chevron">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M4 6L8 10L12 6"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
-                </div>
-              </div>
-              <div class="pricing-item-expanded">
-                <div class="pricing-item-expanded-content">
-                  {{ item.content }}
-                </div>
-              </div>
-            </div>
-            {% endfor %}
+        {% endif %}
+        <div class="pricing-tier-content">
+          <div class="pricing-tier-icon">
+            {% case tier.icon %}
+            {% when "terminal" %}
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4 17L10 11L4 5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path
+                d="M12 19H20"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            {% when "pencil" %}
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 20H21"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path
+                d="M16.5 3.5C16.8978 3.10218 17.4374 2.87868 18 2.87868C18.5626 2.87868 19.1022 3.10218 19.5 3.5C19.8978 3.89782 20.1213 4.43739 20.1213 5C20.1213 5.56261 19.8978 6.10218 19.5 6.5L7 19L3 20L4 16L16.5 3.5Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            {% when "star" %}
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            {% endcase %}
           </div>
 
-          <div class="pricing-total">
-            <div class="pricing-total-label">{{ pricing.total_label }}</div>
-            <div class="pricing-total-amount">
-              <span class="pricing-total-price">{{ pricing.total_price }}</span>
-              <span class="pricing-total-term">{{ pricing.total_term }}</span>
-            </div>
+          <h2 class="pricing-tier-name">{{ tier.name }}</h2>
+          <p class="pricing-tier-audience">{{ tier.audience }}</p>
+
+          <div class="pricing-tier-price">
+            <span class="pricing-tier-price-amount">{{ tier.price }}</span>
+            <span class="pricing-tier-price-term">{{ tier.term }}</span>
           </div>
 
-          <a class="primary-cta pricing-cta" href="{{ pricing.cta_url }}" data-umami-event="pricing-get-started">{{ pricing.cta_label }}</a>
+          <div class="pricing-tier-features">{{ tier.features }}</div>
+
+          <a
+            class="pricing-cta {% if tier.cta_url contains 'mailto:' %}pricing-cta-secondary{% else %}primary-cta{% endif %}"
+            href="{{ tier.cta_url }}"
+            data-umami-event="pricing-cta-{{ tier.slug }}">{{ tier.cta_label }}</a>
         </div>
       </div>
+      {% endfor %}
     </div>
   </section>
 </div>
@@ -382,33 +340,4 @@
     document.addEventListener('mouseleave', handleMouseLeave);
   });
 })();
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const accordionItems = document.querySelectorAll('.pricing-item-expandable');
-
-    accordionItems.forEach(item => {
-      const content = item.querySelector('.pricing-item-content');
-
-      content.addEventListener('click', function() {
-        const isExpanded = item.classList.contains('expanded');
-
-        // Close all other accordions
-        accordionItems.forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.classList.remove('expanded');
-          }
-        });
-
-        // Toggle current accordion
-        item.classList.toggle('expanded');
-
-        // Track accordion open in Umami
-        if (!isExpanded && typeof umami !== 'undefined') {
-          umami.track('pricing-accordion', { item: item.dataset.accordion });
-        }
-      });
-    });
-  });
 </script>

@@ -27,19 +27,18 @@ poster = "string"
 title_line_1 = "string"
 title_line_2 = "string"
 tagline = "string"
-total_label = "string"
-total_price = "string"
-total_term = "string"
-cta_label = "string"
-cta_url = "string"
 
-[pricing.items]
+[pricing.tiers]
 icon = "string"
 name = "string"
-description = "string"
+audience = "string"
 price = "string"
+term = "string"
 slug = "string"
-content = "markdown"
+features = "markdown"
+cta_label = "string"
+cta_url = "string"
+featured = "boolean"
 
 [manifesto]
 title = "string"
