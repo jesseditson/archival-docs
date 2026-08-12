@@ -312,7 +312,10 @@ h1.pricing-title {
      10rem, and the featured tier's overhang eats 1.25rem of each. */
   margin: 3rem auto 2rem;
   display: grid;
-  grid-template-columns: 1fr 1.08fr 1fr;
+  /* 1.18 rather than 1.08: the featured tier pads 3.25rem on every side
+     against the others' 2rem, so it needs the extra column width to keep
+     more usable text width than its neighbours, not less. */
+  grid-template-columns: 1fr 1.18fr 1fr;
   align-items: stretch;
   gap: 1.5rem;
 }
@@ -328,8 +331,14 @@ h1.pricing-title {
   margin: -1.25rem 0;
 }
 
+/* 3.25rem is the base 2rem plus the 1.25rem this panel overhangs. The
+   vertical value is load-bearing: without it the extra height shifts the
+   content out of line with the neighbours — riding high at the top, CTA
+   sitting low at the bottom. The horizontal value simply matches it so
+   the inset reads even on all four sides; the column above is widened to
+   pay for it. The box grows; the content area does not. */
 .pricing-tier-featured .pricing-tier-content {
-  padding: 2.5rem 2.25rem;
+  padding: 3.25rem;
 }
 
 .pricing-tier .glowverlay {
@@ -382,6 +391,11 @@ h1.pricing-title {
   line-height: 1.5;
   color: var(--color-typography-secondary);
   margin: 0.35rem 0 0;
+  /* Reserve two lines so a tier whose audience wraps doesn't push its
+     price and feature list below the others. 3em = 2 lines at the
+     1.5 line-height above, and em keeps it correct as the font-size
+     changes across breakpoints. */
+  min-height: 3em;
 }
 
 .pricing-tier-price {
@@ -484,6 +498,20 @@ h1.pricing-title {
 
   .pricing-tier-featured .pricing-tier-content {
     padding: 2rem;
+  }
+
+  /* Stacked, so there is nothing to align against — the reserved second
+     line would just be a gap under the one-line audiences. */
+  .pricing-tier-audience {
+    min-height: 0;
+  }
+}
+
+/* Still three across here, but the columns are narrow enough that the
+   longest audience wraps to three lines rather than two. */
+@media (min-width: 901px) and (max-width: 1328px) {
+  .pricing-tier-audience {
+    min-height: 4.5em;
   }
 }
 
