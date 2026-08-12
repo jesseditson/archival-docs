@@ -12,7 +12,7 @@ pricing_title = "Pricing"
 pricing_content = """
 Archival is run by a tiny team with a goal of staying small.
 
-The Archival editor — hosting, custom domains, DNS, and large file uploads — is $14 a month. That is the whole price: no tiers, no hidden charges. Hosted sites include 100GB of bandwidth and 10GB of storage per month.
+There are three plans, priced for what you actually need. Hosting on its own is $5 a month. The Archival editor — hosting, custom domains, DNS, and large file uploads — is $15 a month, and includes 100GB of bandwidth and 10GB of storage. If you would rather we designed the site and ran it for you, that is $150 a month. No hidden charges on any of them.
 
 Archival itself is open source. The `archival` CLI is free to use and always will be, and you can build archival sites and host them yourself, or deploy them to platforms like Vercel, Netlify, or any static host.
 
