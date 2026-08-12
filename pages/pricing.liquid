@@ -66,19 +66,22 @@
                 stroke-linecap="round"
                 stroke-linejoin="round" />
             </svg>
-            {% when "star" %}
+            {% when "diamond" %}
+            {% comment %}
+              Filled icon, unlike the stroked terminal/pencil above. The
+              artwork runs edge to edge of its 24pt box while those inset
+              to ~2pt, so the viewBox is padded to -2 -2 28 28 to match
+              their optical size.
+            {% endcomment %}
             <svg
               width="24"
               height="24"
-              viewBox="0 0 24 24"
+              viewBox="-2 -2 28 28"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
-                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round" />
+                d="M4.58312 0.325682L0.124411 7.53176C-0.0567843 7.82421 -0.0379891 8.2627 0.167283 8.5326L11.4855 23.7454C11.7421 24.0849 12.2579 24.0849 12.5145 23.7454L23.8327 8.5326C24.038 8.2627 24.0568 7.82421 23.8756 7.53176L19.4169 0.325682C19.2888 0.123191 19.0751 -0.00155446 18.8595 0.000407193H5.14045C4.89883 -0.00880058 4.69678 0.139324 4.58312 0.325682ZM6.11581 1.60176H10.6388L7.61634 6.39332L6.11581 1.60176ZM13.3612 1.60176H17.8842L16.3837 6.39332L13.3612 1.60176ZM12 2.16471L15.194 7.20649H8.81676L12 2.16471ZM4.93679 2.4775L6.41592 7.20649H2.01079L4.93679 2.4775ZM19.0632 2.4775L21.9892 7.20649H17.5841L19.0632 2.4775ZM2.18227 8.80784H6.90891L10.3173 19.742L2.18227 8.80784ZM8.36657 8.80784H15.6441L12 20.4802L8.36657 8.80784ZM17.0911 8.80784H21.8177L13.6827 19.742L17.0911 8.80784Z"
+                fill="currentColor" />
             </svg>
             {% endcase %}
           </div>

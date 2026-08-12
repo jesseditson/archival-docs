@@ -44,7 +44,7 @@ features = """
 """
 
 [[tiers]]
-icon = "star"
+icon = "diamond"
 name = "White Glove"
 audience = "We design it, build it, and keep it running"
 price = "$150"
