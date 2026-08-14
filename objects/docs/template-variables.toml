@@ -22,7 +22,7 @@ These variables are available in every page and template:
 {% endfor %}
 ```
 
-- **`site_url`** — the `site_url` value from your `manifest.toml`, as a string. Useful for building absolute URLs:
+- **`site_url`** — the `site_url` value from your `archival.toml`, as a string. Useful for building absolute URLs:
 
 ```html
 <link rel="canonical" href="{{ site_url }}/{{ post.path }}.html" />

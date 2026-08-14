@@ -4,7 +4,7 @@ description = "Generate JSON Schema files from your site's object definitions, f
 content = """
 Generates [JSON Schema](https://json-schema.org/) files from your site’s object definitions. These schemas describe the exact shape of each object type, which is useful for editor autocomplete and inline validation while you hand-edit object toml files, for validating data in CI, and for sending to LLMs that support structured outputs.
 
-By default, a schema file is written for each object type (plus a root schema) into your site’s `schemas_dir` (`schemas` unless overridden in `manifest.toml`). To reference a generated schema from an object file, add a schema directive at the top of the file, for example:
+By default, a schema file is written for each object type (plus a root schema) into your site’s `schemas_dir` (`schemas` unless overridden in `archival.toml`). To reference a generated schema from an object file, add a schema directive at the top of the file, for example:
 
 ```toml
 #:schema ./schemas/post.schema.json

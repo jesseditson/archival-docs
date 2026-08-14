@@ -226,7 +226,7 @@ Bear in mind that a file which is already referenced by a published object is se
 title = "Typing your site's objects"
 content = """
 {% raw %}
-Every site's objects are different, so the types for them are generated from your `objects.toml`. From a carrier directory that has `@archival/carrier` installed:
+Every site's objects are different, so the types for them are generated from your `archival_objects.toml`. From a carrier directory that has `@archival/carrier` installed:
 
 ```sh
 npx archival-carrier-types

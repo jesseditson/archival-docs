@@ -4,7 +4,7 @@ include_in_llm_docs = true
 description = """
 At the object level (e.g. in .toml files), archival only supports the primitive types listed in object fields. However, you may want a totally custom UX for a given field, so that you and your clients can enjoy a more custom experience.
 
-Field editors are customized in the `manifest.toml` file using the `editor_types` key, which defines custom types. Each custom type aliases a built-in type, and may specify a URL to fetch an editor from:
+Field editors are customized in the `archival.toml` file using the `editor_types` key, which defines custom types. Each custom type aliases a built-in type, and may specify a URL to fetch an editor from:
 
 ```toml
 [editor_types.pdf]

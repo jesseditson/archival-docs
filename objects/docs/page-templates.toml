@@ -2,11 +2,11 @@ order = 5
 title = "Page Templates"
 include_in_llm_docs = true
 description = """
-Page templates go in your `pages` directory (or whatever you’ve defined as the `pages_dir` in your `manifest.toml`), and are `.liquid` files.
+Page templates go in your `pages` directory (or whatever you’ve defined as the `pages_dir` in your `archival.toml`), and are `.liquid` files.
 
 Most pages will just render an `.html` file when built, at the root of your site. For instance, `pages/index.liquid` will become `dist/index.html` when built.
 
-If you define a `template` field on an object type, you can use a template for each object, which will then be rendered at a subpath of the object’s name. For instance, this `objects.toml` definition:
+If you define a `template` field on an object type, you can use a template for each object, which will then be rendered at a subpath of the object’s name. For instance, this `archival_objects.toml` definition:
 
 ```toml
 [post]

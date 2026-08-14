@@ -2,7 +2,7 @@ order = 0
 command = "archival build"
 description = "Build your archival site into static files, ready to deploy to any host."
 content = """
-Build an archival site - this will generate a static site inside a directory (dist unless you have overridden it in manifest.toml).
+Build an archival site - this will generate a static site inside a directory (dist unless you have overridden it in archival.toml).
 """
 
 [[options]]
@@ -13,7 +13,7 @@ flags = "-s, --skip-failures"
 description = "if a page fails to build, continue building the other pages and skip the failing one, rather than erroring early. Useful in CI when you'd rather ship a partial build than nothing."
 [[options]]
 flags = "-u, --upload-prefix <prefix>"
-description = "override the upload prefix. If no manifest.toml is present, this is required."
+description = "override the upload prefix. If no archival.toml is present, this is required."
 [[options]]
 flags = "-h, --help"
 description = "print help for this command."

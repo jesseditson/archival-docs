@@ -17,13 +17,13 @@ Most use of archival will be via a binary. You can install archival via cargo by
 """
 
 [[sections]]
-title = "objects.toml"
+title = "archival_objects.toml"
 content = """
 A core concept of archival is the idea that the data your website uses is defined in a structured format, and that the files to define it are local.
 
 This creates a clear separation between which data is presentational or functional, and which data is editable by site owners who may not be web developers.
 
-The `objects.toml` file is where you define which objects exist on your website. For instance, if you’re making a blog, your `objects.toml` might look like this:
+The `archival_objects.toml` file is where you define which objects exist on your website. For instance, if you’re making a blog, your `archival_objects.toml` might look like this:
 
 ```toml
 [post]
@@ -55,7 +55,7 @@ The available field types are documented in the [field types] section.
 [[sections]]
 title = "The objects directory and object files"
 content = """
-The objects available to your site templates are based on toml files that you create in your local file system. This makes sure that all objects are compatible with the current `objects.toml` definition, and allows you to easily edit an object in one place regardless of where it is rendered on your website. For instance, you may want to render a blog post both on a web page for users to visit and inside an rss feed.
+The objects available to your site templates are based on toml files that you create in your local file system. This makes sure that all objects are compatible with the current `archival_objects.toml` definition, and allows you to easily edit an object in one place regardless of where it is rendered on your website. For instance, you may want to render a blog post both on a web page for users to visit and inside an rss feed.
 
 To define an object, just create a file inside the `objects/[object-name]` directory. For instance, to define a new object of type `post`, you’d create an `objects/post/my-blog-post.toml` file.
 
@@ -96,9 +96,9 @@ The special `order` field allows you to control the sort order of this object ty
 """
 
 [[sections]]
-title = "manifest.toml"
+title = "archival.toml"
 content = """
-By default, archival is configured with some sensible defaults and no `manifest.toml` file is necessary. However, when customizing configuration or editing with the archival editor, archival uses a file called `manifest.toml` to define global site configuration.
+By default, archival is configured with some sensible defaults and no `archival.toml` file is necessary. However, when customizing configuration or editing with the archival editor, archival uses a file called `archival.toml` to define global site configuration.
 
 These fields are:
 
@@ -112,7 +112,7 @@ These fields are:
 
 **Directory and file locations**
 
-- `object_definition_file`: overrides the location of the object definition file. Default `objects.toml`
+- `object_definition_file`: overrides the location of the object definition file. Default `archival_objects.toml`
 - `objects_dir`: overrides the location of your object files. Default `objects`
 - `pages_dir`: overrides the location of your pages templates. Default `pages`
 - `layout_dir`: overrides the location of your layouts. Default `layout`

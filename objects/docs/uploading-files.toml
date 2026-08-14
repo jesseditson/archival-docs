@@ -67,7 +67,7 @@ This is the same structure documented under the [file field types](/docs/object-
 title = "Where files are served from"
 content = """
 {% raw %}
-The `url` you use in templates is generated automatically from two `manifest.toml` settings:
+The `url` you use in templates is generated automatically from two `archival.toml` settings:
 
 - `uploads_url` — the CDN host. Defaults to `https://uploads.archival.dev`.
 - `upload_prefix` — an optional path prefix added to every file URL, used to distinguish sites that share the same CDN host.
@@ -78,7 +78,7 @@ The final URL is built as `<uploads_url>/<upload_prefix><sha>/<filename>`. In te
 <img src="{{ post.cover.url }}" alt="{{ post.title }}" />
 ```
 
-You can override the prefix for a single command with `-u, --upload-prefix` (this is required if you’re uploading in a directory with no `manifest.toml`).
+You can override the prefix for a single command with `-u, --upload-prefix` (this is required if you’re uploading in a directory with no `archival.toml`).
 
 Files on the CDN are served to anyone who knows the URL. If you need one readable only under some condition, a [carrier](/docs/carriers.html#Reading%20uploads) can read your uploads directly and decide whether to hand the file over.
 {% endraw %}

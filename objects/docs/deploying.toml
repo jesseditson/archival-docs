@@ -70,6 +70,6 @@ publish-pages:
         command: pages deploy dist --project-name=your-project
 ```
 
-If you pin a minimum archival version in your `manifest.toml`, you can guard your CI against accidentally building with an incompatible version by running `archival compat <version>` — it exits non-zero when the versions don’t match. See the [compat command](/cli/compat.html) for details.
+If you pin a minimum archival version in your `archival.toml`, you can guard your CI against accidentally building with an incompatible version by running `archival compat <version>` — it exits non-zero when the versions don’t match. See the [compat command](/cli/compat.html) for details.
 {% endraw %}
 """

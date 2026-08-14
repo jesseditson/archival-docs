@@ -6,13 +6,13 @@ The optional `archival_editor.toml` file lets you customize how your site's cont
 
 This file is most useful when creating an archival template or for customizing the editing experience in the archival editor.
 
-Place `archival_editor.toml` in the root of your repo, alongside `objects.toml` and `manifest.toml`. The editor reads it automatically when your site loads, and re-reads it whenever the file changes.
+Place `archival_editor.toml` in the root of your repo, alongside `archival_objects.toml` and `archival.toml`. The editor reads it automatically when your site loads, and re-reads it whenever the file changes.
 
 ### Object Views
 
 The file configures **views** for your object types. A view controls which fields are shown as columns when you browse the list of objects of a given type in the editor.
 
-The top-level key of each entry is the name of an object type, exactly as it appears in `objects.toml`. Under each object type you define one or more `views` as a TOML array of tables:
+The top-level key of each entry is the name of an object type, exactly as it appears in `archival_objects.toml`. Under each object type you define one or more `views` as a TOML array of tables:
 
 ```toml
 # Configure views for the "post" object type
@@ -35,7 +35,7 @@ Each view supports the following fields:
 - `secondary` (optional) — the field shown in the second column.
 - `tertiary` (optional) — the field shown in the third column.
 
-The values of `primary`, `secondary`, and `tertiary` are field names defined for that object type in `objects.toml`. You can also use the special value `filename`, which displays the object's filename (its slug) rather than one of its fields.
+The values of `primary`, `secondary`, and `tertiary` are field names defined for that object type in `archival_objects.toml`. You can also use the special value `filename`, which displays the object's filename (its slug) rather than one of its fields.
 
 ### How views are displayed
 
@@ -46,7 +46,7 @@ The values of `primary`, `secondary`, and `tertiary` are field names defined for
 
 ### Example
 
-Given an object type defined in `objects.toml`:
+Given an object type defined in `archival_objects.toml`:
 
 ```toml
 [post]

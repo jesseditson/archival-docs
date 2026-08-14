@@ -16,7 +16,7 @@ flags = "-n, --noserve"
 description = "disable the static server and only watch and rebuild on file changes. Useful when another server is serving the build directory, or for IDE integrations."
 [[options]]
 flags = "-u, --upload-prefix <prefix>"
-description = "override the upload prefix. If no manifest.toml is present, this is required."
+description = "override the upload prefix. If no archival.toml is present, this is required."
 [[options]]
 flags = "-h, --help"
 description = "print help for this command."

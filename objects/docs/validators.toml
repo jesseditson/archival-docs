@@ -2,7 +2,7 @@ order = 10
 title = "Validators"
 include_in_llm_docs = true
 description = '''
-A validator constrains what a field is allowed to contain. Validators are regular expressions, defined on a custom type in your `manifest.toml`, and archival checks them whenever a value is written to an object.
+A validator constrains what a field is allowed to contain. Validators are regular expressions, defined on a custom type in your `archival.toml`, and archival checks them whenever a value is written to an object.
 
 Reach for one when a field has a shape the rest of your site depends on — a date written a particular way, a slug with no spaces in it, an upload that has to be a PDF.
 '''
@@ -10,7 +10,7 @@ Reach for one when a field has a shape the rest of your site depends on — a da
 [[sections]]
 title = "Defining a validator"
 content = '''
-Validators live under the `editor_types` key in `manifest.toml`. Each entry defines a new type name, the built-in type it aliases, and the constraints to apply to it:
+Validators live under the `editor_types` key in `archival.toml`. Each entry defines a new type name, the built-in type it aliases, and the constraints to apply to it:
 
 ```toml
 # a "day" type: a string that must look like MM/DD/YYYY

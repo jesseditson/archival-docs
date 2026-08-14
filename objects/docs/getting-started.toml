@@ -49,7 +49,7 @@ Now add the basics for archival to work:
 
 `mkdir public layout objects pages`
 
-`echo "[test]\nname=\"string\"" >> objects.toml`
+`echo "[test]\nname=\"string\"" >> archival_objects.toml`
 
 `echo "name = \"hello\"" >> objects/test/first.toml`
 
