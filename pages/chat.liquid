@@ -1,9 +1,10 @@
-{% layout 'theme' title: "Chat"
+{%
+  layout 'theme' title: "Chat"
   , area: "home"
   , description: "Join the Archival community on Discord."
   , path: "chat"
-  , noindex: true %}
-
+  , noindex: true
+%}
 
 <div id="header" class="z-30 w-full flex flex-col justify-center items-center gap-6 md:pt-20 relative">
   <div id="header-logo" class="flex items-center justify-between flex-col w-full">
@@ -12,17 +13,19 @@
         id="header-shadow"
         class="bg absolute z-0"
         src="/img/logo-shadow.png"
-        alt="archival" />
+        alt="archival"
+      />
       <img
         id="header-image"
         src="/img/logo.png"
         class="fg z-10"
-        alt="archival" />
+        alt="archival"
+      />
     </div>
     <h1 class="logo-text text-purple-dark font-bold text-5xl font-section-title">archival</h1>
   </div>
 </div>
-{% comment %} 
+{% comment %}
   <iframe
     src="https://discord.com/widget?id=1257848212744568853&theme=dark"
     width="350"
@@ -31,13 +34,12 @@
     frameborder="0"
   sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin
   allow-scripts"></iframe>
-  {% endcomment %}
+{% endcomment %}
 
 <h2 class="logo-text text-purple-dark font-bold text-2xl font-section-title">Redirecting you to Discord...</h2>
 
 <p class="logo-text text-purple-dark font-bold text-xl font-section-title">
-  <a href="{{objects.home.discord_url}}">if this page doesn't automatically redirect, click   
-    here</a>
+  <a href="{{objects.home.discord_url}}">if this page doesn't automatically redirect, click here</a>
 </p>
 
-{% include 'redirect' to: objects.home.discord_url %}
+{% include "redirect", to: objects.home.discord_url %}

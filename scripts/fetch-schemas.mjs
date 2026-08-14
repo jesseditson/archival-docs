@@ -19,6 +19,19 @@ const SCHEMAS = [
   "archival_template.schema.json",
 ];
 
+// SchemaStore's catalog was submitted before these two were renamed, and its
+// entries still fetch the old names. Serving both means editors resolve a schema
+// either way. The copies are byte-identical, so their `$id` still names the
+// canonical URL, which is what `$ref` and editor caches key on.
+//
+// Removing these means every editor carrying the current catalog silently loses
+// validation on archival.toml and archival_objects.toml, so they can only go
+// once the corrected catalog has shipped widely.
+const ALIASES = {
+  "manifest.schema.json": "archival.schema.json",
+  "objects.schema.json": "archival_objects.schema.json",
+};
+
 // Schemas ship from main rather than a tag: archival's CI gates them on every
 // push, and pinning would mean a version bump here for every schema fix. Set
 // ARCHIVAL_SCHEMA_REF to pin to a tag (e.g. "refs/tags/v0.17.0") if that ever
@@ -63,5 +76,12 @@ await Promise.all(
 
     await fs.writeFile(path.join(outDir, name), body);
     console.log(`schemas: ${name} <- ${url}`);
+
+    for (const [alias, canonical] of Object.entries(ALIASES)) {
+      if (canonical === name) {
+        await fs.writeFile(path.join(outDir, alias), body);
+        console.log(`schemas: ${alias} <- ${name} (alias)`);
+      }
+    }
   }),
 );

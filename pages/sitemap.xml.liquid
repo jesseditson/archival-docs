@@ -17,16 +17,16 @@
     <priority>0.8</priority>
   </url>
   {% for doc in objects.docs %}
-  <url>
-    <loc>{{ site_url }}/{{ doc.path }}</loc>
-    <priority>0.6</priority>
-  </url>
+    <url>
+      <loc>{{ site_url }}/{{ doc.path }}</loc>
+      <priority>0.6</priority>
+    </url>
   {% endfor %}
   {% for command in objects.cli %}
-  <url>
-    <loc>{{ site_url }}/{{ command.path }}</loc>
-    <priority>0.5</priority>
-  </url>
+    <url>
+      <loc>{{ site_url }}/{{ command.path }}</loc>
+      <priority>0.5</priority>
+    </url>
   {% endfor %}
   <url>
     <loc>{{ site_url }}/privacy</loc>

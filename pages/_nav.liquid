@@ -1,18 +1,22 @@
 <nav
   id="nav"
   role="nav"
-  class="z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-auto top-0 shadow-lg max-w-[1200px] mx-auto inset-x-0">
+  class="z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-auto top-0 shadow-lg max-w-[1200px] mx-auto inset-x-0"
+>
   <div id="logo" class="">
     <a href="/" class="flex gap-2 items-center" data-umami-event="nav-logo">
       <div class="logo-icon w-[179px] h-[33px] relative">
         <div class="gray">
-          {% include "logo-svg-2" size: "32" %}
+          {% include "logo-svg-2", size: "32" %}
         </div>
       </div>
     </a>
   </div>
   <div class="flex-1 justify-end md:justify-center flex hidden">
-    <button id="quick-search-button" class="flex gap-4 font-light text-sm items-center text-gray-dark md:border md:opacity-60 md:border-gray md:bg-white md:rounded-lg md:px-2">
+    <button
+      id="quick-search-button"
+      class="flex gap-4 font-light text-sm items-center text-gray-dark md:border md:opacity-60 md:border-gray md:bg-white md:rounded-lg md:px-2"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"
@@ -23,7 +27,8 @@
         stroke-width="3"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="feather feather-search">
+        class="feather feather-search"
+      >
         <circle
           cx="11"
           cy="11"
@@ -34,12 +39,8 @@
           x2="16.65"
           y2="16.65"></line>
       </svg>
-      <div class="hidden md:flex">
-        Quick Search...
-      </div>
-      <div class="hidden md:flex">
-        ⌘K
-      </div>
+      <div class="hidden md:flex">Quick Search...</div>
+      <div class="hidden md:flex">⌘K</div>
     </button>
   </div>
   <ul class="flex-shrink justify-end gap-8 items-center flex-wrap hidden md:flex">
@@ -80,7 +81,8 @@
           stroke-width="3"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="feather feather-menu">
+          class="feather feather-menu"
+        >
           <line
             x1="3"
             y1="12"
@@ -109,7 +111,8 @@
           stroke-width="3"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="feather feather-x">
+          class="feather feather-x"
+        >
           <line
             x1="18"
             y1="6"
@@ -125,7 +128,10 @@
     </button>
   </div>
 </nav>
-<div id="mobile-menu" class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-10 px-4 bottom-0 z-40 text-xl rounded-lg md:hidden max-h-full overflow-y-auto">
+<div
+  id="mobile-menu"
+  class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-10 px-4 bottom-0 z-40 text-xl rounded-lg md:hidden max-h-full overflow-y-auto"
+>
   <ul class="flex flex-col">
     <li class="mobile-nav-item">
       <a class="flex-1" href="/product.html" data-umami-event="mobile-nav-product">Product</a>
@@ -153,12 +159,15 @@
   </ul>
 </div>
 
-{% if area == 'docs' or area == 'cli' %}
-  <div id="docs-nav" class="hidden z-[51] w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0">
-    {% if area == 'docs' %}
+{% if area == "docs" or area == "cli" %}
+  <div
+    id="docs-nav"
+    class="hidden z-[51] w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-0 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0"
+  >
+    {% if area == "docs" %}
       {% assign other_pages = objects.docs %}
       {% assign order = docs.order | round %}
-    {% elsif area == 'cli' %}
+    {% elsif area == "cli" %}
       {% assign other_pages = objects.cli %}
       {% assign order = cli.order | round %}
     {% endif %}
@@ -175,12 +184,13 @@
     {% endif %}
     <a
       {% if prev_link %}
-      href="/{{ prev_link }}"
-      {% endif %}>
+        href="/{{ prev_link }}"
+      {% endif %}
+    >
       <div class="nav-left{% unless prev_link %} nav-disabled{% endunless %}"></div>
     </a>
     <div id="mobile-current-view" class="docs-current-view cursor-pointer select-none">
-      {% if area == 'docs' %}
+      {% if area == "docs" %}
         {{ docs.title }}
       {% else %}
         {{ cli.command }}
@@ -188,14 +198,18 @@
     </div>
     <a
       {% if next_link %}
-      href="/{{ next_link }}"
-      {% endif %}>
+        href="/{{ next_link }}"
+      {% endif %}
+    >
       <div class="nav-right{% unless next_link %} nav-disabled{% endunless %}"></div>
     </a>
   </div>
-  <div id="docs-selector" class="transition translate-y-full opacity-0 pointer-events-none [&.showing]:pointer-events-auto [&.showing]:opacity-100 [&.showing]:translate-y-0 z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-16 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0 max-h-[70vh] overflow-y-auto">
+  <div
+    id="docs-selector"
+    class="transition translate-y-full opacity-0 pointer-events-none [&.showing]:pointer-events-auto [&.showing]:opacity-100 [&.showing]:translate-y-0 z-50 w-full py-5 fixed flex justify-between font-bold gap-4 backdrop-blur-md bottom-16 top-auto shadow-lg max-w-[1200px] mx-auto inset-x-0 max-h-[70vh] overflow-y-auto"
+  >
     {% assign current_path = "" %}
-    {% if area == 'docs' %}
+    {% if area == "docs" %}
       {% assign current_path = docs.path %}
     {% else %}
       {% assign current_path = cli.path %}
