@@ -1,56 +1,63 @@
 title_line_1 = "priced for"
 title_line_2 = "everyone"
 tagline = "No hidden charges. Just straightforward, simple pricing."
-total_label = "Total monthly cost"
-total_price = "$14"
-total_term = "/month"
+
+[[tiers]]
+icon = "terminal"
+name = "Developer"
+audience = "Build cool websites, we'll handle the rest"
+price = "$5"
+term = "/mo"
+slug = "developer"
+featured = false
 cta_label = "Get Started"
 cta_url = "https://editor.archival.dev/new"
-
-[[items]]
-icon = "cube"
-name = "Complete Website"
-description = "Custom design & hosting"
-price = "Included"
-slug = "complete-website"
-content = """
-Get a fully-featured website tailored to your needs. Our complete website package includes:
-
-- Fully customizable template designed by our professional design team
-- Responsive layout that works perfectly on all devices
-- Fast, reliable hosting with 99.9% uptime guarantee
-- Site editor to easily update your website's content
-- Optimized performance for lightning-fast page loads
+features = """
+- Build anything with Archival
+- No centralized platform infrastructure
+- Continuous Deployment from a Github repo
+- Virtually unlimited traffic
+- Large asset uploads (10GB storage included)
+- Serverless Carriers included
+- Global CDN & Edge Caching
+- DNS management & automatic domain mapping
 """
 
-[[items]]
-icon = "globe"
-name = "Your Domain"
-description = "Free SSL & no setup fees"
-price = "Included"
-slug = "your-domain"
-content = """
-Your custom domain comes fully configured and secure from day one:
-
-- Free custom domain registration for first year ($35 limit)
-- Free SSL certificate for secure HTTPS connections
-- Automatic certificate renewal - never worry about expiration
-- Zero setup fees or hidden charges
-- DNS management included with simple configuration
+[[tiers]]
+icon = "pencil"
+name = "Editor"
+audience = "Professional features, edit from anywhere"
+price = "$15"
+term = "/mo"
+slug = "editor"
+featured = true
+cta_label = "Get Started"
+cta_url = "https://editor.archival.dev/new"
+features = """
+- Everything in Developer
+- Per-site content editor usable from everywhere
+- Custom editors and editor configuration
+- Yearly domain renewal (registered with us, limit $40/yr)
+- Granular edit history
+- AI-assisted automatic site updates
+- All our roadmap features, forever
 """
 
-[[items]]
-icon = "clock"
-name = "Generous Limits"
-description = "High bandwidth & storage"
-price = "Included"
-slug = "generous-limits"
-content = """
-Built for growth with resources that scale with your success:
-
-- 100GB bandwidth per month - plenty for most websites
-- 10GB storage space for your content and assets
-- Unlimited page views and visitors
-- CDN acceleration for global content delivery
-- Daily backups to keep your data safe
+[[tiers]]
+icon = "diamond"
+name = "White Glove"
+audience = "Focus on your business, we'll make sure your website is always up to date"
+price = "$150"
+term = "/mo"
+slug = "white-glove"
+featured = false
+cta_label = "Talk to us"
+cta_url = "mailto:white-glove@archival.dev"
+features = """
+- Everything in Editor
+- Beautiful templates, customized for your business
+- Dedicated Site Representative
+- 100 included content or visual changes per month
+- Special pricing on our network of designers & developers for rich feature & design changes
+- Just email us what you want and a real human will handle it
 """
