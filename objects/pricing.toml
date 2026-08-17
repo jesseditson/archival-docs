@@ -25,11 +25,11 @@ features = """
 
 [[tiers]]
 icon = "pencil"
-name = "Editor"
+name = "Pro"
 audience = "Professional features, edit from anywhere"
 price = "$15"
 term = "/mo"
-slug = "editor"
+slug = "pro"
 featured = true
 cta_label = "Get Started"
 cta_url = "https://editor.archival.dev/new"
