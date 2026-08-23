@@ -2,6 +2,15 @@ title_line_1 = "priced for"
 title_line_2 = "everyone"
 tagline = "No hidden charges. Just straightforward, simple pricing."
 
+usage_limits = """
+To make sure archival is affordable for everyone, we pass through costs beyond what most sites will ever need:
+
+- 100 deploys/mo for free, $0.06 per deploy after that
+- 250k requests/mo for free, $0.36 per 100k requests after that
+- 20GB upload storage for free, $0.10/GB/mo after that
+- 1mm upload downloads/mo for free, $0.36 per 1mm downloads after that
+"""
+
 [[tiers]]
 icon = "terminal"
 name = "Developer"
@@ -16,7 +25,7 @@ features = """
 - Build anything with Archival
 - No centralized platform infrastructure
 - Continuous deployment on every git push
-- Virtually unlimited traffic
+- Generous traffic limits
 - Large asset uploads (20GB storage included)
 - Serverless Carriers included
 - Global CDN & Edge Caching

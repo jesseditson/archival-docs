@@ -113,6 +113,32 @@
         </div>
       {% endfor %}
     </div>
+
+    {% if pricing.usage_limits %}
+      <button
+        type="button"
+        class="pricing-limits-trigger"
+        popovertarget="pricing-limits"
+        data-umami-event="pricing-limits"
+      >
+        Usage limits
+      </button>
+      <div id="pricing-limits" class="pricing-limits-popover" popover>
+        <div class="pricing-limits-header">
+          <h2 class="pricing-limits-title">Usage limits</h2>
+          <button
+            type="button"
+            class="pricing-limits-close"
+            popovertarget="pricing-limits"
+            popovertargetaction="hide"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="pricing-limits-body">{{ pricing.usage_limits }}</div>
+      </div>
+    {% endif %}
   </section>
 </div>
 

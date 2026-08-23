@@ -104,6 +104,8 @@ const setup = () => {
 
     const deeplink = el<HTMLAnchorElement>("bwc-deeplink");
     deeplink.href = `claude-cli://open?q=${encodeURIComponent(prompt)}`;
+    deeplink.removeAttribute("aria-disabled");
+    deeplink.removeAttribute("tabindex");
 
     // Single-quoted for the shell, so the only thing that needs escaping is a
     // quote the visitor typed into their brief.
@@ -111,7 +113,10 @@ const setup = () => {
       `claude --cloud '${prompt.replace(/'/g, `'\\''`)}'`;
 
     form.hidden = true;
-    el("bwc-result").hidden = false;
+    el("bwc-reserved").hidden = false;
+    el("bwc-step-brief").dataset.state = "done";
+    el("bwc-step-launch").dataset.state = "active";
+    deeplink.focus();
   };
 
   el<HTMLButtonElement>("bwc-copy").addEventListener("click", async () => {
