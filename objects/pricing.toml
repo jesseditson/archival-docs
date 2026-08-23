@@ -15,9 +15,9 @@ cta_url = "https://editor.archival.dev/new"
 features = """
 - Build anything with Archival
 - No centralized platform infrastructure
-- Continuous Deployment from a Github repo
+- Continuous deployment on every git push
 - Virtually unlimited traffic
-- Large asset uploads (10GB storage included)
+- Large asset uploads (20GB storage included)
 - Serverless Carriers included
 - Global CDN & Edge Caching
 - DNS management & automatic domain mapping
