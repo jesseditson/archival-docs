@@ -13,3 +13,6 @@ docs/superpowers/
 
 # Fetched from the archival repo at build time by scripts/fetch-schemas.mjs
 public/schemas
+
+# Mirrored from the archival repo at build time by scripts/fetch-agent-skill.mjs
+public/agent
