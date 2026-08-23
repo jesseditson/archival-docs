@@ -448,6 +448,76 @@ h1.pricing-title {
   font-weight: bold;
 }
 
+.pricing-limits-trigger {
+  align-self: center;
+  font-size: 0.95rem;
+  color: var(--color-secondary-interactive);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.pricing-limits-popover {
+  width: min(28rem, calc(100vw - 2rem));
+  padding: 1.5rem;
+  margin: auto;
+  border: 1px solid var(--color-transparent-border);
+  border-radius: 1rem;
+  color: var(--color-typography-primary);
+  background: var(--color-main-bg);
+  box-shadow: var(--style-double-border);
+  text-align: left;
+}
+
+.pricing-limits-popover::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.pricing-limits-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pricing-limits-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.pricing-limits-close {
+  flex: 0 0 auto;
+  line-height: 1;
+  font-size: 1.5rem;
+  color: var(--color-typography-secondary);
+}
+
+.pricing-limits-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-typography-secondary);
+}
+
+.pricing-limits-body ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.pricing-limits-body li {
+  margin-bottom: 0.6rem;
+}
+
+.pricing-limits-body p {
+  margin-bottom: 1rem;
+}
+
+.pricing-limits-body p:last-child {
+  margin-bottom: 0;
+}
+
 /* Descendant selector so these win over .primary-cta, which is
    defined later in this file at equal class specificity. */
 .pricing-tier .pricing-cta {
@@ -1485,6 +1555,10 @@ h1.pricing-title {
     display: none;
   }
 
+  .build-with-claude {
+    padding-top: 8rem;
+  }
+
   #videos {
     padding: 0 2rem;
   }
@@ -1636,9 +1710,16 @@ h1.pricing-title {
   align-items: center;
   width: 100%;
   max-width: 720px;
-  padding: 0 1.5rem 6rem;
+  /* Clears the fixed nav, which this page sits directly beneath. */
+  padding: 12rem 1.5rem 6rem;
   margin: 0 auto;
   text-align: center;
+}
+
+h1.bwc-title {
+  font-size: clamp(2.5rem, 9vw, 5.5rem);
+  line-height: 1;
+  padding: 0;
 }
 
 .bwc-panel {
@@ -1650,11 +1731,79 @@ h1.pricing-title {
 }
 
 .bwc-form,
-.bwc-result {
+.bwc-step-body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: stretch;
+}
+
+.bwc-form[hidden] {
+  display: none;
+}
+
+.bwc-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bwc-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+  transition:
+    opacity 0.2s ease,
+    filter 0.2s ease;
+}
+
+.bwc-step[data-state="pending"] {
+  opacity: 0.45;
+}
+
+/* Step 2 is inert until step 1 hands it a link to open. */
+.bwc-step[data-state="pending"] .bwc-step-body {
+  pointer-events: none;
+}
+
+.bwc-step-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bwc-step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-typography-primary);
+  border: 1px solid var(--color-transparent-border);
+}
+
+.bwc-step[data-state="done"] .bwc-step-number {
+  border-color: transparent;
+  background: var(--color-primary-cta-highlight);
+}
+
+.bwc-step-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-typography-primary);
+}
+
+.bwc-step-summary {
+  text-align: left;
 }
 
 .bwc-label {
@@ -1685,7 +1834,11 @@ h1.pricing-title {
 
 .bwc-submit,
 .bwc-launch {
-  align-self: center;
+  align-self: flex-start;
+}
+
+.bwc-launch[aria-disabled="true"] {
+  cursor: default;
 }
 
 .bwc-submit[disabled] {
