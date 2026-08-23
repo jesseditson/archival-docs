@@ -11,7 +11,9 @@ The simplest way to set up an archival repo is to go to [editor.archival.dev/new
 
 Once you have a site set up, you will see it at editor.archival.dev, where you can make changes to the content, preview in real time, adjust settings, and use task mode to change your site by making requests and uploading files.
 
-To get a local copy of your website, go to your site's settings and click the github icon. If you've created a repo with an email, just reach out and we can grant collaborator access to the upstream repo.
+To get a local copy of your website, go to your site's settings and click "Create Git Remote" under Git. Name the remote after the machine you'll use it from, and we'll give you a `git remote add` command to run.
+
+The remote is addressed by your site's domain, so a site needs a domain connected before you can create one. From there `git clone`, `fetch` and `push` all work as usual, and pushing publishes your site exactly as publishing from the editor does. Keep large media in Uploads rather than in git — pushes over 100MB will fail.
 """
 
 [[sections]]
