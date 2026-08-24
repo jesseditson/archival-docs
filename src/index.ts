@@ -33,7 +33,6 @@ const setupGenerateFrame = () => {
 
   const srcOrigin = new URL(LANDING_IFRAME_URL).origin;
   window.addEventListener('message', (event) => {
-    console.log(event);
       if (event.origin === srcOrigin) {
         switch (Object.keys(event.data)[0]) {
           case "resize": {

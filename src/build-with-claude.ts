@@ -1,7 +1,6 @@
-// Launcher for the self-serve "build with Claude" flow. The visitor solves a
-// Turnstile challenge here, before any agent session exists; the API answers
-// with a preview name and a publish token scoped to it, and both ride into the
-// session inside the prompt.
+// Launcher for the self-serve "build with Claude" flow. Clicking through runs a
+// Turnstile challenge, then asks the API for a preview name and a publish token
+// scoped to it; both ride into the Claude Code session inside the prompt.
 
 declare global {
   interface Window {
@@ -11,11 +10,14 @@ declare global {
         options: {
           sitekey: string;
           action?: string;
+          execution?: "render" | "execute";
+          appearance?: "always" | "execute" | "interaction-only";
           callback: (token: string) => void;
           "error-callback"?: () => void;
           "expired-callback"?: () => void;
         },
       ): string;
+      execute(container: HTMLElement | string): void;
       reset(widgetId: string): void;
     };
     umami?: { track: (event: string) => void };
@@ -37,45 +39,103 @@ type StartResponse = {
 const el = <T extends HTMLElement>(id: string): T =>
   document.getElementById(id) as T;
 
-const buildPrompt = (start: StartResponse, brief: string): string => {
-  const lines = [
+const buildPrompt = (start: StartResponse): string => {
+  const prompt = [
     "Build me an Archival website.",
     "",
     "Read https://archival.dev/agent/build-site.md and follow it exactly.",
     `Publish token: ${start.token}`,
     `Preview name: ${start.name}`,
     `Archival version: ${start.archivalVersion}`,
-  ];
-  if (brief) {
-    lines.push("", `What I want: ${brief}`);
-  }
-  const prompt = lines.join("\n");
-  // Trimming the brief rather than the instructions: without those the session
-  // has a token and no idea what to do with it.
+  ].join("\n");
   return prompt.length > MAX_PROMPT ? prompt.slice(0, MAX_PROMPT) : prompt;
 };
 
-const setup = () => {
-  const form = el<HTMLFormElement>("bwc-form");
-  if (!form) {
+// navigator.clipboard is undefined outside a secure context, so a plain call
+// throws rather than failing gracefully. The textarea goes inside the dialog:
+// showModal() makes everything outside it inert, and a selection there cannot
+// be copied.
+const writeClipboard = async (text: string): Promise<void> => {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
     return;
   }
-  const submit = el<HTMLButtonElement>("bwc-submit");
-  const error = el<HTMLParagraphElement>("bwc-error");
-  const brief = el<HTMLTextAreaElement>("bwc-brief");
+  const host = el<HTMLDialogElement>("bwc-modal");
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.setAttribute("readonly", "");
+  area.style.position = "absolute";
+  area.style.opacity = "0";
+  host.appendChild(area);
+  area.select();
+  try {
+    if (!document.execCommand("copy")) {
+      throw new Error("copy rejected");
+    }
+  } finally {
+    host.removeChild(area);
+  }
+};
 
-  let token: string | null = null;
+const openModal = () => {
+  const modal = el<HTMLDialogElement>("bwc-modal");
+  modal.showModal();
+};
+
+const setup = () => {
+  const launch = el<HTMLButtonElement>("bwc-launch");
+  if (!launch) {
+    return;
+  }
+  const error = el<HTMLParagraphElement>("bwc-error");
+
   let widgetId: string | null = null;
+  let running = false;
+  let promptText = "";
 
   const fail = (message: string) => {
     error.textContent = message;
     error.hidden = false;
-    submit.disabled = false;
-    // A token is spent whether or not we accepted the response it came with, so
-    // a retry needs a fresh challenge.
-    token = null;
+    launch.disabled = false;
+    running = false;
+    // A token is spent whether or not the response it came with was accepted,
+    // so a retry needs a fresh challenge.
     if (widgetId && window.turnstile) {
       window.turnstile.reset(widgetId);
+    }
+  };
+
+  const start = async (token: string) => {
+    try {
+      const response = await fetch(`${API_URL}/previews/self-serve/start`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ turnstileToken: token }),
+      });
+      if (!response.ok) {
+        fail(
+          response.status === 429
+            ? "Too many requests from this network. Try again in a minute."
+            : "That didn't work. Please try again.",
+        );
+        return;
+      }
+      const result = (await response.json()) as StartResponse;
+      const prompt = buildPrompt(result);
+
+      el("bwc-name").textContent = result.name;
+      // Held rather than rendered: it is pasted into an editor, so it is copied
+      // verbatim - no shell quoting, which would put literal '\'' sequences
+      // into someone's prompt.
+      promptText = prompt;
+
+      openModal();
+      window.location.href = `claude-cli://open?q=${encodeURIComponent(prompt)}`;
+      launch.disabled = false;
+      running = false;
+    } catch (e) {
+      console.error(e);
+      fail("Couldn't reach Archival. Check your connection and try again.");
     }
   };
 
@@ -86,77 +146,70 @@ const setup = () => {
     widgetId = window.turnstile.render(el("bwc-turnstile"), {
       sitekey: TURNSTILE_SITE_KEY,
       action: TURNSTILE_ACTION,
-      callback: (t) => {
-        token = t;
+      execution: "execute",
+      appearance: "interaction-only",
+      callback: (token) => {
+        void start(token);
       },
       "error-callback": () => {
-        token = null;
+        fail("The challenge failed. Please try again.");
       },
       "expired-callback": () => {
-        token = null;
+        fail("The challenge expired. Please try again.");
       },
     });
   };
 
-  const show = (start: StartResponse) => {
-    const prompt = buildPrompt(start, brief.value.trim());
-    el("bwc-name").textContent = start.name;
-
-    const deeplink = el<HTMLAnchorElement>("bwc-deeplink");
-    deeplink.href = `claude-cli://open?q=${encodeURIComponent(prompt)}`;
-    deeplink.removeAttribute("aria-disabled");
-    deeplink.removeAttribute("tabindex");
-
-    // Single-quoted for the shell, so the only thing that needs escaping is a
-    // quote the visitor typed into their brief.
-    el("bwc-command").textContent =
-      `claude --cloud '${prompt.replace(/'/g, `'\\''`)}'`;
-
-    form.hidden = true;
-    el("bwc-reserved").hidden = false;
-    el("bwc-step-brief").dataset.state = "done";
-    el("bwc-step-launch").dataset.state = "active";
-    deeplink.focus();
-  };
-
-  el<HTMLButtonElement>("bwc-copy").addEventListener("click", async () => {
-    await navigator.clipboard.writeText(el("bwc-command").textContent ?? "");
-    const button = el<HTMLButtonElement>("bwc-copy");
-    button.textContent = "Copied";
-    setTimeout(() => (button.textContent = "Copy"), 2000);
+  el<HTMLButtonElement>("bwc-close").addEventListener("click", () => {
+    el<HTMLDialogElement>("bwc-modal").close();
   });
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (!token) {
-      fail("Please complete the challenge first.");
+  el<HTMLDialogElement>("bwc-modal").addEventListener("close", () => {
+    if (widgetId && window.turnstile) {
+      window.turnstile.reset(widgetId);
+    }
+  });
+
+  let revertCopy: ReturnType<typeof setTimeout> | undefined;
+
+  el<HTMLButtonElement>("bwc-copy").addEventListener("click", async () => {
+    const button = el<HTMLButtonElement>("bwc-copy");
+    const label = el("bwc-copy-label");
+    const status = el("bwc-copy-status");
+    clearTimeout(revertCopy);
+    try {
+      await writeClipboard(promptText);
+      button.classList.add("copied");
+      label.textContent = "Copied";
+      status.textContent = "Prompt copied to your clipboard.";
+    } catch {
+      // Never silent: the whole point of this button is to be the way out when
+      // the deep link did nothing.
+      status.textContent =
+        "Couldn't copy automatically — select the prompt and copy it.";
       return;
     }
-    error.hidden = true;
-    submit.disabled = true;
-    window.umami?.track("bwc-start");
+    revertCopy = setTimeout(() => {
+      button.classList.remove("copied");
+      label.textContent = "Copy prompt";
+      status.textContent = "";
+    }, 2000);
+  });
 
-    try {
-      const response = await fetch(`${API_URL}/previews/self-serve/start`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          turnstileToken: token,
-          slug: brief.value.trim().slice(0, 60),
-        }),
-      });
-      if (!response.ok) {
-        fail(
-          response.status === 429
-            ? "Too many requests from this network. Try again in a minute."
-            : "That didn't work. Please try again.",
-        );
-        return;
-      }
-      show((await response.json()) as StartResponse);
-    } catch {
-      fail("Couldn't reach Archival. Check your connection and try again.");
+  launch.addEventListener("click", () => {
+    if (running) {
+      return;
     }
+    if (!widgetId || !window.turnstile) {
+      fail("Couldn't load the challenge. Please reload the page.");
+      return;
+    }
+    running = true;
+    error.hidden = true;
+    launch.disabled = true;
+    window.umami?.track("bwc-start");
+    // execute() is documented against the container, not the widget id.
+    window.turnstile.execute(el("bwc-turnstile"));
   });
 
   renderWidget();
