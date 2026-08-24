@@ -1048,13 +1048,14 @@ h1.pricing-title {
   opacity: 1;
 }
 
-.manifesto-cta {
-  display: block;
+/* Outlined icon CTA: an icon, a label, a hairline box that brightens on hover.
+   Shared by the manifesto link and the Claude Code launcher. */
+.manifesto-cta,
+.build-alt-cta {
+  font-family: inherit;
   font-size: var(--typo-body-size);
   font-weight: var(--typo-body-weight);
   padding: 1rem 2rem;
-  padding-left: 4.5rem;
-  background: transparent url(/img/icon-docs.svg) left 2rem center no-repeat;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 0.5rem;
   width: fit-content;
@@ -1062,8 +1063,17 @@ h1.pricing-title {
   transition: border-color 0.3s ease-in-out;
 }
 
-.manifesto-cta:hover {
+.manifesto-cta:hover,
+.build-alt-cta:hover,
+.build-alt-cta:focus-visible {
   border-color: rgba(255, 255, 255, 1);
+}
+
+.manifesto-cta {
+  display: block;
+  /* Clears the background-image icon sitting at left 2rem. */
+  padding-left: 4.5rem;
+  background: transparent url(/img/icon-docs.svg) left 2rem center no-repeat;
 }
 
 /* Demo video. Sits directly under the hero, inside the hero's own ambient glow —
@@ -1937,8 +1947,36 @@ h1.pricing-title {
 
 /* Separates the prompt frame from the Claude Code button. On its own line so
    the two calls to action read as alternatives rather than a sequence. */
-.build-or {
-  margin: 1.5rem 0;
+/* The lead-in sits above the CTA as its own quiet line. */
+.build-alt {
+  margin: 2rem 0 1rem;
+  font-size: var(--typo-body-size);
   color: var(--color-typography-secondary);
-  text-transform: lowercase;
+  line-height: 1.6;
+}
+
+/* A real <button> (it opens a dialog) wearing the outlined-CTA look. Flex with a
+   1rem gap reproduces the manifesto link's icon-to-label spacing, which its
+   background-image + padding-left achieves a different way. */
+.build-alt-cta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: none;
+  color: var(--color-primary-cta-highlight);
+  cursor: pointer;
+}
+
+/* cursor: progress, matching what the button used to show: the disable lasts for
+   the Turnstile round-trip, so it means "working", not "unavailable". */
+.build-alt-cta[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.build-alt-mark {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
 }
