@@ -1,0 +1,58 @@
+{% comment %}
+  The "build with Claude Code" call to action, and the two scripts that drive
+  it. Self-contained so a page opts in by including it - nothing is loaded on
+  pages that do not.
+{% endcomment %}
+
+<p class="build-or">or</p>
+
+<button id="bwc-launch" type="button" class="primary-cta bwc-launch" data-umami-event="bwc-deeplink">
+  Open in Claude Code
+</button>
+
+{% comment %}
+  Rendered explicitly by src/build-with-claude.ts with execution "render", so
+  nothing is allocated until the button is clicked and the challenge stays out
+  of the page unless Turnstile wants an interaction.
+{% endcomment %}
+<div id="bwc-turnstile" class="bwc-turnstile"></div>
+
+<p id="bwc-error" class="bwc-error" hidden></p>
+
+<div id="bwc-result" class="bwc-result" hidden>
+  <p id="bwc-reserved" class="bwc-note">
+    Reserved <code id="bwc-name" class="bwc-code"></code> for the next two hours.
+  </p>
+
+  <details class="bwc-details">
+    <summary>Prefer a cloud session, or nothing happened?</summary>
+    <p class="bwc-note">
+      The button needs Claude Code installed on this machine. Otherwise copy this — it starts a session on Anthropic's
+      infrastructure:
+    </p>
+    <div class="bwc-copy-row">
+      <pre id="bwc-command" class="bwc-command"></pre>
+      <button id="bwc-copy" type="button" class="bwc-copy" data-umami-event="bwc-copy-command">Copy</button>
+    </div>
+    <p class="bwc-note">
+      A cloud session needs
+      <a href="https://code.claude.com/docs/en/cloud-environments" target="_blank" rel="noreferrer"
+        >a network environment</a
+      >
+      that allows <code class="bwc-code">api.archival.dev</code> — the default list does not. Publishing fails without
+      it.
+    </p>
+    <p class="bwc-note">
+      No Claude Code?
+      <a href="https://code.claude.com/docs/en/quickstart" target="_blank" rel="noreferrer">Install it here</a>, or
+      <a href="https://editor.archival.dev/new">build a site in the editor</a>.
+    </p>
+  </details>
+</div>
+
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit"
+  async
+  defer
+></script>
+<script type="module" src="/scripts/build-with-claude.js"></script>

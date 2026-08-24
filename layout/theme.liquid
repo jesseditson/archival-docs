@@ -179,18 +179,6 @@
         hljs.highlightAll();
       </script>
     {% endif %}
-    {% if area == "build-with-claude" %}
-      {% comment %}
-        Explicit rendering: the widget must be resettable, because a Turnstile
-        token is single-use and this page does not navigate away on submit.
-      {% endcomment %}
-      <script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit"
-        async
-        defer
-      ></script>
-      <script type="module" src="/scripts/build-with-claude.js"></script>
-    {% endif %}
     <script
       defer
       src="/umami.js"
