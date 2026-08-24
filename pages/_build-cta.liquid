@@ -19,36 +19,63 @@
 
 <p id="bwc-error" class="bwc-error" hidden></p>
 
-<div id="bwc-result" class="bwc-result" hidden>
-  <p id="bwc-reserved" class="bwc-note">
-    Reserved <code id="bwc-name" class="bwc-code"></code> for the next two hours.
+{% comment %}
+  A claude-cli:// navigation reports nothing back - the handler either exists or
+  the browser silently does nothing - so this opens either way and says what
+  should be happening rather than claiming it worked.
+{% endcomment %}
+<dialog id="bwc-modal" class="bwc-modal">
+  <button id="bwc-close" type="button" class="bwc-close" aria-label="Close">&times;</button>
+
+  <h2 class="bwc-modal-title">Opening Claude Code…</h2>
+
+  <p class="bwc-note">
+    If you've got claude code locally, it should have just opened. If it didn't, or you'd prefer to use a different LLM,
+    just click the button below and paste the copied prompt into your editor of choice.
+  </p>
+  <p class="bwc-note">
+    Your preview code is <code id="bwc-name" class="bwc-code"></code>, and it will work for the next two hours.
   </p>
 
-  <details class="bwc-details">
-    <summary>Prefer a cloud session, or nothing happened?</summary>
-    <p class="bwc-note">
-      The button needs Claude Code installed on this machine. Otherwise copy this — it starts a session on Anthropic's
-      infrastructure:
-    </p>
-    <div class="bwc-copy-row">
-      <pre id="bwc-command" class="bwc-command"></pre>
-      <button id="bwc-copy" type="button" class="bwc-copy" data-umami-event="bwc-copy-command">Copy</button>
-    </div>
-    <p class="bwc-note">
-      A cloud session needs
-      <a href="https://code.claude.com/docs/en/cloud-environments" target="_blank" rel="noreferrer"
-        >a network environment</a
+  <div class="bwc-copy-row">
+    <button id="bwc-copy" type="button" class="bwc-copy" data-umami-event="bwc-copy-command">
+      {% comment %} Swapped for the check by .copied on the button. {% endcomment %}
+      <svg
+        class="bwc-copy-icon"
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
       >
-      that allows <code class="bwc-code">api.archival.dev</code> — the default list does not. Publishing fails without
-      it.
-    </p>
-    <p class="bwc-note">
-      No Claude Code?
-      <a href="https://code.claude.com/docs/en/quickstart" target="_blank" rel="noreferrer">Install it here</a>, or
-      <a href="https://editor.archival.dev/new">build a site in the editor</a>.
-    </p>
-  </details>
-</div>
+        <rect x="9" y="9" width="13" height="13" rx="2" />
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+      </svg>
+      <svg
+        class="bwc-copy-check"
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M20 6 9 17l-5-5" />
+      </svg>
+      <span id="bwc-copy-label" class="bwc-copy-label">Copy prompt</span>
+    </button>
+  </div>
+
+  {% comment %} Announced rather than only shown, since the icon change is visual. {% endcomment %}
+  <p id="bwc-copy-status" class="bwc-copy-status" role="status" aria-live="polite"></p>
+</dialog>
 
 <script
   src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit"
