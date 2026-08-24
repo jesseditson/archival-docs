@@ -1,0 +1,27 @@
+order = 16
+title = "Building with Claude"
+include_in_llm_docs = true
+description = """
+Archival is LLM-native, which means it can work with you like a designer to help you get started. Our Claude skill knows how to build Archival sites that will work great with our editor, and will get you set up with a live preview URL of your totally custom website by asking you a few questions.
+"""
+
+[[sections]]
+title = "Starting from archival.dev"
+content = """
+The **Open in Claude Code** button on the [home page](/) is the shortest path. It sets up a preview session, then hands Claude Code a prompt that already carries everything the agent needs.
+
+If Claude Code is installed on your machine, it opens with the prompt filled in, including your preview credentials.
+
+If you'd prefer to use another coding agent, just hit 'copy prompt' and paste it into a new session. Just make sure that the session can access api.archival.dev, so it can create live previews for you.
+"""
+
+[[sections]]
+title = "Installing the plugin"
+content = """
+We also publish a Claude plugin so you can generate previews whenever you like. Since subdomains are $1 per month per site, this is a great way to build fun sites quickly.
+
+```
+/plugin marketplace add archival-dev/archival
+/plugin install new@archival
+```
+"""
