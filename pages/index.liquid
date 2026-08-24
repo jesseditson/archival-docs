@@ -1,46 +1,83 @@
 {% layout 'theme' area: "home", description: home.description, path: "" %}
 {% assign home = objects.home %}
+{% assign product = objects.product %}
 
 <div id="header" class="w-full flex flex-col justify-center items-center gap-6 pt-60 relative">
   <h1 class="hero-message" data-tilt-hero>
     <span class="hero-line-1">websites for</span>
     <span class="hero-line-2">everyone</span>
   </h1>
-  <div id="header-logo" class="flex items-center justify-between flex-col w-full">
-    {% comment %}
-      <div class="shadow-image w-64 h-64 relative flex items-center justify-center scale-90 md:scale-100">
-        {% comment %} <img
-          id="header-shadow"
-          class="bg absolute z-0"
-          src="/img/logo-shadow.png"
-          alt="archival" />
-        <img
-          id="header-image"
-          src="/img/logo.png"
-          class="fg z-10"
-          alt="archival" /> {% endcomment %}
-        {% comment %}
-          <video
-          class="header-video absolute top-0 w-full h-full hidden"
-          muted
-          preload="auto"
-          playsinline>
-          <source src="/vid/ttp.mov" type='video/mp4; codecs="hvc1"'>
-          <source src="/vid/ttp.webm" type="video/webm">
-          </video>
-          <video
-          class="header-video absolute top-0 w-full h-full hidden"
-          muted
-          preload="auto"
-          playsinline>
-          <source src="/vid/ptt.mov" type='video/mp4; codecs="hvc1"'>
-          <source src="/vid/ptt.webm" type="video/webm">
-          </video>
-        {% endcomment %}
-      </div>
-    {% endcomment %}
-  </div>
 </div>
+
+{% comment %}
+  Demo video. Falls back to the poster as a plain still when no video has been
+  attached yet, so the slot holds its place instead of leaving a hole under the
+  hero — and the layout doesn't shift when the real video lands in the same frame.
+  The still deliberately carries no play affordance: a play button that does
+  nothing is worse than no button. Attaching a video to home.videos (editor or
+  objects/home.toml) promotes it to a real player. With neither a video nor a
+  poster, the whole section is absent.
+{% endcomment %}
+
+{% comment %}
+  TEMPORARY, while Jesse finishes the video: the poster placeholder stays hidden.
+  Flip this to true to bring it back before the video itself is ready. Attaching a
+  real video turns the section on regardless of this flag, so nothing here needs
+  remembering when the video lands.
+{% endcomment %}
+{% assign show_poster_placeholder = false %}
+
+{% assign demo = home.videos | first %}
+{% assign demo_file = demo.video.filename %}
+{% assign has_demo = false %}
+{% unless demo_file == blank %}
+  {% assign has_demo = true %}
+{% endunless %}
+{% if show_poster_placeholder %}
+  {% unless demo.poster == blank %}
+    {% assign has_demo = true %}
+  {% endunless %}
+{% endif %}
+
+{% if has_demo %}
+  <section class="demo-video">
+    <div class="demo-video-frame">
+      {% if demo_file == blank %}
+        <img
+          class="demo-video-player demo-video-still"
+          src="{{ demo.poster }}"
+          alt="A site built with Archival"
+          decoding="async"
+        >
+      {% else %}
+        <video
+          class="demo-video-player"
+          {% if demo.poster %}
+            poster="{{ demo.poster }}"
+          {% endif %}
+          controls
+          playsinline
+          preload="metadata"
+        >
+          <source
+            src="{{ demo.video.url }}"
+            name="{{ demo.video.filename }}"
+            type="{{ demo.video.mime }}"
+          >
+        </video>
+      {% endif %}
+    </div>
+    {% comment %}
+      The caption rides with the real video only: "in less than 10 minutes"
+      alongside a still that cannot play is a promise the page can't keep.
+    {% endcomment %}
+    {% unless demo_file == blank %}
+      {% if demo.title %}
+        <p class="demo-video-caption">{{ demo.title }}</p>
+      {% endif %}
+    {% endunless %}
+  </section>
+{% endif %}
 
 {% comment %} Build Section {% endcomment %}
 
@@ -58,35 +95,630 @@
 </div>
 
 {% comment %}
-  Video Section (Disabled until produced)
-
-  <div class="content w-full max-w-screen-lg mb-40 md:max-w-[1200px]">
-    <div id="videos" class="w-full">
-      {% for video in home.videos %}
-        <div class="flex flex-col items-center gap-4">
-          <video
-            title="{{video.title}}"
-            {% if video.poster %}
-              poster="{{video.poster}}"
-            {% endif %}
-            controls
-            class="w-full bg-pink-light shadow-lg lg:rounded-2xl">
-            <source
-              src="{{video.video.url}}"
-              name="{{video.video.filename}}"
-              type="{{video.video.mime}}">
-          </video>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
+  Product tour. The .product-page wrapper is load-bearing: every callout marker
+  coordinate in style/product.css is a custom property scoped to it, so the whole
+  stylesheet applies here unchanged. #product is the nav's anchor target.
 {% endcomment %}
+
+<div class="product-page" id="product">
+  {% for section in product.sections %}
+    {% assign n = forloop.index %}
+    <section
+      class="product-section {% cycle 'frame-right', 'frame-left' %}"
+      data-product-section
+      data-section="{{ n }}"
+    >
+      <div class="product-copy">
+        <h2 class="section-title">{{ section.title }}</h2>
+        <div class="section-content">{{ section.content }}</div>
+      </div>
+      <div class="product-frame-wrap" data-tilt>
+        {% if section.key == "editor" %}
+          <div class="product-frame product-frame--shell">
+            <div class="product-frame-glow" aria-hidden="true"></div>
+
+            <div class="pf-window">
+              {% comment %} Top chrome bar {% endcomment %}
+              <div class="pf-chrome" data-callout-target="1">
+                <span class="pf-chrome-btn">History</span>
+                <div class="pf-mode-toggle">
+                  <span class="on">Content</span>
+                  <span>Task</span>
+                </div>
+                <div class="pf-chrome-right">
+                  <span class="pf-chrome-btn" data-callout-target="4">Mobile</span>
+                  <span class="pf-chrome-btn">View Live</span>
+                  <span class="pf-status">
+                    <i class="pf-dot ok"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="pf-body">
+                {% comment %} Site sections sidebar {% endcomment %}
+                <div class="pf-sidebar">
+                  <div class="pf-sidebar-item active">Site</div>
+                  <div class="pf-sidebar-item">Gallery</div>
+                  <div class="pf-sidebar-item">About</div>
+                  <div class="pf-sidebar-item">Contact</div>
+                </div>
+
+                {% comment %} Glass editing panel {% endcomment %}
+                <div class="pf-panel pf-glass" data-callout-target="2">
+                  <div class="pf-field">
+                    <label>Title</label>
+                    <div class="pf-input">Hello, world</div>
+                  </div>
+                  <div class="pf-field">
+                    <label>Published</label>
+                    <div class="pf-input">Jul 6, 2026</div>
+                  </div>
+                  <div class="pf-field">
+                    <label>Draft</label>
+                    <div class="pf-toggle"></div>
+                  </div>
+                </div>
+
+                {% comment %} Live preview: desktop website wireframe {% endcomment %}
+                <div class="pf-preview" data-callout-target="3">
+                  <div class="pf-browser">
+                    <div class="pf-browser-bar">
+                      <span class="pf-browser-dot"></span>
+                      <span class="pf-browser-dot"></span>
+                      <span class="pf-browser-dot"></span>
+                      <div class="pf-browser-url"></div>
+                    </div>
+                    <div class="pf-browser-page">
+                      <div class="pf-wire-nav">
+                        <div class="pf-wire-logo"></div>
+                        <div class="pf-wire-navlinks">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                      </div>
+                      <div class="pf-wire-hero">
+                        <div class="pf-wire-hero-copy">
+                          <div class="pf-wire-line pf-wire-line--title"></div>
+                          <div class="pf-wire-line"></div>
+                          <div class="pf-wire-line pf-wire-line--short"></div>
+                          <div class="pf-wire-btn"></div>
+                        </div>
+                        <div class="pf-wire-hero-art"></div>
+                      </div>
+                      <div class="pf-wire-cards">
+                        <div class="pf-wire-card"></div>
+                        <div class="pf-wire-card"></div>
+                        <div class="pf-wire-card"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="1"
+              style="--i:1;"
+              aria-describedby="c1-1"
+            >
+              1
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="2"
+              style="--i:2;"
+              aria-describedby="c1-2"
+            >
+              2
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="3"
+              style="--i:3;"
+              aria-describedby="c1-3"
+            >
+              3
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="4"
+              style="--i:4;"
+              aria-describedby="c1-4"
+            >
+              4
+            </button>
+          </div>
+
+          <ol class="callout-legend">
+            <li
+              class="callout-item"
+              data-callout="1"
+              id="c1-1"
+              style="--i:1;"
+            >
+              <b>1</b>
+              Switch between editing content and task mode.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="2"
+              id="c1-2"
+              style="--i:2;"
+            >
+              <b>2</b>
+              Make quick edits in the editor panel.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="3"
+              id="c1-3"
+              style="--i:3;"
+            >
+              <b>3</b>
+              Your live site, previewed right as you edit.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="4"
+              id="c1-4"
+              style="--i:4;"
+            >
+              <b>4</b>
+              Preview your site on mobile any time.
+            </li>
+          </ol>
+        {% elsif section.key == "prompt" %}
+          <div class="product-frame product-frame--prompt">
+            <div class="product-frame-glow" aria-hidden="true"></div>
+
+            {% comment %} Glowing AI prompt card {% endcomment %}
+            <div class="pf-prompt-card pf-glass">
+              <div class="pf-prompt-textarea" data-callout-target="1">
+                Describe what type of site you'd like to create&hellip;
+              </div>
+              <div class="pf-prompt-row">
+                <div class="pf-attach-row" data-callout-target="2">
+                  <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Photos</span>
+                  <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Video</span>
+                  <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Audio</span>
+                </div>
+                <button class="pf-cta pf-generate-btn" type="button">Generate</button>
+              </div>
+            </div>
+
+            {% comment %} 3-up generated template chooser {% endcomment %}
+            <div class="pf-chooser" data-callout-target="3">
+              <button
+                class="pf-paddle pf-paddle-prev"
+                type="button"
+                aria-label="Previous site"
+              >
+                &#8249;
+              </button>
+
+              <div class="pf-site-card">
+                <div class="pf-site-header"></div>
+                <div class="pf-site-block pf-site-block--wide"></div>
+                <div class="pf-site-block"></div>
+              </div>
+
+              <div class="pf-site-card pf-site-card--active">
+                <div class="pf-site-header"></div>
+                <div class="pf-site-block pf-site-block--wide"></div>
+                <div class="pf-site-block"></div>
+                <button class="pf-cta pf-golive-btn" type="button">Go Live</button>
+              </div>
+
+              <div class="pf-site-card">
+                <div class="pf-site-header"></div>
+                <div class="pf-site-block pf-site-block--wide"></div>
+                <div class="pf-site-block"></div>
+              </div>
+
+              <button
+                class="pf-paddle pf-paddle-next"
+                type="button"
+                aria-label="Next site"
+              >
+                &#8250;
+              </button>
+            </div>
+
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="1"
+              style="--i:1;"
+              aria-describedby="c2-1"
+            >
+              1
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="2"
+              style="--i:2;"
+              aria-describedby="c2-2"
+            >
+              2
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="3"
+              style="--i:3;"
+              aria-describedby="c2-3"
+            >
+              3
+            </button>
+          </div>
+
+          <ol class="callout-legend">
+            <li
+              class="callout-item"
+              data-callout="1"
+              id="c2-1"
+              style="--i:1;"
+            >
+              <b>1</b>
+              Describe your site in plain language.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="2"
+              id="c2-2"
+              style="--i:2;"
+            >
+              <b>2</b>
+              Attach photos, video, or audio you already have.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="3"
+              id="c2-3"
+              style="--i:3;"
+            >
+              <b>3</b>
+              Pick from several complete, real sites and go live.
+            </li>
+          </ol>
+        {% elsif section.key == "media" %}
+          <div class="product-frame product-frame--media">
+            <div class="product-frame-glow" aria-hidden="true"></div>
+
+            {% comment %} Image field editor: dropzone + upload progress + conversion/CDN badges {% endcomment %}
+            <div class="pf-media-card pf-glass">
+              <div class="pf-dropzone" data-callout-target="1">
+                <div class="pf-thumb" aria-hidden="true"></div>
+                <div class="pf-dropzone-text">
+                  <span class="pf-dropzone-title">Drop image to upload</span>
+                  <span class="pf-dropzone-sub">or click to browse</span>
+                </div>
+              </div>
+
+              <div class="pf-upload-progress" data-callout-target="2">
+                <div class="pf-progress-track">
+                  <div class="pf-progress-fill" style="width: 67%;"></div>
+                </div>
+                <div class="pf-progress-label">Uploading&hellip; 67%</div>
+              </div>
+
+              <div class="pf-media-badges">
+                <span class="pf-badge">HEIC &rarr; PNG, auto</span>
+                <span class="pf-badge pf-badge--cdn" data-callout-target="3"
+                  >Served from CDN &middot; deduplicated</span
+                >
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="1"
+              style="--i:1;"
+              aria-describedby="c4-1"
+            >
+              1
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="2"
+              style="--i:2;"
+              aria-describedby="c4-2"
+            >
+              2
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="3"
+              style="--i:3;"
+              aria-describedby="c4-3"
+            >
+              3
+            </button>
+          </div>
+
+          <ol class="callout-legend">
+            <li
+              class="callout-item"
+              data-callout="1"
+              id="c4-1"
+              style="--i:1;"
+            >
+              <b>1</b>
+              Drag in a photo. That's the whole workflow.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="2"
+              id="c4-2"
+              style="--i:2;"
+            >
+              <b>2</b>
+              Phone formats like HEIC convert automatically.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="3"
+              id="c4-3"
+              style="--i:3;"
+            >
+              <b>3</b>
+              Served from a fast CDN, and never stored twice.
+            </li>
+          </ol>
+        {% elsif section.key == "settings" %}
+          <div class="product-frame product-frame--settings">
+            <div class="product-frame-glow" aria-hidden="true"></div>
+
+            {% comment %} Overview + DNS + recent deploys {% endcomment %}
+            <div class="pf-settings-card pf-glass">
+              <div class="pf-settings-overview">
+                <div class="pf-settings-row">
+                  <span class="pf-settings-site"> <i class="pf-dot ok" aria-hidden="true"></i>acme.com</span>
+                  <span class="pf-settings-live">Live</span>
+                </div>
+                <div class="pf-settings-row">
+                  <span class="pf-settings-label">Plan</span>
+                  <span class="pf-settings-value">Editor &middot; $15/mo</span>
+                </div>
+                <div class="pf-settings-row" data-callout-target="1">
+                  <span class="pf-settings-label">GitHub</span>
+                  <span class="pf-settings-value">acme-studio/acme-site</span>
+                </div>
+                <div class="pf-settings-row">
+                  <span class="pf-settings-label">Billing</span>
+                  <span class="pf-settings-value">&bull;&bull;&bull;&bull; 4242</span>
+                </div>
+              </div>
+
+              <div class="pf-deploys" data-callout-target="2">
+                <div class="pf-deploys-title">Recent deploys</div>
+                <div class="pf-deploy-row">
+                  <span class="pf-deploy-date">Jul 6</span>
+                  <span class="pf-deploy-msg">Update homepage copy</span>
+                  <i class="pf-dot ok" aria-hidden="true"></i>
+                </div>
+                <div class="pf-deploy-row">
+                  <span class="pf-deploy-date">Jul 4</span>
+                  <span class="pf-deploy-msg">Add new gallery images</span>
+                  <i class="pf-dot ok" aria-hidden="true"></i>
+                </div>
+                <div class="pf-deploy-row">
+                  <span class="pf-deploy-date">Jul 1</span>
+                  <span class="pf-deploy-msg">Fix contact form styling</span>
+                  <i class="pf-dot ok" aria-hidden="true"></i>
+                </div>
+              </div>
+
+              <div class="pf-dns" data-callout-target="3">
+                <div class="pf-dns-title">DNS records</div>
+                <div class="pf-dns-row">
+                  <span class="pf-dns-type">A</span>
+                  <span class="pf-dns-host">@</span>
+                  <span class="pf-dns-value">76.76.21.21</span>
+                </div>
+                <div class="pf-dns-row">
+                  <span class="pf-dns-type">CNAME</span>
+                  <span class="pf-dns-host">www</span>
+                  <span class="pf-dns-value">cname.archival.dev</span>
+                </div>
+                <div class="pf-dns-row">
+                  <span class="pf-dns-type">TXT</span>
+                  <span class="pf-dns-host">@</span>
+                  <span class="pf-dns-value">v=spf1 include:_spf&hellip;</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="1"
+              style="--i:1;"
+              aria-describedby="c5-1"
+            >
+              1
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="2"
+              style="--i:2;"
+              aria-describedby="c5-2"
+            >
+              2
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="3"
+              style="--i:3;"
+              aria-describedby="c5-3"
+            >
+              3
+            </button>
+          </div>
+
+          <ol class="callout-legend">
+            <li
+              class="callout-item"
+              data-callout="1"
+              id="c5-1"
+              style="--i:1;"
+            >
+              <b>1</b>
+              Backed by a real repository you control.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="2"
+              id="c5-2"
+              style="--i:2;"
+            >
+              <b>2</b>
+              A timestamped deployment history.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="3"
+              id="c5-3"
+              style="--i:3;"
+            >
+              <b>3</b>
+              Full DNS configurability.
+            </li>
+          </ol>
+        {% elsif section.key == "history" %}
+          <div class="product-frame product-frame--history">
+            <div class="product-frame-glow" aria-hidden="true"></div>
+
+            {% comment %} Slide-in History panel: uncommitted changes + published commits {% endcomment %}
+            <div class="pf-history-panel pf-glass">
+              <div class="pf-history-header">
+                <span class="pf-history-title">History</span>
+              </div>
+
+              <div class="pf-history-group" data-callout-target="1">
+                <div class="pf-history-group-label">Upcoming changes</div>
+                <div class="pf-change-row">
+                  <i class="pf-dot warn" aria-hidden="true"></i>
+                  <span class="pf-change-desc">Edited: Home &rsaquo; Hero title</span>
+                </div>
+                <div class="pf-change-row">
+                  <i class="pf-dot warn" aria-hidden="true"></i>
+                  <span class="pf-change-desc">Added: Post &rsaquo; Summer sale</span>
+                </div>
+              </div>
+
+              <div class="pf-history-group">
+                <div class="pf-history-group-label">Published</div>
+                <div class="pf-commit-row">
+                  <i class="pf-dot ok" aria-hidden="true"></i>
+                  <span class="pf-commit-date">Jul 5</span>
+                  <span class="pf-commit-msg">Publish spring collection</span>
+                  <button class="pf-revert-btn" type="button">Revert</button>
+                </div>
+                <div class="pf-commit-row" data-callout-target="2">
+                  <i class="pf-dot ok" aria-hidden="true"></i>
+                  <span class="pf-commit-date">Jul 2</span>
+                  <span class="pf-commit-msg">Rewrite about page</span>
+                  <button class="pf-revert-btn" type="button">Revert</button>
+                </div>
+                <div class="pf-commit-row">
+                  <i class="pf-dot ok" aria-hidden="true"></i>
+                  <span class="pf-commit-date">Jun 28</span>
+                  <span class="pf-commit-msg">Update team photos</span>
+                  <button
+                    class="pf-revert-btn"
+                    type="button"
+                    data-callout-target="3"
+                  >
+                    Revert
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="1"
+              style="--i:1;"
+              aria-describedby="c6-1"
+            >
+              1
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="2"
+              style="--i:2;"
+              aria-describedby="c6-2"
+            >
+              2
+            </button>
+            <button
+              type="button"
+              class="callout-marker"
+              data-callout="3"
+              style="--i:3;"
+              aria-describedby="c6-3"
+            >
+              3
+            </button>
+          </div>
+
+          <ol class="callout-legend">
+            <li
+              class="callout-item"
+              data-callout="1"
+              id="c6-1"
+              style="--i:1;"
+            >
+              <b>1</b>
+              See exactly what's changed before it goes live.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="2"
+              id="c6-2"
+              style="--i:2;"
+            >
+              <b>2</b>
+              Every publish is a point you can return to.
+            </li>
+            <li
+              class="callout-item"
+              data-callout="3"
+              id="c6-3"
+              style="--i:3;"
+            >
+              <b>3</b>
+              Roll back any change instantly.
+            </li>
+          </ol>
+        {% else %}
+          {% comment %} FRAME {{ n }}: bespoke editor UI added by its task {% endcomment %}
+        {% endif %}
+      </div>
+    </section>
+  {% endfor %}
+</div>
 
 {% comment %} Benefit Sections {% endcomment %}
 
-<div class="benefit-grid md:max-w-[1200px] md:mt-40 md:mb-40 mt-20 mb-20">
+<div class="benefit-grid benefit-grid--compact">
   {% for section in home.sections %}
-    <div class="benefit" data-tilt>
+    <div class="benefit" data-glow>
       <h2 class="section-title">{{ section.title }}</h2>
       <div class="section-content">
         {{ section.content }}
@@ -95,98 +727,281 @@
   {% endfor %}
 </div>
 
-<script>
-  (function () {
-    // Card tilt effect
-    const cards = document.querySelectorAll('[data-tilt]');
-    const maxTilt = 8;
-    const perspective = 1000;
-    const transitionDuration = 150;
-
-    cards.forEach((card) => {
-      let bounds;
-      let isHovering = false;
-
-      function handleMouseEnter() {
-        bounds = card.getBoundingClientRect();
-        isHovering = true;
-        card.style.transition = 'none';
-      }
-
-      function handleMouseMove(e) {
-        if (!isHovering) return;
-
-        const mouseX = e.clientX - bounds.left;
-        const mouseY = e.clientY - bounds.top;
-        const centerX = bounds.width / 2;
-        const centerY = bounds.height / 2;
-
-        const rotateX = ((mouseY - centerY) / centerY) * -maxTilt;
-        const rotateY = ((mouseX - centerX) / centerX) * maxTilt;
-
-        const percentX = (mouseX / bounds.width) * 100;
-        const percentY = (mouseY / bounds.height) * 100;
-        card.style.setProperty('--mouse-x', percentX + '%');
-        card.style.setProperty('--mouse-y', percentY + '%');
-
-        card.style.transform = `perspective(${perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-      }
-
-      function handleMouseLeave() {
-        isHovering = false;
-        card.style.transition = `transform ${transitionDuration}ms ease-out`;
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-        card.style.setProperty('--mouse-x', '50%');
-        card.style.setProperty('--mouse-y', '50%');
-      }
-
-      card.addEventListener('mouseenter', handleMouseEnter);
-      card.addEventListener('mousemove', handleMouseMove);
-      card.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    // Hero title tilt effect (more subtle, tracks mouse across viewport)
-    const heroes = document.querySelectorAll('[data-tilt-hero]');
-    const heroMaxTilt = 12;
-    const heroPerspective = 1200;
-
-    heroes.forEach((hero) => {
-      function handleMouseMove(e) {
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-
-        const rotateX = ((e.clientY - centerY) / centerY) * -heroMaxTilt;
-        const rotateY = ((e.clientX - centerX) / centerX) * heroMaxTilt;
-
-        // Update color gradient position
-        const percentX = (e.clientX / window.innerWidth) * 100;
-        const percentY = (e.clientY / window.innerHeight) * 100;
-        hero.style.setProperty('--hero-mouse-x', percentX + '%');
-        hero.style.setProperty('--hero-mouse-y', percentY + '%');
-
-        hero.style.transform = `perspective(${heroPerspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      }
-
-      function handleMouseLeave() {
-        hero.style.transition = 'transform 0.5s ease-out';
-        hero.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
-        setTimeout(() => {
-          hero.style.transition = 'none';
-        }, 500);
-      }
-
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseleave', handleMouseLeave);
-    });
-  })();
-</script>
-
 {% comment %} Manifesto CTA {% endcomment %}
 
-<div class="md:max-w-[1200px] md:w-[1200px] w-full mb-40">
+<div class="md:max-w-[1200px] w-full mb-40">
   <a href="/manifesto.html" class="manifesto-cta" data-umami-event="cta-read-manifesto"> Read the Manifesto </a>
 </div>
 
 {% comment %} Contact Section {% endcomment %}
 
 {% include "connect" %}
+
+<script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Uniformly scale each product frame to fit its column. The frame is laid out
+    // at a fixed design width (--pf-dw), so its internal layout never reflows; zoom
+    // scales the whole thing — content and the %-pinned callout markers alike —
+    // keeping every marker aligned to its target at any window size.
+    var rootFontPx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var frames = [];
+    document.querySelectorAll('.product-frame-wrap').forEach(function (wrap) {
+      var frame = wrap.querySelector('.product-frame');
+      if (!frame) return;
+      var dwRaw = getComputedStyle(frame).getPropertyValue('--pf-dw').trim();
+      var dw = dwRaw.indexOf('rem') > -1 ? parseFloat(dwRaw) * rootFontPx : parseFloat(dwRaw);
+      if (dw) {
+        frames.push({ wrap: wrap, frame: frame, dw: dw });
+      }
+    });
+    function fit() {
+      frames.forEach(function (f) {
+        var cw = f.wrap.clientWidth;
+        if (!cw) return;
+        // Never scale past the design size; only shrink to fit narrower columns.
+        f.frame.style.zoom = Math.min(1, cw / f.dw);
+      });
+    }
+    fit();
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(fit);
+      frames.forEach(function (f) {
+        ro.observe(f.wrap);
+      });
+    } else {
+      window.addEventListener('resize', fit);
+    }
+
+    // Reveal product sections on scroll
+    var sections = document.querySelectorAll('[data-product-section]');
+    if (reduce) {
+      sections.forEach(function (s) {
+        s.classList.add('is-visible');
+      });
+    } else if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.25 },
+      );
+      sections.forEach(function (s) {
+        io.observe(s);
+      });
+    } else {
+      sections.forEach(function (s) {
+        s.classList.add('is-visible');
+      });
+    }
+
+    // Cross-highlight callouts: marker <-> line <-> legend <-> target
+    sections.forEach(function (section) {
+      var frame = section.querySelector('.product-frame');
+      function setActive(n, on) {
+        section
+          .querySelectorAll('[data-callout="' + n + '"], [data-callout-target="' + n + '"]')
+          .forEach(function (el) {
+            el.classList.toggle('callout-active', on);
+          });
+        if (frame) {
+          frame.classList.toggle('is-focusing', on);
+        }
+      }
+      section.querySelectorAll('[data-callout]').forEach(function (trigger) {
+        var n = trigger.getAttribute('data-callout');
+        trigger.addEventListener('mouseenter', function () {
+          setActive(n, true);
+        });
+        trigger.addEventListener('mouseleave', function () {
+          setActive(n, false);
+        });
+        trigger.addEventListener('focus', function () {
+          setActive(n, true);
+        });
+        trigger.addEventListener('blur', function () {
+          setActive(n, false);
+        });
+      });
+    });
+
+    // Scroll-spy the nav's Product item: lit while the tour is the thing you're
+    // looking at, dark otherwise. The rootMargin collapses the viewport to a thin
+    // band at its middle, so the state flips as the tour crosses the centre line
+    // rather than the moment its first pixel appears.
+    var navProduct = document.querySelectorAll('[data-nav-product]');
+    var tour = document.getElementById('product');
+    if (navProduct.length && tour && 'IntersectionObserver' in window) {
+      new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            navProduct.forEach(function (item) {
+              item.classList.toggle('nav-active', e.isIntersecting);
+            });
+          });
+        },
+        { rootMargin: '-45% 0px -45% 0px' },
+      ).observe(tour);
+    }
+
+    // In-page nav: the tour anchor and the logo both move within this document
+    // rather than loading one. Without taking these over, "/#product" and "/" are
+    // each a *different* document from "/index.html", so the browser reloads the
+    // whole page and only then lands — which reads as a stall followed by a snap.
+    var navOffset = tour ? parseFloat(getComputedStyle(tour).scrollMarginTop) || 0 : 0;
+    var mobileMenu = document.getElementById('mobile-menu');
+    var menuClose = document.getElementById('menu-open');
+
+    // Leave modified clicks alone so open-in-new-tab still works.
+    function plainClick(e) {
+      return !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0);
+    }
+
+    // The mobile menu only dismisses via its own X or the backdrop, so a
+    // same-document move would otherwise scroll the page behind an open menu.
+    function closeMobileMenu() {
+      if (mobileMenu && menuClose && !mobileMenu.classList.contains('hidden')) {
+        menuClose.click();
+      }
+    }
+
+    // Duration is capped so a long page doesn't mean a long wait; reduced motion
+    // gets the destination with no travel.
+    function scrollToY(targetY) {
+      var startY = window.scrollY;
+      var dy = targetY - startY;
+      if (reduce || !dy) {
+        window.scrollTo(0, targetY);
+        return;
+      }
+      var dur = Math.min(600, Math.max(280, Math.abs(dy) * 0.25));
+      var t0 = null;
+      requestAnimationFrame(function step(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        var eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+        window.scrollTo(0, startY + dy * eased);
+        if (p < 1) requestAnimationFrame(step);
+      });
+    }
+
+    function takeOver(links, getTargetY, url) {
+      links.forEach(function (link) {
+        // umami (public/umami.js) installs a capture-phase listener on document:
+        // for any <a data-umami-event> it calls preventDefault itself, awaits its
+        // tracking request, then assigns location.href — a script-initiated
+        // navigation ours cannot cancel, and the reason clicking these used to
+        // stall and then snap. Take the attribute off and report the event here,
+        // so the analytics still land and the navigation stays ours. Anything
+        // still carrying the attribute (every other page) is untouched.
+        var event = link.getAttribute('data-umami-event');
+        if (event) link.removeAttribute('data-umami-event');
+
+        link.addEventListener('click', function (e) {
+          if (!plainClick(e)) return;
+          e.preventDefault();
+          if (event && typeof umami !== 'undefined') umami.track(event);
+          closeMobileMenu();
+          history.replaceState(null, '', url);
+          scrollToY(getTargetY());
+        });
+      });
+    }
+
+    var tourLinks = document.querySelectorAll('a[href="#product"], a[href="/#product"]');
+    if (tour && tourLinks.length) {
+      takeOver(
+        tourLinks,
+        function () {
+          return Math.round(tour.getBoundingClientRect().top + window.scrollY - navOffset);
+        },
+        '#product',
+      );
+    }
+
+    // The logo already means "home" — on the homepage that's the top of this page.
+    // Dropping the hash keeps the URL honest about where the reader ended up.
+    takeOver(
+      document.querySelectorAll('#logo a'),
+      function () {
+        return 0;
+      },
+      location.pathname + location.search,
+    );
+
+    if (reduce) return;
+
+    // Benefit cards track the pointer to place their hover glow, but do not tilt:
+    // at a quarter of their former size the tilt read as jitter, and the row's job
+    // this late in the page is to sit still.
+    document.querySelectorAll('[data-glow]').forEach(function (card) {
+      var bounds;
+      card.addEventListener('mouseenter', function () {
+        bounds = card.getBoundingClientRect();
+      });
+      card.addEventListener('mousemove', function (e) {
+        if (!bounds) return;
+        card.style.setProperty('--mouse-x', ((e.clientX - bounds.left) / bounds.width) * 100 + '%');
+        card.style.setProperty('--mouse-y', ((e.clientY - bounds.top) / bounds.height) * 100 + '%');
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.setProperty('--mouse-x', '50%');
+        card.style.setProperty('--mouse-y', '50%');
+      });
+    });
+
+    // 3D tilt on product frames
+    document.querySelectorAll('.product-frame-wrap[data-tilt]').forEach(function (card) {
+      var frame = card.querySelector('.product-frame');
+      if (!frame) return;
+      var maxTilt = 6,
+        bounds;
+      card.addEventListener('mouseenter', function () {
+        bounds = frame.getBoundingClientRect();
+        frame.style.transition = 'none';
+      });
+      card.addEventListener('mousemove', function (e) {
+        if (!bounds) return;
+        var mx = e.clientX - bounds.left,
+          my = e.clientY - bounds.top;
+        var rx = ((my - bounds.height / 2) / (bounds.height / 2)) * -maxTilt;
+        var ry = ((mx - bounds.width / 2) / (bounds.width / 2)) * maxTilt;
+        frame.style.transform = 'perspective(1200px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      });
+      card.addEventListener('mouseleave', function () {
+        frame.style.transition = 'transform 0.4s ease-out';
+        frame.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)';
+      });
+    });
+
+    // Hero tilt, bound once. Both source pages registered their own mousemove
+    // handler for [data-tilt-hero]; merged naively that was two handlers writing
+    // conflicting transforms to the same element.
+    var heroMaxTilt = 12,
+      heroPerspective = 1200;
+    var heroes = document.querySelectorAll('[data-tilt-hero]');
+    if (heroes.length) {
+      document.addEventListener('mousemove', function (e) {
+        var rx = ((e.clientY - window.innerHeight / 2) / (window.innerHeight / 2)) * -heroMaxTilt;
+        var ry = ((e.clientX - window.innerWidth / 2) / (window.innerWidth / 2)) * heroMaxTilt;
+        heroes.forEach(function (hero) {
+          hero.style.setProperty('--hero-mouse-x', (e.clientX / window.innerWidth) * 100 + '%');
+          hero.style.setProperty('--hero-mouse-y', (e.clientY / window.innerHeight) * 100 + '%');
+          hero.style.transform = 'perspective(' + heroPerspective + 'px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+        });
+      });
+      document.addEventListener('mouseleave', function () {
+        heroes.forEach(function (hero) {
+          hero.style.transition = 'transform 0.5s ease-out';
+          hero.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+        });
+      });
+    }
+  })();
+</script>
