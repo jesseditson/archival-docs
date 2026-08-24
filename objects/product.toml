@@ -31,10 +31,3 @@ title = "Every change, tracked forever"
 content = """
 Archival remembers every change you've ever made. Browse your full history, see exactly what changed and when, and roll back anything instantly, from a single edit to a whole day's work. Archival websites, and all changes to them, last forever.
 """
-
-[[sections]]
-key = "cta"
-title = "Build yours right now."
-content = """
-Describe what type of site you'd like to create and we'll get you live in a few minutes.
-"""

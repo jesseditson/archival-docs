@@ -1048,13 +1048,14 @@ h1.pricing-title {
   opacity: 1;
 }
 
-.manifesto-cta {
-  display: block;
+/* Outlined icon CTA: an icon, a label, a hairline box that brightens on hover.
+   Shared by the manifesto link and the Claude Code launcher. */
+.manifesto-cta,
+.build-alt-cta {
+  font-family: inherit;
   font-size: var(--typo-body-size);
   font-weight: var(--typo-body-weight);
   padding: 1rem 2rem;
-  padding-left: 4.5rem;
-  background: transparent url(/img/icon-docs.svg) left 2rem center no-repeat;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 0.5rem;
   width: fit-content;
@@ -1062,16 +1063,60 @@ h1.pricing-title {
   transition: border-color 0.3s ease-in-out;
 }
 
-.manifesto-cta:hover {
+.manifesto-cta:hover,
+.build-alt-cta:hover,
+.build-alt-cta:focus-visible {
   border-color: rgba(255, 255, 255, 1);
 }
 
-#videos video {
-  box-shadow: var(--style-double-border);
+.manifesto-cta {
+  display: block;
+  /* Clears the background-image icon sitting at left 2rem. */
+  padding-left: 4.5rem;
+  background: transparent url(/img/icon-docs.svg) left 2rem center no-repeat;
 }
 
-#videos {
-  padding: 0 0.75rem;
+/* Demo video. Sits directly under the hero, inside the hero's own ambient glow —
+   it needs no second glow of its own. The frame is the site's existing double-ring
+   token plus the product frames' drop shadow, so it reads as part of the same
+   family as the tour below it. */
+.demo-video {
+  width: 100%;
+  max-width: 1200px;
+  margin: 4rem auto 0;
+  padding: 0 2rem;
+}
+
+.demo-video-frame {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow:
+    var(--style-double-border),
+    0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.demo-video-player {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Reserve the slot before metadata loads so the page doesn't jump. */
+  aspect-ratio: 16 / 9;
+  background: var(--color-main-bg);
+}
+
+/* The poster-only still fills the 16:9 slot; the <video> keeps its default
+   contain so a non-16:9 file letterboxes on black rather than cropping. */
+.demo-video-still {
+  object-fit: cover;
+}
+
+.demo-video-caption {
+  margin: 1rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
 }
 
 .benefit-grid {
@@ -1083,9 +1128,10 @@ h1.pricing-title {
 
 /* Feature Card Styling */
 .benefit {
+  --benefit-radius: 1.5rem;
   position: relative;
   padding: 2.5rem;
-  border-radius: 1.5rem;
+  border-radius: var(--benefit-radius);
   border: 1px solid var(--color-transparent-border);
   background: rgba(20, 20, 20, 0.25);
   backdrop-filter: blur(16px);
@@ -1104,7 +1150,7 @@ h1.pricing-title {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 1.5rem;
+  border-radius: var(--benefit-radius);
   background: radial-gradient(
     ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%),
     rgba(6, 214, 160, 0.15) 0%,
@@ -1134,7 +1180,7 @@ h1.pricing-title {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 1.5rem;
+  border-radius: var(--benefit-radius);
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.1) 0%,
@@ -1155,6 +1201,68 @@ h1.pricing-title {
 .benefit .section-content {
   position: relative;
   z-index: 2;
+}
+
+/* Compact benefit row. By the time the reader reaches this, four elaborate product
+   frames have already had their turn — so the closing argument is the still thing on
+   the page: same glass card, a quarter of the size, no tilt and no glare layer.
+   Scoped as a modifier because showcase.liquid still uses the full-size cards. */
+.benefit-grid--compact {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  max-width: 1200px;
+  margin: 8rem auto;
+  padding: 0 2rem;
+}
+
+.benefit-grid--compact .benefit {
+  --benefit-radius: 1rem;
+  padding: 1.5rem;
+}
+
+/* The diagonal glare reads as a smudge at this size. */
+.benefit-grid--compact .benefit::after {
+  display: none;
+}
+
+.benefit-grid--compact .section-title {
+  font-size: 1.5rem;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+  /* Four across, one title wraps to two lines and the rest don't — reserving the
+     second line keeps all four bodies starting on the same baseline. Released
+     below, where the columns are wide enough that every title fits on one line. */
+  min-height: 2.3em;
+}
+
+.benefit-grid--compact .section-content {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.benefit-grid--compact .section-content p {
+  margin: 0 0 0.75rem;
+}
+
+.benefit-grid--compact .section-content p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1100px) {
+  .benefit-grid--compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .benefit-grid--compact .section-title {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .benefit-grid--compact {
+    grid-template-columns: minmax(0, 1fr);
+    margin: 5rem auto;
+  }
 }
 
 .section-title {
@@ -1483,14 +1591,11 @@ h1.pricing-title {
     padding: 0 2rem;
   }
 
-  #videos {
+  .demo-video {
     padding: 0 4rem;
   }
 
-  #videos video {
-    border-radius: 1rem;
-  }
-  .benefit-grid,
+  .benefit-grid:not(.benefit-grid--compact),
   .pricing-container {
     padding: 0 4rem;
     gap: 3rem 2rem;
@@ -1519,7 +1624,7 @@ h1.pricing-title {
     padding: 0 1.5rem;
   }
 
-  .benefit-grid,
+  .benefit-grid:not(.benefit-grid--compact),
   .pricing-container {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1559,8 +1664,8 @@ h1.pricing-title {
     padding-top: 8rem;
   }
 
-  #videos {
-    padding: 0 2rem;
+  .demo-video {
+    padding: 0 1rem;
   }
 
   .md h1.cli-header {
@@ -1606,7 +1711,7 @@ h1.pricing-title {
     min-height: 28rem;
   }
 
-  .benefit-grid,
+  .benefit-grid:not(.benefit-grid--compact),
   .pricing-container {
     padding: 0 2rem;
   }
@@ -1842,8 +1947,36 @@ h1.pricing-title {
 
 /* Separates the prompt frame from the Claude Code button. On its own line so
    the two calls to action read as alternatives rather than a sequence. */
-.build-or {
-  margin: 1.5rem 0;
+/* The lead-in sits above the CTA as its own quiet line. */
+.build-alt {
+  margin: 2rem 0 1rem;
+  font-size: var(--typo-body-size);
   color: var(--color-typography-secondary);
-  text-transform: lowercase;
+  line-height: 1.6;
+}
+
+/* A real <button> (it opens a dialog) wearing the outlined-CTA look. Flex with a
+   1rem gap reproduces the manifesto link's icon-to-label spacing, which its
+   background-image + padding-left achieves a different way. */
+.build-alt-cta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: none;
+  color: var(--color-primary-cta-highlight);
+  cursor: pointer;
+}
+
+/* cursor: progress, matching what the button used to show: the disable lasts for
+   the Turnstile round-trip, so it means "working", not "unavailable". */
+.build-alt-cta[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.build-alt-mark {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
 }

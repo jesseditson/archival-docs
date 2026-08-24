@@ -2,6 +2,9 @@
 .product-page {
   width: 100%;
   overflow-x: clip;
+  /* #product is the nav's anchor target; clear the fixed nav on jump.
+     Matches the offset used for docs headings in markdown.css. */
+  scroll-margin-top: 100px;
 }
 
 /* ============ Callout marker positions ============ */
@@ -155,6 +158,15 @@
 }
 .product-cta {
   margin-top: 4rem;
+}
+/* On the homepage the tour is a mid-page band rather than a whole page: tighten
+   the leading and trailing gaps so it reads as one run of sections between the
+   prompt CTA above and the benefit row below. */
+.product-page > .product-section:first-of-type {
+  margin-top: 4rem;
+}
+.product-page > .product-section:last-of-type {
+  margin-bottom: 4rem;
 }
 @media (max-width: 768px) {
   .product-section {

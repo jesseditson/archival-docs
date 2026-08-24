@@ -44,8 +44,23 @@
     </button>
   </div>
   <ul class="flex-shrink justify-end gap-8 items-center flex-wrap hidden md:flex">
-    <li class="nav-text {% if area == 'product' %}nav-active{% endif %}">
-      <a href="/product.html" data-umami-event="nav-product">Product</a>
+    {% comment %}
+      The tour lives on the homepage now, so this item has no page of its own to
+      match on. index.liquid scroll-spies it instead: active while the tour is
+      actually on screen. Desktop only — the mobile item sits in a closed menu,
+      where an active state has nothing to tell anyone.
+    {% endcomment %}
+    <li class="nav-text" data-nav-product>
+      {% comment %}
+        Bare "#product" on the homepage itself. "/#product" is a different
+        document from "/index.html", so the browser reloads the whole page and
+        only then jumps — which reads as a long stall followed by a snap.
+      {% endcomment %}
+      <a
+        href="{% if area == 'home' %}#product{% else %}/#product{% endif %}"
+        data-umami-event="nav-product"
+        >Product</a
+      >
     </li>
     {% assign docs_link = objects.docs | first %}
     <li class="nav-text {% if area == 'docs' %}nav-active{% endif %}">
@@ -134,7 +149,12 @@
 >
   <ul class="flex flex-col">
     <li class="mobile-nav-item">
-      <a class="flex-1" href="/product.html" data-umami-event="mobile-nav-product">Product</a>
+      <a
+        class="flex-1"
+        href="{% if area == 'home' %}#product{% else %}/#product{% endif %}"
+        data-umami-event="mobile-nav-product"
+        >Product</a
+      >
     </li>
     {% assign docs_link = objects.docs | first %}
     <li class="mobile-nav-item">

@@ -1,0 +1,4 @@
+# The product tour merged into the homepage. Keep both spellings of the old URL
+# alive so inbound links and the previous nav target land on the tour in place.
+/product.html    /#product    301
+/product         /#product    301
