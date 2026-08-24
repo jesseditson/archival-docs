@@ -18,12 +18,12 @@ import path from "node:path";
 
 // Destination path -> path within the archival repo.
 const FILES = {
-  "build-site.md": "plugins/new/skills/build-archival-site/SKILL.md",
+  "build-site.md": "plugins/archival/skills/new/SKILL.md",
   "reference/authoring.md":
-    "plugins/new/skills/build-archival-site/reference/authoring.md",
+    "plugins/archival/skills/new/reference/authoring.md",
   "reference/publishing.md":
-    "plugins/new/skills/build-archival-site/reference/publishing.md",
-  "install-archival.sh": "plugins/new/bin/install-archival.sh",
+    "plugins/archival/skills/new/reference/publishing.md",
+  "install-archival.sh": "plugins/archival/bin/install-archival.sh",
 };
 
 // Same reasoning as the schemas: the skill ships from main rather than a tag,

@@ -43,7 +43,7 @@ const buildPrompt = (start: StartResponse): string => {
   const prompt = [
     "Build me an Archival website.",
     "",
-    "Read https://archival.dev/agent/build-site.md and follow it exactly.",
+    "Read https://raw.githubusercontent.com/jesseditson/archival/main/plugins/archival/skills/new/SKILL.md and follow it exactly.",
     `Publish token: ${start.token}`,
     `Preview name: ${start.name}`,
     `Archival version: ${start.archivalVersion}`,

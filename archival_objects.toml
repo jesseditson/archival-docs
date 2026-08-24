@@ -49,6 +49,7 @@ content = "markdown"
 title = "string"
 description = "markdown"
 include_in_llm_docs = "boolean"
+build_cta = "boolean"
 template = "docs"
 [docs.sections]
 title = "string"

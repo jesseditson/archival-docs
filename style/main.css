@@ -1810,6 +1810,17 @@ h1.pricing-title {
 
 /* Build with Claude launcher */
 
+.bwc-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: var(--style-double-border);
+}
+
 /* No min-height: the widget is rendered with appearance "interaction-only", so
    it occupies nothing unless Turnstile decides to show a challenge, and a
    reserved box would just be a gap under the button. */
@@ -1979,4 +1990,21 @@ h1.pricing-title {
   width: 1.5rem;
   height: 1.5rem;
   flex-shrink: 0;
+}
+
+.link-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 1.5rem;
+  letter-spacing: 0.25em;
+  word-break: break-all;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.link-code-label {
+  margin: 0;
+}
+
+.link-fineprint {
+  margin-top: 2rem;
+  max-width: 52ch;
 }

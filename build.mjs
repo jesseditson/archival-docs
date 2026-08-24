@@ -24,6 +24,7 @@ const ctx = await esbuild.context({
   entryPoints: {
     main: "src/index.ts",
     "build-with-claude": "src/build-with-claude.ts",
+    link: "src/link.ts",
   },
   bundle: true,
   outdir: "dist/scripts",

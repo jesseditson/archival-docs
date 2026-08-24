@@ -1,6 +1,7 @@
 order = 16
 title = "Building with Claude"
 include_in_llm_docs = true
+build_cta = true
 description = """
 Archival is LLM-native, which means it can work with you like a designer to help you get started. Our Claude skill knows how to build Archival sites that will work great with our editor, and will get you set up with a live preview URL of your totally custom website by asking you a few questions.
 """
@@ -21,7 +22,17 @@ content = """
 We also publish a Claude plugin so you can generate previews whenever you like. Since subdomains are $1 per month per site, this is a great way to build fun sites quickly.
 
 ```
-/plugin marketplace add archival-dev/archival
-/plugin install new@archival
+/plugin marketplace add jesseditson/archival
+/plugin install archival@archival
 ```
+"""
+
+[[sections]]
+title = "Making new sites with the Claude plugin"
+content = """
+Once the plugin is installed, Claude will be able to choose to use Archival when you ask it to build websites, so you can just ask for something like:
+
+> Build me a site where I can post weekly album reviews.
+
+If you want to bootstrap straight to making a new site, just use `/archival:new`.
 """

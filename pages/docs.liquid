@@ -71,6 +71,12 @@
         {{ section.content }}
       {% endfor %}
 
+      {% if docs.build_cta %}
+        <div class="docs-build-cta">
+          {% include "build-cta" %}
+        </div>
+      {% endif %}
+
       <div class="flex justify-between text-lg font-bold mt-10 gap-5">
         {% assign prev_order = docs.order | minus: 1 %}
         {% assign next_order = docs.order | plus: 1 %}
