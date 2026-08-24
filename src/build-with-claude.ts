@@ -1,7 +1,6 @@
-// Launcher for the self-serve "build with Claude" flow. The visitor solves a
-// Turnstile challenge here, before any agent session exists; the API answers
-// with a preview name and a publish token scoped to it, and both ride into the
-// session inside the prompt.
+// Launcher for the self-serve "build with Claude" flow. Clicking through runs a
+// Turnstile challenge, then asks the API for a preview name and a publish token
+// scoped to it; both ride into the Claude Code session inside the prompt.
 
 declare global {
   interface Window {
@@ -11,11 +10,14 @@ declare global {
         options: {
           sitekey: string;
           action?: string;
+          execution?: "render" | "execute";
+          appearance?: "always" | "execute" | "interaction-only";
           callback: (token: string) => void;
           "error-callback"?: () => void;
           "expired-callback"?: () => void;
         },
       ): string;
+      execute(container: HTMLElement | string): void;
       reset(widgetId: string): void;
     };
     umami?: { track: (event: string) => void };
@@ -37,45 +39,73 @@ type StartResponse = {
 const el = <T extends HTMLElement>(id: string): T =>
   document.getElementById(id) as T;
 
-const buildPrompt = (start: StartResponse, brief: string): string => {
-  const lines = [
+const buildPrompt = (start: StartResponse): string => {
+  const prompt = [
     "Build me an Archival website.",
     "",
     "Read https://archival.dev/agent/build-site.md and follow it exactly.",
     `Publish token: ${start.token}`,
     `Preview name: ${start.name}`,
     `Archival version: ${start.archivalVersion}`,
-  ];
-  if (brief) {
-    lines.push("", `What I want: ${brief}`);
-  }
-  const prompt = lines.join("\n");
-  // Trimming the brief rather than the instructions: without those the session
-  // has a token and no idea what to do with it.
+  ].join("\n");
   return prompt.length > MAX_PROMPT ? prompt.slice(0, MAX_PROMPT) : prompt;
 };
 
 const setup = () => {
-  const form = el<HTMLFormElement>("bwc-form");
-  if (!form) {
+  const launch = el<HTMLButtonElement>("bwc-launch");
+  if (!launch) {
     return;
   }
-  const submit = el<HTMLButtonElement>("bwc-submit");
   const error = el<HTMLParagraphElement>("bwc-error");
-  const brief = el<HTMLTextAreaElement>("bwc-brief");
 
-  let token: string | null = null;
   let widgetId: string | null = null;
+  let running = false;
 
   const fail = (message: string) => {
     error.textContent = message;
     error.hidden = false;
-    submit.disabled = false;
-    // A token is spent whether or not we accepted the response it came with, so
-    // a retry needs a fresh challenge.
-    token = null;
+    launch.disabled = false;
+    running = false;
+    // A token is spent whether or not the response it came with was accepted,
+    // so a retry needs a fresh challenge.
     if (widgetId && window.turnstile) {
       window.turnstile.reset(widgetId);
+    }
+  };
+
+  const start = async (token: string) => {
+    try {
+      const response = await fetch(`${API_URL}/previews/self-serve/start`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ turnstileToken: token }),
+      });
+      if (!response.ok) {
+        fail(
+          response.status === 429
+            ? "Too many requests from this network. Try again in a minute."
+            : "That didn't work. Please try again.",
+        );
+        return;
+      }
+      const result = (await response.json()) as StartResponse;
+      const prompt = buildPrompt(result);
+
+      el("bwc-name").textContent = result.name;
+      // Single-quoted for the shell; the prompt is ours, so nothing in it needs
+      // escaping beyond the quote itself.
+      el("bwc-command").textContent =
+        `claude --cloud '${prompt.replace(/'/g, `'\\''`)}'`;
+      el("bwc-result").hidden = false;
+
+      // A claude-cli:// navigation does not leave the page, so the fallback
+      // above is revealed first and stays on screen for anyone whose machine
+      // has no handler registered.
+      window.location.href = `claude-cli://open?q=${encodeURIComponent(prompt)}`;
+      launch.disabled = false;
+      running = false;
+    } catch {
+      fail("Couldn't reach Archival. Check your connection and try again.");
     }
   };
 
@@ -86,37 +116,20 @@ const setup = () => {
     widgetId = window.turnstile.render(el("bwc-turnstile"), {
       sitekey: TURNSTILE_SITE_KEY,
       action: TURNSTILE_ACTION,
-      callback: (t) => {
-        token = t;
+      // Hold the challenge until the click, and keep the widget out of the page
+      // unless Turnstile decides this visitor has to interact with it.
+      execution: "render",
+      appearance: "interaction-only",
+      callback: (token) => {
+        void start(token);
       },
       "error-callback": () => {
-        token = null;
+        fail("The challenge failed. Please try again.");
       },
       "expired-callback": () => {
-        token = null;
+        fail("The challenge expired. Please try again.");
       },
     });
-  };
-
-  const show = (start: StartResponse) => {
-    const prompt = buildPrompt(start, brief.value.trim());
-    el("bwc-name").textContent = start.name;
-
-    const deeplink = el<HTMLAnchorElement>("bwc-deeplink");
-    deeplink.href = `claude-cli://open?q=${encodeURIComponent(prompt)}`;
-    deeplink.removeAttribute("aria-disabled");
-    deeplink.removeAttribute("tabindex");
-
-    // Single-quoted for the shell, so the only thing that needs escaping is a
-    // quote the visitor typed into their brief.
-    el("bwc-command").textContent =
-      `claude --cloud '${prompt.replace(/'/g, `'\\''`)}'`;
-
-    form.hidden = true;
-    el("bwc-reserved").hidden = false;
-    el("bwc-step-brief").dataset.state = "done";
-    el("bwc-step-launch").dataset.state = "active";
-    deeplink.focus();
   };
 
   el<HTMLButtonElement>("bwc-copy").addEventListener("click", async () => {
@@ -126,37 +139,20 @@ const setup = () => {
     setTimeout(() => (button.textContent = "Copy"), 2000);
   });
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (!token) {
-      fail("Please complete the challenge first.");
+  launch.addEventListener("click", () => {
+    if (running) {
       return;
     }
-    error.hidden = true;
-    submit.disabled = true;
-    window.umami?.track("bwc-start");
-
-    try {
-      const response = await fetch(`${API_URL}/previews/self-serve/start`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          turnstileToken: token,
-          slug: brief.value.trim().slice(0, 60),
-        }),
-      });
-      if (!response.ok) {
-        fail(
-          response.status === 429
-            ? "Too many requests from this network. Try again in a minute."
-            : "That didn't work. Please try again.",
-        );
-        return;
-      }
-      show((await response.json()) as StartResponse);
-    } catch {
-      fail("Couldn't reach Archival. Check your connection and try again.");
+    if (!widgetId || !window.turnstile) {
+      fail("Couldn't load the challenge. Please reload the page.");
+      return;
     }
+    running = true;
+    error.hidden = true;
+    launch.disabled = true;
+    window.umami?.track("bwc-start");
+    // execute() is documented against the container, not the widget id.
+    window.turnstile.execute(el("bwc-turnstile"));
   });
 
   renderWidget();
