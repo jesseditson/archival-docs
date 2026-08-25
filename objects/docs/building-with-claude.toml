@@ -11,9 +11,9 @@ title = "Starting from archival.dev"
 content = """
 The **Open in Claude Code** button on the [home page](/) is the shortest path. It sets up a preview session, then hands Claude Code a prompt that already carries everything the agent needs.
 
-If Claude Code is installed on your machine, it opens with the prompt filled in, including your preview credentials.
+If Claude Code is installed on your machine, it opens with the prompt filled in. Nothing gets installed and nothing is built on your machine — the agent writes the site straight into the preview and we build it on our side.
 
-If you'd prefer to use another coding agent, just hit 'copy prompt' and paste it into a new session. Just make sure that the session can access api.archival.dev, so it can create live previews for you.
+If you'd prefer another coding agent, hit **copy prompt** and paste it into a new session. Or hit **run it in the cloud**, which opens a Claude Code session on the web with the same prompt. Either way, make sure the session can reach api.archival.dev — that's how it creates live previews for you.
 """
 
 [[sections]]
@@ -25,6 +25,28 @@ We also publish a Claude plugin so you can generate previews whenever you like. 
 /plugin marketplace add archival-dev/archival
 /plugin install archival@archival
 ```
+
+Installing it also connects our MCP server, which is what the skill actually drives.
+"""
+
+[[sections]]
+title = "Connecting the MCP server on its own"
+content = """
+The plugin is Claude Code specific; the MCP server isn't. Any MCP client can connect to it directly:
+
+```
+https://api.archival.dev/mcp
+```
+
+In Claude Code that's:
+
+```
+claude mcp add --transport http archival https://api.archival.dev/mcp
+```
+
+`https://archival.dev/mcp` is a shorter address for the same server, if you're typing it rather than pasting.
+
+There's no API key and no sign-in. The first tool call hands you a link and a code — you open the link, confirm the code matches, and approve. That check is the whole gate, and it's why nothing has to be pasted into the agent.
 """
 
 [[sections]]

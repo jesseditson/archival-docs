@@ -1,6 +1,7 @@
 // Launcher for the self-serve "build with Claude" flow. Clicking through runs a
-// Turnstile challenge, then asks the API for a preview name and a publish token
-// scoped to it; both ride into the Claude Code session inside the prompt.
+// Turnstile challenge, then asks the API for a preview name and a session handle
+// scoped to it. The session rides into the Claude Code session inside the prompt;
+// the publish token it stands for never leaves the API.
 
 declare global {
   interface Window {
@@ -30,11 +31,18 @@ const MAX_PROMPT = 5000;
 
 type StartResponse = {
   name: string;
-  token: string;
+  session: string;
   url: string;
-  archivalVersion: string;
   expiresAt: string;
 };
+
+// The same prompt, opened in a Claude Code session in the cloud rather than on
+// this machine. An https link, so it also survives anywhere a custom scheme is
+// stripped.
+const CLOUD_SESSION = "https://claude.ai/code/new";
+
+const SKILL_URL =
+  "https://raw.githubusercontent.com/archival-dev/archival/main/plugins/archival/skills/new/SKILL.md";
 
 const el = <T extends HTMLElement>(id: string): T =>
   document.getElementById(id) as T;
@@ -43,10 +51,13 @@ const buildPrompt = (start: StartResponse): string => {
   const prompt = [
     "Build me an Archival website.",
     "",
-    "Read https://raw.githubusercontent.com/archival-dev/archival/main/plugins/archival/skills/new/SKILL.md and follow it exactly.",
-    `Publish token: ${start.token}`,
-    `Preview name: ${start.name}`,
-    `Archival version: ${start.archivalVersion}`,
+    `Read ${SKILL_URL} and follow it exactly.`,
+    `Session: ${start.session}`,
+    "",
+    "Use the archival MCP tools if you have them; otherwise follow",
+    "reference/publishing.md next to that file. Nothing needs to be installed.",
+    "If you do end up writing files on this machine, make a new directory for",
+    "them rather than working wherever this session happened to open.",
   ].join("\n");
   return prompt.length > MAX_PROMPT ? prompt.slice(0, MAX_PROMPT) : prompt;
 };
@@ -110,7 +121,9 @@ const setup = () => {
       const response = await fetch(`${API_URL}/previews/self-serve/start`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ turnstileToken: token }),
+        // `mcp` asks for a session handle alongside the grant. The challenge has
+        // already been cleared here, so it comes back approved.
+        body: JSON.stringify({ turnstileToken: token, mcp: true }),
       });
       if (!response.ok) {
         fail(
@@ -124,6 +137,8 @@ const setup = () => {
       const prompt = buildPrompt(result);
 
       el("bwc-name").textContent = result.name;
+      el<HTMLAnchorElement>("bwc-cloud").href =
+        `${CLOUD_SESSION}?q=${encodeURIComponent(prompt)}`;
       // Held rather than rendered: it is pasted into an editor, so it is copied
       // verbatim - no shell quoting, which would put literal '\'' sequences
       // into someone's prompt.

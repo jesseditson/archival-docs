@@ -54,7 +54,7 @@
 
   <p class="bwc-note">
     If you've got claude code locally, it should have just opened. If it didn't, or you'd prefer to use a different LLM,
-    just click the button below and paste the copied prompt into your editor of choice.
+    copy the prompt and paste it into your editor of choice — or run it in the cloud, with nothing installed at all.
   </p>
   <p class="bwc-note">
     Your preview code is <code id="bwc-name" class="bwc-code"></code>, and it will work for the next two hours.
@@ -94,6 +94,22 @@
       </svg>
       <span id="bwc-copy-label" class="bwc-copy-label">Copy prompt</span>
     </button>
+
+    {% comment %}
+      An https link rather than a second custom scheme: it opens a Claude Code
+      session in the cloud, where nothing has to be installed and the site is
+      never written to anyone's home directory. href is filled in by
+      src/build-with-claude.ts once the prompt exists.
+    {% endcomment %}
+    <a
+      id="bwc-cloud"
+      class="bwc-cloud"
+      href="https://claude.ai/code/new"
+      target="_blank"
+      rel="noopener"
+      data-umami-event="bwc-cloud-session"
+      >Run it in the cloud</a
+    >
   </div>
 
   {% comment %} Announced rather than only shown, since the icon change is visual. {% endcomment %}

@@ -2,3 +2,8 @@
 # alive so inbound links and the previous nav target land on the tour in place.
 /product.html    /#product    301
 /product         /#product    301
+
+# The short address for the MCP server, which is served by the api worker. 308
+# rather than 301/302: MCP is a POST protocol and most clients rewrite a
+# redirected POST into a GET, which would break every install that typed this.
+/mcp    https://api.archival.dev/mcp    308
