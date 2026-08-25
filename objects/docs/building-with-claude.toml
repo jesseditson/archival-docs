@@ -12,6 +12,8 @@ content = """
 The **Build it with Claude** button — on the [home page](/), and at the bottom of this page — is the shortest path. It sets up a preview session, then hands Claude a prompt that already carries everything the agent needs.
 
 If you have the Claude app, it opens with the prompt filled in. If you don't, hit **open Claude in your browser** for the same conversation. We'll use the Archival MCP connector to build your site directly to a preview that you can take live in a few clicks.
+
+That connector is the one thing to set up first — [add it in one click](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Archival&connectorUrl=https%3A%2F%2Fapi.archival.dev%2Fmcp), then start a new chat. Claude will tell you if it's missing, but it can't add it for you, and a connector added partway through a conversation doesn't show up in that conversation.
 """
 
 [[sections]]
@@ -36,7 +38,9 @@ The plugin is Claude Code specific; the MCP server isn't. Any MCP client can con
 https://api.archival.dev/mcp
 ```
 
-In Claude — the app or claude.ai — add it under **Settings → Connectors** as a custom connector, with that URL. A connector only shows up in chats you start after adding it, so if a conversation says it hasn't got the Archival tools, start a new one.
+In Claude — the app or claude.ai — **[add the Archival connector in one click](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Archival&connectorUrl=https%3A%2F%2Fapi.archival.dev%2Fmcp)**. That link opens the add-connector dialog with the name and URL already in it, so all you do is confirm. To add it by hand instead, it lives under Customize → Connectors, with the URL above.
+
+A connector only shows up in chats you start after adding it, so if a conversation says it hasn't got the Archival tools, start a new one.
 
 In Claude Code that's:
 

@@ -45,6 +45,13 @@ const CLAUDE_WEB = "https://claude.ai/new";
 const SKILL_URL =
   "https://raw.githubusercontent.com/archival-dev/archival/main/plugins/archival/skills/new/SKILL.md";
 
+const MCP_URL = "https://api.archival.dev/mcp";
+// An install link: it opens claude.ai's add-a-custom-connector dialog with the
+// name and URL already filled in, leaving the person only the confirmation.
+const CONNECTOR_SETUP =
+  "https://claude.ai/customize/connectors?modal=add-custom-connector" +
+  `&connectorName=Archival&connectorUrl=${encodeURIComponent(MCP_URL)}`;
+
 const el = <T extends HTMLElement>(id: string): T =>
   document.getElementById(id) as T;
 
@@ -54,6 +61,15 @@ const buildPrompt = (start: StartResponse): string => {
     "",
     `Read ${SKILL_URL} and follow it exactly.`,
     `Session: ${start.session}`,
+    "",
+    // The one instruction that has to survive the skill being unreachable: with
+    // no tools and no way to fetch the skill, this is all the session has.
+    "Before anything else, check you have the archival_* tools. If you don't,",
+    "stop and tell me to add the Archival connector and start a new chat -",
+    // Last, and alone on its line: trailing punctuation gets swallowed into a
+    // URL by anything that autolinks it, and this one has to survive intact.
+    "don't work around it. The install link is",
+    CONNECTOR_SETUP,
   ].join("\n");
   return prompt.length > MAX_PROMPT ? prompt.slice(0, MAX_PROMPT) : prompt;
 };

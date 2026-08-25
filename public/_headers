@@ -1,3 +1,10 @@
+# The launcher scripts are unversioned filenames, so a cached copy is a copy of
+# whatever the site did before the last deploy - which for the build-with-Claude
+# button means firing a URL scheme we no longer ship. They are a few KB each and
+# carry an etag, so revalidating every load costs a 304.
+/scripts/*
+    Cache-Control: public, max-age=0, must-revalidate
+
 # Apple requires this file be served as JSON, and it has no extension for the
 # static host to infer that from.
 /.well-known/apple-app-site-association
