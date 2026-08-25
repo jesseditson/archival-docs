@@ -9,17 +9,15 @@ Archival is LLM-native, which means it can work with you like a designer to help
 [[sections]]
 title = "Starting from archival.dev"
 content = """
-The **Open in Claude Code** button on the [home page](/) is the shortest path. It sets up a preview session, then hands Claude Code a prompt that already carries everything the agent needs.
+The **Build it with Claude** button — on the [home page](/), and at the bottom of this page — is the shortest path. It sets up a preview session, then hands Claude a prompt that already carries everything the agent needs.
 
-If Claude Code is installed on your machine, it opens with the prompt filled in. Nothing gets installed and nothing is built on your machine — the agent writes the site straight into the preview and we build it on our side.
-
-If you'd prefer another coding agent, hit **copy prompt** and paste it into a new session. Or hit **run it in the cloud**, which opens a Claude Code session on the web with the same prompt. Either way, make sure the session can reach api.archival.dev — that's how it creates live previews for you.
+If you have the Claude app, it opens with the prompt filled in. If you don't, hit **open Claude in your browser** for the same conversation. We'll use the Archival MCP connector to build your site directly to a preview that you can take live in a few clicks.
 """
 
 [[sections]]
 title = "Installing the plugin"
 content = """
-We also publish a Claude plugin so you can generate previews whenever you like. Since subdomains are $1 per month per site, this is a great way to build fun sites quickly.
+We publish a Claude plugin so you can generate previews whenever you like. Since subdomains are $1 per month per site, this is a great way to build fun sites quickly.
 
 ```
 /plugin marketplace add archival-dev/archival
@@ -38,15 +36,13 @@ The plugin is Claude Code specific; the MCP server isn't. Any MCP client can con
 https://api.archival.dev/mcp
 ```
 
+In Claude — the app or claude.ai — add it under **Settings → Connectors** as a custom connector, with that URL. A connector only shows up in chats you start after adding it, so if a conversation says it hasn't got the Archival tools, start a new one.
+
 In Claude Code that's:
 
 ```
 claude mcp add --transport http archival https://api.archival.dev/mcp
 ```
-
-`https://archival.dev/mcp` is a shorter address for the same server, if you're typing it rather than pasting.
-
-There's no API key and no sign-in. The first tool call hands you a link and a code — you open the link, confirm the code matches, and approve. That check is the whole gate, and it's why nothing has to be pasted into the agent.
 """
 
 [[sections]]

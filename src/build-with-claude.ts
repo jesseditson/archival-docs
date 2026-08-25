@@ -1,7 +1,7 @@
 // Launcher for the self-serve "build with Claude" flow. Clicking through runs a
 // Turnstile challenge, then asks the API for a preview name and a session handle
-// scoped to it. The session rides into the Claude Code session inside the prompt;
-// the publish token it stands for never leaves the API.
+// scoped to it. The session rides into the conversation inside the prompt; the
+// publish token it stands for never leaves the API.
 
 declare global {
   interface Window {
@@ -26,7 +26,8 @@ declare global {
 }
 
 const TURNSTILE_ACTION = "build-with-claude";
-// `q` is capped at 5,000 characters by Claude Code's deep link handler.
+// The app truncates `q` around 14,000 characters, and browsers disagree about
+// URL length well before that.
 const MAX_PROMPT = 5000;
 
 type StartResponse = {
@@ -36,10 +37,10 @@ type StartResponse = {
   expiresAt: string;
 };
 
-// The same prompt, opened in a Claude Code session in the cloud rather than on
-// this machine. An https link, so it also survives anywhere a custom scheme is
-// stripped.
-const CLOUD_SESSION = "https://claude.ai/code/new";
+// One conversation, reached two ways: the scheme opens the Claude app wherever
+// it is registered, and the https link is the same chat for everyone else.
+const CLAUDE_APP = "claude://claude.ai/new";
+const CLAUDE_WEB = "https://claude.ai/new";
 
 const SKILL_URL =
   "https://raw.githubusercontent.com/archival-dev/archival/main/plugins/archival/skills/new/SKILL.md";
@@ -53,11 +54,6 @@ const buildPrompt = (start: StartResponse): string => {
     "",
     `Read ${SKILL_URL} and follow it exactly.`,
     `Session: ${start.session}`,
-    "",
-    "Use the archival MCP tools if you have them; otherwise follow",
-    "reference/publishing.md next to that file. Nothing needs to be installed.",
-    "If you do end up writing files on this machine, make a new directory for",
-    "them rather than working wherever this session happened to open.",
   ].join("\n");
   return prompt.length > MAX_PROMPT ? prompt.slice(0, MAX_PROMPT) : prompt;
 };
@@ -138,14 +134,11 @@ const setup = () => {
 
       el("bwc-name").textContent = result.name;
       el<HTMLAnchorElement>("bwc-cloud").href =
-        `${CLOUD_SESSION}?q=${encodeURIComponent(prompt)}`;
-      // Held rather than rendered: it is pasted into an editor, so it is copied
-      // verbatim - no shell quoting, which would put literal '\'' sequences
-      // into someone's prompt.
+        `${CLAUDE_WEB}?q=${encodeURIComponent(prompt)}`;
       promptText = prompt;
 
       openModal();
-      window.location.href = `claude-cli://open?q=${encodeURIComponent(prompt)}`;
+      window.location.href = `${CLAUDE_APP}?q=${encodeURIComponent(prompt)}`;
       launch.disabled = false;
       running = false;
     } catch (e) {
@@ -199,9 +192,10 @@ const setup = () => {
       status.textContent = "Prompt copied to your clipboard.";
     } catch {
       // Never silent: the whole point of this button is to be the way out when
-      // the deep link did nothing.
+      // the deep link did nothing. The prompt is held in a variable, never
+      // rendered, so there is nothing on the page to select instead.
       status.textContent =
-        "Couldn't copy automatically — select the prompt and copy it.";
+        "Couldn't copy automatically — open Claude in your browser instead.";
       return;
     }
     revertCopy = setTimeout(() => {
