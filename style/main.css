@@ -1660,10 +1660,6 @@ h1.pricing-title {
     display: none;
   }
 
-  .build-with-claude {
-    padding-top: 8rem;
-  }
-
   .demo-video {
     padding: 0 1rem;
   }
@@ -1896,9 +1892,15 @@ h1.pricing-title {
   line-height: 1.5;
 }
 
+.bwc-note a {
+  @apply font-bold text-purple hover:underline;
+}
+
 .bwc-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.85rem;
+  /* A URL has no spaces to break at, and the dialog is narrow on a phone. */
+  overflow-wrap: anywhere;
 }
 
 .bwc-copy-row {
@@ -2007,6 +2009,30 @@ h1.pricing-title {
   width: 1.5rem;
   height: 1.5rem;
   flex-shrink: 0;
+}
+
+.build-with-claude {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
+  /* Clears the fixed nav. */
+  padding: 12rem 2rem 8rem;
+  text-align: center;
+}
+
+.bwc-title {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  line-height: 1;
+  padding-bottom: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .build-with-claude {
+    padding-top: 8rem;
+  }
 }
 
 .link-code {
