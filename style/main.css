@@ -1896,6 +1896,97 @@ h1.pricing-title {
   @apply font-bold text-purple hover:underline;
 }
 
+.bwc-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: bwc-step;
+}
+
+.bwc-step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  counter-increment: bwc-step;
+}
+
+.bwc-step-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.bwc-step-title::before {
+  content: counter(bwc-step) ". ";
+  color: var(--color-typography-secondary);
+}
+
+/* Stepped through already: still readable and still actionable, just no longer
+   the thing being asked for. */
+.bwc-step.done .bwc-step-title::before {
+  content: "\2713 ";
+  color: var(--color-secondary-interactive);
+}
+
+.bwc-step.done .bwc-note,
+.bwc-step.done .bwc-connector {
+  opacity: 0.6;
+}
+
+.bwc-connector {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  color: var(--color-typography-primary);
+  border: 1px solid var(--color-transparent-border);
+  transition: border-color 0.15s ease;
+}
+
+.bwc-connector:hover {
+  border-color: var(--color-typography-secondary);
+}
+
+.bwc-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-typography-secondary);
+  cursor: pointer;
+}
+
+.bwc-open {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  color: var(--color-main-bg);
+  background: var(--color-primary-cta-highlight);
+}
+
+.bwc-open[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.bwc-launched {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-transparent-border);
+}
+
+/* Beats .bwc-launched on specificity, so [hidden] still hides it. */
+.bwc-launched[hidden] {
+  display: none;
+}
+
 .bwc-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.85rem;

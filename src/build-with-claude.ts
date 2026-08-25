@@ -89,12 +89,47 @@ const openModal = () => {
   modal.showModal();
 };
 
+// Whether this browser has been through the connector step. A convenience, not
+// a gate: we cannot see whether the account actually has the connector, only
+// whether someone here said they did.
+const CONNECTOR_KEY = "archival-connector-added";
+
+const connectorDone = (): boolean => {
+  try {
+    return localStorage.getItem(CONNECTOR_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
+const rememberConnector = (done: boolean) => {
+  try {
+    if (done) {
+      localStorage.setItem(CONNECTOR_KEY, "1");
+    } else {
+      localStorage.removeItem(CONNECTOR_KEY);
+    }
+  } catch {
+    // Private windows and blocked site data throw on access, not just on write.
+  }
+};
+
+// Turnstile can have defined window.turnstile before this module runs and still
+// call onloadTurnstileCallback afterwards, which would bind every listener
+// twice - and a doubled click on the launch button mints two sessions.
+let wired = false;
+
 const setup = () => {
   const launch = el<HTMLButtonElement>("bwc-launch");
-  if (!launch) {
+  if (!launch || wired) {
     return;
   }
+  wired = true;
   const error = el<HTMLParagraphElement>("bwc-error");
+  const openClaude = el<HTMLButtonElement>("bwc-open");
+  const openLabel = el("bwc-open-label");
+  const step = el("bwc-step-connector");
+  const done = el<HTMLInputElement>("bwc-connector-done");
 
   let widgetId: string | null = null;
   let running = false;
@@ -103,13 +138,17 @@ const setup = () => {
   const fail = (message: string) => {
     error.textContent = message;
     error.hidden = false;
-    launch.disabled = false;
+    openClaude.disabled = false;
     running = false;
     // A token is spent whether or not the response it came with was accepted,
     // so a retry needs a fresh challenge.
     if (widgetId && window.turnstile) {
       window.turnstile.reset(widgetId);
     }
+  };
+
+  const launchApp = () => {
+    window.location.href = `${CLAUDE_APP}?q=${encodeURIComponent(promptText)}`;
   };
 
   const start = async (token: string) => {
@@ -137,9 +176,10 @@ const setup = () => {
         `${CLAUDE_WEB}?q=${encodeURIComponent(prompt)}`;
       promptText = prompt;
 
-      openModal();
-      window.location.href = `${CLAUDE_APP}?q=${encodeURIComponent(prompt)}`;
-      launch.disabled = false;
+      el("bwc-launched").hidden = false;
+      openLabel.textContent = "Open Claude again";
+      launchApp();
+      openClaude.disabled = false;
       running = false;
     } catch (e) {
       console.error(e);
@@ -147,8 +187,10 @@ const setup = () => {
     }
   };
 
+  // Rendered when the dialog first opens rather than at setup: the container is
+  // inside it, and a <dialog> is display:none until then.
   const renderWidget = () => {
-    if (!window.turnstile) {
+    if (widgetId || !window.turnstile) {
       return;
     }
     widgetId = window.turnstile.render(el("bwc-turnstile"), {
@@ -205,23 +247,54 @@ const setup = () => {
     }, 2000);
   });
 
+  const showConnector = (added: boolean) => {
+    done.checked = added;
+    step.classList.toggle("done", added);
+  };
+
+  const markConnector = (added: boolean) => {
+    showConnector(added);
+    rememberConnector(added);
+  };
+
+  el("bwc-connector").addEventListener("click", () => {
+    // They are on their way to add it; the new tab never reports back.
+    markConnector(true);
+  });
+
+  done.addEventListener("change", () => {
+    markConnector(done.checked);
+  });
+
   launch.addEventListener("click", () => {
+    error.hidden = true;
+    showConnector(connectorDone());
+    openModal();
+    renderWidget();
+  });
+
+  openClaude.addEventListener("click", () => {
     if (running) {
       return;
     }
+    // A second press reopens the session already minted rather than spending
+    // another one.
+    if (promptText) {
+      launchApp();
+      return;
+    }
+    renderWidget();
     if (!widgetId || !window.turnstile) {
       fail("Couldn't load the challenge. Please reload the page.");
       return;
     }
     running = true;
     error.hidden = true;
-    launch.disabled = true;
+    openClaude.disabled = true;
     window.umami?.track("bwc-start");
     // execute() is documented against the container, not the widget id.
     window.turnstile.execute(el("bwc-turnstile"));
   });
-
-  renderWidget();
 };
 
 // Turnstile's script is loaded async, so it may not have defined

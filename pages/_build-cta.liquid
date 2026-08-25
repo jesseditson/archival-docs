@@ -1,6 +1,6 @@
 <p class="build-alt">Want a guided experience?</p>
 
-<button id="bwc-launch" type="button" class="build-alt-cta" data-umami-event="bwc-deeplink">
+<button id="bwc-launch" type="button" class="build-alt-cta" data-umami-event="bwc-open-modal">
   <svg
     class="build-alt-mark"
     data-cds="Spark"
@@ -16,82 +16,108 @@
   Build it with Claude
 </button>
 
-<div id="bwc-turnstile" class="bwc-turnstile"></div>
-
-<p id="bwc-error" class="bwc-error" hidden></p>
-
+{% comment %}
+  The connector has to be in place before Claude opens - one added partway
+  through a conversation does not appear in it - so the deep link waits behind
+  its own button rather than firing when this dialog opens. The session is minted
+  by that button too: leaving to set up a connector should not spend one.
+{% endcomment %}
 <dialog id="bwc-modal" class="bwc-modal">
   <button id="bwc-close" type="button" class="bwc-close" aria-label="Close">&times;</button>
 
-  <h2 class="bwc-modal-title">Opening Claude…</h2>
+  <h2 class="bwc-modal-title">Two steps and you're building</h2>
 
-  <p class="bwc-note">
-    If you've got the Claude app, it should have just opened with the prompt filled in. If it didn't, or you'd prefer a
-    different LLM, copy the prompt and paste it wherever you like — or open Claude in your browser.
-  </p>
-  <p class="bwc-note">
-    Claude builds the site through our connector. If it says it hasn't got the Archival tools,
-    <a
-      href="https://claude.ai/customize/connectors?modal=add-custom-connector&amp;connectorName=Archival&amp;connectorUrl=https%3A%2F%2Fapi.archival.dev%2Fmcp"
-      target="_blank"
-      rel="noopener"
-      data-umami-event="bwc-add-connector"
-      >add the Archival connector</a
-    >
-    and start a new chat.
-  </p>
-  <p class="bwc-note">
-    Your preview code is <code id="bwc-name" class="bwc-code"></code>, and it will work for the next two hours.
-  </p>
-
-  <div class="bwc-copy-row">
-    <button id="bwc-copy" type="button" class="bwc-copy" data-umami-event="bwc-copy-command">
-      {% comment %} Swapped for the check by .copied on the button. {% endcomment %}
-      <svg
-        class="bwc-copy-icon"
-        viewBox="0 0 24 24"
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
+  <ol class="bwc-steps">
+    <li id="bwc-step-connector" class="bwc-step">
+      <p class="bwc-step-title">Add the Archival connector</p>
+      <p class="bwc-note">
+        Once, for your Claude account — it's how Claude builds and publishes your site. The link fills in the name and
+        URL for you.
+      </p>
+      <a
+        id="bwc-connector"
+        class="bwc-connector"
+        href="https://claude.ai/customize/connectors?modal=add-custom-connector&amp;connectorName=Archival&amp;connectorUrl=https%3A%2F%2Fapi.archival.dev%2Fmcp"
+        target="_blank"
+        rel="noopener"
+        data-umami-event="bwc-add-connector"
+        >Add the connector</a
       >
-        <rect x="9" y="9" width="13" height="13" rx="2" />
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-      </svg>
-      <svg
-        class="bwc-copy-check"
-        viewBox="0 0 24 24"
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M20 6 9 17l-5-5" />
-      </svg>
-      <span id="bwc-copy-label" class="bwc-copy-label">Copy prompt</span>
-    </button>
+      <label class="bwc-check">
+        <input id="bwc-connector-done" type="checkbox" />
+        I've already got it
+      </label>
+    </li>
 
-    <a
-      id="bwc-cloud"
-      class="bwc-cloud"
-      href="https://claude.ai/new"
-      target="_blank"
-      rel="noopener"
-      data-umami-event="bwc-cloud-session"
-      >Open Claude in your browser</a
-    >
+    <li class="bwc-step">
+      <p class="bwc-step-title">Open Claude</p>
+      <p class="bwc-note">We'll reserve a preview for you and hand Claude a prompt that carries everything it needs.</p>
+      <button id="bwc-open" type="button" class="bwc-open" data-umami-event="bwc-deeplink">
+        <span id="bwc-open-label">Open Claude</span>
+      </button>
+      <div id="bwc-turnstile" class="bwc-turnstile"></div>
+      <p id="bwc-error" class="bwc-error" hidden></p>
+    </li>
+  </ol>
+
+  <div id="bwc-launched" class="bwc-launched" hidden>
+    <p class="bwc-note">
+      The Claude app should have opened with the prompt filled in. If it didn't, or you'd prefer a different LLM, copy
+      the prompt and paste it wherever you like — or open Claude in your browser.
+    </p>
+    <p class="bwc-note">
+      Your preview code is <code id="bwc-name" class="bwc-code"></code>, and it will work for the next two hours.
+    </p>
+
+    <div class="bwc-copy-row">
+      <button id="bwc-copy" type="button" class="bwc-copy" data-umami-event="bwc-copy-command">
+        {% comment %} Swapped for the check by .copied on the button. {% endcomment %}
+        <svg
+          class="bwc-copy-icon"
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="9" y="9" width="13" height="13" rx="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+        <svg
+          class="bwc-copy-check"
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M20 6 9 17l-5-5" />
+        </svg>
+        <span id="bwc-copy-label" class="bwc-copy-label">Copy prompt</span>
+      </button>
+
+      <a
+        id="bwc-cloud"
+        class="bwc-cloud"
+        href="https://claude.ai/new"
+        target="_blank"
+        rel="noopener"
+        data-umami-event="bwc-cloud-session"
+        >Open Claude in your browser</a
+      >
+    </div>
+
+    {% comment %} Announced rather than only shown, since the icon change is visual. {% endcomment %}
+    <p id="bwc-copy-status" class="bwc-copy-status" role="status" aria-live="polite"></p>
   </div>
-
-  {% comment %} Announced rather than only shown, since the icon change is visual. {% endcomment %}
-  <p id="bwc-copy-status" class="bwc-copy-status" role="status" aria-live="polite"></p>
 </dialog>
 
 <script
