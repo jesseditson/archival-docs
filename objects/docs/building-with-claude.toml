@@ -22,7 +22,7 @@ content = """
 We also publish a Claude plugin so you can generate previews whenever you like. Since subdomains are $1 per month per site, this is a great way to build fun sites quickly.
 
 ```
-/plugin marketplace add jesseditson/archival
+/plugin marketplace add archival-dev/archival
 /plugin install archival@archival
 ```
 """

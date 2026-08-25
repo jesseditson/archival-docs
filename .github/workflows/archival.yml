@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Archival Build
-        uses: jesseditson/archival@main
+        uses: archival-dev/archival@main
   publish-pages:
     runs-on: ubuntu-latest
     environment: archival.dev
