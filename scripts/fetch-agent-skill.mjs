@@ -35,7 +35,7 @@ const REF = process.env.ARCHIVAL_AGENT_REF ?? "refs/heads/main";
 // before they land upstream.
 const SOURCE =
   process.env.ARCHIVAL_AGENT_SOURCE ??
-  `https://raw.githubusercontent.com/jesseditson/archival/${REF}`;
+  `https://raw.githubusercontent.com/archival-dev/archival/${REF}`;
 
 const outDir = new URL("../public/agent/", import.meta.url).pathname;
 

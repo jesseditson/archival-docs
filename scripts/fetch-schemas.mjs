@@ -42,7 +42,7 @@ const REF = process.env.ARCHIVAL_SCHEMA_REF ?? "refs/heads/main";
 // before they land upstream.
 const SOURCE =
   process.env.ARCHIVAL_SCHEMA_SOURCE ??
-  `https://raw.githubusercontent.com/jesseditson/archival/${REF}`;
+  `https://raw.githubusercontent.com/archival-dev/archival/${REF}`;
 const CANONICAL_ID_PREFIX = "https://archival.dev/schemas/";
 
 const outDir = new URL("../public/schemas/", import.meta.url).pathname;

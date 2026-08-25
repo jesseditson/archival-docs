@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Archival Build
-        uses: jesseditson/archival@main
+        uses: archival-dev/archival@main
 ```
 
 The action accepts a few optional inputs:
