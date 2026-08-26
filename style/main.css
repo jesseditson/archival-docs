@@ -1914,6 +1914,12 @@ h1.pricing-title {
   counter-increment: bwc-step;
 }
 
+.bwc-button-cols {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .bwc-step-title {
   margin: 0;
   font-weight: 600;
@@ -1932,7 +1938,21 @@ h1.pricing-title {
 }
 
 .bwc-step.done .bwc-note,
-.bwc-step.done .bwc-connector {
+.bwc-step.done .bwc-permission {
+  /* Room for the inline screenshot when the sentence wraps. */
+  line-height: 2;
+}
+
+.bwc-permission-shot {
+  display: inline-block;
+  vertical-align: middle;
+  height: 1.75rem;
+  width: auto;
+  margin-left: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+.bwc-connector {
   opacity: 0.6;
 }
 
@@ -1956,7 +1976,76 @@ h1.pricing-title {
   gap: 0.5rem;
   font-size: 0.85rem;
   color: var(--color-typography-secondary);
+}
+
+.bwc-check label {
   cursor: pointer;
+}
+
+/* Matches the toggles in the editor. */
+.switch {
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.slider {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-transparent-border);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-typography-secondary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: 0.2s ease;
+}
+
+input:checked + .slider {
+  background: rgba(167, 106, 207, 0.5);
+  border-color: rgba(167, 106, 207, 0.4);
+}
+
+input:checked + .slider::before {
+  transform: translateX(22px);
+  background-color: var(--color-typography-primary);
+}
+
+.switch input:focus-visible + .slider {
+  outline: 2px solid var(--color-typography-secondary);
+  outline-offset: 2px;
+}
+
+.slider.round {
+  border-radius: 28px;
+}
+
+.slider.round::before {
+  border-radius: 50%;
 }
 
 .bwc-open {

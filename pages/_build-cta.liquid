@@ -34,27 +34,53 @@
         Once, for your Claude account — it's how Claude builds and publishes your site. The link fills in the name and
         URL for you.
       </p>
-      <a
-        id="bwc-connector"
-        class="bwc-connector"
-        href="https://claude.ai/customize/connectors?modal=add-custom-connector&amp;connectorName=Archival&amp;connectorUrl=https%3A%2F%2Fapi.archival.dev%2Fmcp"
-        target="_blank"
-        rel="noopener"
-        data-umami-event="bwc-add-connector"
-        >Add the connector</a
-      >
-      <label class="bwc-check">
-        <input id="bwc-connector-done" type="checkbox" />
-        I've already got it
-      </label>
+      <p class="bwc-note bwc-permission">
+        When it asks about tool permissions, choose
+        <img
+          class="bwc-permission-shot"
+          src="/img/claude-always-allow.png"
+          alt="Always allow"
+          width="149"
+          height="28"
+        />
+      </p>
+      <div class="bwc-button-cols">
+        <a
+          id="bwc-connector"
+          class="bwc-connector"
+          href="https://claude.ai/customize/connectors?modal=add-custom-connector&amp;connectorName=Archival&amp;connectorUrl=https%3A%2F%2Fapi.archival.dev%2Fmcp"
+          target="_blank"
+          rel="noopener"
+          data-umami-event="bwc-add-connector"
+          >Add the connector</a
+        >
+        <div class="bwc-check">
+          <div class="switch">
+            <input id="bwc-connector-done" type="checkbox" />
+            <div class="slider round"></div>
+          </div>
+          <label for="bwc-connector-done">I've already got it</label>
+        </div>
+      </div>
     </li>
 
     <li class="bwc-step">
       <p class="bwc-step-title">Open Claude</p>
       <p class="bwc-note">We'll reserve a preview for you and hand Claude a prompt that carries everything it needs.</p>
-      <button id="bwc-open" type="button" class="bwc-open" data-umami-event="bwc-deeplink">
-        <span id="bwc-open-label">Open Claude</span>
-      </button>
+      <div class="bwc-button-cols">
+        <button id="bwc-open" type="button" class="bwc-open" data-umami-event="bwc-deeplink">
+          <span id="bwc-open-label">Open Claude App</span>
+        </button>
+        <a
+          id="bwc-cloud"
+          class="bwc-cloud"
+          href="https://claude.ai/new"
+          target="_blank"
+          rel="noopener"
+          data-umami-event="bwc-cloud-session"
+          >Open Claude in your browser</a
+        >
+      </div>
       <div id="bwc-turnstile" class="bwc-turnstile"></div>
       <p id="bwc-error" class="bwc-error" hidden></p>
     </li>
@@ -62,8 +88,7 @@
 
   <div id="bwc-launched" class="bwc-launched" hidden>
     <p class="bwc-note">
-      The Claude app should have opened with the prompt filled in. If it didn't, or you'd prefer a different LLM, copy
-      the prompt and paste it wherever you like — or open Claude in your browser.
+      If you have the Claude app installed, this button will open it. If not, you can open it in your browser or click "Copy Prompt" and paste into a Claude chat.
     </p>
     <p class="bwc-note">
       Your preview code is <code id="bwc-name" class="bwc-code"></code>, and it will work for the next two hours.
@@ -103,16 +128,6 @@
         </svg>
         <span id="bwc-copy-label" class="bwc-copy-label">Copy prompt</span>
       </button>
-
-      <a
-        id="bwc-cloud"
-        class="bwc-cloud"
-        href="https://claude.ai/new"
-        target="_blank"
-        rel="noopener"
-        data-umami-event="bwc-cloud-session"
-        >Open Claude in your browser</a
-      >
     </div>
 
     {% comment %} Announced rather than only shown, since the icon change is visual. {% endcomment %}
