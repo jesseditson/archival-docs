@@ -60,6 +60,9 @@ body {
 
 #nav {
   z-index: 9998;
+  /* Full-bleed bar, 1200px content: the blur and shadow must reach the
+     viewport edges, otherwise they cut off over non-black sections. */
+  padding-inline: max(4rem, calc((100% - 1200px) / 2));
 }
 
 .nav-text {
