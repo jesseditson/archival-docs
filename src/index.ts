@@ -270,7 +270,10 @@ const setupTemplateMosaic = async () => {
         );
         // Squared, so the middle stays flat and the curve gathers at the ends
         // rather than tilting everything a little.
-        el.style.transform = `translateZ(${(p * p * depth).toFixed(1)}px) rotateY(${(-p * turn).toFixed(2)}deg)`;
+        // depth is a fraction of the row, so the curve scales with the display
+        // the same way the tiles and the perspective do.
+        const push = p * p * depth * rowBox.width;
+        el.style.transform = `translateZ(${push.toFixed(1)}px) rotateY(${(-p * turn).toFixed(2)}deg)`;
       }
     }
   };
