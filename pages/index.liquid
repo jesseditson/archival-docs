@@ -93,14 +93,19 @@
     editor's templates.json. Everything that matters is already here: the
     heading, the line above, and the link below all work with no JS and no
     network, so a failed fetch leaves a section that still reads and still has
-    somewhere to go, rather than a hole.
+    somewhere to go, rather than a hole. The label is inside the hidden
+    wrapper rather than beside it, so it never introduces a grid that is not
+    there.
 
     It is a fixed window onto the catalog, not the whole of it - twelve tiles
     whatever the catalog grows to, with the remainder named in the link. A
     grid of forty thumbnails does not read as "forty templates" to anyone; a
     tidy dozen and a number does.
   {% endcomment %}
-  <div id="template-mosaic" class="template-mosaic" hidden></div>
+  <div id="featured-templates" class="featured-templates" hidden>
+    <h3 class="featured-heading">Featured templates</h3>
+    <div id="template-mosaic" class="template-mosaic"></div>
+  </div>
 
   {% comment %}
     Absolute, matching the nav's own Create links. A relative /new does not
@@ -116,7 +121,7 @@
     href="https://editor.archival.dev/new"
     data-umami-event="hero-browse-templates"
   >
-    <span id="browse-templates-label">Browse all templates</span>
+    <span>Browse all templates</span>
     <span class="browse-templates-arrow" aria-hidden="true">&rarr;</span>
   </a>
 
@@ -743,296 +748,294 @@
   {% endfor %}
 </div>
 
+{% comment %} Benefit Sections {% endcomment %}
 
-  {% comment %} Benefit Sections {% endcomment %}
-
-  <div class="benefit-grid benefit-grid--compact">
-    {% for section in home.sections %}
-      <div class="benefit" data-glow>
-        <h2 class="section-title">{{ section.title }}</h2>
-        <div class="section-content">
-          {{ section.content }}
-        </div>
+<div class="benefit-grid benefit-grid--compact">
+  {% for section in home.sections %}
+    <div class="benefit" data-glow>
+      <h2 class="section-title">{{ section.title }}</h2>
+      <div class="section-content">
+        {{ section.content }}
       </div>
-    {% endfor %}
-  </div>
+    </div>
+  {% endfor %}
+</div>
 
-  {% comment %} Manifesto CTA {% endcomment %}
+{% comment %} Manifesto CTA {% endcomment %}
 
-  <div class="md:max-w-[1200px] w-full mb-40">
-    <a href="/manifesto.html" class="manifesto-cta" data-umami-event="cta-read-manifesto"> Read the Manifesto </a>
-  </div>
+<div class="md:max-w-[1200px] w-full mb-40">
+  <a href="/manifesto.html" class="manifesto-cta" data-umami-event="cta-read-manifesto"> Read the Manifesto </a>
+</div>
 
-  {% comment %} Contact Section {% endcomment %}
+{% comment %} Contact Section {% endcomment %}
 
-  {% include "connect" %}
+{% include "connect" %}
 
-  <script>
-    (function () {
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+<script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // Uniformly scale each product frame to fit its column. The frame is laid out
-      // at a fixed design width (--pf-dw), so its internal layout never reflows; zoom
-      // scales the whole thing — content and the %-pinned callout markers alike —
-      // keeping every marker aligned to its target at any window size.
-      var rootFontPx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-      var frames = [];
-      document.querySelectorAll('.product-frame-wrap').forEach(function (wrap) {
-        var frame = wrap.querySelector('.product-frame');
-        if (!frame) return;
-        var dwRaw = getComputedStyle(frame).getPropertyValue('--pf-dw').trim();
-        var dw = dwRaw.indexOf('rem') > -1 ? parseFloat(dwRaw) * rootFontPx : parseFloat(dwRaw);
-        if (dw) {
-          frames.push({ wrap: wrap, frame: frame, dw: dw });
-        }
+    // Uniformly scale each product frame to fit its column. The frame is laid out
+    // at a fixed design width (--pf-dw), so its internal layout never reflows; zoom
+    // scales the whole thing — content and the %-pinned callout markers alike —
+    // keeping every marker aligned to its target at any window size.
+    var rootFontPx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var frames = [];
+    document.querySelectorAll('.product-frame-wrap').forEach(function (wrap) {
+      var frame = wrap.querySelector('.product-frame');
+      if (!frame) return;
+      var dwRaw = getComputedStyle(frame).getPropertyValue('--pf-dw').trim();
+      var dw = dwRaw.indexOf('rem') > -1 ? parseFloat(dwRaw) * rootFontPx : parseFloat(dwRaw);
+      if (dw) {
+        frames.push({ wrap: wrap, frame: frame, dw: dw });
+      }
+    });
+    function fit() {
+      frames.forEach(function (f) {
+        var cw = f.wrap.clientWidth;
+        if (!cw) return;
+        // Never scale past the design size; only shrink to fit narrower columns.
+        f.frame.style.zoom = Math.min(1, cw / f.dw);
       });
-      function fit() {
-        frames.forEach(function (f) {
-          var cw = f.wrap.clientWidth;
-          if (!cw) return;
-          // Never scale past the design size; only shrink to fit narrower columns.
-          f.frame.style.zoom = Math.min(1, cw / f.dw);
-        });
-      }
-      fit();
-      if ('ResizeObserver' in window) {
-        var ro = new ResizeObserver(fit);
-        frames.forEach(function (f) {
-          ro.observe(f.wrap);
-        });
-      } else {
-        window.addEventListener('resize', fit);
-      }
-
-      // Reveal product sections on scroll
-      var sections = document.querySelectorAll('[data-product-section]');
-      if (reduce) {
-        sections.forEach(function (s) {
-          s.classList.add('is-visible');
-        });
-      } else if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (e) {
-              if (e.isIntersecting) {
-                e.target.classList.add('is-visible');
-                io.unobserve(e.target);
-              }
-            });
-          },
-          { threshold: 0.25 },
-        );
-        sections.forEach(function (s) {
-          io.observe(s);
-        });
-      } else {
-        sections.forEach(function (s) {
-          s.classList.add('is-visible');
-        });
-      }
-
-      // Cross-highlight callouts: marker <-> line <-> legend <-> target
-      sections.forEach(function (section) {
-        var frame = section.querySelector('.product-frame');
-        function setActive(n, on) {
-          section
-            .querySelectorAll('[data-callout="' + n + '"], [data-callout-target="' + n + '"]')
-            .forEach(function (el) {
-              el.classList.toggle('callout-active', on);
-            });
-          if (frame) {
-            frame.classList.toggle('is-focusing', on);
-          }
-        }
-        section.querySelectorAll('[data-callout]').forEach(function (trigger) {
-          var n = trigger.getAttribute('data-callout');
-          trigger.addEventListener('mouseenter', function () {
-            setActive(n, true);
-          });
-          trigger.addEventListener('mouseleave', function () {
-            setActive(n, false);
-          });
-          trigger.addEventListener('focus', function () {
-            setActive(n, true);
-          });
-          trigger.addEventListener('blur', function () {
-            setActive(n, false);
-          });
-        });
+    }
+    fit();
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(fit);
+      frames.forEach(function (f) {
+        ro.observe(f.wrap);
       });
+    } else {
+      window.addEventListener('resize', fit);
+    }
 
-      // Scroll-spy the nav's Product item: lit while the tour is the thing you're
-      // looking at, dark otherwise. The rootMargin collapses the viewport to a thin
-      // band at its middle, so the state flips as the tour crosses the centre line
-      // rather than the moment its first pixel appears.
-      var navProduct = document.querySelectorAll('[data-nav-product]');
-      var tour = document.getElementById('product');
-      if (navProduct.length && tour && 'IntersectionObserver' in window) {
-        new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (e) {
-              navProduct.forEach(function (item) {
-                item.classList.toggle('nav-active', e.isIntersecting);
-              });
-            });
-          },
-          { rootMargin: '-45% 0px -45% 0px' },
-        ).observe(tour);
-      }
-
-      // In-page nav: the tour anchor and the logo both move within this document
-      // rather than loading one. Without taking these over, "/#product" and "/" are
-      // each a *different* document from "/index.html", so the browser reloads the
-      // whole page and only then lands — which reads as a stall followed by a snap.
-      var navOffset = tour ? parseFloat(getComputedStyle(tour).scrollMarginTop) || 0 : 0;
-      var mobileMenu = document.getElementById('mobile-menu');
-      var menuClose = document.getElementById('menu-open');
-
-      // Leave modified clicks alone so open-in-new-tab still works.
-      function plainClick(e) {
-        return !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0);
-      }
-
-      // The mobile menu only dismisses via its own X or the backdrop, so a
-      // same-document move would otherwise scroll the page behind an open menu.
-      function closeMobileMenu() {
-        if (mobileMenu && menuClose && !mobileMenu.classList.contains('hidden')) {
-          menuClose.click();
-        }
-      }
-
-      // Duration is capped so a long page doesn't mean a long wait; reduced motion
-      // gets the destination with no travel.
-      function scrollToY(targetY) {
-        var startY = window.scrollY;
-        var dy = targetY - startY;
-        if (reduce || !dy) {
-          window.scrollTo(0, targetY);
-          return;
-        }
-        var dur = Math.min(600, Math.max(280, Math.abs(dy) * 0.25));
-        var t0 = null;
-        requestAnimationFrame(function step(ts) {
-          if (t0 === null) t0 = ts;
-          var p = Math.min(1, (ts - t0) / dur);
-          var eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-          window.scrollTo(0, startY + dy * eased);
-          if (p < 1) requestAnimationFrame(step);
-        });
-      }
-
-      function takeOver(links, getTargetY, url) {
-        links.forEach(function (link) {
-          // umami (public/umami.js) installs a capture-phase listener on document:
-          // for any <a data-umami-event> it calls preventDefault itself, awaits its
-          // tracking request, then assigns location.href — a script-initiated
-          // navigation ours cannot cancel, and the reason clicking these used to
-          // stall and then snap. Take the attribute off and report the event here,
-          // so the analytics still land and the navigation stays ours. Anything
-          // still carrying the attribute (every other page) is untouched.
-          var event = link.getAttribute('data-umami-event');
-          if (event) link.removeAttribute('data-umami-event');
-
-          link.addEventListener('click', function (e) {
-            if (!plainClick(e)) return;
-            e.preventDefault();
-            if (event && typeof umami !== 'undefined') umami.track(event);
-            closeMobileMenu();
-            history.replaceState(null, '', url);
-            scrollToY(getTargetY());
+    // Reveal product sections on scroll
+    var sections = document.querySelectorAll('[data-product-section]');
+    if (reduce) {
+      sections.forEach(function (s) {
+        s.classList.add('is-visible');
+      });
+    } else if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
           });
-        });
-      }
-
-      var tourLinks = document.querySelectorAll('a[href="#product"], a[href="/#product"]');
-      if (tour && tourLinks.length) {
-        takeOver(
-          tourLinks,
-          function () {
-            return Math.round(tour.getBoundingClientRect().top + window.scrollY - navOffset);
-          },
-          '#product',
-        );
-      }
-
-      // The logo already means "home" — on the homepage that's the top of this page.
-      // Dropping the hash keeps the URL honest about where the reader ended up.
-      takeOver(
-        document.querySelectorAll('#logo a'),
-        function () {
-          return 0;
         },
-        location.pathname + location.search,
+        { threshold: 0.25 },
       );
-
-      if (reduce) return;
-
-      // Benefit cards track the pointer to place their hover glow, but do not tilt:
-      // at a quarter of their former size the tilt read as jitter, and the row's job
-      // this late in the page is to sit still.
-      document.querySelectorAll('[data-glow]').forEach(function (card) {
-        var bounds;
-        card.addEventListener('mouseenter', function () {
-          bounds = card.getBoundingClientRect();
-        });
-        card.addEventListener('mousemove', function (e) {
-          if (!bounds) return;
-          card.style.setProperty('--mouse-x', ((e.clientX - bounds.left) / bounds.width) * 100 + '%');
-          card.style.setProperty('--mouse-y', ((e.clientY - bounds.top) / bounds.height) * 100 + '%');
-        });
-        card.addEventListener('mouseleave', function () {
-          card.style.setProperty('--mouse-x', '50%');
-          card.style.setProperty('--mouse-y', '50%');
-        });
+      sections.forEach(function (s) {
+        io.observe(s);
       });
-
-      // 3D tilt on product frames
-      document.querySelectorAll('.product-frame-wrap[data-tilt]').forEach(function (card) {
-        var frame = card.querySelector('.product-frame');
-        if (!frame) return;
-        var maxTilt = 6,
-          bounds;
-        card.addEventListener('mouseenter', function () {
-          bounds = frame.getBoundingClientRect();
-          frame.style.transition = 'none';
-        });
-        card.addEventListener('mousemove', function (e) {
-          if (!bounds) return;
-          var mx = e.clientX - bounds.left,
-            my = e.clientY - bounds.top;
-          var rx = ((my - bounds.height / 2) / (bounds.height / 2)) * -maxTilt;
-          var ry = ((mx - bounds.width / 2) / (bounds.width / 2)) * maxTilt;
-          frame.style.transform = 'perspective(1200px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
-        });
-        card.addEventListener('mouseleave', function () {
-          frame.style.transition = 'transform 0.4s ease-out';
-          frame.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)';
-        });
+    } else {
+      sections.forEach(function (s) {
+        s.classList.add('is-visible');
       });
+    }
 
-      // Hero tilt, bound once. Both source pages registered their own mousemove
-      // handler for [data-tilt-hero]; merged naively that was two handlers writing
-      // conflicting transforms to the same element.
-      var heroMaxTilt = 12,
-        heroPerspective = 1200;
-      var heroes = document.querySelectorAll('[data-tilt-hero]');
-      if (heroes.length) {
-        document.addEventListener('mousemove', function (e) {
-          var rx = ((e.clientY - window.innerHeight / 2) / (window.innerHeight / 2)) * -heroMaxTilt;
-          var ry = ((e.clientX - window.innerWidth / 2) / (window.innerWidth / 2)) * heroMaxTilt;
-          heroes.forEach(function (hero) {
-            hero.style.setProperty('--hero-mouse-x', (e.clientX / window.innerWidth) * 100 + '%');
-            hero.style.setProperty('--hero-mouse-y', (e.clientY / window.innerHeight) * 100 + '%');
-            hero.style.transform =
-              'perspective(' + heroPerspective + 'px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+    // Cross-highlight callouts: marker <-> line <-> legend <-> target
+    sections.forEach(function (section) {
+      var frame = section.querySelector('.product-frame');
+      function setActive(n, on) {
+        section
+          .querySelectorAll('[data-callout="' + n + '"], [data-callout-target="' + n + '"]')
+          .forEach(function (el) {
+            el.classList.toggle('callout-active', on);
           });
-        });
-        document.addEventListener('mouseleave', function () {
-          heroes.forEach(function (hero) {
-            hero.style.transition = 'transform 0.5s ease-out';
-            hero.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
-          });
-        });
+        if (frame) {
+          frame.classList.toggle('is-focusing', on);
+        }
       }
-    })();
-  </script>
+      section.querySelectorAll('[data-callout]').forEach(function (trigger) {
+        var n = trigger.getAttribute('data-callout');
+        trigger.addEventListener('mouseenter', function () {
+          setActive(n, true);
+        });
+        trigger.addEventListener('mouseleave', function () {
+          setActive(n, false);
+        });
+        trigger.addEventListener('focus', function () {
+          setActive(n, true);
+        });
+        trigger.addEventListener('blur', function () {
+          setActive(n, false);
+        });
+      });
+    });
+
+    // Scroll-spy the nav's Product item: lit while the tour is the thing you're
+    // looking at, dark otherwise. The rootMargin collapses the viewport to a thin
+    // band at its middle, so the state flips as the tour crosses the centre line
+    // rather than the moment its first pixel appears.
+    var navProduct = document.querySelectorAll('[data-nav-product]');
+    var tour = document.getElementById('product');
+    if (navProduct.length && tour && 'IntersectionObserver' in window) {
+      new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            navProduct.forEach(function (item) {
+              item.classList.toggle('nav-active', e.isIntersecting);
+            });
+          });
+        },
+        { rootMargin: '-45% 0px -45% 0px' },
+      ).observe(tour);
+    }
+
+    // In-page nav: the tour anchor and the logo both move within this document
+    // rather than loading one. Without taking these over, "/#product" and "/" are
+    // each a *different* document from "/index.html", so the browser reloads the
+    // whole page and only then lands — which reads as a stall followed by a snap.
+    var navOffset = tour ? parseFloat(getComputedStyle(tour).scrollMarginTop) || 0 : 0;
+    var mobileMenu = document.getElementById('mobile-menu');
+    var menuClose = document.getElementById('menu-open');
+
+    // Leave modified clicks alone so open-in-new-tab still works.
+    function plainClick(e) {
+      return !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0);
+    }
+
+    // The mobile menu only dismisses via its own X or the backdrop, so a
+    // same-document move would otherwise scroll the page behind an open menu.
+    function closeMobileMenu() {
+      if (mobileMenu && menuClose && !mobileMenu.classList.contains('hidden')) {
+        menuClose.click();
+      }
+    }
+
+    // Duration is capped so a long page doesn't mean a long wait; reduced motion
+    // gets the destination with no travel.
+    function scrollToY(targetY) {
+      var startY = window.scrollY;
+      var dy = targetY - startY;
+      if (reduce || !dy) {
+        window.scrollTo(0, targetY);
+        return;
+      }
+      var dur = Math.min(600, Math.max(280, Math.abs(dy) * 0.25));
+      var t0 = null;
+      requestAnimationFrame(function step(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        var eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+        window.scrollTo(0, startY + dy * eased);
+        if (p < 1) requestAnimationFrame(step);
+      });
+    }
+
+    function takeOver(links, getTargetY, url) {
+      links.forEach(function (link) {
+        // umami (public/umami.js) installs a capture-phase listener on document:
+        // for any <a data-umami-event> it calls preventDefault itself, awaits its
+        // tracking request, then assigns location.href — a script-initiated
+        // navigation ours cannot cancel, and the reason clicking these used to
+        // stall and then snap. Take the attribute off and report the event here,
+        // so the analytics still land and the navigation stays ours. Anything
+        // still carrying the attribute (every other page) is untouched.
+        var event = link.getAttribute('data-umami-event');
+        if (event) link.removeAttribute('data-umami-event');
+
+        link.addEventListener('click', function (e) {
+          if (!plainClick(e)) return;
+          e.preventDefault();
+          if (event && typeof umami !== 'undefined') umami.track(event);
+          closeMobileMenu();
+          history.replaceState(null, '', url);
+          scrollToY(getTargetY());
+        });
+      });
+    }
+
+    var tourLinks = document.querySelectorAll('a[href="#product"], a[href="/#product"]');
+    if (tour && tourLinks.length) {
+      takeOver(
+        tourLinks,
+        function () {
+          return Math.round(tour.getBoundingClientRect().top + window.scrollY - navOffset);
+        },
+        '#product',
+      );
+    }
+
+    // The logo already means "home" — on the homepage that's the top of this page.
+    // Dropping the hash keeps the URL honest about where the reader ended up.
+    takeOver(
+      document.querySelectorAll('#logo a'),
+      function () {
+        return 0;
+      },
+      location.pathname + location.search,
+    );
+
+    if (reduce) return;
+
+    // Benefit cards track the pointer to place their hover glow, but do not tilt:
+    // at a quarter of their former size the tilt read as jitter, and the row's job
+    // this late in the page is to sit still.
+    document.querySelectorAll('[data-glow]').forEach(function (card) {
+      var bounds;
+      card.addEventListener('mouseenter', function () {
+        bounds = card.getBoundingClientRect();
+      });
+      card.addEventListener('mousemove', function (e) {
+        if (!bounds) return;
+        card.style.setProperty('--mouse-x', ((e.clientX - bounds.left) / bounds.width) * 100 + '%');
+        card.style.setProperty('--mouse-y', ((e.clientY - bounds.top) / bounds.height) * 100 + '%');
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.setProperty('--mouse-x', '50%');
+        card.style.setProperty('--mouse-y', '50%');
+      });
+    });
+
+    // 3D tilt on product frames
+    document.querySelectorAll('.product-frame-wrap[data-tilt]').forEach(function (card) {
+      var frame = card.querySelector('.product-frame');
+      if (!frame) return;
+      var maxTilt = 6,
+        bounds;
+      card.addEventListener('mouseenter', function () {
+        bounds = frame.getBoundingClientRect();
+        frame.style.transition = 'none';
+      });
+      card.addEventListener('mousemove', function (e) {
+        if (!bounds) return;
+        var mx = e.clientX - bounds.left,
+          my = e.clientY - bounds.top;
+        var rx = ((my - bounds.height / 2) / (bounds.height / 2)) * -maxTilt;
+        var ry = ((mx - bounds.width / 2) / (bounds.width / 2)) * maxTilt;
+        frame.style.transform = 'perspective(1200px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      });
+      card.addEventListener('mouseleave', function () {
+        frame.style.transition = 'transform 0.4s ease-out';
+        frame.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)';
+      });
+    });
+
+    // Hero tilt, bound once. Both source pages registered their own mousemove
+    // handler for [data-tilt-hero]; merged naively that was two handlers writing
+    // conflicting transforms to the same element.
+    var heroMaxTilt = 12,
+      heroPerspective = 1200;
+    var heroes = document.querySelectorAll('[data-tilt-hero]');
+    if (heroes.length) {
+      document.addEventListener('mousemove', function (e) {
+        var rx = ((e.clientY - window.innerHeight / 2) / (window.innerHeight / 2)) * -heroMaxTilt;
+        var ry = ((e.clientX - window.innerWidth / 2) / (window.innerWidth / 2)) * heroMaxTilt;
+        heroes.forEach(function (hero) {
+          hero.style.setProperty('--hero-mouse-x', (e.clientX / window.innerWidth) * 100 + '%');
+          hero.style.setProperty('--hero-mouse-y', (e.clientY / window.innerHeight) * 100 + '%');
+          hero.style.transform = 'perspective(' + heroPerspective + 'px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+        });
+      });
+      document.addEventListener('mouseleave', function () {
+        heroes.forEach(function (hero) {
+          hero.style.transition = 'transform 0.5s ease-out';
+          hero.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+        });
+      });
+    }
+  })();
+</script>

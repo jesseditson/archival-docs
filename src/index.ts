@@ -136,13 +136,11 @@ const setupTemplateMosaic = async () => {
     tile.append(shot, name);
     mosaic.appendChild(tile);
   }
-  mosaic.hidden = false;
-
-  // The count is the part a grid cannot show. Only claim it once the catalog
-  // has actually arrived; the markup says "Browse all templates" until then.
-  const label = document.getElementById("browse-templates-label");
-  if (label) {
-    label.textContent = `Browse all ${templates.length} templates`;
+  // The label and the grid are shown together: a "Featured templates" heading
+  // over nothing would be worse than no heading.
+  const featured = document.getElementById("featured-templates");
+  if (featured) {
+    featured.hidden = false;
   }
 };
 
