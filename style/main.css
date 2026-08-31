@@ -253,13 +253,30 @@ h1,
   text-align: left;
 }
 
+/* The curve. The band is treated as a screen wrapping around the viewer: flat
+   ahead of you, and curling toward you at both ends, so the tiles out at the
+   sides are nearer the camera and render larger. src/index.ts turns each tile
+   to face you by an amount set by where it currently is, which is why this has
+   to be driven per frame rather than declared here - a tile's place in the row
+   is what decides its transform, and that changes constantly.
+
+   --curve-depth is how far the ends come forward, --curve-turn how far they
+   turn to face you. Both are read by the script; tune them here. */
+.template-mosaic {
+  --curve-depth: 190px;
+  --curve-turn: 34deg;
+}
+
 /* The mask is what keeps this from reading as content that has been cut off:
    tiles arrive and leave rather than appearing and vanishing at a hard edge. */
 .marquee-row {
+  perspective: 900px;
+  perspective-origin: 50% 50%;
   overflow: hidden;
-  /* Room for what draws outside a tile: the frame's ring, and the hover scale.
+  /* Room for what draws outside a tile: the frame's ring, the hover scale, and
+     the curve, which grows the tiles out at the sides by about a quarter.
      Without it overflow:hidden clipped the top edge of every thumbnail. */
-  padding: 0.85rem 0;
+  padding: 1.9rem 0;
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent,
@@ -283,6 +300,7 @@ h1,
 .marquee-track {
   display: flex;
   width: max-content;
+  transform-style: preserve-3d;
   animation: template-drift 90s linear infinite;
 }
 
@@ -315,12 +333,23 @@ h1,
 
   .marquee-row {
     overflow-x: auto;
+    perspective: none;
+  }
+
+  /* No curve when nothing moves. Its whole job is to make a moving band read
+     as wrapping past you; frozen, it is just warped thumbnails. */
+  .template-tile {
+    transform: none !important;
   }
 }
 
 .template-tile {
   flex: 0 0 15rem;
   margin-right: 1rem;
+  /* Set per frame by the curve; the tile's own box never moves, only the face
+     it presents. */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 /* Twelve light screenshots on a black page shout. Holding the wall back and

@@ -213,8 +213,105 @@ const setupTemplateMosaic = async () => {
   let resizeFrame: number | undefined;
   window.addEventListener("resize", () => {
     if (resizeFrame) window.clearTimeout(resizeFrame);
-    resizeFrame = window.setTimeout(refillAll, 150);
+    resizeFrame = window.setTimeout(() => {
+      refillAll();
+      measureCurve();
+    }, 150);
   });
+
+  /**
+   * The curve.
+   *
+   * The band is a screen wrapping around the viewer: flat straight ahead, and
+   * curling toward you at both ends, so a tile out at the side is nearer the
+   * camera and draws larger. A tile's transform therefore depends on where it
+   * is right now, which is why this runs per frame instead of being declared
+   * in CSS - the tiles never stop moving.
+   *
+   * Cheap on purpose. Each tile's offset within its track is measured once and
+   * cached; per frame this reads one box (the track's) and writes transforms,
+   * rather than asking the browser where two dozen moving elements are.
+   */
+  type Curved = { el: HTMLElement; centre: number };
+  let curved: { track: HTMLElement; row: HTMLElement; tiles: Curved[] }[] = [];
+  let depth = 0;
+  let turn = 0;
+
+  const measureCurve = () => {
+    const style = getComputedStyle(mosaic);
+    depth = parseFloat(style.getPropertyValue("--curve-depth")) || 0;
+    turn = parseFloat(style.getPropertyValue("--curve-turn")) || 0;
+    curved = rows.map(({ rowEl }) => {
+      const track = rowEl.querySelector(".marquee-track") as HTMLElement;
+      const trackLeft = track.getBoundingClientRect().left;
+      const tiles = [...track.children].map((child) => {
+        const el = child as HTMLElement;
+        const box = el.getBoundingClientRect();
+        return { el, centre: box.left - trackLeft + box.width / 2 };
+      });
+      return { track, row: rowEl, tiles };
+    });
+  };
+
+  const drawCurve = () => {
+    for (const { track, row, tiles } of curved) {
+      const trackLeft = track.getBoundingClientRect().left;
+      const rowBox = row.getBoundingClientRect();
+      const half = rowBox.width / 2;
+      const middle = rowBox.left + half;
+      for (const { el, centre } of tiles) {
+        // -1 at the left edge of the row, 0 dead ahead, 1 at the right edge.
+        // Clamped there: past the edge a tile is inside the fade anyway, and
+        // letting p run on squared into a translateZ that pushed tiles most of
+        // the way to the camera and blew them up to twice their size.
+        const p = Math.max(
+          -1,
+          Math.min(1, (trackLeft + centre - middle) / half),
+        );
+        // Squared, so the middle stays flat and the curve gathers at the ends
+        // rather than tilting everything a little.
+        el.style.transform = `translateZ(${(p * p * depth).toFixed(1)}px) rotateY(${(-p * turn).toFixed(2)}deg)`;
+      }
+    }
+  };
+
+  let frame = 0;
+  const run = () => {
+    drawCurve();
+    frame = requestAnimationFrame(run);
+  };
+  const stop = () => {
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+  };
+
+  const flat = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const start = () => {
+    stop();
+    if (flat.matches) return;
+    measureCurve();
+    run();
+  };
+  start();
+  flat.addEventListener("change", start);
+
+  // Nothing to compute while the rows are off screen, and a page that keeps a
+  // rAF loop running out of view is just spending someone's battery.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !flat.matches) {
+          if (!frame) {
+            measureCurve();
+            run();
+          }
+        } else {
+          stop();
+        }
+      },
+      { rootMargin: "200px" },
+    ).observe(mosaic);
+  }
 };
 
 // Factor by which to offset shadow
