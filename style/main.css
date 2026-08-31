@@ -190,7 +190,9 @@ h1,
 .build-section {
   width: 100%;
   max-width: 52rem;
-  margin: 6rem auto 6rem;
+  /* Closer to the hero above than to what follows: "Build yours right now"
+     answers "websites for everyone", so the two belong together. */
+  margin: 4rem auto 6rem;
   padding: 0 2rem;
   text-align: center;
 }
@@ -255,26 +257,31 @@ h1,
    tiles arrive and leave rather than appearing and vanishing at a hard edge. */
 .marquee-row {
   overflow: hidden;
+  /* Room for what draws outside a tile: the frame's ring, and the hover scale.
+     Without it overflow:hidden clipped the top edge of every thumbnail. */
+  padding: 0.85rem 0;
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent,
-    #000 13%,
-    #000 87%,
+    #000 20%,
+    #000 80%,
     transparent
   );
   mask-image: linear-gradient(
     90deg,
     transparent,
-    #000 13%,
-    #000 87%,
+    #000 20%,
+    #000 80%,
     transparent
   );
 }
 
+/* No `gap` here on purpose. With a gap, a track of 2N tiles is 2N tiles plus
+   2N-1 gaps, so half of it is half a gap short of one pass and the loop drifts
+   out of alignment. Carrying the spacing on the tiles themselves makes the
+   track exactly 2N whole units, and -50% exactly one pass. */
 .marquee-track {
   display: flex;
-  gap: 1rem;
-  /* max-content, so -50% is exactly one copy of the templates. */
   width: max-content;
   animation: template-drift 90s linear infinite;
 }
@@ -313,6 +320,7 @@ h1,
 
 .template-tile {
   flex: 0 0 15rem;
+  margin-right: 1rem;
 }
 
 /* Twelve light screenshots on a black page shout. Holding the wall back and
@@ -336,6 +344,7 @@ h1,
 .template-tile-shot {
   display: block;
   position: relative;
+  transform-origin: center;
   /* The editor captures thumbnails at 1280x960, so the box is 4:3 and the
      image never has to be letterboxed or cropped to fit it. */
   aspect-ratio: 4 / 3;
@@ -343,16 +352,29 @@ h1,
   border-radius: 0.375rem;
   background: rgba(255, 255, 255, 0.06);
   box-shadow: 0 0 0 1px var(--color-transparent-border);
-  transition: box-shadow 200ms ease;
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease;
 }
 
 /* The site's own framing idiom, borrowed rather than invented: the same double
-   ring --style-double-border draws elsewhere, tightened to this scale. */
+   ring --style-double-border draws elsewhere, tightened to this scale. The
+   thumbnail comes with it - growing the ring alone read as the frame swelling
+   around a picture that stayed put. */
 .template-tile:hover .template-tile-shot,
 .template-tile:focus-visible .template-tile-shot {
+  transform: scale(1.06);
   box-shadow:
     0 0 0 2px var(--color-main-bg),
     0 0 0 4px var(--color-transparent-border);
+}
+
+/* Lifted over its neighbours while it is scaled, or the tile after it in the
+   row paints over the edge it just grew into. */
+.template-tile:hover,
+.template-tile:focus-visible {
+  position: relative;
+  z-index: 1;
 }
 
 .template-tile:focus-visible {
@@ -440,6 +462,12 @@ h1,
   .template-tile-name,
   .browse-templates-arrow {
     transition: none;
+  }
+
+  /* The ring still marks what is hovered; the growing does not. */
+  .template-tile:hover .template-tile-shot,
+  .template-tile:focus-visible .template-tile-shot {
+    transform: none;
   }
 }
 

@@ -151,41 +151,70 @@ const setupTemplateMosaic = async () => {
   };
 
   /**
-   * One drifting row.
+   * Fill a track so it can loop seamlessly at this width.
    *
-   * The track carries its templates twice. The animation runs to -50%, which is
-   * exactly the width of one copy, so the second copy is sitting where the
-   * first started when it loops and the seam never shows. The clones are hidden
-   * from assistive tech and taken out of the tab order, or every template would
-   * be announced and focusable twice.
+   * The animation runs to -50%, so the first half of the track has to be at
+   * least as wide as the row - otherwise the loop drags empty space through
+   * the far end. Six tiles come to about 1536px, so anything above roughly a
+   * 1536px viewport showed a hole; the fix is to repeat the templates until a
+   * half covers the row rather than assuming one pass does.
+   *
+   * Only the first pass is exposed. Everything after it is the same templates
+   * again, so it is hidden from assistive tech and taken out of the tab order
+   * rather than announcing and focusing each template several times.
    */
+  const fillTrack = (
+    rowEl: HTMLElement,
+    track: HTMLElement,
+    items: Template[],
+  ) => {
+    track.replaceChildren();
+    for (const template of items) {
+      track.appendChild(tile(template));
+    }
+    const passWidth = track.scrollWidth;
+    const passes = Math.max(1, Math.ceil(rowEl.clientWidth / passWidth));
+    const addHiddenPass = () => {
+      for (const template of items) {
+        const el = tile(template);
+        el.setAttribute("aria-hidden", "true");
+        el.tabIndex = -1;
+        track.appendChild(el);
+      }
+    };
+    // Complete the first half, then mirror it. -50% is then exactly one half.
+    for (let i = 1; i < passes; i += 1) addHiddenPass();
+    for (let i = 0; i < passes; i += 1) addHiddenPass();
+  };
+
   const row = (items: Template[], reverse: boolean) => {
     const rowEl = document.createElement("div");
     rowEl.className = "marquee-row";
     const track = document.createElement("div");
     track.className = reverse ? "marquee-track reverse" : "marquee-track";
-    for (const template of items) {
-      track.appendChild(tile(template));
-    }
-    for (const template of items) {
-      const clone = tile(template);
-      clone.setAttribute("aria-hidden", "true");
-      clone.tabIndex = -1;
-      track.appendChild(clone);
-    }
     rowEl.appendChild(track);
-    return rowEl;
+    return { rowEl, refill: () => fillTrack(rowEl, track, items) };
   };
 
   // Split across two rows that drift against each other. An odd count puts the
   // extra one on top, where the row is read first.
   const featured = templates.slice(0, MOSAIC_TILES);
   const split = Math.ceil(featured.length / 2);
-  mosaic.append(
+  const rows = [
     row(featured.slice(0, split), false),
     row(featured.slice(split), true),
-  );
+  ];
+  mosaic.append(...rows.map((r) => r.rowEl));
   mosaic.hidden = false;
+  // Measured, so it has to happen after the rows are laid out - and again when
+  // the window grows, or a track that covered the row stops covering it.
+  const refillAll = () => rows.forEach((r) => r.refill());
+  refillAll();
+  let resizeFrame: number | undefined;
+  window.addEventListener("resize", () => {
+    if (resizeFrame) window.clearTimeout(resizeFrame);
+    resizeFrame = window.setTimeout(refillAll, 150);
+  });
 };
 
 // Factor by which to offset shadow
