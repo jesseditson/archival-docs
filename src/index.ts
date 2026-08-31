@@ -38,6 +38,19 @@ window.addEventListener("load", () => {
  * browse link are in the markup already, so a failed fetch, an empty catalog or
  * no JS at all leaves a section that still reads and still leads somewhere.
  */
+
+/**
+ * How many templates are featured. The first N of the catalog, and which ones
+ * those are is an editorial decision made once, in the editor's own
+ * objects/templates/*.toml: each carries an `order`, archival emits
+ * templates.json in it, and the gallery at /new is sorted by the same thing.
+ * There is no second list to keep in step here.
+ *
+ * The responsive rules below cut this down further - 9 tiles, then 6 - and they
+ * cut from the end, so `order` decides what a phone sees, not just the sequence.
+ * Before it existed archival emitted these alphabetically by filename, which
+ * meant the six a phone showed were whichever templates happened to sort first.
+ */
 const MOSAIC_TILES = 12;
 
 /**
