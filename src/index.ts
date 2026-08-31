@@ -3,6 +3,7 @@ declare const umami:
   | undefined;
 
 window.addEventListener("load", () => {
+  pointBrowseLinkAtEditor();
   void setupTemplateMosaic();
   // setupHeaderVideos();
   setupMobileMenu();
@@ -60,6 +61,23 @@ type Template = {
   repo_owner: string;
   repo_name: string;
   repo_ref: string;
+};
+
+/**
+ * Send the browse link to the editor this build targets.
+ *
+ * The markup carries the production editor, which is what a visitor with no JS
+ * needs; this is what makes local and staging reach their own. Deliberately not
+ * inside setupTemplateMosaic: where the link goes has nothing to do with
+ * whether the catalog loaded, and it would be a poor trade to leave the one
+ * remaining way forward pointing elsewhere on exactly the runs where the tiles
+ * failed to render.
+ */
+const pointBrowseLinkAtEditor = () => {
+  const link = document.getElementById("browse-templates");
+  if (link instanceof HTMLAnchorElement) {
+    link.href = `${EDITOR_URL}/new`;
+  }
 };
 
 const setupTemplateMosaic = async () => {
