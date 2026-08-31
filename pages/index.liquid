@@ -82,30 +82,27 @@
 {% comment %} Build Section {% endcomment %}
 
 <div class="build-section">
+  {% comment %}
+    One line between the hero and the grid, not three. It used to be this
+    heading, a two-line description and a "Featured templates" label stacked on
+    each other, which is a lot of talking in front of twelve screenshots that
+    say it themselves. "yours" is picked up from "websites for everyone"
+    directly above, so the two read as one thought rather than two headings.
+  {% endcomment %}
   <h2 class="build-heading">Build yours right now.</h2>
-  <p class="build-description">
-    Pick a template and make it yours.<br class="build-description-break" />
-    You can change all of it later.
-  </p>
 
   {% comment %}
     The mosaic is filled in by setupTemplateMosaic() in src/index.ts from the
     editor's templates.json. Everything that matters is already here: the
     heading, the line above, and the link below all work with no JS and no
     network, so a failed fetch leaves a section that still reads and still has
-    somewhere to go, rather than a hole. The label is inside the hidden
-    wrapper rather than beside it, so it never introduces a grid that is not
-    there.
+    somewhere to go, rather than a hole.
 
     It is a fixed window onto the catalog, not the whole of it - twelve tiles
-    whatever the catalog grows to, with the remainder named in the link. A
-    grid of forty thumbnails does not read as "forty templates" to anyone; a
-    tidy dozen and a number does.
+    whatever the catalog grows to. Which twelve is authored in the editor's
+    objects/templates/*.toml; see MOSAIC_TILES in src/index.ts.
   {% endcomment %}
-  <div id="featured-templates" class="featured-templates" hidden>
-    <h3 class="featured-heading">Featured templates</h3>
-    <div id="template-mosaic" class="template-mosaic"></div>
-  </div>
+  <div id="template-mosaic" class="template-mosaic" hidden></div>
 
   {% comment %}
     Absolute, matching the nav's own Create links. A relative /new does not
@@ -124,6 +121,15 @@
     <span>Browse all templates</span>
     <span class="browse-templates-arrow" aria-hidden="true">&rarr;</span>
   </a>
+
+  {% comment %}
+    Two ways forward, not a sequence: start from a template yourself, or have
+    Claude do it. Without something between them the second reads as a step
+    after the first. It fades out at both ends rather than ruling a line across
+    the column, which would divide the section rather than separate two things
+    inside it.
+  {% endcomment %}
+  <div class="build-divider" aria-hidden="true"></div>
 
   {% include "build-cta" %}
 </div>

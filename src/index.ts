@@ -149,12 +149,7 @@ const setupTemplateMosaic = async () => {
     tile.append(shot, name);
     mosaic.appendChild(tile);
   }
-  // The label and the grid are shown together: a "Featured templates" heading
-  // over nothing would be worse than no heading.
-  const featured = document.getElementById("featured-templates");
-  if (featured) {
-    featured.hidden = false;
-  }
+  mosaic.hidden = false;
 };
 
 // Factor by which to offset shadow

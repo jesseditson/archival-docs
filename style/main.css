@@ -201,7 +201,7 @@ h1,
   font-weight: 700;
   line-height: 1.1;
   color: var(--color-typography-primary);
-  margin: 0 0 2rem;
+  margin: 0 0 3rem;
   font-feature-settings: "ss01" on;
 }
 
@@ -213,10 +213,6 @@ h1,
   line-height: 1.6;
 }
 
-.build-description-break {
-  display: inline;
-}
-
 /* --- template mosaic ------------------------------------------------------
    A fixed window onto the catalog: twelve tiles however many templates exist,
    so the section's height is a constant rather than a function of the catalog.
@@ -225,38 +221,21 @@ h1,
    makes. Names are set quiet so the eye lands on the sites, not on a wall of
    labels. */
 
-/* The heading and the grid are shown together, so they share a wrapper: a
-   "Featured templates" label standing over nothing would be worse than no
-   label. `hidden` has to be spelled out because a class selector outranks the
-   UA's [hidden] rule - without this the empty wrapper stayed on the page and
-   its bottom margin with it, opening a gap above the browse link on exactly
-   the runs where nothing had loaded. */
-.featured-templates[hidden] {
+/* `hidden` has to be spelled out because a class selector outranks the UA's
+   [hidden] rule - without this an empty grid stayed on the page and its bottom
+   margin with it, opening a gap above the browse link on exactly the runs
+   where nothing had loaded. */
+.template-mosaic[hidden] {
   display: none;
-}
-
-.featured-templates {
-  margin: 0 0 3rem;
-}
-
-/* A label for the grid, not a second hero. The Build face and 1.5rem are what
-   a subordinate heading is set in elsewhere on the site; this sits just under
-   that, far enough below the 3rem above it to read as belonging to the grid
-   rather than competing for the section. */
-.featured-heading {
-  font-family: "Build", system-ui, sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--color-typography-primary);
-  font-feature-settings: "ss01" on;
-  margin: 0 0 1.25rem;
 }
 
 .template-mosaic {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem 1rem;
+  /* Closer to the link below than to the heading above: the link is the grid's
+     overflow, so the two belong to each other. */
+  margin: 0 0 2rem;
   text-align: left;
 }
 
@@ -361,6 +340,22 @@ h1,
 
 .browse-templates:hover .browse-templates-arrow {
   transform: translateX(3px);
+}
+
+/* Fades out at both ends rather than ruling a line across the column: it
+   separates two ways forward from each other without cutting the section in
+   half. */
+.build-divider {
+  height: 1px;
+  width: min(16rem, 55%);
+  margin: 3rem auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-transparent-border) 30%,
+    var(--color-transparent-border) 70%,
+    transparent
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1807,10 +1802,6 @@ h1.pricing-title {
   .hero-message {
     font-size: clamp(2rem, 11vw, 7.5rem);
     padding: 0 1rem;
-  }
-
-  .build-description-break {
-    display: none;
   }
 
   .demo-video {
