@@ -46,10 +46,10 @@ window.addEventListener("load", () => {
  * templates.json in it, and the gallery at /new is sorted by the same thing.
  * There is no second list to keep in step here.
  *
- * The responsive rules below cut this down further - 9 tiles, then 6 - and they
- * cut from the end, so `order` decides what a phone sees, not just the sequence.
- * Before it existed archival emitted these alphabetically by filename, which
- * meant the six a phone showed were whichever templates happened to sort first.
+ * Every one of them goes past at every width - the rows carry them rather than
+ * a grid trimming them - so `order` decides the sequence and which row a
+ * template lands in, not whether it is seen at all. Before it existed archival
+ * emitted these alphabetically by filename.
  */
 const MOSAIC_TILES = 12;
 
@@ -122,11 +122,11 @@ const setupTemplateMosaic = async () => {
     return;
   }
 
-  for (const template of templates.slice(0, MOSAIC_TILES)) {
-    const tile = document.createElement("a");
-    tile.className = "template-tile";
-    tile.href = `${EDITOR_URL}/new?template=${encodeURIComponent(templateId(template))}`;
-    tile.setAttribute("data-umami-event", "hero-template-pick");
+  const tile = (template: Template) => {
+    const el = document.createElement("a");
+    el.className = "template-tile";
+    el.href = `${EDITOR_URL}/new?template=${encodeURIComponent(templateId(template))}`;
+    el.setAttribute("data-umami-event", "hero-template-pick");
 
     const shot = document.createElement("span");
     shot.className = "template-tile-shot";
@@ -139,16 +139,52 @@ const setupTemplateMosaic = async () => {
     // Thumbnails only exist once the gallery ships. Until then - and for any
     // template whose shot has not been captured - the tile falls back to its
     // name on an empty frame rather than a broken image.
-    img.addEventListener("error", () => tile.classList.add("no-shot"));
+    img.addEventListener("error", () => el.classList.add("no-shot"));
     shot.appendChild(img);
 
     const name = document.createElement("span");
     name.className = "template-tile-name";
     name.textContent = template.name;
 
-    tile.append(shot, name);
-    mosaic.appendChild(tile);
-  }
+    el.append(shot, name);
+    return el;
+  };
+
+  /**
+   * One drifting row.
+   *
+   * The track carries its templates twice. The animation runs to -50%, which is
+   * exactly the width of one copy, so the second copy is sitting where the
+   * first started when it loops and the seam never shows. The clones are hidden
+   * from assistive tech and taken out of the tab order, or every template would
+   * be announced and focusable twice.
+   */
+  const row = (items: Template[], reverse: boolean) => {
+    const rowEl = document.createElement("div");
+    rowEl.className = "marquee-row";
+    const track = document.createElement("div");
+    track.className = reverse ? "marquee-track reverse" : "marquee-track";
+    for (const template of items) {
+      track.appendChild(tile(template));
+    }
+    for (const template of items) {
+      const clone = tile(template);
+      clone.setAttribute("aria-hidden", "true");
+      clone.tabIndex = -1;
+      track.appendChild(clone);
+    }
+    rowEl.appendChild(track);
+    return rowEl;
+  };
+
+  // Split across two rows that drift against each other. An odd count puts the
+  // extra one on top, where the row is read first.
+  const featured = templates.slice(0, MOSAIC_TILES);
+  const split = Math.ceil(featured.length / 2);
+  mosaic.append(
+    row(featured.slice(0, split), false),
+    row(featured.slice(split), true),
+  );
   mosaic.hidden = false;
 };
 

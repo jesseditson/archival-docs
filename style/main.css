@@ -229,14 +229,90 @@ h1,
   display: none;
 }
 
+/* Two rows drifting against each other, the treatment the professional
+   template uses for testimonials. Full-bleed on purpose: held inside the 52rem
+   column this reads as a ticker, and across the viewport it reads as a wall of
+   sites going past, which is the whole reason to move them.
+
+   Escapes the column with the standard 100vw trick rather than being moved out
+   of .build-section, so the heading and the link above and below it keep their
+   places in the section's flow. */
 .template-mosaic {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem 1rem;
-  /* Closer to the link below than to the heading above: the link is the grid's
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  /* Closer to the link below than to the heading above: the link is the rows'
      overflow, so the two belong to each other. */
-  margin: 0 0 2rem;
+  margin-bottom: 2rem;
   text-align: left;
+}
+
+/* The mask is what keeps this from reading as content that has been cut off:
+   tiles arrive and leave rather than appearing and vanishing at a hard edge. */
+.marquee-row {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 13%,
+    #000 87%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 13%,
+    #000 87%,
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1rem;
+  /* max-content, so -50% is exactly one copy of the templates. */
+  width: max-content;
+  animation: template-drift 90s linear infinite;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+/* Pausing on hover is not decoration here: every tile is a link, and reaching
+   for one that is still moving is a fight. Taken from the same treatment. */
+.marquee-row:hover .marquee-track,
+.marquee-row:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes template-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Standing still, the row has to stay reachable, so it becomes something you
+   can push along yourself rather than a strip with its end cut off. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+
+  .marquee-row {
+    overflow-x: auto;
+  }
+}
+
+.template-tile {
+  flex: 0 0 15rem;
 }
 
 /* Twelve light screenshots on a black page shout. Holding the wall back and
@@ -1847,16 +1923,10 @@ h1.pricing-title {
     padding: 8rem 2rem 2rem;
   }
 
-  /* Fewer, larger tiles rather than the same twelve shrunk: below this a
-     screenshot stops being legible enough to choose from, and six good ones
-     beat twelve unreadable ones. The count in the link still says how many
-     there really are. */
-  .template-mosaic {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .template-tile:nth-child(n + 10) {
-    display: none;
+  /* Smaller tiles rather than fewer: the row carries as many as it carries,
+     and every template still goes past. */
+  .template-tile {
+    flex-basis: 11rem;
   }
 
   .benefit-grid:not(.benefit-grid--compact),
@@ -2385,15 +2455,29 @@ input:checked + .slider::before {
 }
 
 /* Phones. Placed here rather than beside the other mosaic rules because the
-   3-column override lives in the 768px block further up: an earlier rule at
-   equal specificity would lose to it at every width this one cares about. */
+   override at 768px lives further up the file: an earlier rule at equal
+   specificity would lose to it at every width this one cares about. */
 @media (max-width: 520px) {
-  .template-mosaic {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem 0.75rem;
+  .template-tile {
+    flex-basis: 9rem;
   }
 
-  .template-tile:nth-child(n + 7) {
-    display: none;
+  .marquee-row {
+    /* Less of the row is on screen, so the fade has to be shorter or it eats
+       the tiles it is supposed to be revealing. */
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
   }
 }
