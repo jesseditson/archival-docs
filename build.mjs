@@ -14,6 +14,14 @@ const API_URL = dev
   : staging
     ? "https://api.archival-staging.dev"
     : "https://api.archival.dev";
+// Where the template gallery lives, and where templates.json and the template
+// thumbnails are served from. It answers with access-control-allow-origin: *,
+// so the mosaic can read the catalog at runtime.
+const EDITOR_URL = dev
+  ? "http://localhost:8788"
+  : staging
+    ? "https://editor.archival-staging.dev"
+    : "https://editor.archival.dev";
 const TURNSTILE_SITE_KEY = dev
   ? "1x00000000000000000000AA"
   : staging
@@ -31,7 +39,7 @@ const ctx = await esbuild.context({
   plugins: [metaUrlPlugin()],
   define: {
     DEV: dev ? "true" : "false",
-    LANDING_IFRAME_URL: `"${dev ? "http://localhost:8788/landing-iframe.html" : "https://editor.archival.dev/landing-iframe.html"}"`,
+    EDITOR_URL: `"${EDITOR_URL}"`,
     API_URL: `"${API_URL}"`,
     TURNSTILE_SITE_KEY: `"${TURNSTILE_SITE_KEY}"`,
   },

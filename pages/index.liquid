@@ -84,10 +84,33 @@
 <div class="build-section">
   <h2 class="build-heading">Build yours right now.</h2>
   <p class="build-description">
-    Describe what type of site you'd like to create and<br class="build-description-break" />
-    we'll get you live in a few minutes.
+    Pick a template and make it yours.<br class="build-description-break" />
+    You can change all of it later.
   </p>
-  <iframe id="generate-frame"></iframe>
+
+  {% comment %}
+    The mosaic is filled in by setupTemplateMosaic() in src/index.ts from the
+    editor's templates.json. Everything that matters is already here: the
+    heading, the line above, and the link below all work with no JS and no
+    network, so a failed fetch leaves a section that still reads and still has
+    somewhere to go, rather than a hole.
+
+    It is a fixed window onto the catalog, not the whole of it - twelve tiles
+    whatever the catalog grows to, with the remainder named in the link. A
+    grid of forty thumbnails does not read as "forty templates" to anyone; a
+    tidy dozen and a number does.
+  {% endcomment %}
+  <div id="template-mosaic" class="template-mosaic" hidden></div>
+
+  <a
+    id="browse-templates"
+    class="browse-templates"
+    href="/new"
+    data-umami-event="hero-browse-templates"
+  >
+    <span id="browse-templates-label">Browse all templates</span>
+    <span class="browse-templates-arrow" aria-hidden="true">&rarr;</span>
+  </a>
 
   {% include "build-cta" %}
 </div>

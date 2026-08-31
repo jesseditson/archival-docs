@@ -1,7 +1,9 @@
-declare const umami: { track: (event: string, data?: Record<string, string | number>) => void } | undefined;
+declare const umami:
+  | { track: (event: string, data?: Record<string, string | number>) => void }
+  | undefined;
 
 window.addEventListener("load", () => {
-  setupGenerateFrame();
+  void setupTemplateMosaic();
   // setupHeaderVideos();
   setupMobileMenu();
   setupDocsMenu();
@@ -23,88 +25,100 @@ window.addEventListener("load", () => {
   update();
 });
 
-const setupGenerateFrame = () => {
-  // Only index and product embed the frame. Bail before anything else so pages
-  // without it don't throw and abort the rest of the load handler.
-  const iframe = document.getElementById('generate-frame') as HTMLIFrameElement | null;
-  if (!iframe) {
+/**
+ * Fill the mosaic from the editor's own catalog.
+ *
+ * templates.json is served from the editor origin with
+ * access-control-allow-origin: *, and carries the five repo fields that make up
+ * a template's identifier. That is all this needs: the identifier addresses the
+ * template in the gallery, and the same parts spell the thumbnail path.
+ *
+ * Progressive enhancement on purpose. The heading, the line under it and the
+ * browse link are in the markup already, so a failed fetch, an empty catalog or
+ * no JS at all leaves a section that still reads and still leads somewhere.
+ */
+const MOSAIC_TILES = 12;
+
+/**
+ * `TemplateObject::identifier()` in the editor: the five parts url-encoded and
+ * joined by "/". It has to be encodeURIComponent'd again into the query string,
+ * because the parts carry percent-escapes of their own - dropped in raw,
+ * URLSearchParams would decode them and the id would no longer match.
+ */
+const templateId = (t: Template) =>
+  [t.repo_provider, t.repo_owner, t.repo_name, t.repo_ref, t.name]
+    .map(encodeURIComponent)
+    .join("/");
+
+/** Written by the editor's cache-templates step, keyed the same way. */
+const thumbnailUrl = (t: Template) =>
+  `${EDITOR_URL}/${t.repo_provider}-${t.repo_owner}-${t.repo_name}-${t.repo_ref.replace(/\//g, "_")}/thumbnail.jpg`;
+
+type Template = {
+  name: string;
+  repo_provider: string;
+  repo_owner: string;
+  repo_name: string;
+  repo_ref: string;
+};
+
+const setupTemplateMosaic = async () => {
+  // Only the home page carries the mosaic. Bail before fetching anything so
+  // every other page does not pay for a request it will not use.
+  const mosaic = document.getElementById("template-mosaic");
+  if (!mosaic) {
     return;
   }
 
-  const srcOrigin = new URL(LANDING_IFRAME_URL).origin;
-  window.addEventListener('message', (event) => {
-      if (event.origin === srcOrigin) {
-        switch (Object.keys(event.data)[0]) {
-          case "resize": {
-            const h = event.data["resize"].height;
-            iframe.style.height = typeof h === "number" ? `${h}px` : h;
-            break;
-          }
-          case "start":
-            if (typeof umami !== 'undefined') umami.track('hero-generate-start');
-            animateIframeToFullscreen(iframe);
-            break;
-          case "ready":
-            window.location.href = srcOrigin + "/new";
-            break;
-        }
-      }
-    });
-
-  iframe.src = LANDING_IFRAME_URL;
-}
-
-const animateIframeToFullscreen = (iframe: HTMLIFrameElement) => {
-  // Avoid re-triggering if the transition has already started.
-  if (iframe.dataset.fullscreenAnimating === "true") {
-    return;
-  }
-  iframe.dataset.fullscreenAnimating = "true";
-
-  const rect = iframe.getBoundingClientRect();
-  const startTop = `${rect.top}px`;
-  const startLeft = `${rect.left}px`;
-  const startWidth = `${rect.width}px`;
-  const startHeight = `${rect.height}px`;
-
-  iframe.style.position = "fixed";
-  iframe.style.top = startTop;
-  iframe.style.left = startLeft;
-  iframe.style.width = startWidth;
-  iframe.style.height = startHeight;
-  iframe.style.margin = "0";
-  iframe.style.zIndex = "9999";
-
-  const animation = iframe.animate(
-    [
-      {
-        backgroundColor: "rgba(19,17,28,0)",
-        top: startTop,
-        left: startLeft,
-        width: startWidth,
-        height: startHeight,
-      },
-      {
-        backgroundColor: "rgba(19,17,28,1)",
-        top: "0px",
-        left: "0px",
-        width: "100%",
-        height: "100%",
-      },
-    ],
-    {
-      duration: 500,
-      easing: "cubic-bezier(0.2, 0.7, 0.2, 1)",
-      fill: "forwards",
+  let templates: Template[];
+  try {
+    const response = await fetch(`${EDITOR_URL}/templates.json`);
+    if (!response.ok) {
+      return;
     }
-  );
+    ({ templates } = (await response.json()) as { templates: Template[] });
+  } catch {
+    return;
+  }
+  if (!Array.isArray(templates) || templates.length === 0) {
+    return;
+  }
 
-  animation.addEventListener("finish", () => {
-    iframe.style.top = "0";
-    iframe.style.left = "0";
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-  });
+  for (const template of templates.slice(0, MOSAIC_TILES)) {
+    const tile = document.createElement("a");
+    tile.className = "template-tile";
+    tile.href = `${EDITOR_URL}/new?template=${encodeURIComponent(templateId(template))}`;
+    tile.setAttribute("data-umami-event", "hero-template-pick");
+
+    const shot = document.createElement("span");
+    shot.className = "template-tile-shot";
+    const img = document.createElement("img");
+    img.src = thumbnailUrl(template);
+    img.loading = "lazy";
+    // Decorative: the name below already says which template this is, and a
+    // screen reader does not need to hear it twice.
+    img.alt = "";
+    // Thumbnails only exist once the gallery ships. Until then - and for any
+    // template whose shot has not been captured - the tile falls back to its
+    // name on an empty frame rather than a broken image.
+    img.addEventListener("error", () => tile.classList.add("no-shot"));
+    shot.appendChild(img);
+
+    const name = document.createElement("span");
+    name.className = "template-tile-name";
+    name.textContent = template.name;
+
+    tile.append(shot, name);
+    mosaic.appendChild(tile);
+  }
+  mosaic.hidden = false;
+
+  // The count is the part a grid cannot show. Only claim it once the catalog
+  // has actually arrived; the markup says "Browse all templates" until then.
+  const label = document.getElementById("browse-templates-label");
+  if (label) {
+    label.textContent = `Browse all ${templates.length} templates`;
+  }
 };
 
 // Factor by which to offset shadow
@@ -125,11 +139,9 @@ const updateShadowImages = () => {
 
 const setupDocsMenu = () => {
   const menuButton = document.querySelector("#mobile-current-view") as
-    | HTMLDivElement
-    | undefined;
+    HTMLDivElement | undefined;
   const menu = document.querySelector("#docs-selector") as
-    | HTMLDivElement
-    | undefined;
+    HTMLDivElement | undefined;
   if (menuButton && menu) {
     const toggleMenu = (e: Event) => {
       e.preventDefault();
@@ -179,7 +191,7 @@ const setupMobileMenu = () => {
     }, 25);
   };
   closedMenu?.addEventListener("click", () => {
-    if (typeof umami !== 'undefined') umami.track('mobile-menu-open');
+    if (typeof umami !== "undefined") umami.track("mobile-menu-open");
     toggleMenu(true);
   });
   openMenu?.addEventListener("click", () => {
@@ -197,7 +209,7 @@ type SearchResultsRaw = {
       docTitle: string;
       sectionTitle: string | null;
       content: string;
-    }
+    },
   ];
 };
 
@@ -259,11 +271,11 @@ const setupQuickSearch = async () => {
   const resultsEl = document.querySelector("#results") as HTMLUListElement;
   const emptyResult = document.querySelector("#results-empty") as HTMLLIElement;
   const notFoundResult = document.querySelector(
-    "#results-none"
+    "#results-none",
   ) as HTMLLIElement;
   const result = document.querySelector("#results-result") as HTMLLIElement;
   const input = document.querySelector(
-    "#quick-search-input"
+    "#quick-search-input",
   ) as HTMLInputElement;
   document
     .querySelector("#quick-search-button")
@@ -426,6 +438,6 @@ if (DEV) {
   console.log("Dev Mode enabled");
   // ESBuild watch
   new EventSource("/esbuild").addEventListener("change", () =>
-    location.reload()
+    location.reload(),
   );
 }
