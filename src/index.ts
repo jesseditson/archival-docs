@@ -77,7 +77,14 @@ const setupTemplateMosaic = async () => {
       return;
     }
     ({ templates } = (await response.json()) as { templates: Template[] });
-  } catch {
+  } catch (error) {
+    // Degrading quietly is right for an unreachable editor: the section still
+    // reads and the browse link still works. Saying so is right for everything
+    // else - this swallowed a ReferenceError once (a dev server holding an
+    // esbuild context from before EDITOR_URL existed, since esbuild's watch
+    // captures its defines at startup and never re-reads build.mjs) and the
+    // silence was the expensive part, not the failure.
+    console.warn("Could not load the template catalog:", error);
     return;
   }
   if (!Array.isArray(templates) || templates.length === 0) {

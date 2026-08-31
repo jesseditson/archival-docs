@@ -225,6 +225,14 @@ h1,
    makes. Names are set quiet so the eye lands on the sites, not on a wall of
    labels. */
 
+/* The grid is filled in by JS, and `hidden` has to be spelled out here: a
+   class selector outranks the UA's [hidden] rule, so `display: grid` alone
+   would leave an empty grid on the page - and its bottom margin with it,
+   opening a gap above the browse link whenever the catalog cannot load. */
+.template-mosaic[hidden] {
+  display: none;
+}
+
 .template-mosaic {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -234,7 +242,7 @@ h1,
 }
 
 /* Twelve light screenshots on a black page shout. Holding the wall back and
-   bringing a single tile forward on hover makes this read as a catalogue being
+   bringing a single tile forward on hover makes this read as a catalog being
    browsed rather than as twelve things competing, and it is the one deliberate
    effect in the section - everything else here stays still. */
 .template-tile {
