@@ -271,7 +271,6 @@ h1,
    tiles arrive and leave rather than appearing and vanishing at a hard edge. */
 .marquee-row {
   perspective: 900px;
-  perspective-origin: 50% 50%;
   overflow: hidden;
   /* Room for what draws outside a tile: the frame's ring, the hover scale, and
      the curve, which grows the tiles out at the sides by about a quarter.
@@ -306,6 +305,31 @@ h1,
 
 .marquee-track.reverse {
   animation-direction: reverse;
+}
+
+/* Each band's vanishing point sits on the edge it shares with the other one,
+   so a tile coming toward the camera grows AWAY from its neighbour rather than
+   into it. Centred origins made both bands swell toward the middle, closing
+   the gap between them from 103px to 33px out at the sides - they read as
+   bending into each other. Now the pair opens out.
+
+   Which is also why the padding below is lopsided: the growth all goes to the
+   outer edge, so that is the only side that needs room for it. Measured, not
+   guessed - the top band was overflowing its row by 16px above and nothing
+   below, and the bottom band by 19px below and nothing above. A wide viewport
+   puts more tiles at full extension, so this is set from the worst case out at
+   3000px rather than the first width it happened to look right at.
+
+   It is sized for --curve-depth above: raise the depth and this has to follow,
+   or the tops come off again. */
+.marquee-row:first-child {
+  perspective-origin: 50% 100%;
+  padding-top: 4.15rem;
+}
+
+.marquee-row:last-child {
+  perspective-origin: 50% 0%;
+  padding-bottom: 4.15rem;
 }
 
 /* Pausing on hover is not decoration here: every tile is a link, and reaching
