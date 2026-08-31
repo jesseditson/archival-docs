@@ -6,7 +6,7 @@ description = "See the Archival editor. Describe a site and it's built, edit con
 key = "prompt"
 title = "Get started in minutes"
 content = """
-Start with a description, then attach any photos, video, or audio you already have. Archival chooses one of our human-built templates to get you started, and populates content based on your prompt.
+Pick one of our human-built templates and see it running before you choose. Describe your site and attach any photos, video, or audio you already have, and we'll fill it in — or skip that and edit the demo content yourself.
 """
 
 [[sections]]
