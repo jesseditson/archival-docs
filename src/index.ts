@@ -39,7 +39,16 @@ window.addEventListener("load", () => {
  * no JS at all leaves a section that still reads and still leads somewhere.
  */
 
-const MOSAIC_TILES = 12;
+/**
+ * Seconds a tile takes to travel its own width.
+ *
+ * The drift is stated as a speed rather than a duration so it does not depend
+ * on how many templates the catalog holds: the row is a wall of sites going
+ * past at a readable pace, and that pace is a property of the band, not of the
+ * number of tiles filling it. Expressed per tile rather than in pixels so the
+ * band still drifts faster on a large display, where the tiles are bigger.
+ */
+const SECONDS_PER_TILE = 15;
 
 /**
  * `TemplateObject::identifier()` in the editor: the five parts url-encoded and
@@ -51,6 +60,15 @@ const templateId = (t: Template) =>
   [t.repo_provider, t.repo_owner, t.repo_name, t.repo_ref, t.name]
     .map(encodeURIComponent)
     .join("/");
+
+const shuffled = <T,>(items: T[]) => {
+  const out = [...items];
+  for (let i = out.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+};
 
 /** Written by the editor's cache-templates step, keyed the same way. */
 const thumbnailUrl = (t: Template) =>
@@ -138,10 +156,9 @@ const setupTemplateMosaic = async () => {
    * Fill a track so it can loop seamlessly at this width.
    *
    * The animation runs to -50%, so the first half of the track has to be at
-   * least as wide as the row - otherwise the loop drags empty space through
-   * the far end. Six tiles come to about 1536px, so anything above roughly a
-   * 1536px viewport showed a hole; the fix is to repeat the templates until a
-   * half covers the row rather than assuming one pass does.
+   * least as wide as the row, or the loop drags empty space through the far
+   * end. A small catalog on a wide display does not manage that in one pass,
+   * so the templates repeat until a half covers the row.
    *
    * Only the first pass is exposed. Everything after it is the same templates
    * again, so it is hidden from assistive tech and taken out of the tab order
@@ -169,6 +186,9 @@ const setupTemplateMosaic = async () => {
     // Complete the first half, then mirror it. -50% is then exactly one half.
     for (let i = 1; i < passes; i += 1) addHiddenPass();
     for (let i = 0; i < passes; i += 1) addHiddenPass();
+    // The keyframe is a percentage of the track, so the duration is what sets
+    // the speed, and it has to be a function of how far a half actually is.
+    track.style.animationDuration = `${passes * items.length * SECONDS_PER_TILE}s`;
   };
 
   const row = (items: Template[], reverse: boolean) => {
@@ -180,9 +200,11 @@ const setupTemplateMosaic = async () => {
     return { rowEl, refill: () => fillTrack(rowEl, track, items) };
   };
 
+  // Shuffled, so a reload is a different wall rather than the same one again -
+  // and so no template is permanently the one at the front of the catalog.
+  const featured = shuffled(templates);
   // Split across two rows that drift against each other. An odd count puts the
   // extra one on top, where the row is read first.
-  const featured = templates.slice(0, MOSAIC_TILES);
   const split = Math.ceil(featured.length / 2);
   const rows = [
     row(featured.slice(0, split), false),
@@ -212,11 +234,14 @@ const setupTemplateMosaic = async () => {
    * is right now, which is why this runs per frame instead of being declared
    * in CSS - the tiles never stop moving.
    *
-   * Cheap on purpose. Each tile's offset within its track is measured once and
-   * cached; per frame this reads one box (the track's) and writes transforms,
-   * rather than asking the browser where two dozen moving elements are.
+   * Cheap on purpose, and independent of how long the catalog is. Each tile's
+   * offset within its track is measured once and cached; per frame this reads
+   * one box (the track's) and writes transforms only for the tiles actually
+   * over the row, rather than asking the browser where every tile is. The rest
+   * of the track is clipped, so the work that matters is set by the width of
+   * the display and not by the number of templates strung across it.
    */
-  type Curved = { el: HTMLElement; centre: number };
+  type Curved = { el: HTMLElement; centre: number; radius: number };
   let curved: { track: HTMLElement; row: HTMLElement; tiles: Curved[] }[] = [];
   let depth = 0;
   let turn = 0;
@@ -225,13 +250,27 @@ const setupTemplateMosaic = async () => {
     const style = getComputedStyle(mosaic);
     depth = parseFloat(style.getPropertyValue("--curve-depth")) || 0;
     turn = parseFloat(style.getPropertyValue("--curve-turn")) || 0;
-    curved = rows.map(({ rowEl }) => {
-      const track = rowEl.querySelector(".marquee-track") as HTMLElement;
+    const tracks = rows.map(
+      ({ rowEl }) => rowEl.querySelector(".marquee-track") as HTMLElement,
+    );
+    // A tile's offset is taken from its rendered box, so any curve still on it
+    // from an earlier run would be measured in as part of where it sits.
+    for (const track of tracks) {
+      for (const child of track.children) {
+        (child as HTMLElement).style.transform = "";
+      }
+    }
+    curved = rows.map(({ rowEl }, i) => {
+      const track = tracks[i];
       const trackLeft = track.getBoundingClientRect().left;
       const tiles = [...track.children].map((child) => {
         const el = child as HTMLElement;
         const box = el.getBoundingClientRect();
-        return { el, centre: box.left - trackLeft + box.width / 2 };
+        return {
+          el,
+          centre: box.left - trackLeft + box.width / 2,
+          radius: box.width / 2,
+        };
       });
       return { track, row: rowEl, tiles };
     });
@@ -243,15 +282,17 @@ const setupTemplateMosaic = async () => {
       const rowBox = row.getBoundingClientRect();
       const half = rowBox.width / 2;
       const middle = rowBox.left + half;
-      for (const { el, centre } of tiles) {
+      for (const { el, centre, radius } of tiles) {
+        const offset = trackLeft + centre - middle;
+        // Clipped by the row, so nothing it is given would be seen. The track
+        // runs the whole catalog past a fixed window; this is what keeps the
+        // per-frame cost the size of the window rather than the catalog.
+        if (Math.abs(offset) > half + radius) continue;
         // -1 at the left edge of the row, 0 dead ahead, 1 at the right edge.
         // Clamped there: past the edge a tile is inside the fade anyway, and
         // letting p run on squared into a translateZ that pushed tiles most of
         // the way to the camera and blew them up to twice their size.
-        const p = Math.max(
-          -1,
-          Math.min(1, (trackLeft + centre - middle) / half),
-        );
+        const p = Math.max(-1, Math.min(1, offset / half));
         // Squared, so the middle stays flat and the curve gathers at the ends
         // rather than tilting everything a little.
         // depth is a fraction of the row, so the curve scales with the display

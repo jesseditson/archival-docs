@@ -322,6 +322,9 @@ h1,
   display: flex;
   width: max-content;
   transform-style: preserve-3d;
+  /* The duration is overwritten by src/index.ts once the track is filled: the
+     keyframe moves a percentage of the track, so holding one duration would
+     make a longer catalog drift faster. This is the no-JS floor. */
   animation: template-drift 90s linear infinite;
 }
 
