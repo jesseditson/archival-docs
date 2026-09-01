@@ -282,6 +282,16 @@ h1,
      small window and a seam on a large one. */
   --band-pad-outer: clamp(2.5rem, 5vw, 7rem);
   --band-pad-inner: clamp(0.9rem, 1.3vw, 1.9rem);
+
+  /* That padding is scaffolding for the curve, not part of the band, and the
+     negative margin above deliberately pulls the link below into it. Left
+     interactive, the empty space swallowed every click meant for "Browse all
+     templates" and paused the drift whenever the pointer came near it - the
+     bands sit in a stacking context of their own (the translate), so they
+     take the hit even though the link comes after them. Only the track opts
+     back in, and hover-to-pause is unaffected: a pointer over a tile still
+     puts :hover on the row above it. */
+  pointer-events: none;
 }
 
 /* The mask is what keeps this from reading as content that has been cut off:
@@ -321,6 +331,7 @@ h1,
 .marquee-track {
   display: flex;
   width: max-content;
+  pointer-events: auto;
   transform-style: preserve-3d;
   /* The duration is overwritten by src/index.ts once the track is filled: the
      keyframe moves a percentage of the track, so holding one duration would
