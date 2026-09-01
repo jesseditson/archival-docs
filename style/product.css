@@ -2,6 +2,10 @@
 .product-page {
   width: 100%;
   overflow-x: clip;
+  /* The width every frame is laid out at before fit() scales it. Lives here,
+     not on .product-frame, because the stacked breakpoint sizes the column
+     from it as well, and the two have to be the same number to line up. */
+  --pf-dw: 33.5rem;
   /* #product is the nav's anchor target; clear the fixed nav on jump.
      Matches the offset used for docs headings in markdown.css. */
   scroll-margin-top: 100px;
@@ -178,6 +182,14 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
     margin: 5rem auto;
+    /* Stacked, the copy, the frame and the legend are one column, so the
+       column stops at the width the frame stops at. Without this the section
+       kept growing while the frame held at --pf-dw and margin-inline centered
+       it, so from 601px up the frame drifted right while the copy above and
+       the legend below stayed on the left edge. Capping here keeps all three
+       on one edge and centers the section instead, which is what every other
+       band on the site already does. */
+    max-width: calc(var(--pf-dw) + 4rem);
   }
   .product-section.frame-left {
     direction: ltr;
@@ -202,7 +214,6 @@
   --pf-violet: rgba(139, 92, 246, 1);
   --pf-teal: #7ec8b8;
   --pf-purple: #b87fd4;
-  --pf-dw: 33.5rem;
 
   position: relative;
   border-radius: 1rem;
