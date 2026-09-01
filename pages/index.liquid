@@ -2,7 +2,7 @@
 {% assign home = objects.home %}
 {% assign product = objects.product %}
 
-<div id="header" class="w-full flex flex-col justify-center items-center gap-6 pt-60 relative">
+<div id="header" class="w-full flex flex-col justify-center items-center gap-6 pt-44 relative">
   <h1 class="hero-message" data-tilt-hero>
     <span class="hero-line-1">websites for</span>
     <span class="hero-line-2">everyone</span>
@@ -83,11 +83,20 @@
 
 <div class="build-section">
   <h2 class="build-heading">Build yours right now.</h2>
-  <p class="build-description">
-    Describe what type of site you'd like to create and<br class="build-description-break" />
-    we'll get you live in a few minutes.
-  </p>
-  <iframe id="generate-frame"></iframe>
+
+  <div id="template-mosaic" class="template-mosaic" hidden></div>
+
+  <a
+    id="browse-templates"
+    class="browse-templates"
+    href="https://editor.archival.dev/new"
+    data-umami-event="hero-browse-templates"
+  >
+    <span>Browse all templates</span>
+    <span class="browse-templates-arrow" aria-hidden="true">&rarr;</span>
+  </a>
+
+  <div class="build-divider" aria-hidden="true"></div>
 
   {% include "build-cta" %}
 </div>
@@ -272,61 +281,51 @@
             </li>
           </ol>
         {% elsif section.key == "prompt" %}
+          {% comment %}
+            The flow this draws: choose a template, optionally say something
+            about your site, generate. Built from the same .pf-* primitives the
+            other frames use rather than a vocabulary of its own: the optional
+            box IS .pf-prompt-card, unchanged.
+
+            Every element in here carries a number. A detail view of the picked
+            template was drawn here once and was the only thing that did not,
+            which is what gave it away as decoration rather than a step.
+          {% endcomment %}
           <div class="product-frame product-frame--prompt">
             <div class="product-frame-glow" aria-hidden="true"></div>
 
-            {% comment %} Glowing AI prompt card {% endcomment %}
-            <div class="pf-prompt-card pf-glass">
-              <div class="pf-prompt-textarea" data-callout-target="1">
-                Describe what type of site you'd like to create&hellip;
-              </div>
-              <div class="pf-prompt-row">
-                <div class="pf-attach-row" data-callout-target="2">
-                  <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Photos</span>
-                  <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Video</span>
-                  <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Audio</span>
-                </div>
-                <button class="pf-cta pf-generate-btn" type="button">Generate</button>
+            {% comment %} The gallery, as a strip. One is picked. {% endcomment %}
+            <div class="pf-choose">
+              <p class="pf-frame-title">Select a template</p>
+              <div class="pf-tile-strip" data-callout-target="1">
+                <span class="pf-tile"><i class="pf-tile-header"></i><i class="pf-tile-body"></i></span>
+                <span class="pf-tile"><i class="pf-tile-header"></i><i class="pf-tile-body"></i></span>
+                <span class="pf-tile pf-tile--active">
+                  <i class="pf-tile-header"></i><i class="pf-tile-body"></i>
+                </span>
+                <span class="pf-tile"><i class="pf-tile-header"></i><i class="pf-tile-body"></i></span>
+                <span class="pf-tile"><i class="pf-tile-header"></i><i class="pf-tile-body"></i></span>
+                <span class="pf-tile"><i class="pf-tile-header"></i><i class="pf-tile-body"></i></span>
               </div>
             </div>
 
-            {% comment %} 3-up generated template chooser {% endcomment %}
-            <div class="pf-chooser" data-callout-target="3">
-              <button
-                class="pf-paddle pf-paddle-prev"
-                type="button"
-                aria-label="Previous site"
-              >
-                &#8249;
-              </button>
-
-              <div class="pf-site-card">
-                <div class="pf-site-header"></div>
-                <div class="pf-site-block pf-site-block--wide"></div>
-                <div class="pf-site-block"></div>
+            <div class="pf-prompt-card pf-glass" data-callout-target="2">
+              <span class="pf-optional-label">Optional</span>
+              <div class="pf-prompt-textarea">Tell us about your site&hellip;</div>
+              <div class="pf-attach-row">
+                <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Photos</span>
+                <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Video</span>
+                <span class="pf-chip"> <i class="pf-chip-icon" aria-hidden="true"></i>Audio</span>
               </div>
-
-              <div class="pf-site-card pf-site-card--active">
-                <div class="pf-site-header"></div>
-                <div class="pf-site-block pf-site-block--wide"></div>
-                <div class="pf-site-block"></div>
-                <button class="pf-cta pf-golive-btn" type="button">Go Live</button>
-              </div>
-
-              <div class="pf-site-card">
-                <div class="pf-site-header"></div>
-                <div class="pf-site-block pf-site-block--wide"></div>
-                <div class="pf-site-block"></div>
-              </div>
-
-              <button
-                class="pf-paddle pf-paddle-next"
-                type="button"
-                aria-label="Next site"
-              >
-                &#8250;
-              </button>
             </div>
+
+            <button
+              class="pf-cta pf-generate-btn"
+              type="button"
+              data-callout-target="3"
+            >
+              Generate
+            </button>
 
             <button
               type="button"
@@ -358,32 +357,17 @@
           </div>
 
           <ol class="callout-legend">
-            <li
-              class="callout-item"
-              data-callout="1"
-              id="c2-1"
-              style="--i:1;"
-            >
+            <li class="callout-item" data-callout="1" id="c2-1" style="--i:1;">
               <b>1</b>
-              Describe your site in plain language.
+              Pick a template and see it running.
             </li>
-            <li
-              class="callout-item"
-              data-callout="2"
-              id="c2-2"
-              style="--i:2;"
-            >
+            <li class="callout-item" data-callout="2" id="c2-2" style="--i:2;">
               <b>2</b>
-              Attach photos, video, or audio you already have.
+              Describe your site, and attach what you already have.
             </li>
-            <li
-              class="callout-item"
-              data-callout="3"
-              id="c2-3"
-              style="--i:3;"
-            >
+            <li class="callout-item" data-callout="3" id="c2-3" style="--i:3;">
               <b>3</b>
-              Pick from several complete, real sites and go live.
+              Generate, and it is yours to edit.
             </li>
           </ol>
         {% elsif section.key == "media" %}

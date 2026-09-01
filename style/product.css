@@ -24,12 +24,12 @@
   --m-editor-4-y: 20.9%;
 
   /* Prompt — "Describe what you want: Get real websites." */
-  --m-prompt-1-x: 94.7%;
-  --m-prompt-1-y: 21.7%;
-  --m-prompt-2-x: 53.6%;
-  --m-prompt-2-y: 39.2%;
-  --m-prompt-3-x: 50%;
-  --m-prompt-3-y: 57%;
+  --m-prompt-1-x: 97%;
+  --m-prompt-1-y: 21%;
+  --m-prompt-2-x: 97%;
+  --m-prompt-2-y: 56%;
+  --m-prompt-3-x: 64%;
+  --m-prompt-3-y: 88.5%;
 
   /* Settings — "Your site, your settings." (1 GitHub, 2 deploys, 3 DNS) */
   --m-settings-1-x: 42%;
@@ -831,46 +831,33 @@
   white-space: nowrap;
 }
 
-.pf-chooser {
+/* The gallery, as a strip. Six is enough to read as "there are more of these"
+   without becoming a grid, which would take the height the screen below it
+   needs. One is ringed, because the step this illustrates is the picking. */
+.pf-tile-strip {
   display: grid;
-  grid-template-columns: auto repeat(3, minmax(0, 1fr)) auto;
-  align-items: center;
-  gap: 0.6rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.5rem;
 }
-.pf-paddle {
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 999px;
-  background: var(--pf-glass);
-  border: 1px solid var(--pf-hairline);
-  color: var(--pf-text-dim);
-  display: grid;
-  place-items: center;
-  font-size: 1rem;
-  line-height: 1;
-}
-.pf-site-card {
+.pf-tile {
+  aspect-ratio: 4 / 3;
+  border-radius: 0.35rem;
   background: var(--pf-panel-2);
   border: 1px solid var(--pf-hairline);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.3rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  opacity: 0.65;
-  transform: scale(0.94);
+  gap: 0.25rem;
+  opacity: 0.55;
   min-width: 0;
 }
-.pf-site-card--active {
+.pf-tile--active {
   opacity: 1;
-  transform: scale(1);
   border-color: var(--pf-violet);
-  box-shadow:
-    0 0 0 1px rgba(139, 92, 246, 0.4),
-    0 8px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.4);
 }
-.pf-site-header {
-  height: 0.5rem;
+.pf-tile-header {
+  height: 0.25rem;
   border-radius: 999px;
   background: linear-gradient(
     90deg,
@@ -878,30 +865,51 @@
     rgba(0, 200, 255, 0.4)
   );
 }
-.pf-site-block {
-  height: 1.3rem;
-  border-radius: 0.25rem;
-  background: rgba(255, 255, 255, 0.08);
-}
-.pf-site-block--wide {
-  height: 2rem;
-}
-.pf-golive-btn {
-  margin-top: 0.25rem;
-  height: 1.75rem;
-  font-size: 0.68rem;
-  padding: 0 0.75rem;
+.pf-tile-body {
+  flex: 1;
+  border-radius: 0.2rem;
+  background: rgba(255, 255, 255, 0.07);
 }
 
+/* The title sits tight to the strip it names, so the two are one group rather
+   than two things a frame-wide gap has separated. */
+.pf-choose {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.pf-frame-title {
+  margin: 0;
+  text-align: center;
+  font-family: "Build", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.1;
+  color: var(--pf-text);
+  font-feature-settings: "ss01" on;
+}
+.pf-optional-label {
+  align-self: center;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6rem;
+  color: var(--pf-text-dim);
+  opacity: 0.75;
+}
+.pf-generate-btn {
+  align-self: center;
+}
 @media (max-width: 768px) {
   .product-frame--prompt {
     padding: 1rem;
     gap: 1.25rem;
   }
-  .pf-chooser {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Four tiles rather than six: below this they stop reading as sites and
+     start reading as texture. */
+  .pf-tile-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  .pf-paddle {
+  .pf-tile:nth-child(n + 5) {
     display: none;
   }
 }

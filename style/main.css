@@ -190,7 +190,9 @@ h1,
 .build-section {
   width: 100%;
   max-width: 52rem;
-  margin: 6rem auto 6rem;
+  /* Closer to the hero above than to what follows: "Build yours right now"
+     answers "websites for everyone", so the two belong together. */
+  margin: 4rem auto 6rem;
   padding: 0 2rem;
   text-align: center;
 }
@@ -201,7 +203,10 @@ h1,
   font-weight: 700;
   line-height: 1.1;
   color: var(--color-typography-primary);
-  margin: 0 0 2rem;
+  /* No bottom margin: the space under this line is set by .template-mosaic's
+     own top margin, which has to cancel the rows' padding first. Two margins
+     would collapse against each other and the result would not be either. */
+  margin: 0;
   font-feature-settings: "ss01" on;
 }
 
@@ -213,14 +218,334 @@ h1,
   line-height: 1.6;
 }
 
-.build-description-break {
-  display: inline;
+/* `hidden` has to be spelled out because a class selector outranks the UA's
+   [hidden] rule */
+.template-mosaic[hidden] {
+  display: none;
 }
 
-#generate-frame {
-  border: 0;
+/* Two rows drifting against each other, the treatment the professional
+   template uses for testimonials. Full-bleed on purpose: held inside the 52rem
+   column this reads as a ticker, and across the viewport it reads as a wall of
+   sites going past, which is the whole reason to move them.
+
+   Escapes the column with the standard 100vw trick rather than being moved out
+   of .build-section, so the heading and the link above and below it keep their
+   places in the section's flow. */
+.template-mosaic {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  /* Both cancel the outer padding, so what is left is the gap you actually
+     see: 4rem above, matching the space over the heading, and 3rem below,
+     which keeps the link tied to the band whose overflow it names. */
+  margin-top: calc(4rem - var(--band-pad-outer));
+  margin-bottom: calc(3rem - var(--band-pad-outer));
+  text-align: left;
+}
+
+/* The curve. The band is treated as a screen wrapping around the viewer: flat
+   ahead of you, and curling toward you at both ends, so the tiles out at the
+   sides are nearer the camera and render larger. src/index.ts turns each tile
+   to face you by an amount set by where it currently is, which is why this has
+   to be driven per frame rather than declared here - a tile's place in the row
+   is what decides its transform, and that changes constantly.
+
+   --curve-depth is how far the ends come forward, as a FRACTION of the row's
+   width rather than a length, and --curve-turn how far they turn to face you.
+   Both are read by the script; tune them here.
+
+   A fraction because everything here scales with the display: the tiles, the
+   camera distance below, and this. Held at fixed pixels while the row grew,
+   the same camera covered an ever wider field - a 35deg half-angle at 1280px
+   became 62deg at 3400px, and tiles out at the edges stretched half again as
+   wide as they were tall. Proportions keep the geometry identical at every
+   size, so a bigger display gets a bigger version of the same picture rather
+   than a more distorted one. */
+.template-mosaic {
+  --curve-depth: 0.132;
+  --curve-turn: 34deg;
+
+  /* The rows carry padding so the curve has somewhere to grow into. That is
+     scaffolding, not spacing - left to set the gaps it made them a function of
+     the curve, so the space under the heading ran from 82px to 153px across
+     the widths while the space above it stayed at 64px.
+
+     The outer padding is cancelled by the margins below, so the gaps around
+     the bands are stated here and hold at every width. The inner padding is
+     the gap between the two bands, and it is proportional: fixed, it was 76px
+     whether the tiles were 149px wide or 431px, which read as a chasm on a
+     small window and a seam on a large one. */
+  --band-pad-outer: clamp(2.5rem, 5vw, 7rem);
+  --band-pad-inner: clamp(0.9rem, 1.3vw, 1.9rem);
+}
+
+/* The mask is what keeps this from reading as content that has been cut off:
+   tiles arrive and leave rather than appearing and vanishing at a hard edge. */
+.marquee-row {
+  /* Proportional, so the field of view is the same at every width: the row is
+     100vw, and this is 0.625 of it - the 900px that looked right at 1440. */
+  perspective: 62.5vw;
+  overflow: hidden;
+  /* Room for what draws outside a tile: the frame's ring, the hover scale, and
+     the curve, which grows the tiles out at the sides by about a quarter.
+     Without it overflow:hidden clipped the top edge of every thumbnail. */
+  padding: var(--band-pad-inner) 0;
+  /* The names grow with the tiles, or a 14px label under a 428px thumbnail
+     reads as a caption that got left behind. */
+  font-size: clamp(0.875rem, 1vw, 1.15rem);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 20%,
+    #000 80%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 20%,
+    #000 80%,
+    transparent
+  );
+}
+
+/* No `gap` here on purpose. With a gap, a track of 2N tiles is 2N tiles plus
+   2N-1 gaps, so half of it is half a gap short of one pass and the loop drifts
+   out of alignment. Carrying the spacing on the tiles themselves makes the
+   track exactly 2N whole units, and -50% exactly one pass. */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  transform-style: preserve-3d;
+  /* The duration is overwritten by src/index.ts once the track is filled: the
+     keyframe moves a percentage of the track, so holding one duration would
+     make a longer catalog drift faster. This is the no-JS floor. */
+  animation: template-drift 90s linear infinite;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+/* Each band's vanishing point sits on the edge it shares with the other one,
+   so a tile coming toward the camera grows AWAY from its neighbour rather than
+   into it. Centred origins made both bands swell toward the middle, closing
+   the gap between them from 103px to 33px out at the sides - they read as
+   bending into each other. Now the pair opens out.
+
+   Which is also why the padding below is lopsided: the growth all goes to the
+   outer edge, so that is the only side that needs room for it. Measured, not
+   guessed - the top band was overflowing its row by 16px above and nothing
+   below, and the bottom band by 19px below and nothing above. A wide viewport
+   puts more tiles at full extension, so this is set from the worst case out at
+   3000px rather than the first width it happened to look right at.
+
+   It is sized for --curve-depth above: raise the depth and this has to follow,
+   or the tops come off again. */
+.marquee-row:first-child {
+  perspective-origin: 50% 100%;
+  padding-top: var(--band-pad-outer);
+}
+
+.marquee-row:last-child {
+  perspective-origin: 50% 0%;
+  padding-bottom: var(--band-pad-outer);
+}
+
+/* Pausing on hover is not decoration here: every tile is a link, and reaching
+   for one that is still moving is a fight. Taken from the same treatment. */
+.marquee-row:hover .marquee-track,
+.marquee-row:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes template-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Standing still, the row has to stay reachable, so it becomes something you
+   can push along yourself rather than a strip with its end cut off. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+
+  .marquee-row {
+    overflow-x: auto;
+    perspective: none;
+  }
+
+  /* No curve when nothing moves. Its whole job is to make a moving band read
+     as wrapping past you; frozen, it is just warped thumbnails. */
+  .template-tile {
+    transform: none !important;
+  }
+}
+
+.template-tile {
+  /* Grows with the display. The floor is the size this was designed at, so
+     nothing at or below 1440px changes; above it the tiles get bigger rather
+     than the row merely fitting more of them. */
+  flex: 0 0 clamp(15rem, 16.7vw, 28rem);
+  margin-right: 1rem;
+  /* Set per frame by the curve; the tile's own box never moves, only the face
+     it presents. */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.template-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  text-decoration: none;
+  opacity: 0.72;
+  transition: opacity 200ms ease;
+}
+
+.template-tile:hover,
+.template-tile:focus-visible {
+  opacity: 1;
+}
+
+.template-tile-shot {
+  display: block;
+  position: relative;
+  transform-origin: center;
+  /* The editor captures thumbnails at 1280x960, so the box is 4:3 and the
+     image never has to be letterboxed or cropped to fit it. */
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 1px var(--color-transparent-border);
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+/* The site's own framing idiom, borrowed rather than invented: the same double
+   ring --style-double-border draws elsewhere, tightened to this scale. The
+   thumbnail comes with it - growing the ring alone read as the frame swelling
+   around a picture that stayed put. */
+.template-tile:hover .template-tile-shot,
+.template-tile:focus-visible .template-tile-shot {
+  transform: scale(1.06);
+  box-shadow:
+    0 0 0 2px var(--color-main-bg),
+    0 0 0 4px var(--color-transparent-border);
+}
+
+/* Lifted over its neighbours while it is scaled, or the tile after it in the
+   row paints over the edge it just grew into. */
+.template-tile:hover,
+.template-tile:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+.template-tile:focus-visible {
+  outline: none;
+}
+
+.template-tile:focus-visible .template-tile-shot {
+  box-shadow:
+    0 0 0 2px var(--color-main-bg),
+    0 0 0 4px var(--color-secondary-interactive);
+}
+
+.template-tile-shot img {
+  display: block;
   width: 100%;
-  min-height: 21rem;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Thumbnails only exist once the gallery ships, and a template whose shot has
+   not been captured should still be pickable. The frame stays, the broken
+   image goes. */
+.template-tile.no-shot .template-tile-shot img {
+  display: none;
+}
+
+.template-tile-name {
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-typography-secondary);
+  transition: color 200ms ease;
+}
+
+.template-tile:hover .template-tile-name,
+.template-tile:focus-visible .template-tile-name {
+  color: var(--color-typography-primary);
+}
+
+.browse-templates {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-primary-cta-highlight);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.browse-templates:hover,
+.browse-templates:focus-visible {
+  color: var(--color-primary-cta-shadow);
+}
+
+/* The arrow moves, the words do not: the whole control sliding would read as
+   the page shifting rather than as a direction. */
+.browse-templates-arrow {
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.browse-templates:hover .browse-templates-arrow {
+  transform: translateX(3px);
+}
+
+/* Fades out at both ends rather than ruling a line across the column: it
+   separates two ways forward from each other without cutting the section in
+   half. */
+.build-divider {
+  height: 1px;
+  width: min(16rem, 55%);
+  margin: 3rem auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-transparent-border) 30%,
+    var(--color-transparent-border) 70%,
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .template-tile,
+  .template-tile-shot,
+  .template-tile-name,
+  .browse-templates-arrow {
+    transition: none;
+  }
+
+  /* The ring still marks what is hovered; the growing does not. */
+  .template-tile:hover .template-tile-shot,
+  .template-tile:focus-visible .template-tile-shot {
+    transform: none;
+  }
 }
 
 .pricing-page {
@@ -1660,10 +1985,6 @@ h1.pricing-title {
     padding: 0 1rem;
   }
 
-  .build-description-break {
-    display: none;
-  }
-
   .demo-video {
     padding: 0 1rem;
   }
@@ -1707,8 +2028,10 @@ h1.pricing-title {
     padding: 8rem 2rem 2rem;
   }
 
-  #generate-frame {
-    min-height: 28rem;
+  /* Smaller tiles rather than fewer: the row carries as many as it carries,
+     and every template still goes past. */
+  .template-tile {
+    flex-basis: 11rem;
   }
 
   .benefit-grid:not(.benefit-grid--compact),
@@ -2159,9 +2482,6 @@ input:checked + .slider::before {
   color: var(--color-secondary-interactive);
 }
 
-/* Separates the prompt frame from the Claude Code button. On its own line so
-   the two calls to action read as alternatives rather than a sequence. */
-/* The lead-in sits above the CTA as its own quiet line. */
 .build-alt {
   margin: 2rem 0 1rem;
   font-size: var(--typo-body-size);
@@ -2234,4 +2554,32 @@ input:checked + .slider::before {
 .link-fineprint {
   margin-top: 2rem;
   max-width: 52ch;
+}
+
+/* Phones. Placed here rather than beside the other mosaic rules because the
+   override at 768px lives further up the file: an earlier rule at equal
+   specificity would lose to it at every width this one cares about. */
+@media (max-width: 520px) {
+  .template-tile {
+    flex-basis: 9rem;
+  }
+
+  .marquee-row {
+    /* Less of the row is on screen, so the fade has to be shorter or it eats
+       the tiles it is supposed to be revealing. */
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+  }
 }

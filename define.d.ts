@@ -2,6 +2,7 @@
 // they will be baked into the app.
 
 declare const DEV: boolean;
-declare const LANDING_IFRAME_URL: string;
+/** Origin of the editor: the template gallery, templates.json and thumbnails. */
+declare const EDITOR_URL: string;
 declare const API_URL: string;
 declare const TURNSTILE_SITE_KEY: string;

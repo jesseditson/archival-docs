@@ -1,7 +1,10 @@
-declare const umami: { track: (event: string, data?: Record<string, string | number>) => void } | undefined;
+declare const umami:
+  | { track: (event: string, data?: Record<string, string | number>) => void }
+  | undefined;
 
 window.addEventListener("load", () => {
-  setupGenerateFrame();
+  pointBrowseLinkAtEditor();
+  void setupTemplateMosaic();
   // setupHeaderVideos();
   setupMobileMenu();
   setupDocsMenu();
@@ -23,88 +26,320 @@ window.addEventListener("load", () => {
   update();
 });
 
-const setupGenerateFrame = () => {
-  // Only index and product embed the frame. Bail before anything else so pages
-  // without it don't throw and abort the rest of the load handler.
-  const iframe = document.getElementById('generate-frame') as HTMLIFrameElement | null;
-  if (!iframe) {
+/**
+ * Fill the mosaic from the editor's own catalog.
+ *
+ * templates.json is served from the editor origin with
+ * access-control-allow-origin: *, and carries the five repo fields that make up
+ * a template's identifier. That is all this needs: the identifier addresses the
+ * template in the gallery, and the same parts spell the thumbnail path.
+ *
+ * Progressive enhancement on purpose. The heading, the line under it and the
+ * browse link are in the markup already, so a failed fetch, an empty catalog or
+ * no JS at all leaves a section that still reads and still leads somewhere.
+ */
+
+/**
+ * Seconds a tile takes to travel its own width.
+ *
+ * The drift is stated as a speed rather than a duration so it does not depend
+ * on how many templates the catalog holds: the row is a wall of sites going
+ * past at a readable pace, and that pace is a property of the band, not of the
+ * number of tiles filling it. Expressed per tile rather than in pixels so the
+ * band still drifts faster on a large display, where the tiles are bigger.
+ */
+const SECONDS_PER_TILE = 15;
+
+/**
+ * `TemplateObject::identifier()` in the editor: the five parts url-encoded and
+ * joined by "/". It has to be encodeURIComponent'd again into the query string,
+ * because the parts carry percent-escapes of their own - dropped in raw,
+ * URLSearchParams would decode them and the id would no longer match.
+ */
+const templateId = (t: Template) =>
+  [t.repo_provider, t.repo_owner, t.repo_name, t.repo_ref, t.name]
+    .map(encodeURIComponent)
+    .join("/");
+
+const shuffled = <T,>(items: T[]) => {
+  const out = [...items];
+  for (let i = out.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+};
+
+/** Written by the editor's cache-templates step, keyed the same way. */
+const thumbnailUrl = (t: Template) =>
+  `${EDITOR_URL}/${t.repo_provider}-${t.repo_owner}-${t.repo_name}-${t.repo_ref.replace(/\//g, "_")}/thumbnail.jpg`;
+
+type Template = {
+  name: string;
+  repo_provider: string;
+  repo_owner: string;
+  repo_name: string;
+  repo_ref: string;
+};
+
+/**
+ * Send the browse link to the editor this build targets.
+ *
+ * The markup carries the production editor, which is what a visitor with no JS
+ * needs; this is what makes local and staging reach their own.
+ */
+const pointBrowseLinkAtEditor = () => {
+  const link = document.getElementById("browse-templates");
+  if (link instanceof HTMLAnchorElement) {
+    link.href = `${EDITOR_URL}/new`;
+  }
+};
+
+const setupTemplateMosaic = async () => {
+  // Only the home page carries the mosaic. Bail before fetching anything so
+  // every other page does not pay for a request it will not use.
+  const mosaic = document.getElementById("template-mosaic");
+  if (!mosaic) {
     return;
   }
 
-  const srcOrigin = new URL(LANDING_IFRAME_URL).origin;
-  window.addEventListener('message', (event) => {
-      if (event.origin === srcOrigin) {
-        switch (Object.keys(event.data)[0]) {
-          case "resize": {
-            const h = event.data["resize"].height;
-            iframe.style.height = typeof h === "number" ? `${h}px` : h;
-            break;
-          }
-          case "start":
-            if (typeof umami !== 'undefined') umami.track('hero-generate-start');
-            animateIframeToFullscreen(iframe);
-            break;
-          case "ready":
-            window.location.href = srcOrigin + "/new";
-            break;
-        }
-      }
-    });
-
-  iframe.src = LANDING_IFRAME_URL;
-}
-
-const animateIframeToFullscreen = (iframe: HTMLIFrameElement) => {
-  // Avoid re-triggering if the transition has already started.
-  if (iframe.dataset.fullscreenAnimating === "true") {
-    return;
-  }
-  iframe.dataset.fullscreenAnimating = "true";
-
-  const rect = iframe.getBoundingClientRect();
-  const startTop = `${rect.top}px`;
-  const startLeft = `${rect.left}px`;
-  const startWidth = `${rect.width}px`;
-  const startHeight = `${rect.height}px`;
-
-  iframe.style.position = "fixed";
-  iframe.style.top = startTop;
-  iframe.style.left = startLeft;
-  iframe.style.width = startWidth;
-  iframe.style.height = startHeight;
-  iframe.style.margin = "0";
-  iframe.style.zIndex = "9999";
-
-  const animation = iframe.animate(
-    [
-      {
-        backgroundColor: "rgba(19,17,28,0)",
-        top: startTop,
-        left: startLeft,
-        width: startWidth,
-        height: startHeight,
-      },
-      {
-        backgroundColor: "rgba(19,17,28,1)",
-        top: "0px",
-        left: "0px",
-        width: "100%",
-        height: "100%",
-      },
-    ],
-    {
-      duration: 500,
-      easing: "cubic-bezier(0.2, 0.7, 0.2, 1)",
-      fill: "forwards",
+  let templates: Template[];
+  try {
+    const response = await fetch(`${EDITOR_URL}/templates.json`);
+    if (!response.ok) {
+      return;
     }
-  );
+    ({ templates } = (await response.json()) as { templates: Template[] });
+  } catch (error) {
+    // Degrading quietly is right for an unreachable editor: the section still
+    // reads and the browse link still works. Saying so is right for everything
+    // else - this swallowed a ReferenceError once (a dev server holding an
+    // esbuild context from before EDITOR_URL existed, since esbuild's watch
+    // captures its defines at startup and never re-reads build.mjs) and the
+    // silence was the expensive part, not the failure.
+    console.warn("Could not load the template catalog:", error);
+    return;
+  }
+  if (!Array.isArray(templates) || templates.length === 0) {
+    return;
+  }
 
-  animation.addEventListener("finish", () => {
-    iframe.style.top = "0";
-    iframe.style.left = "0";
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
+  const tile = (template: Template) => {
+    const el = document.createElement("a");
+    el.className = "template-tile";
+    el.href = `${EDITOR_URL}/new?template=${encodeURIComponent(templateId(template))}`;
+    el.setAttribute("data-umami-event", "hero-template-pick");
+
+    const shot = document.createElement("span");
+    shot.className = "template-tile-shot";
+    const img = document.createElement("img");
+    img.src = thumbnailUrl(template);
+    img.loading = "lazy";
+    // Decorative: the name below already says which template this is, and a
+    // screen reader does not need to hear it twice.
+    img.alt = "";
+    // Thumbnails only exist once the gallery ships. Until then - and for any
+    // template whose shot has not been captured - the tile falls back to its
+    // name on an empty frame rather than a broken image.
+    img.addEventListener("error", () => el.classList.add("no-shot"));
+    shot.appendChild(img);
+
+    const name = document.createElement("span");
+    name.className = "template-tile-name";
+    name.textContent = template.name;
+
+    el.append(shot, name);
+    return el;
+  };
+
+  /**
+   * Fill a track so it can loop seamlessly at this width.
+   *
+   * The animation runs to -50%, so the first half of the track has to be at
+   * least as wide as the row, or the loop drags empty space through the far
+   * end. A small catalog on a wide display does not manage that in one pass,
+   * so the templates repeat until a half covers the row.
+   *
+   * Only the first pass is exposed. Everything after it is the same templates
+   * again, so it is hidden from assistive tech and taken out of the tab order
+   * rather than announcing and focusing each template several times.
+   */
+  const fillTrack = (
+    rowEl: HTMLElement,
+    track: HTMLElement,
+    items: Template[],
+  ) => {
+    track.replaceChildren();
+    for (const template of items) {
+      track.appendChild(tile(template));
+    }
+    const passWidth = track.scrollWidth;
+    const passes = Math.max(1, Math.ceil(rowEl.clientWidth / passWidth));
+    const addHiddenPass = () => {
+      for (const template of items) {
+        const el = tile(template);
+        el.setAttribute("aria-hidden", "true");
+        el.tabIndex = -1;
+        track.appendChild(el);
+      }
+    };
+    // Complete the first half, then mirror it. -50% is then exactly one half.
+    for (let i = 1; i < passes; i += 1) addHiddenPass();
+    for (let i = 0; i < passes; i += 1) addHiddenPass();
+    // The keyframe is a percentage of the track, so the duration is what sets
+    // the speed, and it has to be a function of how far a half actually is.
+    track.style.animationDuration = `${passes * items.length * SECONDS_PER_TILE}s`;
+  };
+
+  const row = (items: Template[], reverse: boolean) => {
+    const rowEl = document.createElement("div");
+    rowEl.className = "marquee-row";
+    const track = document.createElement("div");
+    track.className = reverse ? "marquee-track reverse" : "marquee-track";
+    rowEl.appendChild(track);
+    return { rowEl, refill: () => fillTrack(rowEl, track, items) };
+  };
+
+  // Shuffled, so a reload is a different wall rather than the same one again -
+  // and so no template is permanently the one at the front of the catalog.
+  const featured = shuffled(templates);
+  // Split across two rows that drift against each other. An odd count puts the
+  // extra one on top, where the row is read first.
+  const split = Math.ceil(featured.length / 2);
+  const rows = [
+    row(featured.slice(0, split), false),
+    row(featured.slice(split), true),
+  ];
+  mosaic.append(...rows.map((r) => r.rowEl));
+  mosaic.hidden = false;
+  // Measured, so it has to happen after the rows are laid out - and again when
+  // the window grows, or a track that covered the row stops covering it.
+  const refillAll = () => rows.forEach((r) => r.refill());
+  refillAll();
+  let resizeFrame: number | undefined;
+  window.addEventListener("resize", () => {
+    if (resizeFrame) window.clearTimeout(resizeFrame);
+    resizeFrame = window.setTimeout(() => {
+      refillAll();
+      measureCurve();
+    }, 150);
   });
+
+  /**
+   * The curve.
+   *
+   * The band is a screen wrapping around the viewer: flat straight ahead, and
+   * curling toward you at both ends, so a tile out at the side is nearer the
+   * camera and draws larger. A tile's transform therefore depends on where it
+   * is right now, which is why this runs per frame instead of being declared
+   * in CSS - the tiles never stop moving.
+   *
+   * Cheap on purpose, and independent of how long the catalog is. Each tile's
+   * offset within its track is measured once and cached; per frame this reads
+   * one box (the track's) and writes transforms only for the tiles actually
+   * over the row, rather than asking the browser where every tile is. The rest
+   * of the track is clipped, so the work that matters is set by the width of
+   * the display and not by the number of templates strung across it.
+   */
+  type Curved = { el: HTMLElement; centre: number; radius: number };
+  let curved: { track: HTMLElement; row: HTMLElement; tiles: Curved[] }[] = [];
+  let depth = 0;
+  let turn = 0;
+
+  const measureCurve = () => {
+    const style = getComputedStyle(mosaic);
+    depth = parseFloat(style.getPropertyValue("--curve-depth")) || 0;
+    turn = parseFloat(style.getPropertyValue("--curve-turn")) || 0;
+    const tracks = rows.map(
+      ({ rowEl }) => rowEl.querySelector(".marquee-track") as HTMLElement,
+    );
+    // A tile's offset is taken from its rendered box, so any curve still on it
+    // from an earlier run would be measured in as part of where it sits.
+    for (const track of tracks) {
+      for (const child of track.children) {
+        (child as HTMLElement).style.transform = "";
+      }
+    }
+    curved = rows.map(({ rowEl }, i) => {
+      const track = tracks[i];
+      const trackLeft = track.getBoundingClientRect().left;
+      const tiles = [...track.children].map((child) => {
+        const el = child as HTMLElement;
+        const box = el.getBoundingClientRect();
+        return {
+          el,
+          centre: box.left - trackLeft + box.width / 2,
+          radius: box.width / 2,
+        };
+      });
+      return { track, row: rowEl, tiles };
+    });
+  };
+
+  const drawCurve = () => {
+    for (const { track, row, tiles } of curved) {
+      const trackLeft = track.getBoundingClientRect().left;
+      const rowBox = row.getBoundingClientRect();
+      const half = rowBox.width / 2;
+      const middle = rowBox.left + half;
+      for (const { el, centre, radius } of tiles) {
+        const offset = trackLeft + centre - middle;
+        // Clipped by the row, so nothing it is given would be seen. The track
+        // runs the whole catalog past a fixed window; this is what keeps the
+        // per-frame cost the size of the window rather than the catalog.
+        if (Math.abs(offset) > half + radius) continue;
+        // -1 at the left edge of the row, 0 dead ahead, 1 at the right edge.
+        // Clamped there: past the edge a tile is inside the fade anyway, and
+        // letting p run on squared into a translateZ that pushed tiles most of
+        // the way to the camera and blew them up to twice their size.
+        const p = Math.max(-1, Math.min(1, offset / half));
+        // Squared, so the middle stays flat and the curve gathers at the ends
+        // rather than tilting everything a little.
+        // depth is a fraction of the row, so the curve scales with the display
+        // the same way the tiles and the perspective do.
+        const push = p * p * depth * rowBox.width;
+        el.style.transform = `translateZ(${push.toFixed(1)}px) rotateY(${(-p * turn).toFixed(2)}deg)`;
+      }
+    }
+  };
+
+  let frame = 0;
+  const run = () => {
+    drawCurve();
+    frame = requestAnimationFrame(run);
+  };
+  const stop = () => {
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+  };
+
+  const flat = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const start = () => {
+    stop();
+    if (flat.matches) return;
+    measureCurve();
+    run();
+  };
+  start();
+  flat.addEventListener("change", start);
+
+  // Nothing to compute while the rows are off screen, and a page that keeps a
+  // rAF loop running out of view is just spending someone's battery.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !flat.matches) {
+          if (!frame) {
+            measureCurve();
+            run();
+          }
+        } else {
+          stop();
+        }
+      },
+      { rootMargin: "200px" },
+    ).observe(mosaic);
+  }
 };
 
 // Factor by which to offset shadow
@@ -125,11 +360,9 @@ const updateShadowImages = () => {
 
 const setupDocsMenu = () => {
   const menuButton = document.querySelector("#mobile-current-view") as
-    | HTMLDivElement
-    | undefined;
+    HTMLDivElement | undefined;
   const menu = document.querySelector("#docs-selector") as
-    | HTMLDivElement
-    | undefined;
+    HTMLDivElement | undefined;
   if (menuButton && menu) {
     const toggleMenu = (e: Event) => {
       e.preventDefault();
@@ -179,7 +412,7 @@ const setupMobileMenu = () => {
     }, 25);
   };
   closedMenu?.addEventListener("click", () => {
-    if (typeof umami !== 'undefined') umami.track('mobile-menu-open');
+    if (typeof umami !== "undefined") umami.track("mobile-menu-open");
     toggleMenu(true);
   });
   openMenu?.addEventListener("click", () => {
@@ -197,7 +430,7 @@ type SearchResultsRaw = {
       docTitle: string;
       sectionTitle: string | null;
       content: string;
-    }
+    },
   ];
 };
 
@@ -259,11 +492,11 @@ const setupQuickSearch = async () => {
   const resultsEl = document.querySelector("#results") as HTMLUListElement;
   const emptyResult = document.querySelector("#results-empty") as HTMLLIElement;
   const notFoundResult = document.querySelector(
-    "#results-none"
+    "#results-none",
   ) as HTMLLIElement;
   const result = document.querySelector("#results-result") as HTMLLIElement;
   const input = document.querySelector(
-    "#quick-search-input"
+    "#quick-search-input",
   ) as HTMLInputElement;
   document
     .querySelector("#quick-search-button")
@@ -426,6 +659,6 @@ if (DEV) {
   console.log("Dev Mode enabled");
   // ESBuild watch
   new EventSource("/esbuild").addEventListener("change", () =>
-    location.reload()
+    location.reload(),
   );
 }
