@@ -84,7 +84,14 @@
 <div class="build-section">
   <h2 class="build-heading">Build yours right now.</h2>
 
-  <div id="template-mosaic" class="template-mosaic" hidden></div>
+  {% comment %}
+    Not hidden: the mosaic reserves its height here, in the markup, so the
+    link and the CTA below it are never painted in the band's place and then
+    pushed down when the catalog lands. src/index.ts hides it if the catalog
+    cannot be had, and the noscript rule in the layout hides it where nothing
+    will ever fill it.
+  {% endcomment %}
+  <div id="template-mosaic" class="template-mosaic"></div>
 
   <a
     id="browse-templates"

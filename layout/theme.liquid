@@ -138,6 +138,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style/main.css">
+    {% comment %}
+      The template mosaic holds its height from the first paint so the CTA
+      under it never renders in its place, which means the empty band is in
+      the markup before the tiles that fill it exist. Without script those
+      tiles never arrive, so this takes the space back.
+    {% endcomment %}
+    <noscript>
+      <style>
+        .template-mosaic {
+          display: none;
+        }
+      </style>
+    </noscript>
     <script type="module" src="/scripts/main.js"></script>
   </head>
 

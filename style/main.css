@@ -282,6 +282,41 @@ h1,
      small window and a seam on a large one. */
   --band-pad-outer: clamp(2.5rem, 5vw, 7rem);
   --band-pad-inner: clamp(0.9rem, 1.3vw, 1.9rem);
+
+  /* A tile's size lives here rather than on .template-tile because the height
+     reserved below is computed from it. One set of numbers, so the space the
+     mosaic asks for while it is still empty is the space its tiles end up
+     taking. The breakpoints further down override --tile-w, not the tile. */
+  --tile-w: clamp(15rem, 16.7vw, 28rem);
+  --tile-name: clamp(0.875rem, 1vw, 1.15rem);
+  --tile-gap: 0.625rem;
+
+  /* Hold the bands' height from the first paint. The catalog comes over the
+     network, so without this the CTA below rendered up under the heading and
+     was thrown the height of the mosaic down the page when the tiles landed -
+     a flash of the wrong layout, and up to 0.15 of layout shift.
+
+     Both rows measure the same: their two paddings, a 4:3 thumbnail, the gap
+     under it and one line of name. src/index.ts collapses this again if the
+     catalog never arrives, so a dead editor costs an empty band for as long
+     as the request takes and nothing after that. */
+  min-height: calc(
+    2 *
+      (
+        var(--band-pad-outer) + var(--band-pad-inner) + var(--tile-w) * 0.75 +
+          var(--tile-gap) + 1.3 * var(--tile-name)
+      )
+  );
+
+  /* That padding is scaffolding for the curve, not part of the band, and the
+     negative margin above deliberately pulls the link below into it. Left
+     interactive, the empty space swallowed every click meant for "Browse all
+     templates" and paused the drift whenever the pointer came near it - the
+     bands sit in a stacking context of their own (the translate), so they
+     take the hit even though the link comes after them. Only the track opts
+     back in, and hover-to-pause is unaffected: a pointer over a tile still
+     puts :hover on the row above it. */
+  pointer-events: none;
 }
 
 /* The mask is what keeps this from reading as content that has been cut off:
@@ -297,7 +332,7 @@ h1,
   padding: var(--band-pad-inner) 0;
   /* The names grow with the tiles, or a 14px label under a 428px thumbnail
      reads as a caption that got left behind. */
-  font-size: clamp(0.875rem, 1vw, 1.15rem);
+  font-size: var(--tile-name);
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent,
@@ -321,6 +356,7 @@ h1,
 .marquee-track {
   display: flex;
   width: max-content;
+  pointer-events: auto;
   transform-style: preserve-3d;
   /* The duration is overwritten by src/index.ts once the track is filled: the
      keyframe moves a percentage of the track, so holding one duration would
@@ -396,7 +432,13 @@ h1,
   /* Grows with the display. The floor is the size this was designed at, so
      nothing at or below 1440px changes; above it the tiles get bigger rather
      than the row merely fitting more of them. */
-  flex: 0 0 clamp(15rem, 16.7vw, 28rem);
+  flex: 0 0 var(--tile-w);
+  /* A flex item will not shrink below its content, and the name above is one
+     unbroken line, so "Professional Template" made its tile 149px wide where
+     every other tile was 144 - and the 4:3 thumbnail turned those 5px into 4
+     more of height, which the whole row then took. The tile is exactly the
+     width it is told to be, and the name ellipsizes inside it. */
+  min-width: 0;
   margin-right: 1rem;
   /* Set per frame by the curve; the tile's own box never moves, only the face
      it presents. */
@@ -407,7 +449,7 @@ h1,
 .template-tile {
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
+  gap: var(--tile-gap);
   text-decoration: none;
   opacity: 0.72;
   transition: opacity 200ms ease;
@@ -485,6 +527,15 @@ h1,
   line-height: 1.3;
   color: var(--color-typography-secondary);
   transition: color 200ms ease;
+  /* One line, always. A name that wrapped made its tile taller, its row
+     taller than the height the mosaic reserves, and - since the catalog is
+     shuffled - the two rows different heights on some loads and not others.
+     "Professional Template" wrapped at 9rem tiles, so this is the phone
+     widths in practice. Truncating is the smaller loss: the tile is a link to
+     the gallery, where the name is written out in full. */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .template-tile:hover .template-tile-name,
@@ -2029,9 +2080,10 @@ h1.pricing-title {
   }
 
   /* Smaller tiles rather than fewer: the row carries as many as it carries,
-     and every template still goes past. */
-  .template-tile {
-    flex-basis: 11rem;
+     and every template still goes past. Set on the mosaic because the height
+     it reserves is computed from this. */
+  .template-mosaic {
+    --tile-w: 11rem;
   }
 
   .benefit-grid:not(.benefit-grid--compact),
@@ -2560,8 +2612,8 @@ input:checked + .slider::before {
    override at 768px lives further up the file: an earlier rule at equal
    specificity would lose to it at every width this one cares about. */
 @media (max-width: 520px) {
-  .template-tile {
-    flex-basis: 9rem;
+  .template-mosaic {
+    --tile-w: 9rem;
   }
 
   .marquee-row {
