@@ -218,18 +218,8 @@ h1,
   line-height: 1.6;
 }
 
-/* --- template mosaic ------------------------------------------------------
-   A fixed window onto the catalog: twelve tiles however many templates exist,
-   so the section's height is a constant rather than a function of the catalog.
-
-   The screenshots are the content here, the same bet the editor's own gallery
-   makes. Names are set quiet so the eye lands on the sites, not on a wall of
-   labels. */
-
 /* `hidden` has to be spelled out because a class selector outranks the UA's
-   [hidden] rule - without this an empty grid stayed on the page and its bottom
-   margin with it, opening a gap above the browse link on exactly the runs
-   where nothing had loaded. */
+   [hidden] rule */
 .template-mosaic[hidden] {
   display: none;
 }
@@ -411,10 +401,6 @@ h1,
   backface-visibility: hidden;
 }
 
-/* Twelve light screenshots on a black page shout. Holding the wall back and
-   bringing a single tile forward on hover makes this read as a catalog being
-   browsed rather than as twelve things competing, and it is the one deliberate
-   effect in the section - everything else here stays still. */
 .template-tile {
   display: flex;
   flex-direction: column;
@@ -2493,9 +2479,6 @@ input:checked + .slider::before {
   color: var(--color-secondary-interactive);
 }
 
-/* Separates the prompt frame from the Claude Code button. On its own line so
-   the two calls to action read as alternatives rather than a sequence. */
-/* The lead-in sits above the CTA as its own quiet line. */
 .build-alt {
   margin: 2rem 0 1rem;
   font-size: var(--typo-body-size);

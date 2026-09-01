@@ -82,36 +82,10 @@
 {% comment %} Build Section {% endcomment %}
 
 <div class="build-section">
-  {% comment %}
-    One line between the hero and the grid, not three. It used to be this
-    heading, a two-line description and a "Featured templates" label stacked on
-    each other, which is a lot of talking in front of twelve screenshots that
-    say it themselves. "yours" is picked up from "websites for everyone"
-    directly above, so the two read as one thought rather than two headings.
-  {% endcomment %}
   <h2 class="build-heading">Build yours right now.</h2>
 
-  {% comment %}
-    The mosaic is filled in by setupTemplateMosaic() in src/index.ts from the
-    editor's templates.json. Everything that matters is already here: the
-    heading, the line above, and the link below all work with no JS and no
-    network, so a failed fetch leaves a section that still reads and still has
-    somewhere to go, rather than a hole.
-
-    It is a fixed window onto the catalog, not the whole of it - twelve tiles
-    whatever the catalog grows to. Which twelve is authored in the editor's
-    objects/templates/*.toml; see MOSAIC_TILES in src/index.ts.
-  {% endcomment %}
   <div id="template-mosaic" class="template-mosaic" hidden></div>
 
-  {% comment %}
-    Absolute, matching the nav's own Create links. A relative /new does not
-    reach the gallery: unmatched paths on this site fall back to index.html
-    with a 200, so it would quietly serve the home page again rather than 404.
-    src/index.ts repoints this at whichever editor the build targets, so local
-    and staging go to their own; this value is the one that is right with no JS
-    at all.
-  {% endcomment %}
   <a
     id="browse-templates"
     class="browse-templates"
@@ -122,13 +96,6 @@
     <span class="browse-templates-arrow" aria-hidden="true">&rarr;</span>
   </a>
 
-  {% comment %}
-    Two ways forward, not a sequence: start from a template yourself, or have
-    Claude do it. Without something between them the second reads as a step
-    after the first. It fades out at both ends rather than ruling a line across
-    the column, which would divide the section rather than separate two things
-    inside it.
-  {% endcomment %}
   <div class="build-divider" aria-hidden="true"></div>
 
   {% include "build-cta" %}
@@ -318,10 +285,7 @@
             The flow this draws: choose a template, optionally say something
             about your site, generate. Built from the same .pf-* primitives the
             other frames use rather than a vocabulary of its own: the optional
-            box IS .pf-prompt-card, unchanged. That reuse is true to the
-            product - describing your site moved from being the way in to being
-            one thing you can do once you have picked, so it should read as the
-            same control, demoted.
+            box IS .pf-prompt-card, unchanged.
 
             Every element in here carries a number. A detail view of the picked
             template was drawn here once and was the only thing that did not,

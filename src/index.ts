@@ -39,18 +39,6 @@ window.addEventListener("load", () => {
  * no JS at all leaves a section that still reads and still leads somewhere.
  */
 
-/**
- * How many templates are featured. The first N of the catalog, and which ones
- * those are is an editorial decision made once, in the editor's own
- * objects/templates/*.toml: each carries an `order`, archival emits
- * templates.json in it, and the gallery at /new is sorted by the same thing.
- * There is no second list to keep in step here.
- *
- * Every one of them goes past at every width - the rows carry them rather than
- * a grid trimming them - so `order` decides the sequence and which row a
- * template lands in, not whether it is seen at all. Before it existed archival
- * emitted these alphabetically by filename.
- */
 const MOSAIC_TILES = 12;
 
 /**
@@ -80,11 +68,7 @@ type Template = {
  * Send the browse link to the editor this build targets.
  *
  * The markup carries the production editor, which is what a visitor with no JS
- * needs; this is what makes local and staging reach their own. Deliberately not
- * inside setupTemplateMosaic: where the link goes has nothing to do with
- * whether the catalog loaded, and it would be a poor trade to leave the one
- * remaining way forward pointing elsewhere on exactly the runs where the tiles
- * failed to render.
+ * needs; this is what makes local and staging reach their own.
  */
 const pointBrowseLinkAtEditor = () => {
   const link = document.getElementById("browse-templates");
