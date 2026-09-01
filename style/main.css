@@ -433,6 +433,16 @@ h1,
      nothing at or below 1440px changes; above it the tiles get bigger rather
      than the row merely fitting more of them. */
   flex: 0 0 var(--tile-w);
+  /* The same width again, as a definite one. The basis alone is enough in
+     Blink, but WebKit sizes the max-content track from each tile's intrinsic
+     content instead, and the widest thing in a tile is a 2560px thumbnail. The
+     track laid out at 12 x 2576px = 30912px rather than 12 x 160px = 1920px,
+     which is a band of mostly empty space whose -50% keyframe then travels
+     sixteen times as far in the same duration: on iPhone the tiles tore past
+     and the curve, fed a track box that wide, pinned every visible tile at the
+     clamp and blew it up until the second band was off screen. Chrome's device
+     mode is still Blink, so it never showed any of this. */
+  width: var(--tile-w);
   /* A flex item will not shrink below its content, and the name above is one
      unbroken line, so "Professional Template" made its tile 149px wide where
      every other tile was 144 - and the 4:3 thumbnail turned those 5px into 4
@@ -464,8 +474,10 @@ h1,
   display: block;
   position: relative;
   transform-origin: center;
-  /* The editor captures thumbnails at 1280x960, so the box is 4:3 and the
-     image never has to be letterboxed or cropped to fit it. */
+  /* The editor captures thumbnails at 2560x1920, so the box is 4:3 and the
+     image never has to be letterboxed or cropped to fit it. That 2560 is also
+     the tile's intrinsic width, which is why .template-tile has to state a
+     definite width above. */
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 0.375rem;

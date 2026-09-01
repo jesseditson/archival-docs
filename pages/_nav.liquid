@@ -43,7 +43,7 @@
       <div class="hidden md:flex">⌘K</div>
     </button>
   </div>
-  <ul class="flex-shrink justify-end gap-8 items-center flex-wrap hidden md:flex">
+  <ul class="flex-shrink justify-end gap-8 items-center flex-nowrap whitespace-nowrap hidden lg:flex">
     {% comment %}
       The tour lives on the homepage now, so this item has no page of its own to
       match on. index.liquid scroll-spies it instead: active while the tour is
@@ -83,7 +83,7 @@
       <a href="https://editor.archival.dev/new" data-umami-event="nav-create">Create</a>
     </li>
   </ul>
-  <div class="md:hidden flex items-center">
+  <div class="lg:hidden flex items-center">
     <button>
       <div id="menu-closed">
         <svg
@@ -145,7 +145,7 @@
 </nav>
 <div
   id="mobile-menu"
-  class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-10 px-4 bottom-0 z-40 text-xl rounded-lg md:hidden max-h-full overflow-y-auto"
+  class="hidden fixed backdrop-blur-md translate-y-full transition opacity-0 shadow-up w-full pb-10 px-4 bottom-0 z-40 text-xl rounded-lg lg:hidden max-h-full overflow-y-auto"
 >
   <ul class="flex flex-col">
     <li class="mobile-nav-item">
