@@ -95,21 +95,21 @@ const pointBrowseLinkAtEditor = () => {
   }
 };
 
-const setupTemplateMosaic = async () => {
-  // Only the home page carries the mosaic. Bail before fetching anything so
-  // every other page does not pay for a request it will not use.
-  const mosaic = document.getElementById("template-mosaic");
-  if (!mosaic) {
-    return;
-  }
-
-  let templates: Template[];
+/**
+ * The editor's catalog, or null if it cannot be had.
+ *
+ * Separate from the mosaic itself because the mosaic has to hand its space
+ * back on every way this can fail, and one caller checking one value is
+ * harder to leave a hole in than four early returns.
+ */
+const loadTemplates = async (): Promise<Template[] | null> => {
   try {
     const response = await fetch(`${EDITOR_URL}/templates.json`);
     if (!response.ok) {
-      return;
+      return null;
     }
-    ({ templates } = (await response.json()) as { templates: Template[] });
+    const { templates } = (await response.json()) as { templates: Template[] };
+    return Array.isArray(templates) && templates.length > 0 ? templates : null;
   } catch (error) {
     // Degrading quietly is right for an unreachable editor: the section still
     // reads and the browse link still works. Saying so is right for everything
@@ -118,9 +118,24 @@ const setupTemplateMosaic = async () => {
     // captures its defines at startup and never re-reads build.mjs) and the
     // silence was the expensive part, not the failure.
     console.warn("Could not load the template catalog:", error);
+    return null;
+  }
+};
+
+const setupTemplateMosaic = async () => {
+  // Only the home page carries the mosaic. Bail before fetching anything so
+  // every other page does not pay for a request it will not use.
+  const mosaic = document.getElementById("template-mosaic");
+  if (!mosaic) {
     return;
   }
-  if (!Array.isArray(templates) || templates.length === 0) {
+
+  const templates = await loadTemplates();
+  if (!templates) {
+    // The band is in the markup and holding its height (so nothing below it
+    // moves when the tiles land), so an editor that cannot be reached has to
+    // give that space back rather than leave a band of nothing above the link.
+    mosaic.hidden = true;
     return;
   }
 
@@ -211,7 +226,6 @@ const setupTemplateMosaic = async () => {
     row(featured.slice(split), true),
   ];
   mosaic.append(...rows.map((r) => r.rowEl));
-  mosaic.hidden = false;
   // Measured, so it has to happen after the rows are laid out - and again when
   // the window grows, or a track that covered the row stops covering it.
   const refillAll = () => rows.forEach((r) => r.refill());
